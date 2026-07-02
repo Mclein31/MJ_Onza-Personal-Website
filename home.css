@@ -12,7 +12,7 @@
 
 .Home {
   width: 100%;
-  min-height: calc(100vh - 5.5rem);
+  min-height: calc(100vh - 4.5rem);
   padding: 0 3rem;
 
   display: flex;
@@ -55,6 +55,33 @@
   opacity: 0.75;
   line-height: 1.6;
   text-align: justify;
+}
+
+.ways-to-contact{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  gap: 10px;
+}
+
+.ways-to-contact a{
+  text-decoration: none;
+}
+
+.ways-to-contact img{
+  height: 2.5rem;
+}
+
+.ways-to-contact .contact-me{
+  width: fit-content;
+  background-color: var(--logo-blue-accent);
+  border: none;
+  border-radius: 25px;
+
+  padding: 0.5rem 0.75rem;
+
+  font: normal 1rem "Bowlby One", sans-serif;
+  color: var(--logo-dark-accent);
 }
 
 .id-profile img{
