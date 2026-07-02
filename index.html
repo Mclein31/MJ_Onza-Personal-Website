@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=, initial-scale=1.0" />
+    <title>MJ Onza | Aspiring Data Engr</title>
+    <link rel="stylesheet" href="general.css" />
+    <link rel="icon" type="image/png" href="assets/Logo/McLeinJei_logo_pack_2/logo_white-on-black_round_512.png"/>
+  </head>
+  <body>
+    <header>
+      <div class="NameLogo">
+        <a href="index.html">
+          <img src="assets/Logo/logo_pack/transparent/white-512.png" alt="Personal logo" />
+          <p>McLein Jei</p>
+        </a>
+      </div>
+
+      <div class="headerNav">
+        <ul>
+          <li class="homeH"><a href="#">HOME</a></li>
+          <li class="aboutH"><a href="#">ABOUT ME</a></li>
+          <li class="menuH"><a href="#">PROJECTS</a></li>
+          <li class="SkillsH"><a href="#">SKILLS</a></li>
+          <li class="contactH"><a href="#">CONTACT</a></li>
+        </ul>
+        <img
+          src="assets/icons/menu button.png"
+          class="burgerIcon"
+          alt="menu icon"
+        />
+      </div>
+
+      <div class="burgerMenu">
+        <ul>
+          <li class="homeH"><a href="#">HOME</a></li>
+          <li class="aboutH"><a href="#">ABOUT ME</a></li>
+          <li class="projectsH"><a href="#">PROJECTS</a></li>
+          <li class="SkillsH"><a href="#">SKILLS</a></li>
+          <li class="contactH"><a href="#">CONTACT</a></li>
+          
+        </ul>
+      </div>
+    </header>
+
+    <main>
+      
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p class="tagline">Building things, breaking things, fixing things.</p>
+        <span class="dot">•</span>
+        <p class="copyright">© 2026 McLeinJei. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      const burgerIcon = document.querySelector(".burgerIcon");
+      const burgerMenu = document.querySelector(".burgerMenu");
+
+      if (burgerIcon && burgerMenu) {
+        burgerIcon.addEventListener("click", () => {
+          burgerMenu.classList.toggle("active");
+        });
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const hash = window.location.hash;
+        if (hash) {
+          const target = document.querySelector(hash);
+          if (target) {
+            const headerHeight =
+              4.5 *
+              parseFloat(getComputedStyle(document.documentElement).fontSize); // 4.5rem in px
+            const top =
+              target.getBoundingClientRect().top +
+              window.pageYOffset -
+              headerHeight;
+            window.scrollTo({ top, behavior: "smooth" });
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
