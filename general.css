@@ -101,12 +101,12 @@ header {
 
 .NameLogo a p {
   font:
-    500 1.5rem "Bowlby One",
+    500 1.25rem "Bowlby One",
     sans-serif;
 }
 
 .NameLogo a img {
-  height: 3.5rem;
+  height: 3rem;
 }
 
 .headerNav {
@@ -131,7 +131,7 @@ header {
   text-decoration: none;
   color: var(--dirty-white);
   font:
-    300 1rem "Sora",
+    300 0.8rem "Sora",
     sans-serif;
   transition: color 0.2s ease;
 }
