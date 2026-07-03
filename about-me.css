@@ -11,9 +11,10 @@
 }
 
 .about-me {
-  width: 100%;
+  width: 1300px;
   height: calc(100vh - 4.5rem);
   padding: 0 3rem;
+  margin: 0 auto;
 
   display: flex;
   align-items: center;
@@ -178,4 +179,38 @@
     width: 260px;
     height: 340px;
   }
+}
+
+/* Large Desktop */
+@media (min-width: 1921px) {
+}
+
+
+/* Laptop */
+@media (min-width: 1025px) and (max-width: 1440px) {
+}
+
+
+/* Tablet - Landscape */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+}
+
+
+/* Tablet - Portrait */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+}
+
+
+/* Mobile - Landscape */
+@media (max-width: 767px) and (orientation: landscape) {
+}
+
+
+/* Mobile - Portrait */
+@media (max-width: 767px) and (orientation: portrait) {
+}
+
+
+/* Small Mobile */
+@media (max-width: 480px) {
 }

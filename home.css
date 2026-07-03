@@ -11,15 +11,17 @@
 }
 
 .Home {
-  width: 100%;
-  height: calc(100vh - 4.5rem);
+  max-width: 1300px;
+  height: calc(100vh - 5.5rem);
   padding: 0 3rem;
+  margin: 0 auto;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
 }
+
 .active{
   color: #5da6ff;
 }
@@ -93,25 +95,94 @@
   flex-shrink: 0;
 }
 
-/* Mobile */
-@media (max-width: 767px) {
+
+/* Laptop */
+@media (min-width: 1024px) and (max-width: 1440px) {
   .Home {
-    flex-direction: column;
-    text-align: center;
-    padding: 6rem 1.5rem 2rem;
-    min-height: auto;
-  }
-
-  .brief-intro .name {
-    font-size: 1.75rem;
-  }
-
-  .brief-intro p:not(.name) {
-    font-size: 0.9rem;
-  }
-
-  .id-profile {
-    width: 220px;
-    height: 300px;
-  }
+  max-width: 1200px;
 }
+
+.brief-intro {
+  max-width: 500px;
+}
+
+.brief-intro .name {
+  font: bold 1.125rem "Bungee", sans-serif;
+}
+
+.brief-intro .name .fname {
+  font: 500 4rem "Bowlby One", sans-serif;
+  color: var(--logo-blue-accent);
+  letter-spacing: 2px;
+  line-height: 1.1;
+}
+
+.brief-intro .description{
+  font: 400 1rem "Sora", sans-serif;
+  color: var(--dirty-white);
+  opacity: 0.75;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.ways-to-contact{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  gap: 10px;
+}
+
+.ways-to-contact a{
+  text-decoration: none;
+}
+
+.ways-to-contact img{
+  height: 2.5rem;
+}
+
+.ways-to-contact .contact-me{
+  width: fit-content;
+  background-color: var(--logo-blue-accent);
+  border: none;
+  border-radius: 25px;
+
+  padding: 0.5rem 0.75rem;
+
+  font: normal 1rem "Bowlby One", sans-serif;
+  color: var(--logo-dark-accent);
+}
+
+.id-profile img{
+  width: 375px;
+  height: 500px;
+  background-color: var(--bg);
+  border: var(--logo-dark-accent) solid 2px;
+  border-radius: 25px;
+  flex-shrink: 0;
+}
+}
+
+
+/* Tablet - Landscape
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+}
+
+
+/* Tablet - Portrait 
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+}
+
+
+/* Mobile - Landscape
+@media (max-width: 767px) and (orientation: landscape) {
+}
+
+
+/* Mobile - Portrait 
+@media (max-width: 767px) and (orientation: portrait) {
+}
+
+
+/* Small Mobile 
+@media (max-width: 480px) {
+} */
