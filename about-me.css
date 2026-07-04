@@ -11,8 +11,9 @@
 }
 
 .about-me {
-  width: 1300px;
-  height: calc(100vh - 4.5rem);
+  width: 100%;
+  max-width: 1300px;
+  min-height: calc(100vh - 4.5rem);
   padding: 0 3rem;
   margin: 0 auto;
 
@@ -39,12 +40,10 @@
 }
 
 .about-card img {
-  width: 375px;
-  height: 500px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   background-color: var(--bg);
-  border: var(--logo-dark-accent) solid 2px;
-  border-radius: 25px;
-  flex-shrink: 0;
 }
 
 .about-stats {
@@ -147,12 +146,33 @@
   font: 600 0.8rem "Sora", sans-serif;
 }
 
-/* ---------- Mobile ---------- */
-@media (max-width: 767px) {
-  .About {
+/* Laptop */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .about-me {
+    max-width: 1150px;
+    gap: 3rem;
+  }
+
+  .about-card {
+    width: 300px;
+    height: 360px;
+  }
+
+  .about-heading {
+    font-size: 2rem;
+  }
+}
+
+
+/* Tablet - Portrait */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .about-me {
     flex-direction: column;
-    padding: 6rem 1.5rem 3rem;
-    min-height: auto;
+    justify-content: center;
+    height: auto;
+    min-height: calc(100vh - 5.5rem);
+    padding: 6rem 2rem 3rem;
+    gap: 2.5rem;
     text-align: center;
   }
 
@@ -162,7 +182,70 @@
   }
 
   .about-heading {
+    font-size: 1.9rem;
+  }
+
+  .about-text {
+    text-align: center;
+  }
+
+  .about-skills {
+    justify-content: center;
+  }
+
+  .about-stats {
+    justify-content: center;
+  }
+
+  .about-card {
+    width: 280px;
+    height: 360px;
+  }
+}
+
+
+/* Tablet - Landscape */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .about-me {
+    padding: 0 2rem;
+    gap: 2rem;
+  }
+
+  .about-card {
+    width: 240px;
+    height: 300px;
+  }
+
+  .about-heading {
     font-size: 1.75rem;
+  }
+}
+
+
+/* Mobile - Portrait */
+@media (max-width: 767px) and (orientation: portrait) {
+  .about-me {
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    min-height: calc(100vh - 5.5rem);
+    padding: 6rem 1.5rem 3rem;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .about-content {
+    align-items: center;
+    max-width: 100%;
+  }
+
+  .about-heading {
+    font-size: 1.6rem;
+  }
+
+  .about-text {
+    font-size: 0.9rem;
+    text-align: center;
   }
 
   .fact-item {
@@ -175,42 +258,74 @@
     text-align: center;
   }
 
-  .about-card {
-    width: 260px;
-    height: 340px;
+  .about-skills {
+    justify-content: center;
   }
-}
 
-/* Large Desktop */
-@media (min-width: 1921px) {
-}
+  .about-stats {
+    justify-content: center;
+  }
 
-
-/* Laptop */
-@media (min-width: 1025px) and (max-width: 1440px) {
-}
-
-
-/* Tablet - Landscape */
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-}
-
-
-/* Tablet - Portrait */
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .about-card {
+    width: 240px;
+    height: 300px;
+  }
 }
 
 
 /* Mobile - Landscape */
 @media (max-width: 767px) and (orientation: landscape) {
-}
+  .about-me {
+    height: auto;
+    min-height: calc(100vh - 5.5rem);
+    padding: 5.5rem 1.5rem 1.5rem;
+    gap: 1.5rem;
+  }
 
+  .about-visual {
+    flex-shrink: 0;
+  }
 
-/* Mobile - Portrait */
-@media (max-width: 767px) and (orientation: portrait) {
+  .about-card {
+    width: 160px;
+    height: 200px;
+  }
+
+  .about-heading {
+    font-size: 1.3rem;
+  }
+
+  .about-text {
+    font-size: 0.8rem;
+  }
+
+  .about-stats {
+    gap: 0.5rem;
+  }
+
+  .stat-item {
+    padding: 0.5rem;
+  }
+
+  .stat-number {
+    font-size: 1.1rem;
+  }
 }
 
 
 /* Small Mobile */
 @media (max-width: 480px) {
+  .about-heading {
+    font-size: 1.4rem;
+  }
+
+  .about-card {
+    width: 200px;
+    height: 260px;
+  }
+
+  .skill-tag {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.8rem;
+  }
 }

@@ -184,13 +184,21 @@ footer .copyright {
 }
 
 @media (max-width: 1024px) {
+  .burgerMenu {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+/* TABLET — Portrait */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
   header {
     height: 4.5rem;
     border-radius: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 1rem;
+    padding: 0rem 1rem;
     position: fixed;
     top: 0.8rem;
     left: 4.8rem;
@@ -204,7 +212,7 @@ footer .copyright {
 
   .headerNav img {
     display: flex;
-    height: 1.5rem;
+    height: 1.25rem;
     margin-right: 0.5rem;
     cursor: pointer;
   }
@@ -240,10 +248,7 @@ footer .copyright {
     margin-top: 4.5rem;
     width: 100%;
   }
-}
 
-/* TABLET — Portrait */
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
   .NameLogo a p {
     font: 500 1.75rem "Bowlby One", sans-serif;
     margin-right: 0.2rem;
@@ -296,6 +301,58 @@ footer .copyright {
 
 /* MOBILE — Portrait */
 @media (max-width: 767px) and (orientation: portrait) {
+  header {
+    height: 4.5rem;
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    position: fixed;
+    top: 0.6rem;
+    left: 1rem;
+    right: 1rem;
+    z-index: 10;
+  }
+
+  .headerNav ul {
+    display: none;
+  }
+
+  .headerNav img {
+    display: flex;
+    height: 1.25rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+  }
+
+  .burgerMenu {
+    display: none;
+    position: absolute;
+    top: 4.5rem;
+    right: 0;
+    padding: 1rem;
+    border-radius: 0 0 0 10px;
+    flex-direction: column;
+  }
+
+  .burgerMenu.active {
+    display: flex;
+    background-color: #1e1e1e;
+  }
+
+  .burgerMenu ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    text-align: center;
+  }
+
+  .burgerMenu ul li a {
+    text-decoration: none;
+    color: #ffffff;
+  }
+
   .NameLogo a p {
     font: 500 1.25rem "Bowlby One", sans-serif;
     margin-right: 0.2rem;
@@ -322,6 +379,58 @@ footer .copyright {
 
 /* MOBILE — Landscape */
 @media (max-width: 767px) and (orientation: landscape) {
+  header {
+    height: 4.5rem;
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    position: fixed;
+    top: 0.6rem;
+    left: 0.75rem;
+    right: 0.75rem;
+    z-index: 10;
+  }
+
+  .headerNav ul {
+    display: none;
+  }
+
+  .headerNav img {
+    display: flex;
+    height: 1.25rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+  }
+
+  .burgerMenu {
+    display: none;
+    position: absolute;
+    top: 4.5rem;
+    right: 0;
+    padding: 1rem;
+    border-radius: 0 0 0 10px;
+    flex-direction: column;
+  }
+
+  .burgerMenu.active {
+    display: flex;
+    background-color: #1e1e1e;
+  }
+
+  .burgerMenu ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    text-align: center;
+  }
+
+  .burgerMenu ul li a {
+    text-decoration: none;
+    color: #ffffff;
+  }
+
   .NameLogo a p {
     font: 500 1.25rem "Bowlby One", sans-serif;
     margin-right: 0.2rem;
@@ -343,5 +452,26 @@ footer .copyright {
 
   .burgerMenu ul li a {
     font-size: 0.75rem;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+  header {
+    left: 0.6rem;
+    right: 0.6rem;
+    padding: 0.5rem 0.85rem;
+  }
+
+  .NameLogo a p {
+    font-size: 1.05rem;
+  }
+
+  .NameLogo a img {
+    height: 2.5rem;
+  }
+
+  .burgerMenu {
+    width: 7rem;
   }
 }
