@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="general.css" />
     <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="about-me.css">
-    <link rel="icon" type="image/png" href="assets/Logo/McLeinJei_logo_pack_2/logo_white-on-black_round_512.png"/>
+    <link rel="icon" type="image/png" href="assets/Logo/logo-black.png"/>
   </head>
   <body>
     <header>
       <div class="NameLogo">
         <a href="index.html">
-          <img src="assets/Logo/logo_pack/transparent/white-512.png" alt="Personal logo" />
+          <img src="assets/Logo/logo_1.png" alt="Personal logo" />
           <p>McLein Jei</p>
         </a>
       </div>
@@ -66,14 +66,14 @@
           </div>
         </div>
         <div class="id-profile">
-          <img src="assets/images/mugshot.png" alt="my-picture">
+          <img src="assets/images/profile.jpeg" alt="my-picture">
         </div>
       </div>
 
       <div class="about-me" id="AboutMe">
         <div class="about-visual">
           <div class="about-card">
-            <img src="assets/images/picture2.jpeg" alt="McLein Jei" />
+            <img src="assets/images/profile-2.jpeg" alt="McLein Jei" />
           </div>
 
           <div class="about-stats">
@@ -131,6 +131,11 @@
       </div>
     </footer>
 
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle light/dark theme">
+      <img src="assets/icons/sun.png" alt="Light mode" class="icon-sun" />
+      <img src="assets/icons/moon.png" alt="Dark mode" class="icon-moon" />
+    </button>
+
     <script>
       const burgerIcon = document.querySelector(".burgerIcon");
       const burgerMenu = document.querySelector(".burgerMenu");
@@ -155,6 +160,26 @@
               headerHeight;
             window.scrollTo({ top, behavior: "smooth" });
           }
+        }
+      });
+
+      // Theme toggle
+      const themeToggle = document.getElementById("themeToggle");
+      const rootEl = document.documentElement;
+
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        rootEl.setAttribute("theme", "light");
+      }
+
+      themeToggle.addEventListener("click", () => {
+        const isLight = rootEl.getAttribute("theme") === "light";
+        if (isLight) {
+          rootEl.removeAttribute("theme");
+          localStorage.setItem("theme", "dark");
+        } else {
+          rootEl.setAttribute("theme", "light");
+          localStorage.setItem("theme", "light");
         }
       });
     </script>

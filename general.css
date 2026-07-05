@@ -1,13 +1,30 @@
 :root {
-  --bg: #0B1220;
-  --logo-dark: #142d53;
-  --logo-dark-accent: #1c3b69;
-  --logo-blue: #2757a2;
-  --logo-blue-accent: #5da6ff;
-  --white: #ffffff;
-  --dirty-white: #ecebeb;
-  --gray: #ecebeb80;
-  --clear: #00000000;
+  /* Dark theme (default) */
+  --bg: #05070c;
+  --card: #0f2040;
+  --card-alt: #0f2040;
+  --border: #16294a;
+  --text: #ecebeb;
+  --text-light: #ecebeb80;
+  --accent: #5da6ff;
+  --accent-alt: #2757a2;
+  --on-accent: #0f2040;
+  --grid-strong: rgba(255, 255, 255, 0.04);
+  --grid-soft: rgba(255, 255, 255, 0.02);
+}
+
+[theme="light"] {
+  --bg: #F5F5F3;
+  --card: #FFFFFF;
+  --card-alt: #ECECEA;
+  --border: #D8D8D8;
+  --text: #111111;
+  --text-light: #55555599;
+  --accent: #2757A2;
+  --accent-alt: #1c3b69;
+  --on-accent: #FFFFFF;
+  --grid-strong: rgba(0, 0, 0, 0.05);
+  --grid-soft: rgba(0, 0, 0, 0.08);
 }
 
 * {
@@ -53,12 +70,13 @@ body {
   font-family: "Sora", sans-serif;
 
   background-color: var(--bg);
+  transition: background-color 0.3s ease;
 
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    linear-gradient(var(--grid-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-strong) 1px, transparent 1px),
+    linear-gradient(var(--grid-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-soft) 1px, transparent 1px);
 
   background-size:
     100px 100px,
@@ -72,7 +90,7 @@ header {
   height: 4.5rem;
   padding: 0.5rem 3rem;
   border-radius: 50px;
-  border: 1px solid var(--logo-dark-accent);
+  border: 1px solid var(--border);
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
@@ -81,6 +99,7 @@ header {
   left: 4.8rem;
   right: 4.8rem;
   z-index: 10;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .NameLogo {
@@ -93,7 +112,7 @@ header {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: var(--dirty-white);
+  color: var(--text);
 }
 
 .NameLogo a p {
@@ -124,13 +143,13 @@ header {
 
 .headerNav ul li a {
   text-decoration: none;
-  color: var(--dirty-white);
+  color: var(--text);
   font: 300 0.8rem "Sora", sans-serif;
   transition: color 0.2s ease;
 }
 
 .headerNav ul li a:hover {
-  color: var(--logo-blue-accent);
+  color: var(--accent);
 }
 
 .burgerMenu {
@@ -144,11 +163,15 @@ main {
 
 footer {
   width: 100%;
-  background-color: var(--logo-dark);
+  background-color: var(--bg);
   padding: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background-color 0.3s ease;
+
+  border-top: var(--border) solid 2px;
+
 }
 
 footer .footer-content {
@@ -162,17 +185,62 @@ footer .footer-content {
 
 footer .tagline {
   font: 600 0.75rem "Sora", sans-serif;
-  color: var(--dirty-white);
+  color: var(--text);
 }
 
 footer .dot {
-  color: var(--gray);
+  color: var(--text-light);
   font-size: 0.75rem;
 }
 
 footer .copyright {
   font: 400 0.75rem "Sora", sans-serif;
-  color: var(--gray);
+  color: var(--text-light);
+}
+
+/* THEME TOGGLE BUTTON */
+.theme-toggle {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background-color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.theme-toggle img {
+  width: 1.4rem;
+  height: 1.4rem;
+  position: absolute;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.theme-toggle .icon-sun {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.5);
+}
+
+.theme-toggle .icon-moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+[theme="light"] .theme-toggle .icon-sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+[theme="light"] .theme-toggle .icon-moon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
 }
 
 /* LAPTOP */
@@ -229,7 +297,7 @@ footer .copyright {
 
   .burgerMenu.active {
     display: flex;
-    background-color: #1e1e1e;
+    background-color: var(--card);
   }
 
   .burgerMenu ul {
@@ -241,7 +309,7 @@ footer .copyright {
 
   .burgerMenu ul li a {
     text-decoration: none;
-    color: #ffffff;
+    color: var(--text);
   }
 
   main {
@@ -338,7 +406,7 @@ footer .copyright {
 
   .burgerMenu.active {
     display: flex;
-    background-color: #1e1e1e;
+    background-color: var(--card);
   }
 
   .burgerMenu ul {
@@ -350,7 +418,7 @@ footer .copyright {
 
   .burgerMenu ul li a {
     text-decoration: none;
-    color: #ffffff;
+    color: var(--text);
   }
 
   .NameLogo a p {
@@ -374,6 +442,18 @@ footer .copyright {
 
   .burgerMenu ul li a {
     font: 500 1rem "Sora", sans-serif;
+  }
+
+  .theme-toggle {
+    width: 2.6rem;
+    height: 2.6rem;
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .theme-toggle img {
+    width: 1.2rem;
+    height: 1.2rem;
   }
 }
 
@@ -416,7 +496,7 @@ footer .copyright {
 
   .burgerMenu.active {
     display: flex;
-    background-color: #1e1e1e;
+    background-color: var(--card);
   }
 
   .burgerMenu ul {
@@ -428,7 +508,7 @@ footer .copyright {
 
   .burgerMenu ul li a {
     text-decoration: none;
-    color: #ffffff;
+    color: var(--text);
   }
 
   .NameLogo a p {
@@ -453,6 +533,18 @@ footer .copyright {
   .burgerMenu ul li a {
     font-size: 0.75rem;
   }
+
+  .theme-toggle {
+    width: 2.4rem;
+    height: 2.4rem;
+    bottom: 0.75rem;
+    right: 0.75rem;
+  }
+
+  .theme-toggle img {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
 }
 
 /* SMALL MOBILE */
@@ -473,5 +565,12 @@ footer .copyright {
 
   .burgerMenu {
     width: 7rem;
+  }
+
+  .theme-toggle {
+    width: 2.4rem;
+    height: 2.4rem;
+    bottom: 0.85rem;
+    right: 0.85rem;
   }
 }

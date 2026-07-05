@@ -1,15 +1,3 @@
-:root {
-  --bg: #0B1220;
-  --logo-dark: #142d53;
-  --logo-dark-accent: #1c3b69;
-  --logo-blue: #2757a2;
-  --logo-blue-accent: #5da6ff;
-  --white: #ffffff;
-  --dirty-white: #ecebeb;
-  --gray: #ecebeb80;
-  --clear: #00000000;
-}
-
 .Home {
   max-width: 1300px;
   min-height: calc(100vh - 5.5rem);
@@ -22,8 +10,8 @@
   gap: 2rem;
 }
 
-.active{
-  color: #5da6ff;
+.active {
+  color: var(--accent);
 }
 
 .brief-intro {
@@ -36,24 +24,24 @@
 
 .brief-intro .name {
   font: bold 1.25rem "Bungee", sans-serif;
-  color: var(--dirty-white);
+  color: var(--text);
   line-height: 1;
 }
 
 .brief-intro .name .lname {
-  color: var(--logo-blue);
+  color: var(--accent-alt);
 }
 
 .brief-intro .name .fname {
   font: 500 5rem "Bowlby One", sans-serif;
-  color: var(--logo-blue-accent);
+  color: var(--accent);
   letter-spacing: 2px;
   line-height: 1.2;
 }
 
 .brief-intro .description{
   font: 400 1rem "Sora", sans-serif;
-  color: var(--dirty-white);
+  color: var(--text);
   opacity: 0.75;
   line-height: 1.6;
   text-align: justify;
@@ -76,21 +64,20 @@
 
 .ways-to-contact .contact-me{
   width: fit-content;
-  background-color: var(--logo-blue-accent);
+  background-color: var(--accent);
   border: none;
   border-radius: 25px;
 
   padding: 0.5rem 0.75rem;
 
   font: normal 1rem "Bowlby One", sans-serif;
-  color: var(--logo-dark-accent);
+  color: var(--on-accent);
 }
 
 .id-profile img{
   width: 375px;
   height: 500px;
-  background-color: var(--bg);
-  border: var(--logo-dark-accent) solid 2px;
+  border: var(--border) solid 2px;
   border-radius: 25px;
   flex-shrink: 0;
 }
@@ -99,67 +86,67 @@
 /* Laptop */
 @media (min-width: 1024px) and (max-width: 1440px) {
   .Home {
-  max-width: 1200px;
-}
+    max-width: 1200px;
+  }
 
-.brief-intro {
-  max-width: 500px;
-}
+  .brief-intro {
+    max-width: 500px;
+  }
 
-.brief-intro .name {
-  font: bold 1.125rem "Bungee", sans-serif;
-}
+  .brief-intro .name {
+    font: bold 1.125rem "Bungee", sans-serif;
+  }
 
-.brief-intro .name .fname {
-  font: 500 4rem "Bowlby One", sans-serif;
-  color: var(--logo-blue-accent);
-  letter-spacing: 2px;
-  line-height: 1.1;
-}
+  .brief-intro .name .fname {
+    font: 500 4rem "Bowlby One", sans-serif;
+    color: var(--accent);
+    letter-spacing: 2px;
+    line-height: 1.1;
+  }
 
-.brief-intro .description{
-  font: 400 1rem "Sora", sans-serif;
-  color: var(--dirty-white);
-  opacity: 0.75;
-  line-height: 1.6;
-  text-align: justify;
-}
+  .brief-intro .description{
+    font: 400 1rem "Sora", sans-serif;
+    color: var(--text);
+    opacity: 0.75;
+    line-height: 1.6;
+    text-align: justify;
+  }
 
-.ways-to-contact{
-  display: flex;
-  justify-content: start;
-  align-items: start;
-  gap: 10px;
-}
+  .ways-to-contact{
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    gap: 10px;
+  }
 
-.ways-to-contact a{
-  text-decoration: none;
-}
+  .ways-to-contact a{
+    text-decoration: none;
+  }
 
-.ways-to-contact img{
-  height: 2.5rem;
-}
+  .ways-to-contact img{
+    height: 2.5rem;
+  }
 
-.ways-to-contact .contact-me{
-  width: fit-content;
-  background-color: var(--logo-blue-accent);
-  border: none;
-  border-radius: 25px;
+  .ways-to-contact .contact-me{
+    width: fit-content;
+    background-color: var(--accent);
+    border: none;
+    border-radius: 25px;
 
-  padding: 0.5rem 0.75rem;
+    padding: 0.5rem 0.75rem;
 
-  font: normal 1rem "Bowlby One", sans-serif;
-  color: var(--logo-dark-accent);
-}
+    font: normal 1rem "Bowlby One", sans-serif;
+    color: var(--on-accent);
+  }
 
-.id-profile img{
-  width: 375px;
-  height: 500px;
-  background-color: var(--bg);
-  border: var(--logo-dark-accent) solid 2px;
-  border-radius: 25px;
-  flex-shrink: 0;
-}
+  .id-profile img{
+    width: 375px;
+    height: 500px;
+    background-color: var(--bg);
+    border: var(--border) solid 2px;
+    border-radius: 25px;
+    flex-shrink: 0;
+  }
 }
 
 
