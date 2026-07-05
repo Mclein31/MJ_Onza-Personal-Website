@@ -72,7 +72,7 @@
   width: fit-content;
   padding: 0.4rem 1rem;
   border-radius: 50px;
-  border: 1px solid var(--border);
+  border: 3px solid var(--accent);
   font: 500 1rem "Sora", sans-serif;
   letter-spacing: 1px;
   color: var(--accent);
