@@ -77,7 +77,7 @@
 
       <div class="about-me" id="AboutMe">
         <div class="about-visual">
-          <div class="about-card">
+          <div class="id-profile-2">
             <img src="assets/images/profile-2.jpeg" alt="McLein Jei" />
           </div>
 
@@ -286,6 +286,7 @@
               </div>
             </div>
         </div>
+        </div>
       </div>
     </main>
 
@@ -303,6 +304,7 @@
     </button>
 
     <script>
+      // Buger Icon
       const burgerIcon = document.querySelector(".burgerIcon");
       const burgerMenu = document.querySelector(".burgerMenu");
 
@@ -348,6 +350,29 @@
           localStorage.setItem("theme", "light");
         }
       });
+
+      //Random Shape Generator for Profile 1
+      const img = document.querySelector(".id-profile img");
+      const img2 = document.querySelector(".id-profile-2 img");
+
+      function random() {
+        return Math.floor(Math.random() * 40) + 30;
+      }
+
+      function morph(image) {
+        image.style.borderRadius = `
+          ${random()}% ${random()}% ${random()}% ${random()}% /
+          ${random()}% ${random()}% ${random()}% ${random()}%
+        `;
+      }
+
+      morph(img);
+      morph(img2);
+
+      setInterval(() => {
+        morph(img);
+        morph(img2);
+      }, 2000);
     </script>
   </body>
 </html>

@@ -80,12 +80,12 @@
   color: var(--on-accent);
 }
 
-.id-profile img{
+.id-profile img {
   width: 375px;
   height: 500px;
-  border: var(--border) solid 2px;
+  border: 2px solid var(--border);
   border-radius: 25px;
-  flex-shrink: 0;
+  transition: border-radius 2s ease-in-out;
 }
 
 
