@@ -11,10 +11,6 @@
   /*border-bottom: solid var(--hr-color);*/
 }
 
-.active {
-  color: var(--accent);
-}
-
 .content-container {
   display: flex;
   flex-direction: row;
