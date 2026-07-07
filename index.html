@@ -410,17 +410,23 @@
           </div>
         </div>
 
-        <div class="contact-form">
-          <h3>Send a Message</h3>
-          <form>
-            <div class="input-row">
-              <input type="text" name="name" placeholder="Name" required />
-              <input type="email" name="email" placeholder="Email" required />
-            </div>
-            <textarea name="message" placeholder="Your message..." rows="8" required></textarea>
-            <button type="submit">Send Message</button>
-          </form>
-        </div>
+          <div class="contact-form">
+            <h3>Send a Message</h3>
+            <form id="contactForm" action="https://formsubmit.co/ajax/mcleinonza0531@gmail.com" method="POST">
+              <input type="hidden" name="_subject" value="New message from your portfolio site" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+
+              <div class="input-row">
+                <input type="text" name="name" placeholder="Name" required />
+                <input type="email" name="email" placeholder="Email" required />
+              </div>
+              <textarea name="message" placeholder="Your message..." rows="8" required></textarea>
+              <button type="submit">Send Message</button>
+              <p id="formStatus" class="form-status"></p>
+            </form>
+          </div>
         </div>
       </div>
 
@@ -433,7 +439,7 @@
     <footer>
       <div class="footer-content">
         <p class="tagline">Building things, breaking things, fixing things.</p>
-        <span class="dot">·</span>
+        <p class="dot" aria-hidden="true">·</p>
         <p class="copyright">© 2026 McLein Jei G. Onza. All rights reserved.</p>
       </div>
     </footer>
@@ -448,6 +454,44 @@
       if (burgerIcon && burgerMenu) {
         burgerIcon.addEventListener("click", () => {
           burgerMenu.classList.toggle("active");
+        });
+      }
+
+      // Contact form submission
+      const contactForm = document.getElementById("contactForm");
+      const formStatus = document.getElementById("formStatus");
+
+      if (contactForm) {
+        contactForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const submitBtn = contactForm.querySelector("button[type='submit']");
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Sending...";
+          formStatus.textContent = "";
+          formStatus.className = "form-status";
+
+          try {
+            const response = await fetch(contactForm.action, {
+              method: "POST",
+              body: new FormData(contactForm),
+              headers: { Accept: "application/json" },
+            });
+
+            if (response.ok) {
+              formStatus.textContent = "Message sent! I'll get back to you soon.";
+              formStatus.classList.add("success");
+              contactForm.reset();
+            } else {
+              throw new Error("Submission failed");
+            }
+          } catch (err) {
+            formStatus.textContent = "Something went wrong. Please try again or email me directly.";
+            formStatus.classList.add("error");
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Send Message";
+          }
         });
       }
 

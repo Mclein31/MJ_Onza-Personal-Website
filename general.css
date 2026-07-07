@@ -13,6 +13,7 @@
   --grid-strong: rgba(255, 255, 255, 0.04);
   --grid-soft: rgba(255, 255, 255, 0.02);
   --skill-header: #1f0808;
+  --skill-card: #0c0505;
 }
 
 [theme="light"] {
@@ -29,6 +30,7 @@
   --grid-strong: rgba(0, 0, 0, 0.05);
   --grid-soft: rgba(0, 0, 0, 0.03);
   --skill-header: #f2e1e1;
+  --skill-card: #ECECEA;
 }
 
 * {
@@ -222,6 +224,13 @@ footer .footer-content {
   align-items: center;
   gap: 0.75rem;
   flex-wrap: wrap;
+  text-align: center;
+}
+
+footer .tagline,
+footer .dot,
+footer .copyright {
+  margin: 0;
 }
 
 footer .tagline {
@@ -435,6 +444,8 @@ footer .copyright {
     gap: 1.5rem;
   }
 
+  
+
   .burgerMenu ul {
     gap: 1.5rem;
   }
@@ -544,5 +555,26 @@ footer .copyright {
     height: 2.4rem;
     bottom: 0.85rem;
     right: 0.85rem;
+  }
+
+  footer .tagline,
+  footer .dot,
+  footer .copyright {
+    margin: 0;
+  }
+
+  footer .tagline {
+    font: 600 0.75rem "Sora", sans-serif;
+    color: var(--text);
+  }
+
+  footer .dot {
+    color: var(--text-light);
+    font-size: 0.5rem;
+  }
+
+  footer .copyright {
+    font: 400 0.75rem "Sora", sans-serif;
+    color: var(--text-light);
   }
 }
