@@ -69,11 +69,26 @@
   background-color: var(--accent);
   border: none;
   border-radius: 25px;
-
   padding: 0.5rem 0.75rem;
-
   font: normal 1rem "Bowlby One", sans-serif;
   color: var(--on-accent);
+  cursor: pointer;
+}
+
+.ways-to-contact img {
+  transition: transform 0.2s ease;
+}
+
+.ways-to-contact a:hover img {
+  transform: scale(1.15);
+}
+
+.contact-me {
+  transition: transform 0.2s ease;
+}
+
+.contact-me:hover {
+  transform: scale(1.03);
 }
 
 .id-profile img {

@@ -1,12 +1,17 @@
 .projects {
   max-width: 1300px;
-  min-height: calc(100vh - 4.75rem);
-  padding: 0 3rem;
+  min-height: calc(110vh - 4.75rem);
+  padding: 6rem 3rem;
   margin: 0 auto;
 
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
   gap: 2rem;
+  align-content: center;
+}
+
+.projects a{
+  text-decoration: none;
 }
 
 .project-card {
@@ -56,4 +61,12 @@
   font-size: 0.95rem;
   line-height: 1.6;
   color: var(--text-light);
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .projects {
+    grid-template-columns: 1fr;
+    padding: 0 1.5rem;
+  }
 }

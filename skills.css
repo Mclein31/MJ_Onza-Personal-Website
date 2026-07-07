@@ -3,22 +3,34 @@
   max-width: 1300px;
   min-height: calc(100vh - 4.75rem);
   margin: 0 auto;
-  padding: 0 3rem;
+  padding: 6rem 3rem;
 
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   justify-content: center;
+  gap: 2.5rem;
+}
+
+.skills-header{
+  display: flex;
+  width: 50%;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  font: 500 2rem "Bungee", sans-serif;
+  color: var(--accent);
+  text-align: center;
+  border-bottom: 3px solid var(--accent);
 }
 
 .skill-category {
+  border: 1px solid var(--accent);
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid var(--border);
 }
 
 .category-label {
-  background-color: var(--skill-header);
+  background: var(--skill-header);
   padding: 0.75rem 1.5rem;
 }
 
@@ -29,24 +41,33 @@
 }
 
 .category-panel {
-  background-color: var(--skill-card);
+  background: var(--bg);
   padding: 1.5rem;
 
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 2rem;
 }
 
 .skill-item {
+  width: 90px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.6rem;
+
+  transition: transform 0.25s ease;
+}
+
+.skill-item:hover {
+  transform: translateY(-4px);
 }
 
 .skill-item img {
-  height: 2.5rem;
   width: 2.5rem;
+  height: 2.5rem;
   object-fit: contain;
 }
 
@@ -54,6 +75,7 @@
   font: 400 0.75rem "Sora", sans-serif;
   color: var(--text);
   opacity: 0.8;
+  text-align: center;
 }
 
 .expertise-dots {
@@ -66,13 +88,34 @@
   height: 6px;
   border-radius: 50%;
   border: 1px solid var(--accent);
-  background-color: transparent;
+  background: transparent;
 }
 
 .dot.filled {
-  background-color: var(--accent);
+  background: var(--accent);
 }
 
+/* Tablet */
+@media (max-width: 991px) {
+  .skills {
+    padding: 5rem 2rem 2rem;
+  }
+
+  .category-panel {
+    gap: 1.5rem;
+  }
+
+  .skill-item {
+    width: 80px;
+  }
+
+  .skill-item img {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+}
+
+/* Mobile */
 @media (max-width: 767px) {
   .skills {
     padding: 6rem 1.5rem 2rem;
@@ -80,12 +123,51 @@
   }
 
   .category-panel {
-    gap: 1.25rem;
+    padding: 1.25rem;
     justify-content: center;
+    gap: 1.25rem;
+  }
+
+  .skill-item {
+    width: 70px;
   }
 
   .skill-item img {
-    height: 2rem;
     width: 2rem;
+    height: 2rem;
+  }
+
+  .skill-name {
+    font-size: 0.7rem;
+  }
+
+  .dot {
+    width: 5px;
+    height: 5px;
+  }
+}
+
+/* Small Phones */
+@media (max-width: 480px) {
+  .skills {
+    padding: 5rem 1rem 2rem;
+  }
+
+  .category-panel {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .skill-item {
+    width: 65px;
+  }
+
+  .skill-item img {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  .category-label h3 {
+    font-size: 1rem;
   }
 }

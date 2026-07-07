@@ -1,5 +1,4 @@
 .about-me {
-  width: 100%;
   max-width: 1300px;
   min-height: calc(100vh - 4.75rem);
   padding: 0 3rem;
@@ -37,7 +36,7 @@
   flex: 1;
   padding: 1rem;
   border-radius: 16px;
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   background-color: var(--bg);
   text-align: center;
 }
@@ -61,14 +60,11 @@
 }
 
 .about-me-text {
-  display: flex;
   width: fit-content;
-  padding: 0.4rem 1rem;
-  border-radius: 50px;
-  border: 3px solid var(--accent);
-  font: 500 1rem "Sora", sans-serif;
-  letter-spacing: 1px;
+  font: 500 1.5rem "Bungee", sans-serif;
   color: var(--accent);
+  text-align: start;
+  border-bottom: 3px solid var(--accent);
 }
 
 .about-heading {
