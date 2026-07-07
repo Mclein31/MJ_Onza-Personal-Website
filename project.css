@@ -1,21 +1,39 @@
 .projects {
+  display: flex;
+  flex-direction: column;
   max-width: 1300px;
   min-height: calc(110vh - 4.75rem);
   padding: 6rem 3rem;
   margin: 0 auto;
+}
 
+.project-contents {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
   gap: 2rem;
   align-content: center;
 }
 
-.projects a{
+.project-header {
+  display: flex;
+  width: 50%;
+  margin: 0 auto 3rem;
+  align-items: center;
+  justify-content: center;
+  font: 500 2rem "Bungee", sans-serif;
+  color: var(--accent);
+  text-align: center;
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: 1rem;
+}
+
+.projects a {
   text-decoration: none;
 }
 
 .project-card {
-  background: var(--card);
+  background: var(--skill-header);
+  border: 1px solid var(--accent);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
@@ -66,7 +84,15 @@
 /* Mobile */
 @media (max-width: 767px) {
   .projects {
+    padding: 6rem 1.5rem 2rem;
+  }
+
+  .project-contents {
     grid-template-columns: 1fr;
-    padding: 0 1.5rem;
+  }
+
+  .project-header {
+    width: 90%;
+    font-size: 1.5rem;
   }
 }

@@ -1,26 +1,44 @@
 .contact {
+  display: flex;
+  flex-direction: column;
   max-width: 1300px;
   min-height: calc(100vh - 4.75rem);
   padding: 6rem 3rem 3rem;
   margin: 0 auto;
+}
 
+.contact-header {
+  display: flex;
+  width: 50%;
+  margin: 0 auto 3rem;
+  align-items: center;
+  justify-content: center;
+  font: 500 2rem "Bungee", sans-serif;
+  color: var(--accent);
+  text-align: center;
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: 1rem;
+}
+
+.contact-contents {
   display: grid;
   grid-template-columns: 1fr 1.1fr;
   gap: 3rem;
-  align-items: start;
+  align-items: stretch;   /* was: start */
 }
 
 .contact-info {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;   /* new */
   gap: 1.5rem;
 }
 
 .status-card,
 .email-card,
 .contact-form {
-  background: var(--card);
-  border: 1px solid var(--border);
+  background: var(--bg);
+  border: 1px solid var(--accent);
   border-radius: 16px;
 }
 
@@ -88,22 +106,18 @@
 }
 
 .social-links a {
-  width: 56px;
-  height: 56px;
-
+  width: 3rem;
+  height: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  background: var(--card);
-  border: 1px solid var(--border);
   border-radius: 12px;
   transition: border-color 0.25s ease, transform 0.25s ease;
 }
 
 .social-links a img {
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 3remrem;
+  height: 3rem;
   object-fit: contain;
 }
 
@@ -137,7 +151,7 @@
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  background: var(--bg);
+  background: var(--skill-header);
   border: 1px solid var(--border);
   border-radius: 10px;
   color: var(--text);
@@ -180,8 +194,11 @@
 
 /* Responsive */
 @media (max-width: 900px) {
-  .contact {
+  .contact-contents {
     grid-template-columns: 1fr;
+  }
+
+  .contact {
     padding: 6rem 2rem 2rem;
   }
 
@@ -193,6 +210,11 @@
 @media (max-width: 480px) {
   .contact {
     padding: 6rem 1.25rem 2rem;
+  }
+
+  .contact-header {
+    width: 90%;
+    font-size: 1.5rem;
   }
 
   .status-card,
@@ -207,7 +229,8 @@
   }
 
   .social-links a img {
-    width: 1.2rem;
-    height: 1.2rem;
-  }
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
+}
 }
