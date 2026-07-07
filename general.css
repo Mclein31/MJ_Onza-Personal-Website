@@ -444,7 +444,20 @@ footer .copyright {
     gap: 1.5rem;
   }
 
-  
+  footer .tagline {
+    font: 600 0.6rem "Sora", sans-serif;
+    color: var(--text);
+  }
+
+  footer .dot {
+    color: var(--text-light);
+    font-size: 0.5rem;
+  }
+
+  footer .copyright {
+    font: 400 0.6rem "Sora", sans-serif;
+    color: var(--text-light);
+  }
 
   .burgerMenu ul {
     gap: 1.5rem;
@@ -564,17 +577,17 @@ footer .copyright {
   }
 
   footer .tagline {
-    font: 600 0.75rem "Sora", sans-serif;
+    font: 600 0.35rem "Sora", sans-serif;
     color: var(--text);
   }
 
   footer .dot {
     color: var(--text-light);
-    font-size: 0.5rem;
+    font-size: 0.05rem;
   }
 
   footer .copyright {
-    font: 400 0.75rem "Sora", sans-serif;
+    font: 400 0.35rem "Sora", sans-serif;
     color: var(--text-light);
   }
 }

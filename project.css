@@ -81,14 +81,72 @@
   color: var(--text-light);
 }
 
-/* Mobile */
-@media (max-width: 767px) {
+/* Tablet — now extends down to 601px instead of stopping at 768px */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .projects {
+    padding: 6rem 2rem 3rem;
+  }
+
+  .project-contents {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .project-image {
+    height: 190px;
+  }
+
+  .project-header {
+    width: 75%;
+    font-size: 1.6rem;
+  }
+
+  .project-info {
+    padding: 1.25rem;
+  }
+
+  .project-title {
+    font-size: 1.2rem;
+  }
+
+  .project-description {
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile — only truly narrow screens get the single-card layout now */
+@media (max-width: 600px) {
   .projects {
     padding: 6rem 1.5rem 2rem;
   }
 
   .project-contents {
     grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .project-image {
+    height: 160px;
+  }
+
+  .project-info {
+    padding: 1.1rem;
+  }
+
+  .project-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-description {
+    font-size: 0.85rem;
+    line-height: 1.5;
   }
 
   .project-header {
