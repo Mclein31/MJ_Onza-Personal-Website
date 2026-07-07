@@ -10,8 +10,8 @@
   --accent: #ff6b5d;
   --accent-alt: #a82721;
   --on-accent: #401414;
-  --grid-strong: rgba(255, 255, 255, 0.04);
-  --grid-soft: rgba(255, 255, 255, 0.02);
+  --grid-strong: rgba(255, 255, 255, 0.06);
+  --grid-soft: rgba(255, 255, 255, 0.04);
   --skill-header: #1f0808;
   --skill-card: #0c0505;
 }
@@ -27,8 +27,8 @@
   --accent: #a82721;
   --accent-alt: #7a1c17;
   --on-accent: #FFFFFF;
-  --grid-strong: rgba(0, 0, 0, 0.05);
-  --grid-soft: rgba(0, 0, 0, 0.03);
+  --grid-strong: rgba(0, 0, 0, 0.1);
+  --grid-soft: rgba(0, 0, 0, 0.08);
   --skill-header: #f2e1e1;
   --skill-card: #ECECEA;
 }
