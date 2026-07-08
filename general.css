@@ -16,20 +16,20 @@
 }
 
 [theme="light"] {
-  --bg: #F5F5F3;
-  --card: #FFFFFF;
-  --card-alt: #ECECEA;
-  --border: #D8D8D8;
+  --bg: #f5f5f3;
+  --card: #ffffff;
+  --card-alt: #ececea;
+  --border: #d8d8d8;
   --text: #111111;
   --text-light: #55555599;
   --hr-color: #5555551f;
   --accent: #a82721;
   --accent-alt: #7a1c17;
-  --on-accent: #FFFFFF;
+  --on-accent: #ffffff;
   --grid-strong: rgba(0, 0, 0, 0.1);
   --grid-soft: rgba(0, 0, 0, 0.08);
   --skill-header: #f2e1e1;
-  --skill-card: #ECECEA;
+  --skill-card: #ececea;
 }
 
 * {
@@ -105,7 +105,9 @@ header {
   left: 4.8rem;
   right: 4.8rem;
   z-index: 10;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .NameLogo {
@@ -122,7 +124,9 @@ header {
 }
 
 .NameLogo a p {
-  font: 500 1.25rem "Bowlby One", sans-serif;
+  font:
+    500 1.25rem "Bowlby One",
+    sans-serif;
 }
 
 .NameLogo a img {
@@ -150,7 +154,9 @@ header {
 .headerNav ul li a {
   text-decoration: none;
   color: var(--text);
-  font: 300 0.8rem "Sora", sans-serif;
+  font:
+    300 0.8rem "Sora",
+    sans-serif;
   transition: color 0.2s ease;
 }
 
@@ -192,12 +198,12 @@ main {
   width: 100%;
 }
 
-main .hr-break{
+main .hr-break {
   width: 100%;
   padding: 0 3rem;
 }
 
-.hr-break hr{
+.hr-break hr {
   border: none;
   height: 3px;
   background-color: var(--hr-color);
@@ -213,7 +219,6 @@ footer {
   transition: background-color 0.3s ease;
 
   border-top: var(--border) solid 2px;
-
 }
 
 footer .footer-content {
@@ -233,7 +238,9 @@ footer .copyright {
 }
 
 footer .tagline {
-  font: 600 0.75rem "Sora", sans-serif;
+  font:
+    600 0.75rem "Sora",
+    sans-serif;
   color: var(--text);
 }
 
@@ -243,7 +250,9 @@ footer .dot {
 }
 
 footer .copyright {
-  font: 400 0.75rem "Sora", sans-serif;
+  font:
+    400 0.75rem "Sora",
+    sans-serif;
   color: var(--text-light);
 }
 
@@ -262,14 +271,18 @@ footer .copyright {
   justify-content: center;
   cursor: pointer;
   z-index: 20;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .theme-toggle img {
   width: 1.4rem;
   height: 1.4rem;
   position: absolute;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 
 .theme-toggle .icon-sun {
@@ -293,7 +306,7 @@ footer .copyright {
 }
 
 /* TABLET — Portrait */
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
   header {
     height: 4.5rem;
     border-radius: 50px;
@@ -352,7 +365,9 @@ footer .copyright {
   }
 
   .NameLogo a p {
-    font: 500 1.75rem "Bowlby One", sans-serif;
+    font:
+      500 1.75rem "Bowlby One",
+      sans-serif;
     margin-right: 0.2rem;
   }
 
@@ -376,9 +391,11 @@ footer .copyright {
 }
 
 /* TABLET — Landscape */
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
   .NameLogo a p {
-    font: 500 1.25rem "Bowlby One", sans-serif;
+    font:
+      500 1.25rem "Bowlby One",
+      sans-serif;
     margin-right: 0.2rem;
   }
 
@@ -402,7 +419,7 @@ footer .copyright {
 }
 
 /* MOBILE — Portrait */
-@media (max-width: 767px) and (orientation: portrait) {
+@media (max-width: 768px) and (orientation: portrait) {
   header {
     height: 4.5rem;
     border-radius: 50px;
@@ -429,7 +446,9 @@ footer .copyright {
   }
 
   .NameLogo a p {
-    font: 500 1.25rem "Bowlby One", sans-serif;
+    font:
+      500 1.25rem "Bowlby One",
+      sans-serif;
     margin-right: 0.2rem;
   }
 
@@ -444,7 +463,9 @@ footer .copyright {
   }
 
   footer .tagline {
-    font: 600 0.6rem "Sora", sans-serif;
+    font:
+      600 0.6rem "Sora",
+      sans-serif;
     color: var(--text);
   }
 
@@ -454,7 +475,9 @@ footer .copyright {
   }
 
   footer .copyright {
-    font: 400 0.6rem "Sora", sans-serif;
+    font:
+      400 0.6rem "Sora",
+      sans-serif;
     color: var(--text-light);
   }
 
@@ -480,7 +503,7 @@ footer .copyright {
 }
 
 /* MOBILE — Landscape */
-@media (max-width: 767px) and (orientation: landscape) {
+@media (max-width: 768px) and (orientation: landscape) {
   header {
     height: 4.5rem;
     border-radius: 50px;
@@ -507,7 +530,9 @@ footer .copyright {
   }
 
   .NameLogo a p {
-    font: 500 1.25rem "Bowlby One", sans-serif;
+    font:
+      500 1.25rem "Bowlby One",
+      sans-serif;
     margin-right: 0.2rem;
   }
 
@@ -576,7 +601,9 @@ footer .copyright {
   }
 
   footer .tagline {
-    font: 600 0.35rem "Sora", sans-serif;
+    font:
+      600 0.35rem "Sora",
+      sans-serif;
     color: var(--text);
   }
 
@@ -586,7 +613,9 @@ footer .copyright {
   }
 
   footer .copyright {
-    font: 400 0.35rem "Sora", sans-serif;
+    font:
+      400 0.35rem "Sora",
+      sans-serif;
     color: var(--text-light);
   }
 }
