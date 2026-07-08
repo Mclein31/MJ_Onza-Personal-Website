@@ -401,32 +401,32 @@
           </div>
 
           <div class="social-links">
-            <a href="https://github.com/Mclein31" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <a href="https://github.com/Mclein31">
               <img src="assets/icons/github.png" alt="GitHub" />
             </a>
-            <a href="https://www.linkedin.com/in/mclein-jei-onza-9b0769322/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/mclein-jei-onza-9b0769322/">
               <img src="assets/icons/linkedin.png" alt="LinkedIn" />
             </a>
           </div>
         </div>
 
-          <div class="contact-form">
-            <h3>Send a Message</h3>
-            <form id="contactForm" action="https://formsubmit.co/ajax/mcleinonza0531@gmail.com" method="POST">
-              <input type="hidden" name="_subject" value="New message from your portfolio site" />
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+        <div class="contact-form">
+          <h3>Send a Message</h3>
+          <form id="contactForm" action="https://formsubmit.co/ajax/mcleinonza0531@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New message from your portfolio site" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
 
-              <div class="input-row">
-                <input type="text" name="name" placeholder="Name" required />
-                <input type="email" name="email" placeholder="Email" required />
-              </div>
-              <textarea name="message" placeholder="Your message..." rows="8" required></textarea>
-              <button type="submit">Send Message</button>
-              <p id="formStatus" class="form-status"></p>
-            </form>
-          </div>
+            <div class="input-row">
+              <input type="text" name="name" placeholder="Name" required />
+              <input type="email" name="email" placeholder="Email" required />
+            </div>
+            <textarea name="message" placeholder="Your message..." rows="8" required></textarea>
+            <button type="submit">Send Message</button>
+            <p id="formStatus" class="form-status"></p>
+          </form>
+        </div>
         </div>
       </div>
 
@@ -456,61 +456,6 @@
           burgerMenu.classList.toggle("active");
         });
       }
-
-      // Contact form submission
-      const contactForm = document.getElementById("contactForm");
-      const formStatus = document.getElementById("formStatus");
-
-      if (contactForm) {
-        contactForm.addEventListener("submit", async (e) => {
-          e.preventDefault();
-
-          const submitBtn = contactForm.querySelector("button[type='submit']");
-          submitBtn.disabled = true;
-          submitBtn.textContent = "Sending...";
-          formStatus.textContent = "";
-          formStatus.className = "form-status";
-
-          try {
-            const response = await fetch(contactForm.action, {
-              method: "POST",
-              body: new FormData(contactForm),
-              headers: { Accept: "application/json" },
-            });
-
-            if (response.ok) {
-              formStatus.textContent = "Message sent! I'll get back to you soon.";
-              formStatus.classList.add("success");
-              contactForm.reset();
-            } else {
-              throw new Error("Submission failed");
-            }
-          } catch (err) {
-            formStatus.textContent = "Something went wrong. Please try again or email me directly.";
-            formStatus.classList.add("error");
-          } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Send Message";
-          }
-        });
-      }
-
-      window.addEventListener("DOMContentLoaded", () => {
-        const hash = window.location.hash;
-        if (hash) {
-          const target = document.querySelector(hash);
-          if (target) {
-            const headerHeight =
-              4.75 *
-              parseFloat(getComputedStyle(document.documentElement).fontSize);
-            const top =
-              target.getBoundingClientRect().top +
-              window.pageYOffset -
-              headerHeight;
-            window.scrollTo({ top, behavior: "smooth" });
-          }
-        }
-      });
 
       // Theme toggle
       const themeToggle = document.getElementById("themeToggle");
