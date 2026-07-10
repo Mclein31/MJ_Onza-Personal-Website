@@ -301,7 +301,7 @@
     justify-content: center;
     height: auto;
     min-height: calc(100vh - 4.75rem);
-    padding: 6rem 1.5rem 3rem;
+    padding: 2rem 1.5rem 3rem;
     text-align: center;
     gap: 2rem;
   }
