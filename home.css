@@ -255,7 +255,7 @@
     flex-direction: column;
     justify-content: center;
     height: auto;
-    min-height: calc(100vh - 5.5rem);
+    min-height: calc(100vh - 4.75rem);
     padding: 6rem 1.5rem 3rem;
     text-align: center;
     gap: 2rem;
@@ -296,6 +296,16 @@
 
 /* Small Mobile */
 @media (max-width: 480px) {
+  .Home {
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    min-height: calc(100vh - 4.75rem);
+    padding: 6rem 1.5rem 3rem;
+    text-align: center;
+    gap: 2rem;
+  }
+
   .brief-intro .name .fname {
     font-size: 2rem;
   }
