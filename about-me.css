@@ -34,7 +34,7 @@
 .stat-item {
   flex: 1;
   padding: 1rem;
-  border-radius: 16px;
+  border-radius: 1px;
   border: 2px solid var(--border);
   background-color: var(--bg);
   text-align: center;
