@@ -28,12 +28,17 @@ function initTheme() {
   const initialTheme = savedTheme || (systemPrefersLight ? 'light' : 'dark');
   applyTheme(initialTheme);
 
+  let isTransitioning = false;
+
   if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', (e) => {
+    themeToggleBtn.addEventListener('click', () => {
+      if (isTransitioning) return;
+      isTransitioning = true;
+
       const currentTheme = root.getAttribute('data-theme') || 'dark';
       const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
 
-      // Get origin coordinates from the theme toggle button at top right
+      // Button center coordinates at top right
       const rect = themeToggleBtn.getBoundingClientRect();
       const x = rect.left + rect.width / 2;
       const y = rect.top + rect.height / 2;
@@ -42,58 +47,31 @@ function initTheme() {
         Math.max(y, window.innerHeight - y)
       );
 
-      // 1. Native View Transition API (Chrome/Edge/Modern Web)
-      if (document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        const transition = document.startViewTransition(() => {
-          applyTheme(nextTheme);
-          localStorage.setItem('portfolio-theme', nextTheme);
-        });
+      // Create high-performance hardware-accelerated splash canvas
+      const splash = document.createElement('div');
+      splash.className = 'theme-splash-canvas';
+      splash.style.background = nextTheme === 'light' ? '#f7f8fa' : '#090a0f';
+      document.body.appendChild(splash);
 
-        transition.ready.then(() => {
-          document.documentElement.animate(
-            {
-              clipPath: [
-                `circle(0px at ${x}px ${y}px)`,
-                `circle(${endRadius}px at ${x}px ${y}px)`
-              ]
-            },
-            {
-              duration: 650,
-              easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-              pseudoElement: '::view-transition-new(root)'
-            }
-          );
-        });
-      } else {
-        // 2. Universal Circular Splash Fallback
-        createThemeSplash(x, y, endRadius, nextTheme, () => {
-          applyTheme(nextTheme);
-          localStorage.setItem('portfolio-theme', nextTheme);
-        });
-      }
+      const anim = splash.animate(
+        [
+          { clipPath: `circle(0px at ${x}px ${y}px)` },
+          { clipPath: `circle(${endRadius}px at ${x}px ${y}px)` }
+        ],
+        {
+          duration: 520,
+          easing: 'cubic-bezier(0.2, 0, 0, 1)',
+          fill: 'forwards'
+        }
+      );
+
+      anim.onfinish = () => {
+        applyTheme(nextTheme);
+        localStorage.setItem('portfolio-theme', nextTheme);
+        splash.remove();
+        isTransitioning = false;
+      };
     });
-  }
-
-  function createThemeSplash(x, y, radius, targetTheme, callback) {
-    const splash = document.createElement('div');
-    splash.className = 'theme-splash-ripple';
-    const size = radius * 2.2;
-    splash.style.width = `${size}px`;
-    splash.style.height = `${size}px`;
-    splash.style.left = `${x}px`;
-    splash.style.top = `${y}px`;
-    splash.style.background = targetTheme === 'light' ? '#f7f8fa' : '#090a0f';
-    document.body.appendChild(splash);
-
-    requestAnimationFrame(() => {
-      splash.classList.add('active');
-    });
-
-    setTimeout(() => {
-      callback();
-      splash.style.opacity = '0';
-      setTimeout(() => splash.remove(), 350);
-    }, 450);
   }
 
   window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
