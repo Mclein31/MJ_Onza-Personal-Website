@@ -423,29 +423,60 @@ section {
   padding-bottom: 0;
 }
 
-/* Monumental Background Outline Typography */
+/* Monumental Background Outline Typography Carousel */
 .hero-stroke-text-wrap {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  text-align: center;
+  top: 48%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100vw;
+  overflow: hidden;
   z-index: 1;
   pointer-events: none;
   user-select: none;
   white-space: nowrap;
+  display: flex;
+}
+
+.hero-stroke-carousel-track {
+  display: flex;
+  width: max-content;
+  animation: heroMarqueeScroll 26s linear infinite;
+  will-change: transform;
+}
+
+.hero-stroke-carousel-group {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding-right: 2.5rem;
 }
 
 .hero-stroke-text {
-  font-size: clamp(5rem, 16vw, 13.5rem);
+  font-size: clamp(5rem, 14vw, 11rem);
   font-weight: 900;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: transparent;
   -webkit-text-stroke: 1.5px var(--hero-stroke);
   opacity: 0.85;
   line-height: 1;
+}
+
+.hero-stroke-separator {
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--hero-stroke);
+  opacity: 0.5;
+}
+
+@keyframes heroMarqueeScroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
 }
 
 /* Centered Hero Portrait in Foreground */
