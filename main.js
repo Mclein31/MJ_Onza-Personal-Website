@@ -469,16 +469,17 @@ function initStatsWidget() {
       // Fallback for local development or non-Vercel environments
     }
 
-    // 2. Direct fallback to CounterAPI
+    // 2. Direct fallback to Abacus (CounterAPI v1 was deprecated Aug 2026)
     try {
       const key = metric === 'likes' ? 'portfolio_likes' : 'portfolio_visits';
       const endpoint = type === 'increment'
-        ? `https://api.counterapi.dev/v1/mclein-onza-unified/${key}/up`
-        : `https://api.counterapi.dev/v1/mclein-onza-unified/${key}`;
+        ? `https://abacus.jasoncameron.dev/hit/mcleinonza/${key}`
+        : `https://abacus.jasoncameron.dev/get/mcleinonza/${key}`;
       const res = await fetch(endpoint, { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
-        if (typeof data.count === 'number') return data.count;
+        // Abacus returns { value: <number> }
+        if (typeof data.value === 'number') return data.value;
       }
     } catch (e) {
       console.warn(`Stats sync offline for ${metric}:`, e);

@@ -1,4 +1,5 @@
 // Vercel Serverless Function: Unified Visits & Likes Counter
+// Migrated from CounterAPI v1 (deprecated Aug 2026) to Abacus (abacus.jasoncameron.dev)
 // Solves cross-device syncing, CORS, and Safari iOS ITP tracking blocks
 
 export default async function handler(req, res) {
@@ -15,28 +16,25 @@ export default async function handler(req, res) {
 
   const { type = 'get', metric = 'visits' } = req.query;
   const key = metric === 'likes' ? 'portfolio_likes' : 'portfolio_visits';
-  
-  // Public resilient cloud storage endpoint
-  const KV_BASE = `https://api.counterapi.dev/v1/mclein-onza-unified/${key}`;
+
+  // Abacus: free, no-auth, namespace-isolated counter API
+  // GET  → https://abacus.jasoncameron.dev/get/mcleinonza/<key>
+  // HIT  → https://abacus.jasoncameron.dev/hit/mcleinonza/<key>
+  const NAMESPACE = 'mcleinonza';
+  const endpoint = type === 'increment'
+    ? `https://abacus.jasoncameron.dev/hit/${NAMESPACE}/${key}`
+    : `https://abacus.jasoncameron.dev/get/${NAMESPACE}/${key}`;
 
   try {
-    const endpoint = type === 'increment' ? `${KV_BASE}/up` : KV_BASE;
     const response = await fetch(endpoint, {
       headers: { 'Cache-Control': 'no-cache' }
     });
 
     if (response.ok) {
       const data = await response.json();
-      return res.status(200).json({ metric, count: data.count || 0 });
-    } else if (response.status === 404) {
-      if (type === 'increment') {
-        const initRes = await fetch(`${KV_BASE}/up`);
-        if (initRes.ok) {
-          const initData = await initRes.json();
-          return res.status(200).json({ metric, count: initData.count || 1 });
-        }
-      }
-      return res.status(200).json({ metric, count: 0 });
+      // Abacus returns { value: <number> }
+      const count = typeof data.value === 'number' ? data.value : 0;
+      return res.status(200).json({ metric, count });
     } else {
       return res.status(200).json({ metric, count: 0 });
     }
