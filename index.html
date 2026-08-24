@@ -97,10 +97,29 @@
       <button class="btn-hire-me trigger-contact-modal" style="width: 100%; margin-top: 0.5rem;" type="button">Hire Me</button>
     </div>
 
-    <!-- Floating Interactive Coffee Counter Widget -->
-    <div id="coffeeCounterWidget" class="coffee-counter-widget" title="Click to buy a coffee / support!">
-      <span>☕</span>
-      <span id="coffeeCount">306</span>
+    <!-- Floating Interactive Website Stats Widget (Visits & Likes Side by Side) -->
+    <div id="statsWidget" class="floating-stats-widget" role="region" aria-label="Website Statistics">
+      <!-- Visits Counter -->
+      <div class="stat-pill-item stat-visits" title="Total Website Visits">
+        <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+        <span class="stat-label">VISITS</span>
+        <span id="visitCount" class="stat-number">0</span>
+      </div>
+
+      <div class="stat-pill-divider" aria-hidden="true"></div>
+
+      <!-- Interactive Likes Counter -->
+      <button id="likeBtnWidget" class="stat-pill-item stat-likes" title="Click to like this website!" aria-label="Like this website">
+        <svg class="stat-icon like-heart-icon" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+        <span class="stat-label">LIKES</span>
+        <span id="likeCount" class="stat-number">0</span>
+        <span class="like-particle-box" id="likeParticleBox"></span>
+      </button>
     </div>
 
     <!-- Floating Back to Top Button -->

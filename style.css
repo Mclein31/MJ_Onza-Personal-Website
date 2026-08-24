@@ -2120,31 +2120,143 @@ section {
 /* --------------------------------------------------------------------------
    11. FOOTER & FLOATING WIDGETS
    -------------------------------------------------------------------------- */
-.coffee-counter-widget {
+/* Floating Stats Widget (Visits & Likes Joined Side by Side) */
+.floating-stats-widget {
   position: fixed;
   left: 1.5rem;
   bottom: 2rem;
   z-index: 900;
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.5rem;
   background: var(--bg-surface);
   border: 1px solid var(--border-medium);
-  color: var(--text-primary);
-  font-size: 0.85rem;
-  font-weight: 700;
-  font-family: var(--font-mono);
-  padding: 0.5rem 0.85rem;
-  border-radius: var(--radius-md);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
   box-shadow: var(--shadow-md);
-  cursor: pointer;
-  transition: all 0.25s ease;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
 }
 
-.coffee-counter-widget:hover {
-  transform: translateY(-2px) scale(1.04);
+.floating-stats-widget:hover {
+  transform: translateY(-2px);
   border-color: var(--border-strong);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-pill-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.stat-visits {
+  color: var(--text-secondary);
+  padding: 0.25rem 0.2rem;
+}
+
+.stat-visits .stat-icon {
+  width: 0.95rem;
+  height: 0.95rem;
+  color: var(--accent-blue);
+}
+
+.stat-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.stat-number {
+  color: var(--text-primary);
+  font-weight: 800;
+}
+
+.stat-pill-divider {
+  width: 1px;
+  height: 1.1rem;
+  background: var(--border-medium);
+}
+
+.stat-likes {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 0.25rem 0.4rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.stat-likes:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.stat-likes:hover .stat-label {
+  color: #ef4444;
+}
+
+.like-heart-icon {
+  width: 0.95rem;
+  height: 0.95rem;
+  color: #ef4444;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.stat-likes:hover .like-heart-icon {
+  transform: scale(1.25);
+}
+
+.stat-likes:active .like-heart-icon {
+  transform: scale(0.85);
+}
+
+.like-particle-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.like-float-burst {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #ef4444;
+  pointer-events: none;
+  animation: floatHeartUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+@keyframes floatHeartUp {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-18px) scale(1.15);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-32px) scale(1);
+  }
 }
 
 .floating-back-to-top {
@@ -2326,5 +2438,28 @@ section {
 
   .hero-scroll-indicator {
     display: none;
+  }
+
+  .floating-stats-widget {
+    left: 1rem;
+    bottom: 1.25rem;
+    padding: 0.3rem 0.6rem;
+    gap: 0.35rem;
+  }
+
+  .stat-pill-item {
+    font-size: 0.72rem;
+    gap: 0.3rem;
+  }
+
+  .stat-label {
+    display: none;
+  }
+
+  .floating-back-to-top {
+    right: 1rem;
+    bottom: 1.25rem;
+    width: 2.3rem;
+    height: 2.3rem;
   }
 }

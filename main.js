@@ -1,7 +1,7 @@
 /**
  * MCLEIN JEI ONZA — SIGNATURE DEVELOPER PORTFOLIO
  * Main Interactive Module: Typing Effect, 3D Coverflow Carousel, 
- * Trait Card Cycler, Coffee Counter, macOS Contact Modal, and Theme Management
+ * Trait Card Cycler, Website Stats Widget, macOS Contact Modal, and Theme Management
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTypingEffect();
   initCoverflowCarousel();
   initTraitCard();
-  initCoffeeCounter();
+  initStatsWidget();
   initContactModal();
   initScrollSpy();
   initTrainingSlider();
@@ -391,29 +391,70 @@ function initTraitCard() {
 }
 
 /* ==========================================================================
-   6. INTERACTIVE COFFEE COUNTER WIDGET
+   6. INTERACTIVE WEBSITE STATS WIDGET (VISITS & LIKES)
    ========================================================================== */
-function initCoffeeCounter() {
-  const coffeeWidget = document.getElementById('coffeeCounterWidget');
-  const coffeeCountEl = document.getElementById('coffeeCount');
-  if (!coffeeWidget || !coffeeCountEl) return;
+function initStatsWidget() {
+  const visitCountEl = document.getElementById('visitCount');
+  const likeCountEl = document.getElementById('likeCount');
+  const likeBtn = document.getElementById('likeBtnWidget');
+  const likeParticleBox = document.getElementById('likeParticleBox');
 
-  let currentCount = parseInt(localStorage.getItem('portfolio-coffee-count'), 10);
-  if (isNaN(currentCount) || currentCount < 306) {
-    currentCount = 306;
+  // Format numbers with commas (e.g. 1,248)
+  const formatNum = (num) => new Intl.NumberFormat('en-US').format(num);
+
+  // 1. Handle Page Visits Count (starts from 0)
+  if (visitCountEl) {
+    let visits = parseInt(localStorage.getItem('portfolio-visit-count'), 10);
+    if (isNaN(visits) || visits < 0) {
+      visits = 0;
+    }
+
+    // Increment real visit once per browser session
+    if (!sessionStorage.getItem('portfolio-session-visited')) {
+      visits += 1;
+      localStorage.setItem('portfolio-visit-count', visits);
+      sessionStorage.setItem('portfolio-session-visited', 'true');
+    }
+
+    visitCountEl.textContent = formatNum(visits);
   }
-  coffeeCountEl.textContent = currentCount;
 
-  coffeeWidget.addEventListener('click', () => {
-    currentCount++;
-    coffeeCountEl.textContent = currentCount;
-    localStorage.setItem('portfolio-coffee-count', currentCount);
+  // 2. Handle Website Likes Counter (starts from 0)
+  if (likeCountEl && likeBtn) {
+    let likes = parseInt(localStorage.getItem('portfolio-like-count'), 10);
+    if (isNaN(likes) || likes < 0) {
+      likes = 0;
+    }
+    likeCountEl.textContent = formatNum(likes);
 
-    coffeeWidget.style.transform = 'scale(1.2) rotate(8deg)';
-    setTimeout(() => {
-      coffeeWidget.style.transform = '';
-    }, 200);
-  });
+    likeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      likes += 1;
+      likeCountEl.textContent = formatNum(likes);
+      localStorage.setItem('portfolio-like-count', likes);
+
+      // Heart bounce micro-interaction
+      const heartIcon = likeBtn.querySelector('.like-heart-icon');
+      if (heartIcon) {
+        heartIcon.style.transform = 'scale(1.45)';
+        setTimeout(() => {
+          heartIcon.style.transform = '';
+        }, 220);
+      }
+
+      // Spawn floating +1 ❤️ particle
+      if (likeParticleBox) {
+        const particle = document.createElement('span');
+        particle.className = 'like-float-burst';
+        particle.textContent = '+1 ❤️';
+        likeParticleBox.appendChild(particle);
+
+        setTimeout(() => {
+          particle.remove();
+        }, 800);
+      }
+    });
+  }
 }
 
 /* ==========================================================================
