@@ -100,10 +100,10 @@ function initTypingEffect() {
   if (!typingElement) return;
 
   const phrases = [
-    "Data Engineer. Problem Solver.",
-    "Data Engineering. CS Student.",
-    "Database Architect & Builder.",
-    "Turning Raw Data into Clean Code."
+    "Aspiring Data Engineer.",
+    "Learning Python, SQL & PostgreSQL.",
+    "Web Developer & Systems Builder.",
+    "Turning Logic into Practical Software."
   ];
 
   let phraseIndex = 0;
