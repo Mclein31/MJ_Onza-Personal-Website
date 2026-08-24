@@ -237,14 +237,14 @@ section {
 .navbar {
   pointer-events: auto;
   width: 100%;
-  max-width: 960px;
+  max-width: 980px;
   height: var(--header-height);
   background: var(--bg-glass);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border: 1px solid var(--border-medium);
-  border-radius: var(--radius-pill);
-  padding: 0.4rem 0.6rem 0.4rem 1.2rem;
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.8rem 0.5rem 1.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -343,8 +343,8 @@ section {
   color: var(--text-primary);
   font-size: 0.85rem;
   font-weight: 700;
-  padding: 0.5rem 1.25rem;
-  border-radius: var(--radius-pill);
+  padding: 0.5rem 1.15rem;
+  border-radius: 10px;
   transition: all 0.2s ease;
 }
 
