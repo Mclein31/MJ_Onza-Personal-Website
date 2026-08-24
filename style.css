@@ -762,7 +762,7 @@ section {
 .trait-card-container {
   display: flex;
   justify-content: flex-end;
-  perspective: 900px;
+  perspective: 1000px;
 }
 
 .trait-deck-stack {
@@ -774,7 +774,7 @@ section {
   user-select: none;
 }
 
-.trait-card {
+.trait-stack-card {
   position: absolute;
   top: 0;
   left: 0;
@@ -785,60 +785,76 @@ section {
   border-radius: var(--radius-lg);
   padding: 1.15rem 1.5rem;
   box-shadow: var(--shadow-md);
-  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.45s ease, border-color 0.2s ease, box-shadow 0.3s ease;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease, border-color 0.2s ease, box-shadow 0.3s ease;
   will-change: transform, opacity;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.trait-card-back {
-  transform: translate3d(12px, 12px, -35px) rotate(-4deg);
-  opacity: 0.35;
-  z-index: 1;
-  background: var(--bg-surface-elevated);
-}
-
-.trait-card-middle {
-  transform: translate3d(6px, 6px, -18px) rotate(-2deg);
-  opacity: 0.65;
-  z-index: 2;
-  background: var(--bg-surface);
-}
-
-.trait-card-front {
+/* Front Card (Position 0) */
+.trait-stack-card.card-pos-0 {
   transform: translate3d(0, 0, 0) rotate(0deg);
   opacity: 1;
-  z-index: 3;
+  z-index: 5;
+  pointer-events: auto;
 }
 
-.trait-deck-stack:hover .trait-card-front {
-  transform: translate3d(0, -4px, 0) rotate(1deg);
+/* Middle Card (Position 1) */
+.trait-stack-card.card-pos-1 {
+  transform: translate3d(7px, 7px, -20px) rotate(-2.5deg);
+  opacity: 0.65;
+  z-index: 4;
+  background: var(--bg-surface);
+  pointer-events: none;
+}
+
+/* Back Card (Position 2) */
+.trait-stack-card.card-pos-2 {
+  transform: translate3d(14px, 14px, -40px) rotate(-5deg);
+  opacity: 0.35;
+  z-index: 3;
+  background: var(--bg-surface-elevated);
+  pointer-events: none;
+}
+
+/* Hidden Cards In Reserve */
+.trait-stack-card.card-pos-hidden {
+  transform: translate3d(20px, 20px, -60px) rotate(-7deg);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Hover Deck Fan */
+.trait-deck-stack:hover .trait-stack-card.card-pos-0 {
+  transform: translate3d(0, -4px, 5px) rotate(1deg);
   border-color: var(--border-strong);
   box-shadow: var(--shadow-lg);
 }
 
-.trait-deck-stack:hover .trait-card-middle {
-  transform: translate3d(9px, 8px, -18px) rotate(-3deg);
+.trait-deck-stack:hover .trait-stack-card.card-pos-1 {
+  transform: translate3d(10px, 9px, -20px) rotate(-3.5deg);
 }
 
-.trait-deck-stack:hover .trait-card-back {
-  transform: translate3d(16px, 16px, -35px) rotate(-6deg);
+.trait-deck-stack:hover .trait-stack-card.card-pos-2 {
+  transform: translate3d(18px, 17px, -40px) rotate(-6.5deg);
 }
 
-/* Card Slide to Back Animation States */
-.trait-card-front.sliding-out {
-  transform: translate3d(110px, -45px, 50px) rotate(22deg) scale(0.95);
-  opacity: 0.9;
-  z-index: 10;
-  transition: transform 0.28s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.28s ease;
+/* Step 1: Slide Top Card Up & Out */
+.trait-stack-card.card-sliding-out {
+  transform: translate3d(120px, -40px, 60px) rotate(20deg) scale(0.95) !important;
+  opacity: 0.9 !important;
+  z-index: 10 !important;
+  transition: transform 0.28s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.28s ease !important;
 }
 
-.trait-card-front.sliding-in-back {
-  transform: translate3d(14px, 14px, -40px) rotate(-5deg);
-  opacity: 0.4;
-  z-index: 1;
-  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.32s ease;
+/* Step 2: Gliding Behind to the Back Position */
+.trait-stack-card.card-sliding-behind {
+  transform: translate3d(14px, 14px, -40px) rotate(-5deg) !important;
+  opacity: 0.35 !important;
+  z-index: 2 !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease !important;
 }
 
 .trait-tag {

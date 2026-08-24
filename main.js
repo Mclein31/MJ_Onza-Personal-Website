@@ -337,43 +337,70 @@ function initCoverflowCarousel() {
    ========================================================================== */
 function initTraitCard() {
   const traitDeckStack = document.getElementById('traitDeckStack');
-  const traitCard = document.getElementById('interactiveTraitCard');
-  const traitTitle = document.getElementById('traitTitle');
-  if (!traitDeckStack || !traitCard || !traitTitle) return;
+  if (!traitDeckStack) return;
 
-  const traits = [
-    "Problem Solver",
-    "Clean Code Advocate",
-    "Continuous Learner",
-    "Fast Builder",
-    "Systems Minded",
-    "Detail Oriented"
-  ];
+  const cards = Array.from(traitDeckStack.querySelectorAll('.trait-stack-card'));
+  if (cards.length === 0) return;
 
-  let traitIdx = 0;
+  // Track the current card order indices
+  let order = cards.map((_, i) => i);
   let isAnimating = false;
+
+  function updateCardPositions() {
+    cards.forEach((card, i) => {
+      const pos = order.indexOf(i);
+      card.className = 'trait-stack-card';
+      if (pos === 0) {
+        card.classList.add('card-pos-0');
+      } else if (pos === 1) {
+        card.classList.add('card-pos-1');
+      } else if (pos === 2) {
+        card.classList.add('card-pos-2');
+      } else {
+        card.classList.add('card-pos-hidden');
+      }
+    });
+  }
+
+  updateCardPositions();
 
   traitDeckStack.addEventListener('click', () => {
     if (isAnimating) return;
     isAnimating = true;
 
+    const currentFrontCard = cards[order[0]];
+    const nextFrontCard = cards[order[1]];
+    const nextMiddleCard = cards[order[2]];
+    const nextBackCard = order.length > 3 ? cards[order[3]] : null;
+
     // 1. Slide top card out to the top-right
-    traitCard.classList.add('sliding-out');
+    currentFrontCard.classList.add('card-sliding-out');
 
+    // 2. Simultaneously step lower cards forward
     setTimeout(() => {
-      // 2. Update text and transition card behind the stack
-      traitIdx = (traitIdx + 1) % traits.length;
-      traitTitle.textContent = traits[traitIdx];
-      
-      traitCard.classList.remove('sliding-out');
-      traitCard.classList.add('sliding-in-back');
+      if (nextFrontCard) {
+        nextFrontCard.className = 'trait-stack-card card-pos-0';
+      }
+      if (nextMiddleCard) {
+        nextMiddleCard.className = 'trait-stack-card card-pos-1';
+      }
+      if (nextBackCard) {
+        nextBackCard.className = 'trait-stack-card card-pos-2';
+      }
+    }, 60);
 
-      setTimeout(() => {
-        // 3. Smoothly bring card to the front position ready for the next click
-        traitCard.classList.remove('sliding-in-back');
-        isAnimating = false;
-      }, 320);
-    }, 280);
+    // 3. Glide the previous front card smoothly behind the stack
+    setTimeout(() => {
+      currentFrontCard.classList.remove('card-sliding-out');
+      currentFrontCard.classList.add('card-sliding-behind');
+    }, 240);
+
+    // 4. Finalize position indices and reset state
+    setTimeout(() => {
+      order.push(order.shift()); // Shift front card to the very back of the array
+      updateCardPositions();
+      isAnimating = false;
+    }, 520);
   });
 }
 
