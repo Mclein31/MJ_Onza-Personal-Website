@@ -451,13 +451,6 @@ function initStatsWidget() {
   const API_NAMESPACE = 'mclein-onza-portfolio';
   const API_BASE = 'https://api.counterapi.dev/v1';
 
-  // Instant UI restore from local cache
-  let cachedVisits = parseInt(localStorage.getItem('site-visits-count'), 10) || 0;
-  let cachedLikes = parseInt(localStorage.getItem('site-likes-count'), 10) || 0;
-
-  if (visitCountEl) visitCountEl.textContent = formatNum(cachedVisits);
-  if (likeCountEl) likeCountEl.textContent = formatNum(cachedLikes);
-
   // 1. Fetch & Synchronize Live Global Visits Count
   async function syncVisits() {
     const isNewSession = !sessionStorage.getItem('site-session-visited');
@@ -466,35 +459,48 @@ function initStatsWidget() {
       : `${API_BASE}/${API_NAMESPACE}/visits`;
 
     try {
-      const res = await fetch(endpoint);
+      const res = await fetch(endpoint, { cache: 'no-cache' });
       if (res.ok) {
         const data = await res.json();
         if (typeof data.count === 'number') {
-          cachedVisits = data.count;
-          localStorage.setItem('site-visits-count', cachedVisits);
-          if (visitCountEl) visitCountEl.textContent = formatNum(cachedVisits);
+          if (visitCountEl) visitCountEl.textContent = formatNum(data.count);
+          localStorage.setItem('site-visits-count', data.count);
           if (isNewSession) sessionStorage.setItem('site-session-visited', 'true');
+        }
+      } else if (res.status === 404 && !isNewSession) {
+        // If key not yet created, initialize it via /up
+        const initRes = await fetch(`${API_BASE}/${API_NAMESPACE}/visits/up`, { cache: 'no-cache' });
+        if (initRes.ok) {
+          const initData = await initRes.json();
+          if (typeof initData.count === 'number') {
+            if (visitCountEl) visitCountEl.textContent = formatNum(initData.count);
+            localStorage.setItem('site-visits-count', initData.count);
+            sessionStorage.setItem('site-session-visited', 'true');
+          }
         }
       }
     } catch (err) {
-      console.warn('Cloud visits counter offline, using cached stats:', err);
+      console.warn('Cloud visits sync error:', err);
     }
   }
 
   // 2. Fetch & Synchronize Live Global Likes Count
   async function syncLikes() {
     try {
-      const res = await fetch(`${API_BASE}/${API_NAMESPACE}/likes`);
+      const res = await fetch(`${API_BASE}/${API_NAMESPACE}/likes`, { cache: 'no-cache' });
       if (res.ok) {
         const data = await res.json();
         if (typeof data.count === 'number') {
-          cachedLikes = data.count;
-          localStorage.setItem('site-likes-count', cachedLikes);
-          if (likeCountEl) likeCountEl.textContent = formatNum(cachedLikes);
+          if (likeCountEl) likeCountEl.textContent = formatNum(data.count);
+          localStorage.setItem('site-likes-count', data.count);
         }
+      } else if (res.status === 404) {
+        // Uninitialized likes in cloud equals 0
+        if (likeCountEl) likeCountEl.textContent = '0';
+        localStorage.setItem('site-likes-count', '0');
       }
     } catch (err) {
-      console.warn('Cloud likes counter offline, using cached stats:', err);
+      console.warn('Cloud likes sync error:', err);
     }
   }
 
@@ -507,10 +513,9 @@ function initStatsWidget() {
       if (isLiking) return;
       isLiking = true;
 
-      // Optimistic instant UI update
-      cachedLikes += 1;
-      likeCountEl.textContent = formatNum(cachedLikes);
-      localStorage.setItem('site-likes-count', cachedLikes);
+      // Optimistic instant UI bump
+      const currentVal = parseInt(likeCountEl.textContent.replace(/,/g, ''), 10) || 0;
+      likeCountEl.textContent = formatNum(currentVal + 1);
 
       // Heart bounce micro-interaction
       const heartIcon = likeBtn.querySelector('.like-heart-icon');
@@ -535,13 +540,12 @@ function initStatsWidget() {
 
       // Dispatch global increment to cloud
       try {
-        const res = await fetch(`${API_BASE}/${API_NAMESPACE}/likes/up`);
+        const res = await fetch(`${API_BASE}/${API_NAMESPACE}/likes/up`, { cache: 'no-cache' });
         if (res.ok) {
           const data = await res.json();
           if (typeof data.count === 'number') {
-            cachedLikes = data.count;
-            likeCountEl.textContent = formatNum(cachedLikes);
-            localStorage.setItem('site-likes-count', cachedLikes);
+            likeCountEl.textContent = formatNum(data.count);
+            localStorage.setItem('site-likes-count', data.count);
           }
         }
       } catch (err) {
