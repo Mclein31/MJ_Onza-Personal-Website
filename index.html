@@ -311,49 +311,132 @@
       </section>
 
       <!-- ====================================================================
-           4. CAPABILITIES (WHAT I CAN DO)
+           4. CAPABILITIES & ENGINEERING SKILLS
            ==================================================================== -->
-      <section id="what-i-can-do" class="what-i-can-do-section">
+      <section id="what-i-can-do" class="capabilities-section">
         <div class="container">
-          <span class="section-tag">CAPABILITIES</span>
+          <span class="section-tag">CAPABILITIES & SKILLS</span>
           <h2 class="section-title">What I Can Do</h2>
-          <p class="section-subtitle">Core technical skills and workflows I apply across software development.</p>
+          <p class="section-subtitle">Core engineering proficiencies, frameworks, databases, and modern developer tooling.</p>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2.5rem;">
-            <!-- Capability 1 -->
-            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem;">
-              <div style="font-size: 1.5rem;">💻</div>
-              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">Web & Full-Stack Development</h3>
-              <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
-                Building responsive, accessible web applications using modern JavaScript (ES6+), HTML5, CSS Grid/Flexbox, and RESTful backends.
+          <div class="capabilities-grid">
+            <!-- Domain 1: Languages -->
+            <div class="capability-card">
+              <div class="capability-header">
+                <div class="capability-icon-wrap">⚡</div>
+                <h3 class="capability-title">Core Languages</h3>
+              </div>
+              <p class="capability-desc">
+                Writing robust, readable code across multi-paradigm systems, algorithmic problem solving, and modern web standards.
               </p>
+              <div class="capability-tags-wrap">
+                <span class="capability-tech-pill">JavaScript (ES6+)</span>
+                <span class="capability-tech-pill">Python 3</span>
+                <span class="capability-tech-pill">Java</span>
+                <span class="capability-tech-pill">SQL</span>
+                <span class="capability-tech-pill">HTML5 / CSS3</span>
+              </div>
             </div>
 
-            <!-- Capability 2 -->
-            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem;">
-              <div style="font-size: 1.5rem;">🗄️</div>
-              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">Database Management</h3>
-              <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
-                Designing relational database schemas with PostgreSQL and SQLite, writing performant SQL queries, and managing data integrity.
+            <!-- Domain 2: Full-Stack & Web -->
+            <div class="capability-card">
+              <div class="capability-header">
+                <div class="capability-icon-wrap">💻</div>
+                <h3 class="capability-title">Web & Frontend Architecture</h3>
+              </div>
+              <p class="capability-desc">
+                Designing performant, accessible web interfaces using responsive CSS Grid/Flexbox layouts, component states, and REST APIs.
               </p>
+              <div class="capability-tags-wrap">
+                <span class="capability-tech-pill">Full-Stack Architecture</span>
+                <span class="capability-tech-pill">DOM APIs</span>
+                <span class="capability-tech-pill">CSS Custom Tokens</span>
+                <span class="capability-tech-pill">Responsive Design</span>
+                <span class="capability-tech-pill">Vercel Deployment</span>
+              </div>
             </div>
 
-            <!-- Capability 3 -->
-            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem;">
-              <div style="font-size: 1.5rem;">🤖</div>
-              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">AI & LLM Integration</h3>
-              <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
-                Orchestrating local models via Ollama, integrating Claude & OpenAI APIs, and creating AI-assisted developer workflows.
+            <!-- Domain 3: Databases & Systems -->
+            <div class="capability-card">
+              <div class="capability-header">
+                <div class="capability-icon-wrap">🗄️</div>
+                <h3 class="capability-title">Databases & Data Modeling</h3>
+              </div>
+              <p class="capability-desc">
+                Architecting relational databases, schema normalization, data integrity constraints, and query performance optimization.
               </p>
+              <div class="capability-tags-wrap">
+                <span class="capability-tech-pill">PostgreSQL</span>
+                <span class="capability-tech-pill">SQLite</span>
+                <span class="capability-tech-pill">Relational Schema Design</span>
+                <span class="capability-tech-pill">CRUD Operations</span>
+                <span class="capability-tech-pill">Data Normalization</span>
+              </div>
             </div>
 
-            <!-- Capability 4 -->
-            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem;">
-              <div style="font-size: 1.5rem;">🛠️</div>
-              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">Developer Toolchain</h3>
-              <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
-                Proficient in Git, GitHub collaboration, VS Code, Cursor, Unix Terminal/CLI scripting, and browser debugging tools.
+            <!-- Domain 4: AI/ML & LLMs -->
+            <div class="capability-card">
+              <div class="capability-header">
+                <div class="capability-icon-wrap">🤖</div>
+                <h3 class="capability-title">AI & LLM Workflows</h3>
+              </div>
+              <p class="capability-desc">
+                Integrating local language models and AI APIs into developer tooling, automation pipelines, and OCR analysis systems.
               </p>
+              <div class="capability-tags-wrap">
+                <span class="capability-tech-pill">Local LLMs (Ollama)</span>
+                <span class="capability-tech-pill">Claude & OpenAI APIs</span>
+                <span class="capability-tech-pill">OCR Text Extraction</span>
+                <span class="capability-tech-pill">Agentic Workflows</span>
+              </div>
+            </div>
+
+            <!-- Domain 5: Developer Toolchain -->
+            <div class="capability-card">
+              <div class="capability-header">
+                <div class="capability-icon-wrap">🛠️</div>
+                <h3 class="capability-title">Developer Toolchain</h3>
+              </div>
+              <p class="capability-desc">
+                Applying modern Git version control, Unix terminal scripting, debugging workflows, and structured code reviews.
+              </p>
+              <div class="capability-tags-wrap">
+                <span class="capability-tech-pill">Git & GitHub</span>
+                <span class="capability-tech-pill">VS Code / Cursor</span>
+                <span class="capability-tech-pill">iTerm / Bash Scripting</span>
+                <span class="capability-tech-pill">Browser DevTools</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Academic & Journey Timeline -->
+          <div style="margin-top: 4.5rem;">
+            <span class="section-tag">EDUCATION & JOURNEY</span>
+            <h3 class="section-title" style="font-size: 2rem;">Academic Background</h3>
+            <p class="section-subtitle">Formal education in Computer Science and hands-on software development experience.</p>
+
+            <div class="timeline-wrap">
+              <!-- Timeline Item 1 -->
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <span class="timeline-period">2022 — Present (Expected 2026)</span>
+                <h4 class="timeline-role">BS in Computer Science (3rd Year)</h4>
+                <div class="timeline-org">Cagayan State University — Carig Campus (Tuguegarao City, Cagayan)</div>
+                <p class="timeline-details">
+                  Focused on Data Structures, Algorithms, Object-Oriented Programming (Java/Python), Database Management Systems, Operating Systems, and Software Engineering methodologies.
+                </p>
+              </div>
+
+              <!-- Timeline Item 2 -->
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <span class="timeline-period">2023 — Present</span>
+                <h4 class="timeline-role">Independent Full-Stack & Systems Engineering</h4>
+                <div class="timeline-org">Digital Solutions & Open-Source Projects</div>
+                <p class="timeline-details">
+                  Engineered real-world web applications including <em>Mulat Media</em> (a multi-role student publication platform), <em>Hanguk Grill</em> (restaurant platform), cryptography utilities, and healthcare records tooling.
+                </p>
+              </div>
             </div>
           </div>
         </div>

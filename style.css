@@ -946,7 +946,155 @@ section {
 }
 
 /* --------------------------------------------------------------------------
-   7. TECHNICAL PROJECTS ARCHIVE LIST (IMG_3224.jpg)
+   7. CAPABILITIES (WHAT I CAN DO) & EDUCATION TIMELINE
+   -------------------------------------------------------------------------- */
+.capabilities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.capability-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.capability-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-strong);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.capability-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.capability-icon-wrap {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  color: var(--text-primary);
+}
+
+.capability-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.capability-desc {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.capability-tags-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.capability-tech-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+}
+
+/* Timeline Component */
+.timeline-wrap {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline-wrap::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.45rem;
+  width: 2px;
+  background: var(--border-medium);
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -2rem;
+  top: 0.35rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: var(--bg-base);
+  border: 2px solid var(--text-primary);
+}
+
+.timeline-period {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.timeline-role {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.timeline-org {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.timeline-details {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 800px;
+}
+
+/* --------------------------------------------------------------------------
+   8. TECHNICAL PROJECTS ARCHIVE LIST (IMG_3224.jpg)
    -------------------------------------------------------------------------- */
 .archive-section {
   padding: 5rem 0;
@@ -1056,7 +1204,7 @@ section {
 }
 
 /* --------------------------------------------------------------------------
-   8. "LET'S WORK TOGETHER" CONTACT SECTION (IMG_3220.jpg)
+   9. "LET'S WORK TOGETHER" CONTACT SECTION (IMG_3220.jpg)
    -------------------------------------------------------------------------- */
 .contact-section {
   padding: 6rem 0 5rem;
@@ -1222,7 +1370,7 @@ section {
 }
 
 /* --------------------------------------------------------------------------
-   9. MACOS STYLE MODAL WINDOW (IMG_3217.jpg)
+   10. MACOS STYLE MODAL WINDOW (IMG_3217.jpg)
    -------------------------------------------------------------------------- */
 .modal-overlay {
   position: fixed;
@@ -1391,7 +1539,7 @@ section {
 }
 
 /* --------------------------------------------------------------------------
-   10. FOOTER & FLOATING WIDGETS
+   11. FOOTER & FLOATING WIDGETS
    -------------------------------------------------------------------------- */
 .coffee-counter-widget {
   position: fixed;
@@ -1466,7 +1614,7 @@ section {
 }
 
 /* --------------------------------------------------------------------------
-   11. RESPONSIVE BREAKPOINTS
+   12. RESPONSIVE BREAKPOINTS
    -------------------------------------------------------------------------- */
 @media (max-width: 900px) {
   .nav-links {
