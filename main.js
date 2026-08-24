@@ -437,7 +437,7 @@ function initTraitCard() {
 }
 
 /* ==========================================================================
-   6. INTERACTIVE WEBSITE STATS WIDGET (GLOBALLY UNIFIED CLOUD VISITS & LIKES)
+   6. INTERACTIVE WEBSITE STATS WIDGET (PERSISTENT & CLOUD-SYNCHRONIZED)
    ========================================================================== */
 function initStatsWidget() {
   const visitCountEl = document.getElementById('visitCount');
@@ -451,9 +451,24 @@ function initStatsWidget() {
   const API_NAMESPACE = 'mclein-onza-portfolio';
   const API_BASE = 'https://api.counterapi.dev/v1';
 
-  // 1. Fetch & Synchronize Live Global Visits Count
+  // 1. Load and persist local baseline (NEVER resets to 0 on exit)
+  let localVisits = parseInt(localStorage.getItem('site_total_visits'), 10) || 0;
+  let localLikes = parseInt(localStorage.getItem('site_total_likes'), 10) || 0;
+
+  // Count visit once per browser session
+  const isNewSession = !sessionStorage.getItem('site_session_active');
+  if (isNewSession) {
+    localVisits += 1;
+    localStorage.setItem('site_total_visits', localVisits);
+    sessionStorage.setItem('site_session_active', 'true');
+  }
+
+  // Render immediately so user never sees 0 or a blank state
+  if (visitCountEl) visitCountEl.textContent = formatNum(localVisits);
+  if (likeCountEl) likeCountEl.textContent = formatNum(localLikes);
+
+  // 2. Synchronize Visits with Cloud
   async function syncVisits() {
-    const isNewSession = !sessionStorage.getItem('site-session-visited');
     const endpoint = isNewSession
       ? `${API_BASE}/${API_NAMESPACE}/visits/up`
       : `${API_BASE}/${API_NAMESPACE}/visits`;
@@ -463,48 +478,34 @@ function initStatsWidget() {
       if (res.ok) {
         const data = await res.json();
         if (typeof data.count === 'number') {
-          if (visitCountEl) visitCountEl.textContent = formatNum(data.count);
-          localStorage.setItem('site-visits-count', data.count);
-          if (isNewSession) sessionStorage.setItem('site-session-visited', 'true');
-        }
-      } else if (res.status === 404 && !isNewSession) {
-        // If key not yet created, initialize it via /up
-        const initRes = await fetch(`${API_BASE}/${API_NAMESPACE}/visits/up`, { cache: 'no-cache' });
-        if (initRes.ok) {
-          const initData = await initRes.json();
-          if (typeof initData.count === 'number') {
-            if (visitCountEl) visitCountEl.textContent = formatNum(initData.count);
-            localStorage.setItem('site-visits-count', initData.count);
-            sessionStorage.setItem('site-session-visited', 'true');
-          }
+          localVisits = Math.max(localVisits, data.count);
+          localStorage.setItem('site_total_visits', localVisits);
+          if (visitCountEl) visitCountEl.textContent = formatNum(localVisits);
         }
       }
     } catch (err) {
-      console.warn('Cloud visits sync error:', err);
+      console.warn('Visits cloud sync fallback to local cache:', err);
     }
   }
 
-  // 2. Fetch & Synchronize Live Global Likes Count
+  // 3. Synchronize Likes with Cloud
   async function syncLikes() {
     try {
       const res = await fetch(`${API_BASE}/${API_NAMESPACE}/likes`, { cache: 'no-cache' });
       if (res.ok) {
         const data = await res.json();
         if (typeof data.count === 'number') {
-          if (likeCountEl) likeCountEl.textContent = formatNum(data.count);
-          localStorage.setItem('site-likes-count', data.count);
+          localLikes = Math.max(localLikes, data.count);
+          localStorage.setItem('site_total_likes', localLikes);
+          if (likeCountEl) likeCountEl.textContent = formatNum(localLikes);
         }
-      } else if (res.status === 404) {
-        // Uninitialized likes in cloud equals 0
-        if (likeCountEl) likeCountEl.textContent = '0';
-        localStorage.setItem('site-likes-count', '0');
       }
     } catch (err) {
-      console.warn('Cloud likes sync error:', err);
+      console.warn('Likes cloud sync fallback to local cache:', err);
     }
   }
 
-  // 3. Handle Interactive Global Like Click
+  // 4. Handle Interactive Like Click
   if (likeBtn && likeCountEl) {
     let isLiking = false;
 
@@ -513,9 +514,10 @@ function initStatsWidget() {
       if (isLiking) return;
       isLiking = true;
 
-      // Optimistic instant UI bump
-      const currentVal = parseInt(likeCountEl.textContent.replace(/,/g, ''), 10) || 0;
-      likeCountEl.textContent = formatNum(currentVal + 1);
+      // Instant local increment & permanent storage
+      localLikes += 1;
+      localStorage.setItem('site_total_likes', localLikes);
+      likeCountEl.textContent = formatNum(localLikes);
 
       // Heart bounce micro-interaction
       const heartIcon = likeBtn.querySelector('.like-heart-icon');
@@ -538,25 +540,26 @@ function initStatsWidget() {
         }, 800);
       }
 
-      // Dispatch global increment to cloud
+      // Dispatch increment to cloud in background
       try {
         const res = await fetch(`${API_BASE}/${API_NAMESPACE}/likes/up`, { cache: 'no-cache' });
         if (res.ok) {
           const data = await res.json();
           if (typeof data.count === 'number') {
-            likeCountEl.textContent = formatNum(data.count);
-            localStorage.setItem('site-likes-count', data.count);
+            localLikes = Math.max(localLikes, data.count);
+            localStorage.setItem('site_total_likes', localLikes);
+            likeCountEl.textContent = formatNum(localLikes);
           }
         }
       } catch (err) {
-        console.warn('Unable to sync like with cloud:', err);
+        console.warn('Like cloud dispatch fallback to local:', err);
       } finally {
         isLiking = false;
       }
     });
   }
 
-  // Trigger initial cloud sync
+  // Initial cloud sync
   syncVisits();
   syncLikes();
 }
