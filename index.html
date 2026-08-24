@@ -3,517 +3,649 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MJ Onza | Aspiring Data Engr</title>
-    <link rel="stylesheet" href="general.css" />
-    <link rel="stylesheet" href="home.css" />
-    <link rel="stylesheet" href="about-me.css" />
-    <link rel="stylesheet" href="skills.css" />
-    <link rel="stylesheet" href="project.css" />
-    <link rel="stylesheet" href="contact.css">
+    <title>McLein Jei Onza | Software Engineer & CS Student</title>
+    <meta
+      name="description"
+      content="Developer portfolio of McLein Jei Onza. 3rd-year Computer Science student at Cagayan State University specializing in Full-Stack Software Engineering, Systems, AI/ML, and Data."
+    />
+    <meta name="author" content="McLein Jei Onza" />
+    <meta name="theme-color" content="#090a0f" />
+
+    <!-- Open Graph / Meta -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://onzamj.vercel.app/" />
+    <meta property="og:title" content="McLein Jei Onza | Software Engineer" />
+    <meta
+      property="og:description"
+      content="Explore the technical projects, systems, and digital work of McLein Jei Onza."
+    />
+    <meta property="og:image" content="assets/images/project3.png" />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/Logo/logo-black.png" />
+
+    <!-- Google Fonts Preconnect & Load -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>
-      <div class="NameLogo">
-        <a href="index.html">
-          <img src="assets/Logo/logo-1.png" alt="Personal logo" />
-          <p>McLein Jei</p>
+    <!-- ====================================================================
+         FLOATING PILL NAVBAR
+         ==================================================================== -->
+    <div class="header-wrapper">
+      <nav class="navbar" aria-label="Main Navigation">
+        <a href="#hero" class="nav-brand" aria-label="McLein Jei Portfolio">
+          <div class="nav-monogram">M</div>
+          <span class="nav-brand-title">MCLEIN</span>
         </a>
-      </div>
 
-      <div class="headerNav">
-        <ul>
-          <li class="home-nav"><a href="#Home">HOME</a></li>
-          <li class="about-nav"><a href="#AboutMe">ABOUT ME</a></li>
-          <li class="skills-nav"><a href="#Skills">SKILLS</a></li>
-          <li class="menu-nav"><a href="#Projects">PROJECTS</a></li>
-          <li class="contact-nav"><a href="#Contact">CONTACT</a></li>
-        </ul>
-        <img
-          src="assets/icons/burger-menu-icon.png"
-          class="burgerIcon"
-          alt="menu icon"
-        />
-      </div>
+        <div class="nav-links">
+          <a href="#work" class="nav-link">WORK</a>
+          <a href="#what-i-can-do" class="nav-link">WHAT I CAN DO</a>
+          <a href="#about" class="nav-link">ABOUT</a>
+          <a href="#archive" class="nav-link">ARCHIVE</a>
+        </div>
 
-      <div class="burgerMenu">
-        <ul>
-          <li class="homeH"><a href="#Home">HOME</a></li>
-          <li class="aboutH"><a href="#AboutMe">ABOUT ME</a></li>
-          <li class="SkillsH"><a href="#Skills">SKILLS</a></li>
-          <li class="projectsH"><a href="#Projects">PROJECTS</a></li>
-          <li class="contactH"><a href="#Contact">CONTACT</a></li>
-        </ul>
-      </div>
-    </header>
+        <div class="nav-actions">
+          <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle Theme" title="Toggle Theme">
+            <!-- Moon Icon -->
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <!-- Sun Icon -->
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
 
+          <button class="btn-hire-me trigger-contact-modal" type="button">Hire Me</button>
+
+          <button id="navHamburger" class="nav-hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileNavDrawer" class="mobile-nav-drawer" aria-label="Mobile Navigation Drawer">
+      <a href="#work" class="mobile-nav-link">WORK</a>
+      <a href="#what-i-can-do" class="mobile-nav-link">WHAT I CAN DO</a>
+      <a href="#about" class="mobile-nav-link">ABOUT</a>
+      <a href="#archive" class="mobile-nav-link">ARCHIVE</a>
+      <button class="btn-hire-me trigger-contact-modal" style="width: 100%; margin-top: 0.5rem;" type="button">Hire Me</button>
+    </div>
+
+    <!-- Floating Interactive Coffee Counter Widget -->
+    <div id="coffeeCounterWidget" class="coffee-counter-widget" title="Click to buy a coffee / support!">
+      <span>☕</span>
+      <span id="coffeeCount">306</span>
+    </div>
+
+    <!-- Floating Back to Top Button -->
+    <a href="#hero" class="floating-back-to-top" aria-label="Back to top of page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 15l-6-6-6 6"/>
+      </svg>
+    </a>
+
+    <!-- ====================================================================
+         MAIN CONTENT
+         ==================================================================== -->
     <main>
-      <div class="Home" id="Home">
-        <div class="brief-intro">
-          <p class="name">
-            Hi! I'm
-            <span class="lname">Onza,</span>
-            <br />
-            <span class="fname">McLein Jei</span>
-          </p>
-          <p class="description">
-            An aspiring Data Engineer and a third-year Computer Science student
-            at Cagayan State University – Carig Campus. I enjoy exploring
-            emerging technologies and building projects that strengthen my
-            skills one step at a time.
-          </p>
-          <div class="ways-to-contact">
-            <a href="https://github.com/Mclein31"
-              ><img src="assets/icons/github.png" alt="github"
-            /></a>
-            <a href="https://www.linkedin.com/in/mclein-jei-onza-9b0769322/"
-              ><img src="assets/icons/linkedin.png" alt="linkedin"
-            /></a>
-            <a href="#Contact"><button class="contact-me">CONTACT ME</button></a>
-          </div>
-        </div>
-        <div class="id-profile">
-          <img src="assets/images/profile.jpeg" alt="my-picture" />
-        </div>
-      </div>
-
-      <div class="hr-break">
-        <hr />
-      </div>
-
-      <div class="about-me" id="AboutMe">
-        <div class="about-visual">
-          <div class="id-profile-2">
-            <img src="assets/images/profile-2.png" alt="McLein Jei" />
-          </div>
-
-          <div class="about-stats">
-            <div class="stat-item">
-              <p class="stat-number">3rd</p>
-              <p class="stat-label">Year CS Student</p>
-            </div>
-            <div class="stat-item">
-              <p class="stat-number">3+</p>
-              <p class="stat-label">Projects Built</p>
-            </div>
-          </div>
+      <!-- ====================================================================
+           1. HERO SECTION (REFERENCE: IMG_3211.jpg)
+           ==================================================================== -->
+      <section id="hero" class="hero-monumental-section">
+        <!-- Monumental Hollow Stroke Typography in Background -->
+        <div class="hero-stroke-text-wrap" aria-hidden="true">
+          <div class="hero-stroke-text">MCLEIN ONZA</div>
         </div>
 
-        <div class="about-content">
-          <p class="about-me-text">ABOUT ME</p>
-          <h2 class="about-heading">
-            Turning <span class="highlight">DATA</span> into
-            <span class="highlight">DIRECTION</span>
-          </h2>
-
-          <p class="about-text">
-            I'm a third-year Computer Science student at Cagayan State
-            University Carig Campus, working toward a future in Data
-            Engineering. I like taking messy problems and turning them into
-            clean, working systems, whether that's through web design and
-            development, or exploring AI and LLMs along the way.
-          </p>
-
-          <div class="about-facts">
-            <div class="fact-item">
-              <span class="fact-label">Education</span>
-              <span class="fact-value">BS Computer Science, CSU Carig</span>
-            </div>
-            <div class="fact-item">
-              <span class="fact-label">Focus</span>
-              <span class="fact-value">Data Engineering</span>
-            </div>
-            <div class="fact-item">
-              <span class="fact-label">Based in</span>
-              <span class="fact-value">Tuguegarao City, Philippines</span>
-            </div>
-          </div>
-
-          <div class="about-skills">
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">PostgreSQL</span>
-            <span class="skill-tag">HTML/CSS</span>
-            <span class="skill-tag">Git</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="hr-break">
-        <hr />
-      </div>
-
-      <div class="skills" id="Skills">
-        <h3 class="skills-header">SKILLS</h3>
-        <div class="skill-category">
-          <div class="category-label">
-            <h3>Languages</h3>
-          </div>
-          <div class="category-panel">
-            <div class="skill-item">
-              <img src="assets/icons/python.png" alt="Python" />
-              <span class="skill-name">Python</span>
-              <div class="expertise-dots">
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </div>
-            </div>
-            <div class="skill-item">
-              <img src="assets/icons/javascript.png" alt="JavaScript" />
-              <span class="skill-name">JavaScript</span>
-              <div class="expertise-dots">
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </div>
-            </div>
-            <div class="skill-item">
-              <img src="assets/icons/html.png" alt="HTML5" />
-              <span class="skill-name">HTML5</span>
-              <div class="expertise-dots">
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot"></span>
-              </div>
-            </div>
-            <div class="skill-item">
-              <img src="assets/icons/css.png" alt="CSS3" />
-              <span class="skill-name">CSS3</span>
-              <div class="expertise-dots">
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot"></span>
-              </div>
-            </div>
-            <div class="skill-item">
-              <img src="assets/icons/java.png" alt="Java" />
-              <span class="skill-name">Java</span>
-              <div class="expertise-dots">
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </div>
-            </div>
-          </div>
+        <!-- Centered Developer Portrait in Foreground -->
+        <div class="hero-portrait-container">
+          <img src="assets/images/profile-2.png" alt="McLein Jei Onza" class="hero-portrait-img" />
         </div>
 
-        <div class="skill-category">
-          <div class="category-label">
-            <h3>Tools</h3>
-          </div>
-          <div class="category-panel">
-            <div class="skill-item">
-              <img src="assets/icons/git.png" alt="Git" />
-              <span class="skill-name">Git</span>
-              <div class="expertise-dots">
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </div>
-            </div>
-            <div class="skill-item">
-              <img src="assets/icons/github.png" alt="GitHub" />
-              <span class="skill-name">GitHub</span>
-              <div class="expertise-dots">
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot"></span>
-              </div>
-            </div>
-            <div class="skill-item">
-              <img src="assets/icons/vscode.png" alt="VS Code" />
-              <span class="skill-name">VS Code</span>
-              <div class="expertise-dots">
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot"></span>
-              </div>
-            </div>
-            <div class="skill-item">
-              <img src="assets/icons/iterm_terminal.png" alt="Terminal" />
-              <span class="skill-name">Terminal</span>
-              <div class="expertise-dots">
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </div>
-            </div>
-          </div>
+        <!-- Minimalist Vertical Scroll Indicator (Bottom Right) -->
+        <div class="hero-scroll-indicator" aria-hidden="true">
+          <span>SCROLL DOWN</span>
+          <div class="hero-scroll-line"></div>
         </div>
+      </section>
 
-        <div class="skill-category">
-          <div class="category-label">
-            <h3>AI</h3>
-          </div>
-          <div class="category-panel">
-            <div class="skill-item">
-              <img src="assets/icons/chatgpt.png" alt="ChatGPT" />
-              <span class="skill-name">ChatGPT</span>
-              <div class="expertise-dots">
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot"></span>
-              </div>
-            </div>
-            <div class="skill-item">
-              <img src="assets/icons/claude.png" alt="Claude" />
-              <span class="skill-name">Claude</span>
-              <div class="expertise-dots">
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </div>
-            </div>
-            <div class="skill-item">
-              <img src="assets/icons/ollama.webp" alt="Ollama" />
-              <span class="skill-name">Ollama</span>
-              <div class="expertise-dots">
-                <span class="dot filled"></span>
-                <span class="dot filled"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- ====================================================================
+           2. ABOUT ME & IDENTITY SECTION (REFERENCE: IMG_3214.jpg)
+           ==================================================================== -->
+      <section id="about" class="about-hero-section">
+        <div class="container">
+          <span class="section-tag">ABOUT ME</span>
 
-      <div class="hr-break">
-        <hr />
-      </div>
-
-      <div class="projects" id="Projects">
-        <h3 class="project-header">PROJECTS</h3>
-        <div class="project-contents">
-          <a href="https://hanguk-grill.vercel.app/"class="project-card">
-          <div class="project-image">
-            <img src="assets/images/project1.png" alt="Hanguk Grill Website" />
+          <div class="typing-headline-wrap">
+            <h2 class="typing-headline">
+              <span id="typingHeadline">Problem Solver. Digital Builder.</span><span class="typing-cursor">|</span>
+            </h2>
           </div>
 
-          <div class="project-info">
-            <h3 class="project-title">Hanguk Grill</h3>
-            <p class="project-description">
-              A responsive website for Hanguk Grill, a Korean samgyupsal
-              restaurant, featuring the menu, restaurant information, location,
-              contact details, and other essential information to help customers
-              explore the restaurant online.
+          <div class="profile-main-layout">
+            <div class="profile-header-row">
+              <div class="profile-avatar-wrap">
+                <img src="assets/images/profile.jpeg" alt="McLein Jei Onza" />
+              </div>
+
+              <div class="profile-meta-details">
+                <div class="profile-name-badge">
+                  <span class="profile-full-name">MCLEIN JEI G. ONZA</span>
+                  <svg class="verified-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                </div>
+
+                <div class="profile-stats-bar">
+                  <div class="stat-metric-item">
+                    <span class="stat-metric-label">PROJECTS</span>
+                    <span class="stat-metric-value">5+</span>
+                  </div>
+                  <div class="stat-metric-item">
+                    <span class="stat-metric-label">YEAR LEVEL</span>
+                    <span class="stat-metric-value">3rd Year</span>
+                  </div>
+                  <div class="stat-metric-item">
+                    <span class="stat-metric-label">BSCS GRADUATING</span>
+                    <span class="stat-metric-value">2026</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p class="profile-narrative">
+              I'm a 3rd-year <strong>Computer Science student</strong> at Cagayan State University (Carig Campus) focused on
+              software engineering, web development, and digital systems. I enjoy turning complex ideas and real-world problems into
+              clean, performant software solutions, particularly through full-stack web applications, databases, and system engineering.
+              Throughout my studies, I've gained hands-on experience building database-driven systems and working with modern technologies.
             </p>
-          </div>
-        </a>
 
-        <a href="https://mulat-media.vercel.app/" class="project-card">
-          <div class="project-image">
-            <img
-              src="assets/images/project5.png"
-              alt="Mulat Media Website"
-            />
-          </div>
-          <div class="project-info">
-            <h3 class="project-title">Mulat Media</h3>
-            <p class="project-description">
-              A multi-page website for a student digital publication, with article submission workflows, category-based organization, role-based editorial permissions, and a full backend for authentication and content management.
+            <p class="profile-narrative">
+              Want to know more about my experience? <a href="#contact" class="resume-inline-link">Download my resume</a>.
             </p>
-          </div>
-        </a>
 
-        <a href="https://github.com/Mclein31/Caesar-Cipher" class="project-card">
-          <div class="project-image">
-            <img src="assets/images/project2.png" alt="Cipher Shift" />
-          </div>
-          <div class="project-info">
-            <h3 class="project-title">Cipher Shift</h3>
-            <p class="project-description">
-              A basic Caesar Cipher application that encodes and decodes text,
-              extracts text from images, and includes a brute-force tool to
-              identify the most likely decoded message.
-            </p>
-          </div>
-        </a>
+            <div class="currently-and-trait-grid">
+              <div class="currently-col">
+                <div class="currently-header">CURRENTLY</div>
+                <div class="currently-items-row">
+                  <div class="currently-item">
+                    <div class="currently-icon">&lt;/&gt;</div>
+                    <div class="currently-texts">
+                      <span class="currently-action">Building</span>
+                      <span class="currently-desc">Web & digital projects</span>
+                    </div>
+                  </div>
 
-        <a href="https://onzamj.vercel.app/" class="project-card">
-          <div class="project-image">
-            <img
-              src="assets/images/project3.png"
-              alt="Personal Website Portfolio"
-            />
-          </div>
-          <div class="project-info">
-            <h3 class="project-title">Personal Website Portfolio</h3>
-            <p class="project-description">
-              A responsive portfolio website built to showcase my web
-              development projects, technical skills, and academic work.
-            </p>
-          </div>
-        </a>
+                  <div class="currently-item">
+                    <div class="currently-icon">🔬</div>
+                    <div class="currently-texts">
+                      <span class="currently-action">Exploring</span>
+                      <span class="currently-desc">Local LLMs & AI workflows</span>
+                    </div>
+                  </div>
 
-        <a href="#" class="project-card">
-          <div class="project-image">
-            <img src="assets/images/project4.jpeg" alt="MedRec" />
+                  <div class="currently-item">
+                    <div class="currently-icon">🚀</div>
+                    <div class="currently-texts">
+                      <span class="currently-action">Learning</span>
+                      <span class="currently-desc">Full-stack development</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Interactive Stackable Trait Card -->
+              <div class="trait-card-container">
+                <div id="interactiveTraitCard" class="trait-card" title="Click to cycle traits">
+                  <span class="trait-tag">TRAIT</span>
+                  <div id="traitTitle" class="trait-title">Problem Solver</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="project-info">
-            <h3 class="project-title">MedRec</h3>
-            <p class="project-description">
-              A medical records management mobile application currently under
-              development.
-            </p>
-          </div>
-        </a>
         </div>
-      </div>
+      </section>
 
-      <div class="hr-break">
-        <hr />
-      </div>
-
-      <div class="contact" id="Contact">
-        <h3 class="contact-header">
-          CONTACT
-        </h3>
-        <div class="contact-contents">
-          <div class="contact-info">
-          <div class="status-card">
-            <h3>Get in Touch</h3>
-            <div class="status-item">
-              <span>Location</span>
-              <p>Tuguegarao City, Philippines</p>
+      <!-- ====================================================================
+           3. SELECTED WORK (3D COVERFLOW GALLERY - REFERENCE: IMG_3212.jpg)
+           ==================================================================== -->
+      <section id="work" class="work-gallery-section">
+        <div class="container">
+          <div class="gallery-header-row">
+            <div>
+              <span class="section-tag">SELECTED WORK</span>
+              <h2 class="section-title">Work Gallery</h2>
+              <p class="section-subtitle">A collection of systems, digital projects, and technical work I've built.</p>
             </div>
-            <div class="status-item">
-              <span>Availability</span>
-              <p>Open to opportunities</p>
-            </div>
-            <div class="status-item">
-              <span>Response Time</span>
-              <p>Within 24 hours</p>
-            </div>
-          </div>
 
-          <div class="email-card">
-            <span>Email</span>
-            <p>mcleinonza0531@email.com</p>
-          </div>
-
-          <div class="social-links">
-            <a href="https://github.com/Mclein31">
-              <img src="assets/icons/github.png" alt="GitHub" />
-            </a>
-            <a href="https://www.linkedin.com/in/mclein-jei-onza-9b0769322/">
-              <img src="assets/icons/linkedin.png" alt="LinkedIn" />
+            <a href="#archive" class="btn-view-all-projects">
+              <span>View More Projects</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7M17 7H7M17 7V17" />
+              </svg>
             </a>
           </div>
+
+          <!-- 3D Coverflow Stage -->
+          <div class="coverflow-carousel-container">
+            <div class="coverflow-stage" id="coverflowStage">
+              <!-- Slide 0: Mulat Media -->
+              <div class="coverflow-card active" data-index="0">
+                <img src="assets/images/project5.png" alt="Mulat Media Showcase" />
+              </div>
+
+              <!-- Slide 1: Hanguk Grill -->
+              <div class="coverflow-card next" data-index="1">
+                <img src="assets/images/project1.png" alt="Hanguk Grill Showcase" />
+              </div>
+
+              <!-- Slide 2: Cipher Shift -->
+              <div class="coverflow-card hidden-right" data-index="2">
+                <img src="assets/images/project2.png" alt="Cipher Shift Showcase" />
+              </div>
+
+              <!-- Slide 3: Personal Portfolio -->
+              <div class="coverflow-card hidden-left" data-index="3">
+                <img src="assets/images/project3.png" alt="Developer Portfolio Showcase" />
+              </div>
+
+              <!-- Slide 4: MedRec -->
+              <div class="coverflow-card prev" data-index="4">
+                <img src="assets/images/project4.jpeg" alt="MedRec Showcase" />
+              </div>
+            </div>
+
+            <!-- Active Project Details Info Block -->
+            <div class="coverflow-active-info">
+              <h3 id="coverflowTitle" class="coverflow-title">Mulat Media — Student Publication CMS</h3>
+              <p id="coverflowDesc" class="coverflow-description">
+                Multi-page digital publication platform engineered with article submission workflows, category hierarchies, and role-based editorial access control.
+              </p>
+              <a id="coverflowLink" href="https://mulat-media.vercel.app/" target="_blank" rel="noopener noreferrer" class="coverflow-action-link">
+                View Project →
+              </a>
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="coverflow-nav-controls">
+              <button id="carouselPrevBtn" class="carousel-btn" aria-label="Previous project slide">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+
+              <div id="carouselIndicators" class="carousel-indicators"></div>
+
+              <button id="carouselNextBtn" class="carousel-btn" aria-label="Next project slide">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           4. CAPABILITIES (WHAT I CAN DO)
+           ==================================================================== -->
+      <section id="what-i-can-do" class="what-i-can-do-section">
+        <div class="container">
+          <span class="section-tag">CAPABILITIES</span>
+          <h2 class="section-title">What I Can Do</h2>
+          <p class="section-subtitle">Core technical skills and workflows I apply across software development.</p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2.5rem;">
+            <!-- Capability 1 -->
+            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem;">
+              <div style="font-size: 1.5rem;">💻</div>
+              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">Web & Full-Stack Development</h3>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                Building responsive, accessible web applications using modern JavaScript (ES6+), HTML5, CSS Grid/Flexbox, and RESTful backends.
+              </p>
+            </div>
+
+            <!-- Capability 2 -->
+            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem;">
+              <div style="font-size: 1.5rem;">🗄️</div>
+              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">Database Management</h3>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                Designing relational database schemas with PostgreSQL and SQLite, writing performant SQL queries, and managing data integrity.
+              </p>
+            </div>
+
+            <!-- Capability 3 -->
+            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem;">
+              <div style="font-size: 1.5rem;">🤖</div>
+              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">AI & LLM Integration</h3>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                Orchestrating local models via Ollama, integrating Claude & OpenAI APIs, and creating AI-assisted developer workflows.
+              </p>
+            </div>
+
+            <!-- Capability 4 -->
+            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem;">
+              <div style="font-size: 1.5rem;">🛠️</div>
+              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">Developer Toolchain</h3>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                Proficient in Git, GitHub collaboration, VS Code, Cursor, Unix Terminal/CLI scripting, and browser debugging tools.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           5. TECHNICAL PROJECTS ARCHIVE LIST (REFERENCE: IMG_3224.jpg)
+           ==================================================================== -->
+      <section id="archive" class="archive-section">
+        <div class="container">
+          <span class="section-tag">ARCHIVE</span>
+          <h2 class="section-title">Technical Projects</h2>
+          <p class="section-subtitle">A complete collection of my technical work, systems, and digital projects.</p>
+
+          <div class="archive-list">
+            <!-- Project 01 -->
+            <a href="https://mulat-media.vercel.app/" target="_blank" rel="noopener noreferrer" class="archive-item-card">
+              <span class="archive-num">01</span>
+              <div class="archive-info">
+                <h3 class="archive-title">Mulat Media — Student Publication CMS & Portal</h3>
+                <p class="archive-desc">
+                  Multi-page digital publication platform with article submission workflows, role-based editorial permissions, category organization, and content management.
+                </p>
+                <div class="archive-tech-row">
+                  <span class="archive-tech-label">JAVASCRIPT FULL-STACK AUTH CSS3</span>
+                  <div class="archive-tech-icons">
+                    <img src="assets/icons/javascript.png" alt="JS" />
+                    <img src="assets/icons/html.png" alt="HTML" />
+                    <img src="assets/icons/css.png" alt="CSS" />
+                  </div>
+                </div>
+              </div>
+              <div class="archive-link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </div>
+            </a>
+
+            <!-- Project 02 -->
+            <a href="https://hanguk-grill.vercel.app/" target="_blank" rel="noopener noreferrer" class="archive-item-card">
+              <span class="archive-num">02</span>
+              <div class="archive-info">
+                <h3 class="archive-title">Hanguk Grill — Restaurant Web Platform</h3>
+                <p class="archive-desc">
+                  Responsive restaurant platform featuring dynamic interactive menu showcases, branch location mapping, and mobile-optimized customer reservations.
+                </p>
+                <div class="archive-tech-row">
+                  <span class="archive-tech-label">JAVASCRIPT UI/UX DESIGN CSS GRID</span>
+                  <div class="archive-tech-icons">
+                    <img src="assets/icons/javascript.png" alt="JS" />
+                    <img src="assets/icons/css.png" alt="CSS" />
+                  </div>
+                </div>
+              </div>
+              <div class="archive-link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </div>
+            </a>
+
+            <!-- Project 03 -->
+            <a href="https://github.com/Mclein31/Caesar-Cipher" target="_blank" rel="noopener noreferrer" class="archive-item-card">
+              <span class="archive-num">03</span>
+              <div class="archive-info">
+                <h3 class="archive-title">Cipher Shift — Cryptography & OCR Analysis System</h3>
+                <p class="archive-desc">
+                  Algorithmic Caesar cipher utility in Python with image OCR text extraction and brute-force frequency heuristics to detect probable plaintext.
+                </p>
+                <div class="archive-tech-row">
+                  <span class="archive-tech-label">PYTHON CRYPTOGRAPHY OCR ALGORITHMS</span>
+                  <div class="archive-tech-icons">
+                    <img src="assets/icons/python.png" alt="Python" />
+                  </div>
+                </div>
+              </div>
+              <div class="archive-link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </div>
+            </a>
+
+            <!-- Project 04 -->
+            <a href="https://onzamj.vercel.app/" target="_blank" rel="noopener noreferrer" class="archive-item-card">
+              <span class="archive-num">04</span>
+              <div class="archive-info">
+                <h3 class="archive-title">Personal Website Portfolio v2</h3>
+                <p class="archive-desc">
+                  Minimalist developer portfolio engineered with pure CSS design tokens, persistent dark/light theme switching, and sub-second load times.
+                </p>
+                <div class="archive-tech-row">
+                  <span class="archive-tech-label">HTML5 CSS3 DESIGN TOKENS VANILLA JS</span>
+                  <div class="archive-tech-icons">
+                    <img src="assets/icons/html.png" alt="HTML" />
+                    <img src="assets/icons/css.png" alt="CSS" />
+                    <img src="assets/icons/javascript.png" alt="JS" />
+                  </div>
+                </div>
+              </div>
+              <div class="archive-link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </div>
+            </a>
+
+            <!-- Project 05 -->
+            <div class="archive-item-card" style="cursor: default;">
+              <span class="archive-num">05</span>
+              <div class="archive-info">
+                <h3 class="archive-title">MedRec — Medical Records Management System</h3>
+                <p class="archive-desc">
+                  Secure medical records management mobile application designed to organize patient histories, consultations, and clinic prescriptions.
+                </p>
+                <div class="archive-tech-row">
+                  <span class="archive-tech-label">MOBILE APP DATABASE HEALTHCARE IN DEVELOPMENT</span>
+                </div>
+              </div>
+              <div class="archive-link-icon" style="opacity: 0.5;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           6. "LET'S WORK TOGETHER" CONTACT SECTION (REFERENCE: IMG_3220.jpg)
+           ==================================================================== -->
+      <section id="contact" class="contact-section">
+        <div class="container">
+          <span class="section-tag">GET IN TOUCH</span>
+
+          <div class="contact-layout-grid">
+            <!-- Left Big Headline Column -->
+            <div class="contact-editorial-left">
+              <h2 class="editorial-headline">
+                LET'S<br />
+                WORK<br />
+                TOGETHER
+              </h2>
+
+              <h3 class="editorial-subtitle">Looking for the next problem worth solving.</h3>
+
+              <p class="editorial-desc">
+                I'm open to opportunities where I can contribute to software engineering, full-stack web development, AI systems, and database workflows.
+              </p>
+
+              <a href="#contact" class="btn-download-resume trigger-contact-modal">
+                <span>DOWNLOAD RESUME →</span>
+              </a>
+            </div>
+
+            <!-- Right Stack of Contact Cards -->
+            <div class="contact-cards-stack">
+              <!-- Card 01: Email -->
+              <a href="mailto:mcleinonza0531@gmail.com" class="contact-channel-card">
+                <div class="contact-channel-left">
+                  <div class="channel-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                  </div>
+                  <div class="channel-details">
+                    <span class="channel-label">EMAIL</span>
+                    <span class="channel-val">mcleinonza0531@gmail.com</span>
+                  </div>
+                </div>
+                <span class="channel-right-num">01</span>
+              </a>
+
+              <!-- Card 02: GitHub -->
+              <a href="https://github.com/Mclein31" target="_blank" rel="noopener noreferrer" class="contact-channel-card">
+                <div class="contact-channel-left">
+                  <div class="channel-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                  </div>
+                  <div class="channel-details">
+                    <span class="channel-label">GITHUB</span>
+                    <span class="channel-val">github.com/Mclein31</span>
+                  </div>
+                </div>
+                <span class="channel-right-num">02</span>
+              </a>
+
+              <!-- Card 03: LinkedIn -->
+              <a href="https://www.linkedin.com/in/mclein-jei-onza-9b0769322/" target="_blank" rel="noopener noreferrer" class="contact-channel-card">
+                <div class="contact-channel-left">
+                  <div class="channel-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                      <rect x="2" y="9" width="4" height="12"></rect>
+                      <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                  </div>
+                  <div class="channel-details">
+                    <span class="channel-label">LINKEDIN</span>
+                    <span class="channel-val">linkedin.com/in/mclein-jei-onza</span>
+                  </div>
+                </div>
+                <span class="channel-right-num">03</span>
+              </a>
+
+              <!-- Primary Button Trigger Modal -->
+              <button class="btn-open-modal trigger-contact-modal" type="button">
+                <span>SEND ME A MESSAGE</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ====================================================================
+         FOOTER
+         ==================================================================== -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <p>© 2026 McLein Jei G. Onza. All rights reserved.</p>
+          <div style="display: flex; gap: 1.5rem;">
+            <a href="https://github.com/Mclein31" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/mclein-jei-onza-9b0769322/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="mailto:mcleinonza0531@gmail.com">Email</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ====================================================================
+         MACOS STYLE POPUP CONTACT MODAL WINDOW (REFERENCE: IMG_3217.jpg)
+         ==================================================================== -->
+    <div id="contactModalOverlay" class="modal-overlay" aria-label="Contact Dialog" role="dialog" aria-modal="true">
+      <div class="modal-window">
+        <!-- Titlebar -->
+        <div class="modal-titlebar">
+          <span class="modal-title">Send Me a Message</span>
+          <div class="modal-controls">
+            <button class="modal-ctrl-btn trigger-close-modal" aria-label="Minimize" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <button class="modal-ctrl-btn trigger-close-modal" aria-label="Close modal" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
         </div>
 
-        <div class="contact-form">
-          <h3>Send a Message</h3>
-          <form id="contactForm" action="https://formsubmit.co/ajax/mcleinonza0531@gmail.com" method="POST">
-            <input type="hidden" name="_subject" value="New message from your portfolio site" />
+        <!-- Body Form -->
+        <div class="modal-body">
+          <form id="modalContactForm" action="https://formsubmit.co/ajax/mcleinonza0531@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New message from portfolio modal (McLein Jei)" />
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_template" value="table" />
             <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
 
-            <div class="input-row">
-              <input type="text" name="name" placeholder="Name" required />
-              <input type="email" name="email" placeholder="Email" required />
+            <div class="modal-form-group">
+              <label for="modalFullName" class="modal-label">FULL NAME</label>
+              <input type="text" id="modalFullName" name="name" class="modal-input" placeholder="Your full name" required />
             </div>
-            <textarea name="message" placeholder="Your message..." rows="8" required></textarea>
-            <button type="submit">Send Message</button>
-            <p id="formStatus" class="form-status"></p>
+
+            <div class="modal-form-group">
+              <label for="modalEmail" class="modal-label">EMAIL ADDRESS</label>
+              <input type="email" id="modalEmail" name="email" class="modal-input" placeholder="your.email@example.com" required />
+            </div>
+
+            <div class="modal-form-group">
+              <label for="modalMessage" class="modal-label">MESSAGE</label>
+              <textarea id="modalMessage" name="message" class="modal-textarea" placeholder="Tell me about your project..." rows="4" required></textarea>
+            </div>
+
+            <button type="submit" id="modalSubmitBtn" class="btn-modal-submit">
+              <span>SEND MESSAGE →</span>
+            </button>
+
+            <div id="modalStatusMsg" class="modal-status-msg" role="status" aria-live="polite"></div>
           </form>
         </div>
-        </div>
       </div>
+    </div>
 
-      <button id="themeToggle" class="theme-toggle" alt="Toggle light/dark theme">
-        <img src="assets/icons/sun.png" alt="Light mode" class="icon-sun" />
-        <img src="assets/icons/moon.png" alt="Dark mode" class="icon-moon" />
-      </button>
-    </main>
-
-    <footer>
-      <div class="footer-content">
-        <p class="tagline">Building things, breaking things, fixing things.</p>
-        <p class="dot" aria-hidden="true">·</p>
-        <p class="copyright">© 2026 McLein Jei G. Onza. All rights reserved.</p>
-      </div>
-    </footer>
-
-    
-
-    <script>
-      // Buger Icon
-      const burgerIcon = document.querySelector(".burgerIcon");
-      const burgerMenu = document.querySelector(".burgerMenu");
-
-      if (burgerIcon && burgerMenu) {
-        burgerIcon.addEventListener("click", () => {
-          burgerMenu.classList.toggle("active");
-        });
-      }
-
-      // Theme toggle
-      const themeToggle = document.getElementById("themeToggle");
-      const rootEl = document.documentElement;
-
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme === "light") {
-        rootEl.setAttribute("theme", "light");
-      }
-
-      themeToggle.addEventListener("click", () => {
-        const isLight = rootEl.getAttribute("theme") === "light";
-        if (isLight) {
-          rootEl.removeAttribute("theme");
-          localStorage.setItem("theme", "dark");
-        } else {
-          rootEl.setAttribute("theme", "light");
-          localStorage.setItem("theme", "light");
-        }
-      });
-
-      //Random Shape Generator for Profile 1
-      const img = document.querySelector(".id-profile img");
-      const img2 = document.querySelector(".id-profile-2 img");
-
-      function random() {
-        return Math.floor(Math.random() * 40) + 30;
-      }
-
-      function morph(image) {
-        image.style.borderRadius = `
-          ${random()}% ${random()}% ${random()}% ${random()}% /
-          ${random()}% ${random()}% ${random()}% ${random()}%
-        `;
-      }
-
-      morph(img);
-      morph(img2);
-
-      setInterval(() => {
-        morph(img);
-        morph(img2);
-      }, 2000);
-    </script>
+    <!-- Main Interactive JavaScript -->
+    <script src="main.js"></script>
   </body>
 </html>
