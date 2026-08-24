@@ -29,12 +29,71 @@ function initTheme() {
   applyTheme(initialTheme);
 
   if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
+    themeToggleBtn.addEventListener('click', (e) => {
       const currentTheme = root.getAttribute('data-theme') || 'dark';
       const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
-      applyTheme(nextTheme);
-      localStorage.setItem('portfolio-theme', nextTheme);
+
+      // Get origin coordinates from the theme toggle button at top right
+      const rect = themeToggleBtn.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      const endRadius = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y)
+      );
+
+      // 1. Native View Transition API (Chrome/Edge/Modern Web)
+      if (document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const transition = document.startViewTransition(() => {
+          applyTheme(nextTheme);
+          localStorage.setItem('portfolio-theme', nextTheme);
+        });
+
+        transition.ready.then(() => {
+          document.documentElement.animate(
+            {
+              clipPath: [
+                `circle(0px at ${x}px ${y}px)`,
+                `circle(${endRadius}px at ${x}px ${y}px)`
+              ]
+            },
+            {
+              duration: 650,
+              easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+              pseudoElement: '::view-transition-new(root)'
+            }
+          );
+        });
+      } else {
+        // 2. Universal Circular Splash Fallback
+        createThemeSplash(x, y, endRadius, nextTheme, () => {
+          applyTheme(nextTheme);
+          localStorage.setItem('portfolio-theme', nextTheme);
+        });
+      }
     });
+  }
+
+  function createThemeSplash(x, y, radius, targetTheme, callback) {
+    const splash = document.createElement('div');
+    splash.className = 'theme-splash-ripple';
+    const size = radius * 2.2;
+    splash.style.width = `${size}px`;
+    splash.style.height = `${size}px`;
+    splash.style.left = `${x}px`;
+    splash.style.top = `${y}px`;
+    splash.style.background = targetTheme === 'light' ? '#f7f8fa' : '#090a0f';
+    document.body.appendChild(splash);
+
+    requestAnimationFrame(() => {
+      splash.classList.add('active');
+    });
+
+    setTimeout(() => {
+      callback();
+      splash.style.opacity = '0';
+      setTimeout(() => splash.remove(), 350);
+    }, 450);
   }
 
   window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
