@@ -100,6 +100,31 @@ function initNavigation() {
   const mobileDrawer = document.getElementById('mobileNavDrawer');
   const mobileLinks = document.querySelectorAll('.mobile-nav-link');
 
+  // Smooth scroll for all anchor navigation links (prevents jarring snap)
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      if (!targetId || targetId === '#' || targetId.startsWith('#http')) return;
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        e.preventDefault();
+
+        // Close mobile drawer if open
+        if (mobileDrawer && mobileDrawer.classList.contains('active')) {
+          mobileDrawer.classList.remove('active');
+          if (hamburgerBtn) hamburgerBtn.setAttribute('aria-expanded', 'false');
+        }
+
+        const navHeight = document.querySelector('.navbar')?.offsetHeight || 60;
+        const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight - 16;
+        window.scrollTo({
+          top: targetPos,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
   if (hamburgerBtn && mobileDrawer) {
     hamburgerBtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -221,8 +246,8 @@ function initCoverflowCarousel() {
     {
       title: "MedRec — Medical Records Application",
       desc: "Secure medical records management mobile application designed to organize patient histories, consultations, and clinic prescriptions.",
-      link: "#archive",
-      label: "View in Technical Archive →"
+      link: "https://github.com/Mclein31",
+      label: "View Source Code on GitHub →"
     }
   ];
 
@@ -304,9 +329,30 @@ function initCoverflowCarousel() {
     nextBtn.addEventListener('click', () => updateCoverflow(currentIndex + 1));
   }
 
+  // Touch Swipe Support for Mobile & Tablets
+  const stageWrap = document.querySelector('.coverflow-stage-wrap');
+  if (stageWrap) {
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    stageWrap.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    stageWrap.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const swipeThreshold = 35;
+      if (touchEndX < touchStartX - swipeThreshold) {
+        updateCoverflow(currentIndex + 1);
+      } else if (touchEndX > touchStartX + swipeThreshold) {
+        updateCoverflow(currentIndex - 1);
+      }
+    }, { passive: true });
+  }
+
   // Keyboard navigation on stage
   document.addEventListener('keydown', (e) => {
-    const gallerySection = document.getElementById('work');
+    const gallerySection = document.getElementById('projects') || document.getElementById('work');
     if (!gallerySection) return;
     const rect = gallerySection.getBoundingClientRect();
     if (rect.top <= window.innerHeight && rect.bottom >= 0) {
@@ -480,6 +526,11 @@ function initContactModal() {
   openModalBtns.forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
+      const mobileDrawer = document.getElementById('mobileNavDrawer');
+      const hamburgerBtn = document.getElementById('navHamburger');
+      if (mobileDrawer) mobileDrawer.classList.remove('active');
+      if (hamburgerBtn) hamburgerBtn.setAttribute('aria-expanded', 'false');
+
       modalOverlay.classList.add('active');
       document.body.style.overflow = 'hidden';
       const nameInput = document.getElementById('modalFullName');
