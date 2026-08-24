@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCoffeeCounter();
   initContactModal();
   initScrollSpy();
+  initTrainingSlider();
 });
 
 /* ==========================================================================
@@ -527,3 +528,138 @@ function initScrollSpy() {
 
   sections.forEach((section) => observer.observe(section));
 }
+
+/* ==========================================================================
+   9. TRAINING AUTO-SLIDER CAROUSEL (DTI YEP & SEMINARS)
+   ========================================================================== */
+function initTrainingSlider() {
+  const slider = document.getElementById('trainingSlider');
+  if (!slider) return;
+
+  const slides = slider.querySelectorAll('.training-slide');
+  const dots = slider.querySelectorAll('.slider-dot');
+  const counter = document.getElementById('sliderCounter');
+  const prevBtn = slider.querySelector('.slider-prev');
+  const nextBtn = slider.querySelector('.slider-next');
+
+  if (!slides.length) return;
+
+  let currentIndex = 0;
+  const totalSlides = slides.length;
+  const intervalTime = parseInt(slider.getAttribute('data-interval'), 10) || 3500;
+  let autoSlideTimer = null;
+  let isPaused = false;
+
+  function showSlide(index) {
+    if (index >= totalSlides) {
+      currentIndex = 0;
+    } else if (index < 0) {
+      currentIndex = totalSlides - 1;
+    } else {
+      currentIndex = index;
+    }
+
+    slides.forEach((slide, idx) => {
+      if (idx === currentIndex) {
+        slide.classList.add('active');
+      } else {
+        slide.classList.remove('active');
+      }
+    });
+
+    dots.forEach((dot, idx) => {
+      if (idx === currentIndex) {
+        dot.classList.add('active');
+        dot.setAttribute('aria-current', 'true');
+      } else {
+        dot.classList.remove('active');
+        dot.removeAttribute('aria-current');
+      }
+    });
+
+    if (counter) {
+      counter.textContent = `${currentIndex + 1} / ${totalSlides}`;
+    }
+  }
+
+  function startAutoSlide() {
+    stopAutoSlide();
+    autoSlideTimer = setInterval(() => {
+      if (!isPaused) {
+        showSlide(currentIndex + 1);
+      }
+    }, intervalTime);
+  }
+
+  function stopAutoSlide() {
+    if (autoSlideTimer) {
+      clearInterval(autoSlideTimer);
+      autoSlideTimer = null;
+    }
+  }
+
+  // Next / Prev button event listeners
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSlide(currentIndex + 1);
+      startAutoSlide();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSlide(currentIndex - 1);
+      startAutoSlide();
+    });
+  }
+
+  // Dot navigation
+  dots.forEach((dot) => {
+    dot.addEventListener('click', (e) => {
+      e.preventDefault();
+      const idx = parseInt(dot.getAttribute('data-index'), 10);
+      showSlide(idx);
+      startAutoSlide();
+    });
+  });
+
+  // Pause on hover
+  slider.addEventListener('mouseenter', () => {
+    isPaused = true;
+  });
+
+  slider.addEventListener('mouseleave', () => {
+    isPaused = false;
+  });
+
+  // Touch swipe support for mobile
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  slider.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  slider.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, { passive: true });
+
+  function handleSwipe() {
+    const swipeThreshold = 40;
+    if (touchEndX < touchStartX - swipeThreshold) {
+      showSlide(currentIndex + 1);
+      startAutoSlide();
+    } else if (touchEndX > touchStartX + swipeThreshold) {
+      showSlide(currentIndex - 1);
+      startAutoSlide();
+    }
+  }
+
+  // Start auto-slider
+  showSlide(0);
+  startAutoSlide();
+}
+
