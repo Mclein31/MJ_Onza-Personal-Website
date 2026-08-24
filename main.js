@@ -402,18 +402,25 @@ function initStatsWidget() {
   // Format numbers with commas (e.g. 1,248)
   const formatNum = (num) => new Intl.NumberFormat('en-US').format(num);
 
+  // Clean up legacy test keys from previous versions
+  if (localStorage.getItem('portfolio-visit-count') || localStorage.getItem('portfolio-like-count') || localStorage.getItem('portfolio-coffee-count')) {
+    localStorage.removeItem('portfolio-visit-count');
+    localStorage.removeItem('portfolio-like-count');
+    localStorage.removeItem('portfolio-coffee-count');
+  }
+
   // 1. Handle Page Visits Count (starts from 0)
   if (visitCountEl) {
-    let visits = parseInt(localStorage.getItem('portfolio-visit-count'), 10);
+    let visits = parseInt(localStorage.getItem('site-visits-count'), 10);
     if (isNaN(visits) || visits < 0) {
       visits = 0;
     }
 
     // Increment real visit once per browser session
-    if (!sessionStorage.getItem('portfolio-session-visited')) {
+    if (!sessionStorage.getItem('site-session-visited')) {
       visits += 1;
-      localStorage.setItem('portfolio-visit-count', visits);
-      sessionStorage.setItem('portfolio-session-visited', 'true');
+      localStorage.setItem('site-visits-count', visits);
+      sessionStorage.setItem('site-session-visited', 'true');
     }
 
     visitCountEl.textContent = formatNum(visits);
@@ -421,7 +428,7 @@ function initStatsWidget() {
 
   // 2. Handle Website Likes Counter (starts from 0)
   if (likeCountEl && likeBtn) {
-    let likes = parseInt(localStorage.getItem('portfolio-like-count'), 10);
+    let likes = parseInt(localStorage.getItem('site-likes-count'), 10);
     if (isNaN(likes) || likes < 0) {
       likes = 0;
     }
@@ -431,7 +438,7 @@ function initStatsWidget() {
       e.preventDefault();
       likes += 1;
       likeCountEl.textContent = formatNum(likes);
-      localStorage.setItem('portfolio-like-count', likes);
+      localStorage.setItem('site-likes-count', likes);
 
       // Heart bounce micro-interaction
       const heartIcon = likeBtn.querySelector('.like-heart-icon');
