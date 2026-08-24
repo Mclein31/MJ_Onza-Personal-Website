@@ -50,7 +50,8 @@
           <a href="#work" class="nav-link">WORK</a>
           <a href="#what-i-can-do" class="nav-link">WHAT I CAN DO</a>
           <a href="#about" class="nav-link">ABOUT</a>
-          <a href="#archive" class="nav-link">ARCHIVE</a>
+          <a href="#awards" class="nav-link">AWARDS</a>
+          <a href="#trainings" class="nav-link">TRAININGS</a>
         </div>
 
         <div class="nav-actions">
@@ -91,7 +92,8 @@
       <a href="#work" class="mobile-nav-link">WORK</a>
       <a href="#what-i-can-do" class="mobile-nav-link">WHAT I CAN DO</a>
       <a href="#about" class="mobile-nav-link">ABOUT</a>
-      <a href="#archive" class="mobile-nav-link">ARCHIVE</a>
+      <a href="#awards" class="mobile-nav-link">AWARDS</a>
+      <a href="#trainings" class="mobile-nav-link">TRAININGS</a>
       <button class="btn-hire-me trigger-contact-modal" style="width: 100%; margin-top: 0.5rem;" type="button">Hire Me</button>
     </div>
 
@@ -292,34 +294,54 @@
             </a>
           </div>
 
-          <!-- 3D Coverflow Stage -->
+          <!-- 3D Coverflow Stage with Side Navigation Buttons -->
           <div class="coverflow-carousel-container">
-            <div class="coverflow-stage" id="coverflowStage">
-              <!-- Slide 0: Mulat Media -->
-              <div class="coverflow-card active" data-index="0">
-                <img src="assets/images/project5.png" alt="Mulat Media Showcase" />
+            <div class="coverflow-stage-wrap">
+              <!-- Left Side Navigation Button -->
+              <button id="carouselPrevBtn" class="carousel-side-btn carousel-side-prev" aria-label="Previous project slide">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+
+              <!-- 3D Coverflow Stage -->
+              <div class="coverflow-stage" id="coverflowStage">
+                <!-- Slide 0: Mulat Media -->
+                <div class="coverflow-card active" data-index="0">
+                  <img src="assets/images/project5.png" alt="Mulat Media Showcase" />
+                </div>
+
+                <!-- Slide 1: Hanguk Grill -->
+                <div class="coverflow-card next" data-index="1">
+                  <img src="assets/images/project1.png" alt="Hanguk Grill Showcase" />
+                </div>
+
+                <!-- Slide 2: Cipher Shift -->
+                <div class="coverflow-card hidden-right" data-index="2">
+                  <img src="assets/images/project2.png" alt="Cipher Shift Showcase" />
+                </div>
+
+                <!-- Slide 3: Personal Portfolio -->
+                <div class="coverflow-card hidden-left" data-index="3">
+                  <img src="assets/images/project3.png" alt="Developer Portfolio Showcase" />
+                </div>
+
+                <!-- Slide 4: MedRec -->
+                <div class="coverflow-card prev" data-index="4">
+                  <img src="assets/images/project4.jpeg" alt="MedRec Showcase" />
+                </div>
               </div>
 
-              <!-- Slide 1: Hanguk Grill -->
-              <div class="coverflow-card next" data-index="1">
-                <img src="assets/images/project1.png" alt="Hanguk Grill Showcase" />
-              </div>
-
-              <!-- Slide 2: Cipher Shift -->
-              <div class="coverflow-card hidden-right" data-index="2">
-                <img src="assets/images/project2.png" alt="Cipher Shift Showcase" />
-              </div>
-
-              <!-- Slide 3: Personal Portfolio -->
-              <div class="coverflow-card hidden-left" data-index="3">
-                <img src="assets/images/project3.png" alt="Developer Portfolio Showcase" />
-              </div>
-
-              <!-- Slide 4: MedRec -->
-              <div class="coverflow-card prev" data-index="4">
-                <img src="assets/images/project4.jpeg" alt="MedRec Showcase" />
-              </div>
+              <!-- Right Side Navigation Button -->
+              <button id="carouselNextBtn" class="carousel-side-btn carousel-side-next" aria-label="Next project slide">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
             </div>
+
+            <!-- Progress Indicator Circles Below the Cards -->
+            <div id="carouselIndicators" class="carousel-indicators"></div>
 
             <!-- Active Project Details Info Block -->
             <div class="coverflow-active-info">
@@ -330,23 +352,6 @@
               <a id="coverflowLink" href="https://mulat-media.vercel.app/" target="_blank" rel="noopener noreferrer" class="coverflow-action-link">
                 View Project →
               </a>
-            </div>
-
-            <!-- Navigation Controls -->
-            <div class="coverflow-nav-controls">
-              <button id="carouselPrevBtn" class="carousel-btn" aria-label="Previous project slide">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-              </button>
-
-              <div id="carouselIndicators" class="carousel-indicators"></div>
-
-              <button id="carouselNextBtn" class="carousel-btn" aria-label="Next project slide">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-              </button>
             </div>
           </div>
         </div>
@@ -423,12 +428,13 @@
                 <h3 class="capability-title">AI & Modern Workflows</h3>
               </div>
               <p class="capability-desc">
-                Leveraging local LLMs via Ollama, integrating Claude & OpenAI APIs, and applying modern AI tools to accelerate development.
+                Leveraging Google Antigravity, local LLMs via Ollama, Claude & OpenAI APIs, and agentic workflows to accelerate engineering productivity.
               </p>
               <div class="capability-tags-wrap">
+                <span class="capability-tech-pill">Google Antigravity</span>
                 <span class="capability-tech-pill">Local LLMs (Ollama)</span>
                 <span class="capability-tech-pill">Claude & OpenAI APIs</span>
-                <span class="capability-tech-pill">OCR Workflows</span>
+                <span class="capability-tech-pill">Agentic Workflows</span>
                 <span class="capability-tech-pill">Prompt Engineering</span>
               </div>
             </div>
@@ -485,125 +491,199 @@
       </section>
 
       <!-- ====================================================================
-           5. TECHNICAL PROJECTS ARCHIVE LIST (REFERENCE: IMG_3224.jpg)
+           4. AWARDS & ACHIEVEMENTS SECTION (REFERENCE: media_1787584720597.jpg)
            ==================================================================== -->
-      <section id="archive" class="archive-section">
+      <section id="awards" class="awards-section">
         <div class="container">
-          <span class="section-tag">ARCHIVE</span>
-          <h2 class="section-title">Technical Projects</h2>
-          <p class="section-subtitle">A complete collection of my technical work, systems, and digital projects.</p>
+          <span class="section-tag">RECOGNITION</span>
+          <h2 class="section-title">Awards and Achievements</h2>
+          <p class="section-subtitle">A collection of academic and professional recognitions that reflect my dedication to excellence.</p>
 
-          <div class="archive-list">
-            <!-- Project 01 -->
-            <a href="https://mulat-media.vercel.app/" target="_blank" rel="noopener noreferrer" class="archive-item-card">
-              <span class="archive-num">01</span>
-              <div class="archive-info">
-                <h3 class="archive-title">Mulat Media — Student Publication CMS & Portal</h3>
-                <p class="archive-desc">
-                  Multi-page digital publication platform with article submission workflows, role-based editorial permissions, category organization, and content management.
-                </p>
-                <div class="archive-tech-row">
-                  <span class="archive-tech-label">JAVASCRIPT FULL-STACK AUTH CSS3</span>
-                  <div class="archive-tech-icons">
-                    <img src="assets/icons/javascript.png" alt="JS" />
-                    <img src="assets/icons/html.png" alt="HTML" />
-                    <img src="assets/icons/css.png" alt="CSS" />
-                  </div>
+          <div class="awards-layout-grid">
+            <!-- Left Photo Collage / Masonry Grid -->
+            <div class="awards-photo-collage">
+              <div class="collage-item collage-item-1">
+                <img src="assets/images/project4.jpeg" alt="Academic recognition milestone" />
+              </div>
+              <div class="collage-item collage-item-2">
+                <img src="assets/images/project1.png" alt="Project recognition showcase" />
+              </div>
+              <div class="collage-item collage-item-3">
+                <img src="assets/images/project3.png" alt="University academic achievement" />
+              </div>
+              <div class="collage-item collage-item-4">
+                <img src="assets/images/project2.png" alt="Technical competition award" />
+              </div>
+              <div class="collage-item collage-item-5">
+                <img src="assets/images/project5.png" alt="Academic symposium presentation" />
+              </div>
+            </div>
+
+            <!-- Right Recognition Cards Stack -->
+            <div class="awards-cards-stack">
+              <!-- Award 1: With Highest Honor -->
+              <div class="award-card-item">
+                <div class="award-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                  </svg>
+                </div>
+                <div class="award-card-content">
+                  <h3 class="award-card-title">With High Honor</h3>
+                  <p class="award-card-subtitle">Academic Excellence & High Scholastic Distinction</p>
+                </div>
+                <div class="award-card-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                  </svg>
                 </div>
               </div>
-              <div class="archive-link-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M7 17L17 7M17 7H7M17 7V17" />
-                </svg>
-              </div>
-            </a>
 
-            <!-- Project 02 -->
-            <a href="https://hanguk-grill.vercel.app/" target="_blank" rel="noopener noreferrer" class="archive-item-card">
-              <span class="archive-num">02</span>
-              <div class="archive-info">
-                <h3 class="archive-title">Hanguk Grill — Restaurant Web Platform</h3>
-                <p class="archive-desc">
-                  Responsive restaurant platform featuring dynamic interactive menu showcases, branch location mapping, and mobile-optimized customer reservations.
-                </p>
-                <div class="archive-tech-row">
-                  <span class="archive-tech-label">JAVASCRIPT UI/UX DESIGN CSS GRID</span>
-                  <div class="archive-tech-icons">
-                    <img src="assets/icons/javascript.png" alt="JS" />
-                    <img src="assets/icons/css.png" alt="CSS" />
-                  </div>
+              <!-- Award 2: Student Journalist (Radio Broadcaster) -->
+              <div class="award-card-item">
+                <div class="award-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                  </svg>
+                </div>
+                <div class="award-card-content">
+                  <h3 class="award-card-title">Student Journalist (Radio Broadcaster)</h3>
+                  <p class="award-card-subtitle">Radio Broadcasting in Filipino — News Delivery, Scriptwriting & Production</p>
+                </div>
+                <div class="award-card-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                  </svg>
                 </div>
               </div>
-              <div class="archive-link-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M7 17L17 7M17 7H7M17 7V17" />
-                </svg>
-              </div>
-            </a>
 
-            <!-- Project 03 -->
-            <a href="https://github.com/Mclein31/Caesar-Cipher" target="_blank" rel="noopener noreferrer" class="archive-item-card">
-              <span class="archive-num">03</span>
-              <div class="archive-info">
-                <h3 class="archive-title">Cipher Shift — Cryptography & OCR Analysis System</h3>
-                <p class="archive-desc">
-                  Algorithmic Caesar cipher utility in Python with image OCR text extraction and brute-force frequency heuristics to detect probable plaintext.
-                </p>
-                <div class="archive-tech-row">
-                  <span class="archive-tech-label">PYTHON CRYPTOGRAPHY OCR ALGORITHMS</span>
-                  <div class="archive-tech-icons">
-                    <img src="assets/icons/python.png" alt="Python" />
-                  </div>
+              <!-- Award 3: Student Leader -->
+              <div class="award-card-item">
+                <div class="award-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                </div>
+                <div class="award-card-content">
+                  <h3 class="award-card-title">Student Leader</h3>
+                  <p class="award-card-subtitle">Leadership Excellence, Student Initiative & Representation</p>
+                </div>
+                <div class="award-card-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                  </svg>
                 </div>
               </div>
-              <div class="archive-link-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M7 17L17 7M17 7H7M17 7V17" />
-                </svg>
-              </div>
-            </a>
 
-            <!-- Project 04 -->
-            <a href="https://onzamj.vercel.app/" target="_blank" rel="noopener noreferrer" class="archive-item-card">
-              <span class="archive-num">04</span>
-              <div class="archive-info">
-                <h3 class="archive-title">Personal Website Portfolio v2</h3>
-                <p class="archive-desc">
-                  Minimalist developer portfolio engineered with pure CSS design tokens, persistent dark/light theme switching, and sub-second load times.
-                </p>
-                <div class="archive-tech-row">
-                  <span class="archive-tech-label">HTML5 CSS3 DESIGN TOKENS VANILLA JS</span>
-                  <div class="archive-tech-icons">
-                    <img src="assets/icons/html.png" alt="HTML" />
-                    <img src="assets/icons/css.png" alt="CSS" />
-                    <img src="assets/icons/javascript.png" alt="JS" />
-                  </div>
+              <!-- Award 4: Pitch Perfect -->
+              <div class="award-card-item">
+                <div class="award-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                </div>
+                <div class="award-card-content">
+                  <h3 class="award-card-title">Pitch Perfect</h3>
+                  <p class="award-card-subtitle">Outstanding Presentation & Digital Solution Pitch Showcase</p>
+                </div>
+                <div class="award-card-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                  </svg>
                 </div>
               </div>
-              <div class="archive-link-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M7 17L17 7M17 7H7M17 7V17" />
-                </svg>
-              </div>
-            </a>
 
-            <!-- Project 05 -->
-            <div class="archive-item-card" style="cursor: default;">
-              <span class="archive-num">05</span>
-              <div class="archive-info">
-                <h3 class="archive-title">MedRec — Medical Records Management System</h3>
-                <p class="archive-desc">
-                  Secure medical records management mobile application designed to organize patient histories, consultations, and clinic prescriptions.
-                </p>
-                <div class="archive-tech-row">
-                  <span class="archive-tech-label">MOBILE APP DATABASE HEALTHCARE IN DEVELOPMENT</span>
+              <!-- Award 5: Silent Billionaire -->
+              <div class="award-card-item">
+                <div class="award-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 3h12l4 6-10 12L2 9z"/>
+                    <path d="M11 3L8 9l4 12 4-12-3-6"/>
+                    <path d="M2 9h20"/>
+                  </svg>
+                </div>
+                <div class="award-card-content">
+                  <h3 class="award-card-title">Silent Billionaire</h3>
+                  <p class="award-card-subtitle">Distinctive Recognition Award for Exceptional Impact & Dedication</p>
+                </div>
+                <div class="award-card-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                  </svg>
                 </div>
               </div>
-              <div class="archive-link-icon" style="opacity: 0.5;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           5. TRAININGS & HACKATHONS SECTION (REFERENCE: media_1787584720584.jpg)
+           ==================================================================== -->
+      <section id="trainings" class="trainings-section">
+        <div class="container">
+          <span class="section-tag">GROWTH & EXPERIENCE</span>
+          <h2 class="section-title">Trainings & Hackathons</h2>
+          <p class="section-subtitle">A collection of trainings, workshops, and hackathons that shaped my technical and collaborative skills.</p>
+
+          <div class="trainings-showcase-list">
+            <!-- Showcase Item 1 (Text Left, Image Right) -->
+            <div class="training-showcase-card">
+              <div class="training-info-col">
+                <div class="training-header-meta">
+                  <h3 class="training-title">General Virtual Assistance 2.0</h3>
+                  <span class="training-date">April to May 2026</span>
+                </div>
+                <h4 class="training-subtitle">A Paradigm Shift in AI-Powered Interaction</h4>
+                <div class="training-org">Department of Information and Communications Technology</div>
+                <p class="training-desc">
+                  Completed a 20-day intensive virtual assistance training focused on VA fundamentals, client communication, productivity, AI-powered workflows, and social media management. Gained hands-on experience in niche development, content creation, page management, post scheduling, client outreach, and improving workflows to deliver efficient virtual assistance services.
+                </p>
+                <a href="#contact" class="training-cert-link trigger-contact-modal">
+                  <span>CERTIFICATE OF COMPLETION</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              </div>
+              <div class="training-media-col">
+                <div class="training-media-frame">
+                  <img src="assets/images/project5.png" alt="General Virtual Assistance 2.0 Training Showcase" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Showcase Item 2 (Image Left, Text Right) -->
+            <div class="training-showcase-card training-reverse">
+              <div class="training-media-col">
+                <div class="training-media-frame">
+                  <img src="assets/images/project1.png" alt="Tech-Tuesdays Digital Solution Showcase" />
+                </div>
+              </div>
+              <div class="training-info-col">
+                <div class="training-header-meta">
+                  <h3 class="training-title">Tech-Tuesdays</h3>
+                  <span class="training-date">March 31, 2026</span>
+                </div>
+                <h4 class="training-subtitle">Digital Solution Development & Innovation Challenge</h4>
+                <div class="training-org">Department of Information and Communications Technology</div>
+                <p class="training-desc">
+                  Participated in a team-based digital solution development activity focused on addressing the needs of local MSMEs and the tourism sector. Contributed to the development and presentation of an online platform designed to showcase and promote local MSME products. Gained hands-on experience in rapid prototyping, collaborative development, and pitching digital solutions.
+                </p>
+                <a href="#contact" class="training-cert-link trigger-contact-modal">
+                  <span>VIEW CERTIFICATE</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
