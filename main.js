@@ -437,7 +437,7 @@ function initTraitCard() {
 }
 
 /* ==========================================================================
-   6. INTERACTIVE WEBSITE STATS WIDGET (PERSISTENT & CLOUD-SYNCHRONIZED)
+   6. INTERACTIVE WEBSITE STATS WIDGET (UNIFIED CLOUD VISITS & LIKES)
    ========================================================================== */
 function initStatsWidget() {
   const visitCountEl = document.getElementById('visitCount');
@@ -445,63 +445,71 @@ function initStatsWidget() {
   const likeBtn = document.getElementById('likeBtnWidget');
   const likeParticleBox = document.getElementById('likeParticleBox');
 
-  // Format numbers with commas (e.g. 1,248)
   const formatNum = (num) => new Intl.NumberFormat('en-US').format(Math.max(0, num || 0));
 
-  const API_NAMESPACE = 'mclein-onza-portfolio';
-  const API_BASE = 'https://api.counterapi.dev/v1';
+  // 1. Initial UI render from cached local values
+  let currentVisits = parseInt(localStorage.getItem('site_total_visits'), 10) || 0;
+  let currentLikes = parseInt(localStorage.getItem('site_total_likes'), 10) || 0;
 
-  // 1. Load and persist local baseline (NEVER resets to 0 on exit)
-  let localVisits = parseInt(localStorage.getItem('site_total_visits'), 10) || 0;
-  let localLikes = parseInt(localStorage.getItem('site_total_likes'), 10) || 0;
+  if (visitCountEl) visitCountEl.textContent = formatNum(currentVisits);
+  if (likeCountEl) likeCountEl.textContent = formatNum(currentLikes);
 
-  // Count visit once per browser session
-  const isNewSession = !sessionStorage.getItem('site_session_active');
-  if (isNewSession) {
-    localVisits += 1;
-    localStorage.setItem('site_total_visits', localVisits);
-    sessionStorage.setItem('site_session_active', 'true');
-  }
-
-  // Render immediately so user never sees 0 or a blank state
-  if (visitCountEl) visitCountEl.textContent = formatNum(localVisits);
-  if (likeCountEl) likeCountEl.textContent = formatNum(localLikes);
-
-  // 2. Synchronize Visits with Cloud
-  async function syncVisits() {
-    const endpoint = isNewSession
-      ? `${API_BASE}/${API_NAMESPACE}/visits/up`
-      : `${API_BASE}/${API_NAMESPACE}/visits`;
-
+  // Helper to fetch from Vercel Serverless API with direct cloud fallback
+  async function requestStats(type, metric) {
+    // 1. Try first-party Vercel API (Bypasses Safari ITP and CORS)
     try {
-      const res = await fetch(endpoint, { cache: 'no-cache' });
+      const res = await fetch(`/api/stats?type=${type}&metric=${metric}`, {
+        cache: 'no-store'
+      });
       if (res.ok) {
         const data = await res.json();
-        if (typeof data.count === 'number') {
-          localVisits = Math.max(localVisits, data.count);
-          localStorage.setItem('site_total_visits', localVisits);
-          if (visitCountEl) visitCountEl.textContent = formatNum(localVisits);
-        }
+        if (typeof data.count === 'number') return data.count;
       }
-    } catch (err) {
-      console.warn('Visits cloud sync fallback to local cache:', err);
+    } catch (e) {
+      // Fallback for local development or non-Vercel environments
+    }
+
+    // 2. Direct fallback to CounterAPI
+    try {
+      const key = metric === 'likes' ? 'portfolio_likes' : 'portfolio_visits';
+      const endpoint = type === 'increment'
+        ? `https://api.counterapi.dev/v1/mclein-onza-unified/${key}/up`
+        : `https://api.counterapi.dev/v1/mclein-onza-unified/${key}`;
+      const res = await fetch(endpoint, { cache: 'no-store' });
+      if (res.ok) {
+        const data = await res.json();
+        if (typeof data.count === 'number') return data.count;
+      }
+    } catch (e) {
+      console.warn(`Stats sync offline for ${metric}:`, e);
+    }
+    return null;
+  }
+
+  // 2. Synchronize Visits
+  async function syncVisits() {
+    const isNewSession = !sessionStorage.getItem('site_session_active');
+    const type = isNewSession ? 'increment' : 'get';
+    
+    if (isNewSession) {
+      sessionStorage.setItem('site_session_active', 'true');
+    }
+
+    const cloudVisits = await requestStats(type, 'visits');
+    if (typeof cloudVisits === 'number') {
+      currentVisits = cloudVisits;
+      localStorage.setItem('site_total_visits', currentVisits);
+      if (visitCountEl) visitCountEl.textContent = formatNum(currentVisits);
     }
   }
 
-  // 3. Synchronize Likes with Cloud
+  // 3. Synchronize Likes
   async function syncLikes() {
-    try {
-      const res = await fetch(`${API_BASE}/${API_NAMESPACE}/likes`, { cache: 'no-cache' });
-      if (res.ok) {
-        const data = await res.json();
-        if (typeof data.count === 'number') {
-          localLikes = Math.max(localLikes, data.count);
-          localStorage.setItem('site_total_likes', localLikes);
-          if (likeCountEl) likeCountEl.textContent = formatNum(localLikes);
-        }
-      }
-    } catch (err) {
-      console.warn('Likes cloud sync fallback to local cache:', err);
+    const cloudLikes = await requestStats('get', 'likes');
+    if (typeof cloudLikes === 'number') {
+      currentLikes = cloudLikes;
+      localStorage.setItem('site_total_likes', currentLikes);
+      if (likeCountEl) likeCountEl.textContent = formatNum(currentLikes);
     }
   }
 
@@ -514,10 +522,10 @@ function initStatsWidget() {
       if (isLiking) return;
       isLiking = true;
 
-      // Instant local increment & permanent storage
-      localLikes += 1;
-      localStorage.setItem('site_total_likes', localLikes);
-      likeCountEl.textContent = formatNum(localLikes);
+      // Optimistic instant UI update
+      currentLikes += 1;
+      localStorage.setItem('site_total_likes', currentLikes);
+      likeCountEl.textContent = formatNum(currentLikes);
 
       // Heart bounce micro-interaction
       const heartIcon = likeBtn.querySelector('.like-heart-icon');
@@ -540,26 +548,19 @@ function initStatsWidget() {
         }, 800);
       }
 
-      // Dispatch increment to cloud in background
-      try {
-        const res = await fetch(`${API_BASE}/${API_NAMESPACE}/likes/up`, { cache: 'no-cache' });
-        if (res.ok) {
-          const data = await res.json();
-          if (typeof data.count === 'number') {
-            localLikes = Math.max(localLikes, data.count);
-            localStorage.setItem('site_total_likes', localLikes);
-            likeCountEl.textContent = formatNum(localLikes);
-          }
-        }
-      } catch (err) {
-        console.warn('Like cloud dispatch fallback to local:', err);
-      } finally {
-        isLiking = false;
+      // Send increment to backend
+      const updatedCloudLikes = await requestStats('increment', 'likes');
+      if (typeof updatedCloudLikes === 'number') {
+        currentLikes = updatedCloudLikes;
+        localStorage.setItem('site_total_likes', currentLikes);
+        likeCountEl.textContent = formatNum(currentLikes);
       }
+
+      isLiking = false;
     });
   }
 
-  // Initial cloud sync
+  // Initial sync on page load
   syncVisits();
   syncLikes();
 }
