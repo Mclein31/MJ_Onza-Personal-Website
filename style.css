@@ -1266,29 +1266,29 @@ section {
   margin-top: 3rem;
 }
 
-/* Left Photo Collage / Dynamic Asymmetric Masonry */
+/* Left Photo Collage / Freestyle Casual Scattered Moodboard */
 .awards-photo-collage {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 135px;
-  gap: 0.85rem;
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  height: 580px;
+  margin: 0 auto;
 }
 
 .collage-item {
-  border-radius: var(--radius-md);
+  position: absolute;
+  border-radius: 12px;
   overflow: hidden;
-  border: 1px solid var(--border-medium);
+  border: 3px solid rgba(255, 255, 255, 0.14);
   background: var(--bg-card);
-  box-shadow: var(--shadow-md);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.3s ease;
-  position: relative;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.25s ease;
+  cursor: pointer;
 }
 
-.collage-item:hover {
-  transform: translateY(-4px) scale(1.02);
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-lg);
-  z-index: 5;
+[data-theme="light"] .collage-item {
+  border: 3px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
 .collage-item img {
@@ -1298,29 +1298,83 @@ section {
   display: block;
 }
 
+/* Authentic Freestyle Scatter Positions & Expressive Tilts */
+/* Top-Left: BNHS Journalism Team */
 .collage-item-1 {
-  grid-column: 1 / 2;
-  grid-row: 1 / 3;
+  top: 0;
+  left: 0;
+  width: 48%;
+  height: 165px;
+  transform: rotate(-6deg);
+  z-index: 2;
 }
 
+/* Top-Right: Pitch & Silent Certificates */
 .collage-item-2 {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
+  top: 15px;
+  right: 0;
+  width: 49%;
+  height: 160px;
+  transform: rotate(5deg);
+  z-index: 3;
 }
 
+/* Mid-Left: High Honors Certificate */
 .collage-item-3 {
-  grid-column: 3 / 4;
-  grid-row: 1 / 3;
+  top: 175px;
+  left: 2%;
+  width: 43%;
+  height: 175px;
+  transform: rotate(4deg);
+  z-index: 4;
 }
 
+/* Mid-Right: DTI YEP Pitch Team */
 .collage-item-4 {
-  grid-column: 1 / 3;
-  grid-row: 3 / 4;
+  top: 185px;
+  right: 2%;
+  width: 48%;
+  height: 160px;
+  transform: rotate(-5deg);
+  z-index: 3;
 }
 
+/* Center-Float: Community Leadership */
 .collage-item-5 {
-  grid-column: 3 / 4;
-  grid-row: 3 / 4;
+  top: 315px;
+  left: 24%;
+  width: 50%;
+  height: 165px;
+  transform: rotate(6deg);
+  z-index: 6;
+}
+
+/* Bottom-Left: DepEd Tree Project */
+.collage-item-6 {
+  bottom: 0;
+  left: 0;
+  width: 46%;
+  height: 155px;
+  transform: rotate(-4deg);
+  z-index: 2;
+}
+
+/* Bottom-Right: Arena Symposium Stage */
+.collage-item-7 {
+  bottom: 10px;
+  right: 0;
+  width: 47%;
+  height: 155px;
+  transform: rotate(4.5deg);
+  z-index: 4;
+}
+
+/* Interactive Hover State: Straighten, Zoom, Lift to Front */
+.collage-item:hover {
+  transform: translateY(-8px) scale(1.1) rotate(0deg) !important;
+  border-color: var(--text-primary);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7);
+  z-index: 30 !important;
 }
 
 /* Right Recognition Cards Stack */
@@ -2001,9 +2055,17 @@ section {
 
 @media (max-width: 640px) {
   .awards-photo-collage {
-    grid-auto-rows: 95px;
-    gap: 0.65rem;
+    height: 480px;
+    max-width: 100%;
   }
+
+  .collage-item-1 { height: 135px; }
+  .collage-item-2 { height: 130px; }
+  .collage-item-3 { top: 140px; height: 140px; }
+  .collage-item-4 { top: 150px; height: 130px; }
+  .collage-item-5 { top: 255px; height: 135px; }
+  .collage-item-6 { height: 125px; }
+  .collage-item-7 { height: 125px; }
 
   .training-media-frame {
     height: 220px;
