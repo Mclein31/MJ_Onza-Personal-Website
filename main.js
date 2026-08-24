@@ -437,7 +437,7 @@ function initTraitCard() {
 }
 
 /* ==========================================================================
-   6. INTERACTIVE WEBSITE STATS WIDGET (VISITS & LIKES)
+   6. INTERACTIVE WEBSITE STATS WIDGET (GLOBALLY UNIFIED CLOUD VISITS & LIKES)
    ========================================================================== */
 function initStatsWidget() {
   const visitCountEl = document.getElementById('visitCount');
@@ -446,45 +446,71 @@ function initStatsWidget() {
   const likeParticleBox = document.getElementById('likeParticleBox');
 
   // Format numbers with commas (e.g. 1,248)
-  const formatNum = (num) => new Intl.NumberFormat('en-US').format(num);
+  const formatNum = (num) => new Intl.NumberFormat('en-US').format(Math.max(0, num || 0));
 
-  // Clean up legacy test keys from previous versions
-  if (localStorage.getItem('portfolio-visit-count') || localStorage.getItem('portfolio-like-count') || localStorage.getItem('portfolio-coffee-count')) {
-    localStorage.removeItem('portfolio-visit-count');
-    localStorage.removeItem('portfolio-like-count');
-    localStorage.removeItem('portfolio-coffee-count');
+  const API_NAMESPACE = 'mclein-onza-portfolio';
+  const API_BASE = 'https://api.counterapi.dev/v1';
+
+  // Instant UI restore from local cache
+  let cachedVisits = parseInt(localStorage.getItem('site-visits-count'), 10) || 0;
+  let cachedLikes = parseInt(localStorage.getItem('site-likes-count'), 10) || 0;
+
+  if (visitCountEl) visitCountEl.textContent = formatNum(cachedVisits);
+  if (likeCountEl) likeCountEl.textContent = formatNum(cachedLikes);
+
+  // 1. Fetch & Synchronize Live Global Visits Count
+  async function syncVisits() {
+    const isNewSession = !sessionStorage.getItem('site-session-visited');
+    const endpoint = isNewSession
+      ? `${API_BASE}/${API_NAMESPACE}/visits/up`
+      : `${API_BASE}/${API_NAMESPACE}/visits`;
+
+    try {
+      const res = await fetch(endpoint);
+      if (res.ok) {
+        const data = await res.json();
+        if (typeof data.count === 'number') {
+          cachedVisits = data.count;
+          localStorage.setItem('site-visits-count', cachedVisits);
+          if (visitCountEl) visitCountEl.textContent = formatNum(cachedVisits);
+          if (isNewSession) sessionStorage.setItem('site-session-visited', 'true');
+        }
+      }
+    } catch (err) {
+      console.warn('Cloud visits counter offline, using cached stats:', err);
+    }
   }
 
-  // 1. Handle Page Visits Count (starts from 0)
-  if (visitCountEl) {
-    let visits = parseInt(localStorage.getItem('site-visits-count'), 10);
-    if (isNaN(visits) || visits < 0) {
-      visits = 0;
+  // 2. Fetch & Synchronize Live Global Likes Count
+  async function syncLikes() {
+    try {
+      const res = await fetch(`${API_BASE}/${API_NAMESPACE}/likes`);
+      if (res.ok) {
+        const data = await res.json();
+        if (typeof data.count === 'number') {
+          cachedLikes = data.count;
+          localStorage.setItem('site-likes-count', cachedLikes);
+          if (likeCountEl) likeCountEl.textContent = formatNum(cachedLikes);
+        }
+      }
+    } catch (err) {
+      console.warn('Cloud likes counter offline, using cached stats:', err);
     }
-
-    // Increment real visit once per browser session
-    if (!sessionStorage.getItem('site-session-visited')) {
-      visits += 1;
-      localStorage.setItem('site-visits-count', visits);
-      sessionStorage.setItem('site-session-visited', 'true');
-    }
-
-    visitCountEl.textContent = formatNum(visits);
   }
 
-  // 2. Handle Website Likes Counter (starts from 0)
-  if (likeCountEl && likeBtn) {
-    let likes = parseInt(localStorage.getItem('site-likes-count'), 10);
-    if (isNaN(likes) || likes < 0) {
-      likes = 0;
-    }
-    likeCountEl.textContent = formatNum(likes);
+  // 3. Handle Interactive Global Like Click
+  if (likeBtn && likeCountEl) {
+    let isLiking = false;
 
-    likeBtn.addEventListener('click', (e) => {
+    likeBtn.addEventListener('click', async (e) => {
       e.preventDefault();
-      likes += 1;
-      likeCountEl.textContent = formatNum(likes);
-      localStorage.setItem('site-likes-count', likes);
+      if (isLiking) return;
+      isLiking = true;
+
+      // Optimistic instant UI update
+      cachedLikes += 1;
+      likeCountEl.textContent = formatNum(cachedLikes);
+      localStorage.setItem('site-likes-count', cachedLikes);
 
       // Heart bounce micro-interaction
       const heartIcon = likeBtn.querySelector('.like-heart-icon');
@@ -506,8 +532,29 @@ function initStatsWidget() {
           particle.remove();
         }, 800);
       }
+
+      // Dispatch global increment to cloud
+      try {
+        const res = await fetch(`${API_BASE}/${API_NAMESPACE}/likes/up`);
+        if (res.ok) {
+          const data = await res.json();
+          if (typeof data.count === 'number') {
+            cachedLikes = data.count;
+            likeCountEl.textContent = formatNum(cachedLikes);
+            localStorage.setItem('site-likes-count', cachedLikes);
+          }
+        }
+      } catch (err) {
+        console.warn('Unable to sync like with cloud:', err);
+      } finally {
+        isLiking = false;
+      }
     });
   }
+
+  // Trigger initial cloud sync
+  syncVisits();
+  syncLikes();
 }
 
 /* ==========================================================================
