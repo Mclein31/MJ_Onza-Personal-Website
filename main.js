@@ -280,21 +280,28 @@ function initCoverflowCarousel() {
       }
     });
 
-    // Update active project info
-    const currentData = projectData[currentIndex];
-    if (currentData) {
-      if (titleEl) titleEl.textContent = currentData.title;
-      if (descEl) descEl.textContent = currentData.desc;
-      if (linkEl) {
-        linkEl.href = currentData.link;
-        linkEl.textContent = currentData.label;
-        if (currentData.link.startsWith('http')) {
-          linkEl.target = '_blank';
-          linkEl.rel = 'noopener noreferrer';
-        } else {
-          linkEl.removeAttribute('target');
+    // Update active project info with smooth crossfade
+    const activeInfo = document.querySelector('.coverflow-active-info');
+    if (activeInfo) {
+      activeInfo.style.opacity = '0.3';
+      setTimeout(() => {
+        const currentData = projectData[currentIndex];
+        if (currentData) {
+          if (titleEl) titleEl.textContent = currentData.title;
+          if (descEl) descEl.textContent = currentData.desc;
+          if (linkEl) {
+            linkEl.href = currentData.link;
+            linkEl.textContent = currentData.label;
+            if (currentData.link.startsWith('http')) {
+              linkEl.target = '_blank';
+              linkEl.rel = 'noopener noreferrer';
+            } else {
+              linkEl.removeAttribute('target');
+            }
+          }
         }
-      }
+        activeInfo.style.opacity = '1';
+      }, 140);
     }
 
     // Update dots
