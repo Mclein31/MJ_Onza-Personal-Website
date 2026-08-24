@@ -758,29 +758,87 @@ section {
   color: var(--text-muted);
 }
 
-/* Interactive Trait Card */
+/* Interactive Trait Card Stack & Deck */
 .trait-card-container {
   display: flex;
   justify-content: flex-end;
+  perspective: 900px;
+}
+
+.trait-deck-stack {
+  position: relative;
+  width: 100%;
+  max-width: 250px;
+  height: 98px;
+  cursor: pointer;
+  user-select: none;
 }
 
 .trait-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: var(--bg-card);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-lg);
-  padding: 1.25rem 1.75rem;
+  padding: 1.15rem 1.5rem;
   box-shadow: var(--shadow-md);
-  width: 100%;
-  max-width: 240px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.45s ease, border-color 0.2s ease, box-shadow 0.3s ease;
+  will-change: transform, opacity;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.trait-card:hover {
-  transform: translateY(-4px) rotate(1deg);
+.trait-card-back {
+  transform: translate3d(12px, 12px, -35px) rotate(-4deg);
+  opacity: 0.35;
+  z-index: 1;
+  background: var(--bg-surface-elevated);
+}
+
+.trait-card-middle {
+  transform: translate3d(6px, 6px, -18px) rotate(-2deg);
+  opacity: 0.65;
+  z-index: 2;
+  background: var(--bg-surface);
+}
+
+.trait-card-front {
+  transform: translate3d(0, 0, 0) rotate(0deg);
+  opacity: 1;
+  z-index: 3;
+}
+
+.trait-deck-stack:hover .trait-card-front {
+  transform: translate3d(0, -4px, 0) rotate(1deg);
   border-color: var(--border-strong);
   box-shadow: var(--shadow-lg);
+}
+
+.trait-deck-stack:hover .trait-card-middle {
+  transform: translate3d(9px, 8px, -18px) rotate(-3deg);
+}
+
+.trait-deck-stack:hover .trait-card-back {
+  transform: translate3d(16px, 16px, -35px) rotate(-6deg);
+}
+
+/* Card Slide to Back Animation States */
+.trait-card-front.sliding-out {
+  transform: translate3d(110px, -45px, 50px) rotate(22deg) scale(0.95);
+  opacity: 0.9;
+  z-index: 10;
+  transition: transform 0.28s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.28s ease;
+}
+
+.trait-card-front.sliding-in-back {
+  transform: translate3d(14px, 14px, -40px) rotate(-5deg);
+  opacity: 0.4;
+  z-index: 1;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.32s ease;
 }
 
 .trait-tag {
@@ -790,7 +848,7 @@ section {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--text-muted);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
   display: block;
 }
 
@@ -798,6 +856,7 @@ section {
   font-size: 1.1rem;
   font-weight: 800;
   color: var(--text-primary);
+  line-height: 1.2;
 }
 
 /* --------------------------------------------------------------------------

@@ -144,7 +144,7 @@
 
         <!-- Centered Developer Portrait in Foreground -->
         <div class="hero-portrait-container">
-          <img src="assets/images/profile-2.png" alt="McLein Jei Onza" class="hero-portrait-img" />
+          <img src="assets/images/hero-page-image.png" alt="McLein Jei Onza" class="hero-portrait-img" />
         </div>
 
         <!-- Minimalist Vertical Scroll Indicator (Bottom Right) -->
@@ -238,11 +238,15 @@
                 </div>
               </div>
 
-              <!-- Interactive Stackable Trait Card -->
+              <!-- Interactive Stackable Trait Card Deck -->
               <div class="trait-card-container">
-                <div id="interactiveTraitCard" class="trait-card" title="Click to cycle traits">
-                  <span class="trait-tag">TRAIT</span>
-                  <div id="traitTitle" class="trait-title">Problem Solver</div>
+                <div class="trait-deck-stack" id="traitDeckStack" title="Click to slide card to back">
+                  <div class="trait-card trait-card-back" aria-hidden="true"></div>
+                  <div class="trait-card trait-card-middle" aria-hidden="true"></div>
+                  <div id="interactiveTraitCard" class="trait-card trait-card-front">
+                    <span class="trait-tag">TRAIT</span>
+                    <div id="traitTitle" class="trait-title">Problem Solver</div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -336,9 +336,10 @@ function initCoverflowCarousel() {
    5. INTERACTIVE TRAIT CARD CYCLER
    ========================================================================== */
 function initTraitCard() {
+  const traitDeckStack = document.getElementById('traitDeckStack');
   const traitCard = document.getElementById('interactiveTraitCard');
   const traitTitle = document.getElementById('traitTitle');
-  if (!traitCard || !traitTitle) return;
+  if (!traitDeckStack || !traitCard || !traitTitle) return;
 
   const traits = [
     "Problem Solver",
@@ -350,15 +351,29 @@ function initTraitCard() {
   ];
 
   let traitIdx = 0;
+  let isAnimating = false;
 
-  traitCard.addEventListener('click', () => {
-    traitIdx = (traitIdx + 1) % traits.length;
-    traitCard.style.transform = 'scale(0.95)';
-    
+  traitDeckStack.addEventListener('click', () => {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    // 1. Slide top card out to the top-right
+    traitCard.classList.add('sliding-out');
+
     setTimeout(() => {
+      // 2. Update text and transition card behind the stack
+      traitIdx = (traitIdx + 1) % traits.length;
       traitTitle.textContent = traits[traitIdx];
-      traitCard.style.transform = '';
-    }, 150);
+      
+      traitCard.classList.remove('sliding-out');
+      traitCard.classList.add('sliding-in-back');
+
+      setTimeout(() => {
+        // 3. Smoothly bring card to the front position ready for the next click
+        traitCard.classList.remove('sliding-in-back');
+        isAnimating = false;
+      }, 320);
+    }, 280);
   });
 }
 
