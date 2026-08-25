@@ -795,19 +795,32 @@ section {
 
 .profile-avatar-wrap {
   position: relative;
-  width: 5.5rem;
-  height: 5.5rem;
-  border-radius: 50%;
+  width: 6.25rem;
+  height: 7.75rem;
+  border-radius: 16px;
   overflow: hidden;
   border: 2px solid var(--border-strong);
   flex-shrink: 0;
   box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-avatar-wrap:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-blue);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(59, 130, 246, 0.25);
 }
 
 .profile-avatar-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s ease;
+}
+
+.profile-avatar-wrap:hover img {
+  transform: scale(1.05);
 }
 
 .profile-meta-details {
@@ -2787,8 +2800,9 @@ section {
   }
 
   .profile-avatar-wrap {
-    width: 4.5rem;
-    height: 4.5rem;
+    width: 5.25rem;
+    height: 6.5rem;
+    border-radius: 14px;
   }
 
   .profile-full-name {
