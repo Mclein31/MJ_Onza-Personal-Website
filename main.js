@@ -596,13 +596,13 @@ function initStatsWidget() {
     });
   }
 
-  // 5. Handle Interactive Like Click (Limited to 1 like per visit/session)
+  // 5. Handle Interactive Like Click (Permanently limited to 1 like per user across revisits)
   if (likeBtn && likeCountEl) {
-    const hasLikedSession = sessionStorage.getItem('site_liked_session') === 'true';
-    if (hasLikedSession) {
+    const hasLiked = localStorage.getItem('site_user_has_liked') === 'true';
+    if (hasLiked) {
       likeBtn.classList.add('is-liked');
       likeBtn.setAttribute('aria-pressed', 'true');
-      likeBtn.title = 'You liked this page! ❤️ (1 like per visit)';
+      likeBtn.title = 'You liked this website! ❤️';
     }
 
     let isLiking = false;
@@ -617,10 +617,10 @@ function initStatsWidget() {
       e.stopPropagation();
       if (ignoreNextLikeClick || isLiking) return;
 
-      const alreadyLiked = sessionStorage.getItem('site_liked_session') === 'true';
+      const alreadyLiked = localStorage.getItem('site_user_has_liked') === 'true';
 
       if (alreadyLiked) {
-        // Visual feedback when clicked again in the same session
+        // Visual feedback when clicked again by a user who has already liked
         likeBtn.classList.remove('like-already-shake');
         void likeBtn.offsetWidth; // Force CSS reflow to re-trigger animation
         likeBtn.classList.add('like-already-shake');
@@ -640,11 +640,11 @@ function initStatsWidget() {
 
       isLiking = true;
 
-      // Mark session as liked (limits to 1 like per visit)
-      sessionStorage.setItem('site_liked_session', 'true');
+      // Mark user as permanently liked in localStorage
+      localStorage.setItem('site_user_has_liked', 'true');
       likeBtn.classList.add('is-liked');
       likeBtn.setAttribute('aria-pressed', 'true');
-      likeBtn.title = 'You liked this page! ❤️ (1 like per visit)';
+      likeBtn.title = 'You liked this website! ❤️';
 
       // Optimistic instant UI update
       currentLikes += 1;
