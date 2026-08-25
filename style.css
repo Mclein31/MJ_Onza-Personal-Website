@@ -2772,8 +2772,14 @@ section {
   }
 
   .hero-floating-icon .icon-inner-box {
-    width: clamp(65px, 13vw, 92px);
-    height: clamp(65px, 13vw, 92px);
+    width: clamp(54px, 11vw, 70px);
+    height: clamp(54px, 11vw, 70px);
+  }
+
+  .icon-floating-tooltip {
+    font-size: 0.62rem;
+    padding: 2px 7px;
+    bottom: -24px;
   }
 
   .hero-stroke-text {
@@ -3039,8 +3045,8 @@ section {
 
   /* Hero */
   .hero-floating-icon .icon-inner-box {
-    width: clamp(56px, 15vw, 78px);
-    height: clamp(56px, 15vw, 78px);
+    width: clamp(45px, 12.5vw, 58px);
+    height: clamp(45px, 12.5vw, 58px);
   }
 
   .hero-stroke-text {
@@ -3260,8 +3266,8 @@ section {
   }
 
   .hero-floating-icon .icon-inner-box {
-    width: 50px;
-    height: 50px;
+    width: 39px;
+    height: 39px;
   }
 
   .typing-headline {
