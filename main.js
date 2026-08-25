@@ -513,6 +513,8 @@ function initStatsWidget() {
     let initialTop = 0;
 
     statsWidget.addEventListener('pointerdown', (e) => {
+      // Don't drag if clicking the like button directly
+      if (e.target && e.target.closest('#likeBtnWidget')) return;
       if (e.pointerType === 'mouse' && e.button !== 0) return;
 
       const rect = statsWidget.getBoundingClientRect();
@@ -605,8 +607,14 @@ function initStatsWidget() {
 
     let isLiking = false;
 
+    // Prevent drag listeners from interfering with pointerdown on like button
+    likeBtn.addEventListener('pointerdown', (e) => {
+      e.stopPropagation();
+    });
+
     likeBtn.addEventListener('click', async (e) => {
       e.preventDefault();
+      e.stopPropagation();
       if (ignoreNextLikeClick || isLiking) return;
 
       const alreadyLiked = sessionStorage.getItem('site_liked_session') === 'true';
@@ -643,13 +651,12 @@ function initStatsWidget() {
       localStorage.setItem('site_total_likes', currentLikes);
       likeCountEl.textContent = formatNum(currentLikes);
 
-      // Heart bounce micro-interaction
+      // Heart bounce & pulse micro-interaction
       const heartIcon = likeBtn.querySelector('.like-heart-icon');
       if (heartIcon) {
-        heartIcon.style.transform = 'scale(1.55)';
-        setTimeout(() => {
-          heartIcon.style.transform = '';
-        }, 250);
+        heartIcon.classList.remove('heart-pop-anim');
+        void heartIcon.offsetWidth; // Force reflow to re-trigger CSS animation
+        heartIcon.classList.add('heart-pop-anim');
       }
 
       // Spawn floating +1 ❤️ particle
@@ -661,7 +668,7 @@ function initStatsWidget() {
 
         setTimeout(() => {
           particle.remove();
-        }, 850);
+        }, 900);
       }
 
       // Send single increment to backend
