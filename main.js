@@ -224,7 +224,7 @@ function initCoverflowCarousel() {
       label: "View Source Code on GitHub →"
     },
     {
-      title: "Developer Portfolio — Modern System",
+      title: "Personal Website Portfolio - Modern System",
       desc: "Minimalist portfolio engineered with pure CSS design tokens, persistent dark/light theme switching, and sub-second load times.",
       link: "https://onzamj.vercel.app/",
       label: "View Live Site →"
