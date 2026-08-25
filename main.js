@@ -7,6 +7,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initNavigation();
+  initHeroFloatingIcons();
   initTypingEffect();
   initCoverflowCarousel();
   initTraitCard();
@@ -895,5 +896,164 @@ function initTrainingSlider() {
   // Start auto-slider
   showSlide(0);
   startAutoSlide();
+}
+
+/* ==========================================================================
+   10. INTERACTIVE HERO FLOATING & DRAGGABLE TECH ICONS
+   ========================================================================== */
+function initHeroFloatingIcons() {
+  const stage = document.getElementById('heroIconsStage');
+  if (!stage) return;
+
+  const icons = stage.querySelectorAll('.hero-floating-icon');
+  if (!icons.length) return;
+
+  let highestZIndex = 30;
+
+  icons.forEach((icon) => {
+    // Read computed initial angle or CSS variable
+    const styleAttr = icon.getAttribute('style') || '';
+    const rotMatch = styleAttr.match(/--init-rot:\s*(-?[\d.]+)deg/);
+    const baseRot = rotMatch ? parseFloat(rotMatch[1]) : 0;
+
+    // Prevent default native image drag ghosting
+    const img = icon.querySelector('img');
+    if (img) {
+      img.setAttribute('draggable', 'false');
+      img.addEventListener('dragstart', (e) => e.preventDefault());
+    }
+
+    let isDragging = false;
+    let startPointerX = 0;
+    let startPointerY = 0;
+    let startElemX = 0;
+    let startElemY = 0;
+
+    icon.addEventListener('pointerdown', (e) => {
+      // Only handle primary mouse click or touch
+      if (e.button !== 0 && e.pointerType === 'mouse') return;
+
+      isDragging = true;
+      highestZIndex += 1;
+      icon.style.zIndex = highestZIndex;
+      icon.classList.add('is-dragging');
+
+      try {
+        icon.setPointerCapture(e.pointerId);
+      } catch (err) {
+        // Fallback for browsers with restricted pointer capture
+      }
+
+      startPointerX = e.clientX;
+      startPointerY = e.clientY;
+
+      const stageRect = stage.getBoundingClientRect();
+      const iconRect = icon.getBoundingClientRect();
+
+      // Current center point in stage coordinates
+      startElemX = iconRect.left - stageRect.left + iconRect.width / 2;
+      startElemY = iconRect.top - stageRect.top + iconRect.height / 2;
+
+      e.preventDefault();
+    });
+
+    icon.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+
+      const deltaX = e.clientX - startPointerX;
+      const deltaY = e.clientY - startPointerY;
+
+      let currentX = startElemX + deltaX;
+      let currentY = startElemY + deltaY;
+
+      const stageRect = stage.getBoundingClientRect();
+      const halfW = icon.offsetWidth / 2;
+      const halfH = icon.offsetHeight / 2;
+
+      // Clamp within hero container bounds
+      const minX = halfW + 6;
+      const maxX = stageRect.width - halfW - 6;
+      const minY = halfH + 6;
+      const maxY = stageRect.height - halfH - 6;
+
+      currentX = Math.max(minX, Math.min(maxX, currentX));
+      currentY = Math.max(minY, Math.min(maxY, currentY));
+
+      // Dynamic responsive tilt based on drag movement
+      const dynamicTilt = Math.max(-28, Math.min(28, baseRot + deltaX * 0.07));
+
+      icon.style.left = `${currentX}px`;
+      icon.style.top = `${currentY}px`;
+      icon.style.transform = `translate(-50%, -50%) rotate(${dynamicTilt}deg)`;
+    });
+
+    const endDrag = (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      icon.classList.remove('is-dragging');
+
+      try {
+        if (icon.hasPointerCapture(e.pointerId)) {
+          icon.releasePointerCapture(e.pointerId);
+        }
+      } catch (err) {}
+
+      // Smoothly return to natural base rotation
+      icon.style.transform = `translate(-50%, -50%) rotate(${baseRot}deg)`;
+    };
+
+    icon.addEventListener('pointerup', endDrag);
+    icon.addEventListener('pointercancel', endDrag);
+
+    // Keyboard navigation (Arrow keys nudge the focused icon)
+    icon.addEventListener('keydown', (e) => {
+      const step = e.shiftKey ? 30 : 12;
+      const stageRect = stage.getBoundingClientRect();
+      const iconRect = icon.getBoundingClientRect();
+      let currentX = iconRect.left - stageRect.left + iconRect.width / 2;
+      let currentY = iconRect.top - stageRect.top + iconRect.height / 2;
+
+      if (e.key === 'ArrowLeft') currentX -= step;
+      else if (e.key === 'ArrowRight') currentX += step;
+      else if (e.key === 'ArrowUp') currentY -= step;
+      else if (e.key === 'ArrowDown') currentY += step;
+      else return;
+
+      e.preventDefault();
+      highestZIndex += 1;
+      icon.style.zIndex = highestZIndex;
+
+      const halfW = icon.offsetWidth / 2;
+      const halfH = icon.offsetHeight / 2;
+      currentX = Math.max(halfW + 6, Math.min(stageRect.width - halfW - 6, currentX));
+      currentY = Math.max(halfH + 6, Math.min(stageRect.height - halfH - 6, currentY));
+
+      icon.style.left = `${currentX}px`;
+      icon.style.top = `${currentY}px`;
+    });
+  });
+
+  // Keep scattered icons within boundary on viewport resize
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const stageRect = stage.getBoundingClientRect();
+      icons.forEach((icon) => {
+        const iconRect = icon.getBoundingClientRect();
+        let currentX = iconRect.left - stageRect.left + iconRect.width / 2;
+        let currentY = iconRect.top - stageRect.top + iconRect.height / 2;
+        const halfW = icon.offsetWidth / 2;
+        const halfH = icon.offsetHeight / 2;
+
+        if (currentX > stageRect.width - halfW || currentY > stageRect.height - halfH) {
+          currentX = Math.max(halfW + 6, Math.min(stageRect.width - halfW - 6, currentX));
+          currentY = Math.max(halfH + 6, Math.min(stageRect.height - halfH - 6, currentY));
+          icon.style.left = `${currentX}px`;
+          icon.style.top = `${currentY}px`;
+        }
+      });
+    }, 150);
+  });
 }
 
