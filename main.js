@@ -29,59 +29,40 @@ function initTheme() {
   const initialTheme = savedTheme || (systemPrefersLight ? 'light' : 'dark');
   applyTheme(initialTheme);
 
-  let isTransitioning = false;
+  let transitionTimeout = null;
 
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
-      if (isTransitioning) return;
-      isTransitioning = true;
-
       const currentTheme = root.getAttribute('data-theme') || 'dark';
       const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
 
-      // Button center coordinates at top right
-      const rect = themeToggleBtn.getBoundingClientRect();
-      const x = rect.left + rect.width / 2;
-      const y = rect.top + rect.height / 2;
-      const endRadius = Math.hypot(
-        Math.max(x, window.innerWidth - x),
-        Math.max(y, window.innerHeight - y)
-      );
+      // Enable smooth color/background transition on all visible elements
+      root.classList.add('theme-transitioning');
 
-      // Create high-performance hardware-accelerated splash canvas
-      const splash = document.createElement('div');
-      splash.className = 'theme-splash-canvas';
-      splash.style.background = nextTheme === 'light' ? '#f7f8fa' : '#090a0f';
-      document.body.appendChild(splash);
-
-      // Apply the theme immediately so the entire document (including
-      // off-screen sections) switches under the splash overlay.
-      // The fixed-position splash hides the instant swap from the user.
       applyTheme(nextTheme);
       localStorage.setItem('portfolio-theme', nextTheme);
 
-      const anim = splash.animate(
-        [
-          { clipPath: `circle(0px at ${x}px ${y}px)` },
-          { clipPath: `circle(${endRadius}px at ${x}px ${y}px)` }
-        ],
-        {
-          duration: 520,
-          easing: 'cubic-bezier(0.2, 0, 0, 1)',
-          fill: 'forwards'
-        }
-      );
+      // Subtle icon rotation feedback
+      themeToggleBtn.style.transform = 'scale(0.88) rotate(45deg)';
+      setTimeout(() => {
+        themeToggleBtn.style.transform = '';
+      }, 250);
 
-      anim.onfinish = () => {
-        splash.remove();
-        isTransitioning = false;
-      };
+      // Clean up transition class after animation completes
+      if (transitionTimeout) clearTimeout(transitionTimeout);
+      transitionTimeout = setTimeout(() => {
+        root.classList.remove('theme-transitioning');
+      }, 380);
     });
   }
 
   window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
     if (!localStorage.getItem('portfolio-theme')) {
+      root.classList.add('theme-transitioning');
       applyTheme(e.matches ? 'light' : 'dark');
+      setTimeout(() => {
+        root.classList.remove('theme-transitioning');
+      }, 380);
     }
   });
 
