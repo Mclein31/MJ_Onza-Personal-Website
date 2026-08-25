@@ -2442,26 +2442,45 @@ section {
   position: relative;
   background: transparent;
   border: none;
-  padding: 0.25rem 0.4rem;
+  padding: 0.25rem 0.5rem;
   border-radius: var(--radius-pill);
   cursor: pointer;
   color: var(--text-primary);
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
+  outline: none;
 }
 
 .stat-likes:hover {
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(239, 68, 68, 0.12);
 }
 
-.stat-likes:hover .stat-label {
+.stat-likes:hover .stat-label,
+.stat-likes:hover .stat-number {
   color: #ef4444;
+}
+
+.stat-likes:focus-visible {
+  outline: 2px solid #ef4444;
+  outline-offset: 2px;
+}
+
+/* Liked state (Persistent indication) */
+.stat-likes.is-liked {
+  background: rgba(239, 68, 68, 0.15);
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.3) inset;
+}
+
+.stat-likes.is-liked .stat-label,
+.stat-likes.is-liked .stat-number {
+  color: #ef4444;
+  font-weight: 700;
 }
 
 .like-heart-icon {
   width: 0.95rem;
   height: 0.95rem;
   color: #ef4444;
-  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.25s ease;
 }
 
 .stat-likes:hover .like-heart-icon {
@@ -2470,6 +2489,26 @@ section {
 
 .stat-likes:active .like-heart-icon {
   transform: scale(0.85);
+}
+
+.stat-likes.is-liked .like-heart-icon {
+  filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.65));
+}
+
+.stat-likes.is-liked:hover .like-heart-icon {
+  transform: scale(1.28);
+  filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.85));
+}
+
+/* Shake feedback when clicked after already liked */
+.stat-likes.like-already-shake {
+  animation: likeAlreadyShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes likeAlreadyShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-3px); }
+  40%, 80% { transform: translateX(3px); }
 }
 
 .like-particle-box {
@@ -2484,31 +2523,41 @@ section {
 
 .like-float-burst {
   position: absolute;
-  top: -6px;
+  top: -8px;
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 800;
   color: #ef4444;
   pointer-events: none;
-  animation: floatHeartUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: floatHeartUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   white-space: nowrap;
   z-index: 10;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.like-float-burst.already-liked {
+  color: #f87171;
+  font-size: 0.68rem;
 }
 
 @keyframes floatHeartUp {
   0% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(0.8);
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px) scale(0.7);
   }
-  50% {
+  20% {
     opacity: 1;
-    transform: translateX(-50%) translateY(-18px) scale(1.15);
+    transform: translateX(-50%) translateY(-6px) scale(1.15);
+  }
+  75% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-22px) scale(1);
   }
   100% {
     opacity: 0;
-    transform: translateX(-50%) translateY(-32px) scale(1);
+    transform: translateX(-50%) translateY(-36px) scale(0.9);
   }
 }
 

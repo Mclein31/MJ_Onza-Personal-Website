@@ -594,14 +594,49 @@ function initStatsWidget() {
     });
   }
 
-  // 5. Handle Interactive Like Click
+  // 5. Handle Interactive Like Click (Limited to 1 like per visit/session)
   if (likeBtn && likeCountEl) {
+    const hasLikedSession = sessionStorage.getItem('site_liked_session') === 'true';
+    if (hasLikedSession) {
+      likeBtn.classList.add('is-liked');
+      likeBtn.setAttribute('aria-pressed', 'true');
+      likeBtn.title = 'You liked this page! ❤️ (1 like per visit)';
+    }
+
     let isLiking = false;
 
     likeBtn.addEventListener('click', async (e) => {
       e.preventDefault();
       if (ignoreNextLikeClick || isLiking) return;
+
+      const alreadyLiked = sessionStorage.getItem('site_liked_session') === 'true';
+
+      if (alreadyLiked) {
+        // Visual feedback when clicked again in the same session
+        likeBtn.classList.remove('like-already-shake');
+        void likeBtn.offsetWidth; // Force CSS reflow to re-trigger animation
+        likeBtn.classList.add('like-already-shake');
+
+        if (likeParticleBox) {
+          const particle = document.createElement('span');
+          particle.className = 'like-float-burst already-liked';
+          particle.textContent = 'Already liked! ❤️';
+          likeParticleBox.appendChild(particle);
+
+          setTimeout(() => {
+            particle.remove();
+          }, 850);
+        }
+        return;
+      }
+
       isLiking = true;
+
+      // Mark session as liked (limits to 1 like per visit)
+      sessionStorage.setItem('site_liked_session', 'true');
+      likeBtn.classList.add('is-liked');
+      likeBtn.setAttribute('aria-pressed', 'true');
+      likeBtn.title = 'You liked this page! ❤️ (1 like per visit)';
 
       // Optimistic instant UI update
       currentLikes += 1;
@@ -611,10 +646,10 @@ function initStatsWidget() {
       // Heart bounce micro-interaction
       const heartIcon = likeBtn.querySelector('.like-heart-icon');
       if (heartIcon) {
-        heartIcon.style.transform = 'scale(1.45)';
+        heartIcon.style.transform = 'scale(1.55)';
         setTimeout(() => {
           heartIcon.style.transform = '';
-        }, 220);
+        }, 250);
       }
 
       // Spawn floating +1 ❤️ particle
@@ -626,10 +661,10 @@ function initStatsWidget() {
 
         setTimeout(() => {
           particle.remove();
-        }, 800);
+        }, 850);
       }
 
-      // Send increment to backend
+      // Send single increment to backend
       const updatedCloudLikes = await requestStats('increment', 'likes');
       if (typeof updatedCloudLikes === 'number') {
         currentLikes = updatedCloudLikes;
