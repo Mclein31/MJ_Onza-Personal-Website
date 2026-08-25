@@ -151,8 +151,8 @@ function initTypingEffect() {
   const phrases = [
     "Aspiring Data Engineer.",
     "Learning Python, SQL & PostgreSQL.",
-    "Web Developer & Systems Builder.",
-    "Turning Logic into Practical Software."
+    "Loves playing Tennis.",
+    "Frequent Manhwa Reader."
   ];
 
   let phraseIndex = 0;
