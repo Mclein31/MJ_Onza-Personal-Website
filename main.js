@@ -425,6 +425,7 @@ function initTraitCard() {
    6. INTERACTIVE WEBSITE STATS WIDGET (UNIFIED CLOUD VISITS & LIKES)
    ========================================================================== */
 function initStatsWidget() {
+  const statsWidget = document.getElementById('statsWidget');
   const visitCountEl = document.getElementById('visitCount');
   const likeCountEl = document.getElementById('likeCount');
   const likeBtn = document.getElementById('likeBtnWidget');
@@ -499,13 +500,106 @@ function initStatsWidget() {
     }
   }
 
-  // 4. Handle Interactive Like Click
+  // 4. Draggable Floating Stats Widget (Desktop Mouse & Mobile Touch)
+  let ignoreNextLikeClick = false;
+
+  if (statsWidget) {
+    let isDragging = false;
+    let hasMoved = false;
+    let startPointerX = 0;
+    let startPointerY = 0;
+    let initialLeft = 0;
+    let initialTop = 0;
+
+    statsWidget.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+      const rect = statsWidget.getBoundingClientRect();
+      startPointerX = e.clientX;
+      startPointerY = e.clientY;
+      initialLeft = rect.left;
+      initialTop = rect.top;
+      isDragging = true;
+      hasMoved = false;
+
+      try {
+        statsWidget.setPointerCapture(e.pointerId);
+      } catch (err) {}
+    });
+
+    statsWidget.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+
+      const dx = e.clientX - startPointerX;
+      const dy = e.clientY - startPointerY;
+
+      if (!hasMoved && Math.hypot(dx, dy) > 5) {
+        hasMoved = true;
+        statsWidget.classList.add('is-dragging');
+      }
+
+      if (hasMoved) {
+        const width = statsWidget.offsetWidth;
+        const height = statsWidget.offsetHeight;
+        const margin = 8;
+        const maxLeft = window.innerWidth - width - margin;
+        const maxTop = window.innerHeight - height - margin;
+
+        const newLeft = Math.min(Math.max(margin, initialLeft + dx), maxLeft);
+        const newTop = Math.min(Math.max(margin, initialTop + dy), maxTop);
+
+        statsWidget.style.left = `${newLeft}px`;
+        statsWidget.style.top = `${newTop}px`;
+        statsWidget.style.bottom = 'auto';
+        statsWidget.style.right = 'auto';
+      }
+    });
+
+    const handlePointerUp = (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+
+      try {
+        statsWidget.releasePointerCapture(e.pointerId);
+      } catch (err) {}
+
+      statsWidget.classList.remove('is-dragging');
+
+      if (hasMoved) {
+        ignoreNextLikeClick = true;
+        setTimeout(() => {
+          ignoreNextLikeClick = false;
+        }, 150);
+      }
+    };
+
+    statsWidget.addEventListener('pointerup', handlePointerUp);
+    statsWidget.addEventListener('pointercancel', handlePointerUp);
+
+    // Keep clamped inside viewport on screen resize / orientation change
+    window.addEventListener('resize', () => {
+      if (statsWidget.style.top && statsWidget.style.top !== 'auto') {
+        const rect = statsWidget.getBoundingClientRect();
+        const margin = 8;
+        const maxLeft = Math.max(margin, window.innerWidth - rect.width - margin);
+        const maxTop = Math.max(margin, window.innerHeight - rect.height - margin);
+
+        const clampedLeft = Math.min(Math.max(margin, rect.left), maxLeft);
+        const clampedTop = Math.min(Math.max(margin, rect.top), maxTop);
+
+        statsWidget.style.left = `${clampedLeft}px`;
+        statsWidget.style.top = `${clampedTop}px`;
+      }
+    });
+  }
+
+  // 5. Handle Interactive Like Click
   if (likeBtn && likeCountEl) {
     let isLiking = false;
 
     likeBtn.addEventListener('click', async (e) => {
       e.preventDefault();
-      if (isLiking) return;
+      if (ignoreNextLikeClick || isLiking) return;
       isLiking = true;
 
       // Optimistic instant UI update
