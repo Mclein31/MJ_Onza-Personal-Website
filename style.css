@@ -1510,6 +1510,14 @@ section {
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.25s ease;
   cursor: pointer;
+  outline: none;
+}
+
+.collage-item:focus-visible {
+  outline: 3px solid var(--accent-blue);
+  outline-offset: 4px;
+  z-index: 35 !important;
+  transform: translateY(-6px) scale(1.08) rotate(0deg) !important;
 }
 
 [data-theme="light"] .collage-item {
@@ -1522,6 +1530,48 @@ section {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* Hover Zoom Pill Badge */
+.collage-zoom-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(15, 16, 23, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.75);
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
+  pointer-events: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  z-index: 5;
+}
+
+.collage-zoom-badge svg {
+  width: 13px;
+  height: 13px;
+}
+
+.collage-item:hover .collage-zoom-badge,
+.collage-item:focus-visible .collage-zoom-badge {
+  opacity: 1;
+  transform: scale(1);
+}
+
+[data-theme="light"] .collage-zoom-badge {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  color: #0d1117;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 /* Authentic Freestyle Scatter Positions & Expressive Tilts */
@@ -1621,6 +1671,7 @@ section {
   box-shadow: var(--shadow-sm);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
+  outline: none;
 }
 
 .award-card-item:hover {
@@ -1628,6 +1679,13 @@ section {
   border-color: var(--border-strong);
   transform: translateX(4px);
   box-shadow: var(--shadow-md);
+}
+
+.award-card-item:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+  border-color: var(--accent-blue);
+  transform: translateX(4px);
 }
 
 .award-card-icon {
@@ -2188,7 +2246,354 @@ section {
 }
 
 /* --------------------------------------------------------------------------
-   10. MACOS STYLE MODAL WINDOW (IMG_3217.jpg)
+   10. AWARDS & ACHIEVEMENTS LIGHTBOX MODAL VIEWER
+   -------------------------------------------------------------------------- */
+.award-lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 6, 10, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 2500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+[data-theme="light"] .award-lightbox-overlay {
+  background: rgba(240, 243, 248, 0.92);
+}
+
+.award-lightbox-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.award-lightbox-container {
+  width: 100%;
+  max-width: 960px;
+  max-height: 92vh;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 0 1px var(--border-medium);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  transform: scale(0.92) translateY(16px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="light"] .award-lightbox-container {
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2), 0 0 0 1px var(--border-medium);
+}
+
+.award-lightbox-overlay.active .award-lightbox-container {
+  transform: scale(1) translateY(0);
+}
+
+/* Lightbox Header */
+.award-lightbox-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  background: var(--bg-surface-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.award-lightbox-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.award-lightbox-tag {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.award-lightbox-tag::after {
+  content: "•";
+  margin-left: 0.6rem;
+  color: var(--border-strong);
+}
+
+.award-lightbox-counter {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.award-lightbox-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.award-lightbox-ctrl-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.award-lightbox-ctrl-btn:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+  transform: scale(1.05);
+}
+
+.award-lightbox-ctrl-btn svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* Viewport Area */
+.award-lightbox-viewport {
+  position: relative;
+  flex: 1;
+  min-height: 280px;
+  max-height: calc(92vh - 180px);
+  background: #08090d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+}
+
+[data-theme="light"] .award-lightbox-viewport {
+  background: #e9ecf2;
+}
+
+.award-lightbox-stage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  overflow: auto;
+  transition: all 0.25s ease;
+}
+
+.award-lightbox-img {
+  max-width: 100%;
+  max-height: 52vh;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  cursor: zoom-in;
+}
+
+.award-lightbox-stage.is-zoomed {
+  cursor: grab;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.award-lightbox-stage.is-zoomed .award-lightbox-img {
+  max-width: none;
+  max-height: none;
+  width: 135%;
+  height: auto;
+  cursor: zoom-out;
+  margin: auto;
+}
+
+/* Nav Buttons */
+.award-lightbox-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: rgba(18, 19, 26, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border-medium);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] .award-lightbox-nav-btn {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #0d1117;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.award-lightbox-nav-btn.prev {
+  left: 1rem;
+}
+
+.award-lightbox-nav-btn.next {
+  right: 1rem;
+}
+
+.award-lightbox-nav-btn:hover {
+  background: var(--text-primary);
+  color: var(--text-inverse);
+  border-color: var(--text-primary);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.award-lightbox-nav-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Lightbox Footer */
+.award-lightbox-footer {
+  padding: 0.85rem 1.25rem;
+  background: var(--bg-surface-elevated);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.award-lightbox-caption {
+  text-align: center;
+}
+
+.award-lightbox-title {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.25rem;
+}
+
+.award-lightbox-desc {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Thumbnail Strip */
+.award-lightbox-thumbs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.2rem 0;
+  scrollbar-width: none;
+}
+
+.award-lightbox-thumbs::-webkit-scrollbar {
+  display: none;
+}
+
+.award-thumb-item {
+  width: 44px;
+  height: 34px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid var(--border-subtle);
+  cursor: pointer;
+  opacity: 0.55;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  background: var(--bg-card);
+  padding: 0;
+}
+
+.award-thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.award-thumb-item:hover {
+  opacity: 0.85;
+  transform: scale(1.06);
+}
+
+.award-thumb-item.active {
+  opacity: 1;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+  transform: scale(1.1);
+}
+
+/* Mobile responsive adjustments for Lightbox */
+@media (max-width: 768px) {
+  .award-lightbox-container {
+    max-height: 96vh;
+    border-radius: var(--radius-md);
+  }
+  .award-lightbox-viewport {
+    min-height: 240px;
+    max-height: calc(96vh - 200px);
+  }
+  .award-lightbox-nav-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+  .award-lightbox-nav-btn.prev {
+    left: 0.5rem;
+  }
+  .award-lightbox-nav-btn.next {
+    right: 0.5rem;
+  }
+  .award-lightbox-title {
+    font-size: 0.88rem;
+  }
+  .award-lightbox-desc {
+    font-size: 0.75rem;
+  }
+  .award-thumb-item {
+    width: 36px;
+    height: 28px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   11. MACOS STYLE MODAL WINDOW (IMG_3217.jpg)
    -------------------------------------------------------------------------- */
 .modal-overlay {
   position: fixed;

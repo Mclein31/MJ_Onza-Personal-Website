@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactModal();
   initScrollSpy();
   initTrainingSlider();
+  initAwardLightbox();
 });
 
 /* ==========================================================================
@@ -1098,4 +1099,282 @@ function initHeroFloatingIcons() {
     }, 150);
   });
 }
+
+/* ==========================================================================
+   11. AWARDS & RECOGNITION LIGHTBOX VIEWER
+   ========================================================================== */
+function initAwardLightbox() {
+  const modal = document.getElementById('awardLightboxModal');
+  if (!modal) return;
+
+  const imgEl = document.getElementById('awardLightboxImg');
+  const stageEl = document.getElementById('awardLightboxStage');
+  const titleEl = document.getElementById('awardLightboxTitle');
+  const descEl = document.getElementById('awardLightboxDesc');
+  const counterEl = document.getElementById('awardLightboxCounter');
+  const thumbsContainer = document.getElementById('awardLightboxThumbs');
+  const prevBtn = document.getElementById('awardLightboxPrevBtn');
+  const nextBtn = document.getElementById('awardLightboxNextBtn');
+  const closeBtn = document.getElementById('awardLightboxCloseBtn');
+  const zoomBtn = document.getElementById('awardLightboxZoomBtn');
+
+  // Award items metadata
+  const awardItems = [
+    {
+      src: 'assets/images/awards/award-bnhs-journalism-team.jpg',
+      title: 'Ballesteros National High School — Student Leadership & Journalism Team',
+      desc: 'Dedicated campus journalist, radio broadcaster, and student leader at Ballesteros National High School.',
+      alt: 'Ballesteros National High School Student Leadership & Journalism Team'
+    },
+    {
+      src: 'assets/images/awards/cert-pitch-and-silent-billionaire.jpg',
+      title: 'Pitch Perfect Award & Silent Billionaire Award',
+      desc: 'Dual Certificate of Recognition from the Department of Trade and Industry (DTI Region 02 / YEP) for MedCore pitch presentation and exceptional impact.',
+      alt: 'Certificates of Recognition: Pitch Perfect Award and Silent Billionaire Award'
+    },
+    {
+      src: 'assets/images/awards/cert-high-honors.jpg',
+      title: 'With High Honors Academic Excellence Award',
+      desc: 'Official Certificate of Recognition for demonstrating consistent scholastic excellence and high scholastic distinction.',
+      alt: 'Certificate of Recognition: With High Honors Academic Excellence Award'
+    },
+    {
+      src: 'assets/images/awards/award-dti-yep-team.jpg',
+      title: 'DTI Youth Entrepreneurship Program (YEP) Pitch Presentation Team',
+      desc: 'Pitch presentation collaboration for MedCore alongside regional mentors, youth innovators, and DTI-SMEDD organizers.',
+      alt: 'DTI Youth Entrepreneurship Program Pitch Presentation Team'
+    },
+    {
+      src: 'assets/images/awards/award-community-leadership.jpg',
+      title: 'Student Leadership & Community Outreach Group',
+      desc: 'Active youth leadership representation, community volunteer initiatives, and collaborative outreach programs.',
+      alt: 'Student Leadership & Community Outreach Group'
+    },
+    {
+      src: 'assets/images/awards/award-deped-tree-project.jpg',
+      title: 'DepEd 235K Christmas Trees Project Student Leadership',
+      desc: 'Youth environmental stewardship and student leadership participation in the nationwide DepEd tree planting initiative.',
+      alt: 'DepEd 235K Christmas Trees Project Student Leadership'
+    },
+    {
+      src: 'assets/images/awards/award-symposium-arena.jpg',
+      title: 'Regional Academic & Pitch Competition Symposium',
+      desc: 'Showcase and keynote presentation in the regional symposium arena before academic panels and enterprise evaluators.',
+      alt: 'Regional Academic and Pitch Competition Symposium'
+    }
+  ];
+
+  let currentIndex = 0;
+  let isZoomed = false;
+  let lastActiveElement = null;
+
+  // Build thumbnails
+  if (thumbsContainer) {
+    thumbsContainer.innerHTML = '';
+    awardItems.forEach((item, idx) => {
+      const thumb = document.createElement('button');
+      thumb.type = 'button';
+      thumb.className = `award-thumb-item ${idx === 0 ? 'active' : ''}`;
+      thumb.setAttribute('aria-label', `View award photo ${idx + 1}: ${item.title}`);
+      thumb.innerHTML = `<img src="${item.src}" alt="Thumbnail ${idx + 1}" loading="lazy" />`;
+      thumb.addEventListener('click', (e) => {
+        e.stopPropagation();
+        goToImage(idx);
+      });
+      thumbsContainer.appendChild(thumb);
+    });
+  }
+
+  function renderImage(index) {
+    if (index < 0) index = awardItems.length - 1;
+    if (index >= awardItems.length) index = 0;
+    currentIndex = index;
+
+    const item = awardItems[currentIndex];
+
+    // Smooth image transition
+    if (imgEl) {
+      imgEl.style.opacity = '0.3';
+      imgEl.src = item.src;
+      imgEl.alt = item.alt;
+      imgEl.onload = () => {
+        imgEl.style.opacity = '1';
+      };
+      setTimeout(() => {
+        imgEl.style.opacity = '1';
+      }, 100);
+    }
+
+    if (titleEl) titleEl.textContent = item.title;
+    if (descEl) descEl.textContent = item.desc;
+    if (counterEl) counterEl.textContent = `${currentIndex + 1} / ${awardItems.length}`;
+
+    // Update active thumbnail
+    if (thumbsContainer) {
+      const thumbs = thumbsContainer.querySelectorAll('.award-thumb-item');
+      thumbs.forEach((th, idx) => {
+        if (idx === currentIndex) {
+          th.classList.add('active');
+          th.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+        } else {
+          th.classList.remove('active');
+        }
+      });
+    }
+
+    // Reset zoom state on image switch
+    resetZoom();
+  }
+
+  function resetZoom() {
+    isZoomed = false;
+    if (stageEl) stageEl.classList.remove('is-zoomed');
+    if (zoomBtn) {
+      zoomBtn.title = 'Zoom In (Z)';
+      zoomBtn.setAttribute('aria-label', 'Zoom in');
+    }
+  }
+
+  function toggleZoom() {
+    isZoomed = !isZoomed;
+    if (stageEl) stageEl.classList.toggle('is-zoomed', isZoomed);
+    if (zoomBtn) {
+      zoomBtn.title = isZoomed ? 'Zoom Out (Z)' : 'Zoom In (Z)';
+      zoomBtn.setAttribute('aria-label', isZoomed ? 'Zoom out' : 'Zoom in');
+    }
+  }
+
+  function openLightbox(index = 0) {
+    lastActiveElement = document.activeElement;
+    renderImage(index);
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    modal.focus();
+  }
+
+  function closeLightbox() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    resetZoom();
+    if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
+      lastActiveElement.focus();
+    }
+  }
+
+  function goToImage(index) {
+    renderImage(index);
+  }
+
+  function nextImage() {
+    goToImage(currentIndex + 1);
+  }
+
+  function prevImage() {
+    goToImage(currentIndex - 1);
+  }
+
+  // Bind collage items
+  const collageItems = document.querySelectorAll('.collage-item');
+  collageItems.forEach((item) => {
+    const idx = parseInt(item.getAttribute('data-award-index'), 10) || 0;
+    item.addEventListener('click', () => openLightbox(idx));
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(idx);
+      }
+    });
+  });
+
+  // Bind award card items
+  const awardCards = document.querySelectorAll('.award-card-item');
+  awardCards.forEach((card) => {
+    const idx = parseInt(card.getAttribute('data-award-index'), 10);
+    if (!isNaN(idx)) {
+      card.addEventListener('click', () => openLightbox(idx));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox(idx);
+        }
+      });
+    }
+  });
+
+  // Control Buttons
+  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+  if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
+  if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
+  if (zoomBtn) zoomBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleZoom(); });
+
+  // Click directly on stage image to toggle zoom
+  if (imgEl) {
+    imgEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleZoom();
+    });
+  }
+
+  // Click outside container on backdrop to close
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeLightbox();
+    }
+  });
+
+  // Global Keyboard Navigation when lightbox is open
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('active')) return;
+
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeLightbox();
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      nextImage();
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      prevImage();
+    } else if (e.key === 'z' || e.key === 'Z') {
+      e.preventDefault();
+      toggleZoom();
+    }
+  });
+
+  // Mobile Touch Swipe Navigation
+  let touchStartX = 0;
+  let touchEndX = 0;
+  let touchStartY = 0;
+  let touchEndY = 0;
+
+  const viewportEl = modal.querySelector('.award-lightbox-viewport');
+  if (viewportEl) {
+    viewportEl.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    viewportEl.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      handleLightboxSwipe();
+    }, { passive: true });
+  }
+
+  function handleLightboxSwipe() {
+    if (isZoomed) return;
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+    const swipeThreshold = 45;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > swipeThreshold) {
+      if (deltaX < 0) {
+        nextImage();
+      } else {
+        prevImage();
+      }
+    }
+  }
+}
+
 
