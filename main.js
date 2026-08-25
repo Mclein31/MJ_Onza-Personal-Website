@@ -54,6 +54,12 @@ function initTheme() {
       splash.style.background = nextTheme === 'light' ? '#f7f8fa' : '#090a0f';
       document.body.appendChild(splash);
 
+      // Apply the theme immediately so the entire document (including
+      // off-screen sections) switches under the splash overlay.
+      // The fixed-position splash hides the instant swap from the user.
+      applyTheme(nextTheme);
+      localStorage.setItem('portfolio-theme', nextTheme);
+
       const anim = splash.animate(
         [
           { clipPath: `circle(0px at ${x}px ${y}px)` },
@@ -67,8 +73,6 @@ function initTheme() {
       );
 
       anim.onfinish = () => {
-        applyTheme(nextTheme);
-        localStorage.setItem('portfolio-theme', nextTheme);
         splash.remove();
         isTransitioning = false;
       };
