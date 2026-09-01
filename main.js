@@ -221,8 +221,8 @@ function initCoverflowCarousel() {
     {
       title: "Cipher Shift — Cryptography & OCR Tool",
       desc: "Algorithmic Caesar cipher utility in Python with image OCR text extraction and brute-force frequency heuristics to detect probable plaintext.",
-      link: "https://github.com/Mclein31/Caesar-Cipher",
-      label: "View Source Code on GitHub →"
+      link: null,
+      label: null
     },
     {
       title: "Personal Website Portfolio - Modern System",
@@ -233,8 +233,8 @@ function initCoverflowCarousel() {
     {
       title: "MedRec — Medical Records Application",
       desc: "Secure medical records management mobile application designed to organize patient histories, consultations, and clinic prescriptions.",
-      link: "https://github.com/Mclein31",
-      label: "View Source Code on GitHub →"
+      link: null,
+      label: null
     }
   ];
 
@@ -281,13 +281,19 @@ function initCoverflowCarousel() {
           if (titleEl) titleEl.textContent = currentData.title;
           if (descEl) descEl.textContent = currentData.desc;
           if (linkEl) {
-            linkEl.href = currentData.link;
-            linkEl.textContent = currentData.label;
-            if (currentData.link.startsWith('http')) {
-              linkEl.target = '_blank';
-              linkEl.rel = 'noopener noreferrer';
+            if (currentData.link) {
+              linkEl.href = currentData.link;
+              linkEl.textContent = currentData.label || 'View Live Website →';
+              linkEl.style.display = 'inline-flex';
+              if (currentData.link.startsWith('http')) {
+                linkEl.target = '_blank';
+                linkEl.rel = 'noopener noreferrer';
+              } else {
+                linkEl.removeAttribute('target');
+              }
             } else {
-              linkEl.removeAttribute('target');
+              linkEl.style.display = 'none';
+              linkEl.removeAttribute('href');
             }
           }
         }
