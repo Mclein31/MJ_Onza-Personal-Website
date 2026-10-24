@@ -12,6 +12,7 @@ import { initStats } from './stats.js';
 import { initContact } from './contact.js';
 import { initGalleries } from './gallery.js';
 import { initDemo } from './demo.js';
+import { initActivity } from './activity.js';
 
 // Each module guards its own DOM, so one failure never takes down the page
 const run = (name, fn) => { try { fn(); } catch (err) { console.error(`[${name}]`, err); } };
@@ -25,6 +26,7 @@ run('demo', initDemo);
 run('ui', initUI);
 run('palette', initPalette);
 run('lightbox', initLightbox);
+run('activity', initActivity);
 run('stats', initStats);
 run('contact', initContact);
 run('icons', initIcons);

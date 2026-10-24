@@ -9,6 +9,7 @@ const COMMANDS = [
   { group: 'Sections', label: 'Top', hint: 'home', run: go('#top') },
   { group: 'Sections', label: 'About', hint: 'bio', run: go('#about') },
   { group: 'Sections', label: 'Work', hint: 'projects', run: go('#work') },
+  { group: 'Sections', label: 'Activity', hint: 'github contributions', run: go('#activity') },
   { group: 'Sections', label: 'Stack', hint: 'skills journey', run: go('#stack') },
   { group: 'Sections', label: 'Recognition', hint: 'awards', run: go('#recognition') },
   { group: 'Sections', label: 'Training', hint: 'dti yep seminar', run: go('#training') },

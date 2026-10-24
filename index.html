@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="css/about.css" />
   <link rel="stylesheet" href="css/work.css" />
   <link rel="stylesheet" href="css/stack.css" />
+  <link rel="stylesheet" href="css/activity.css" />
   <link rel="stylesheet" href="css/recognition.css" />
   <link rel="stylesheet" href="css/contact.css" />
   <script type="module" src="js/main.js"></script>
@@ -311,6 +312,34 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <section class="section container" id="activity" aria-label="GitHub activity">
+      <div class="section-head">
+        <span class="table-name" data-reveal>SELECT date, count(*) FROM <b>commits</b> GROUP BY date;</span>
+        <h2 data-reveal style="--i:1">A year of shipping, one square at a time.</h2>
+        <p data-reveal style="--i:2">My GitHub contribution graph, pulled live. Each square is a day, and the brighter it glows, the more I pushed. Hover a stat to find it on the graph.</p>
+      </div>
+      <div class="activity" data-activity data-reveal style="--i:3">
+        <div class="activity__head">
+          <b>contributions</b>
+          <span data-act-range>last 12 months</span>
+        </div>
+        <div class="activity__scroll" data-act-scroll>
+          <div class="activity__cal is-loading" data-act-cal role="img" aria-label="GitHub contribution calendar, loading"></div>
+        </div>
+        <div class="activity__foot">
+          <a href="https://github.com/Mclein31" target="_blank" rel="noopener noreferrer" data-cursor="GitHub">github.com/Mclein31 ↗</a>
+          <span class="activity__legend" aria-hidden="true">less <i data-l="0"></i><i data-l="1"></i><i data-l="2"></i><i data-l="3"></i><i data-l="4"></i> more</span>
+        </div>
+        <span class="activity__tip" data-act-tip role="status" aria-live="polite"></span>
+      </div>
+      <dl class="activity__stats" data-act-stats>
+        <div class="stat" data-reveal style="--i:0" data-hl="active"><dt>total</dt><dd><b data-act="total">—</b><span>contributions</span></dd></div>
+        <div class="stat" data-reveal style="--i:1" data-hl="active"><dt>active_days</dt><dd><b data-act="days">—</b><span data-act="daysNote">days with a push</span></dd></div>
+        <div class="stat" data-reveal style="--i:2" data-hl="streak"><dt>longest_streak</dt><dd><b data-act="streak">—</b><span data-act="streakNote">days in a row</span></dd></div>
+        <div class="stat" data-reveal style="--i:3" data-hl="best"><dt>best_day</dt><dd><b data-act="best">—</b><span data-act="bestNote">contributions</span></dd></div>
+      </dl>
     </section>
 
     <section class="section container" id="stack">
