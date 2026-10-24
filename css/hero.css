@@ -58,7 +58,8 @@
 .float-icon img { width: 82%; height: 82%; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.22)); }
 .float-icon.is-grabbed { cursor: grabbing; z-index: 5; }
 :root:not([data-theme="light"]) .float-icon.invert-dark img { filter: invert(1) drop-shadow(0 6px 10px rgba(0, 0, 0, 0.22)); }
-.hero.is-in .float-icon.is-grabbed { scale: 1.12; transition: scale var(--dur-2) var(--ease-spring); }
+/* Scale the image, not the icon box: `scale` on the box would also multiply its translate position */
+.hero.is-in .float-icon.is-grabbed img { scale: 1.12; transition: scale var(--dur-2) var(--ease-spring); }
 .float-icon .tip {
   position: absolute; bottom: calc(100% + 8px); left: 50%; translate: -50% 4px;
   padding: 4px 10px; border-radius: var(--r-pill); white-space: nowrap;
@@ -67,8 +68,10 @@
 }
 .float-icon:hover .tip, .float-icon:focus-visible .tip { opacity: 1; translate: -50% 0; }
 @media (hover: none) { .float-icon .tip { display: none; } }
-.float-icon { opacity: 0; scale: 0.6; }
-.hero.is-in .float-icon { opacity: 1; scale: 1; transition: opacity 600ms var(--ease-out), scale 700ms var(--ease-spring); transition-delay: calc(700ms + var(--fi) * 40ms); }
+.float-icon { opacity: 0; }
+.float-icon img { scale: 0.6; }
+.hero.is-in .float-icon { opacity: 1; transition: opacity 600ms var(--ease-out); transition-delay: calc(700ms + var(--fi) * 40ms); }
+.hero.is-in .float-icon img { scale: 1; transition: scale 700ms var(--ease-spring); transition-delay: calc(700ms + var(--fi) * 40ms); }
 
 @media (max-width: 860px) {
   .hero { padding-top: 96px; }

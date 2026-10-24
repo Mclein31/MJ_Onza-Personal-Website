@@ -53,7 +53,7 @@ export function initIcons() {
     if (!small) el.style.setProperty('--size', Math.round(size * SCALE) + 'px');
     el.innerHTML = `<img src="assets/icons/${file}" alt="" draggable="false" decoding="async" /><span class="tip">${label}</span>`;
     field.append(el);
-    return { el, px, py, x: 0, y: 0, vx: 0, vy: 0, w: 0, held: false, phase: Math.random() * Math.PI * 2 };
+    return { el, px, py, x: 0, y: 0, w: 0, held: false, tilt: 0, phase: Math.random() * Math.PI * 2 };
   });
 
   let W = 0, H = 0;
@@ -68,45 +68,47 @@ export function initIcons() {
   layout();
   addEventListener('resize', layout);
 
-  // Dragging: track pointer velocity so a release "throws" the icon
+  const still = reducedMotion.matches;
+  const bobAt = (b, t) => (still ? 0 : Math.sin(t / 1400 + b.phase) * 6);
+
+  // Dragging: the icon follows the pointer 1:1 and stays exactly where it's dropped (no throw).
+  // The last icon grabbed stays on top, so you can always pick it up again.
+  let topZ = 1;
   bodies.forEach((b) => {
-    let ox = 0, oy = 0, lx = 0, ly = 0, lt = 0;
+    let ox = 0, oy = 0, lastX = 0;
     b.el.addEventListener('pointerdown', (e) => {
       e.preventDefault(); // no text selection or native image drag while grabbing
       document.documentElement.classList.add('is-dragging-icon');
+      b.y += bobAt(b, performance.now()); // keep the icon exactly where it is when grabbed
+      b.el.style.zIndex = String(++topZ);
       b.held = true; b.el.classList.add('is-grabbed'); b.el.setPointerCapture(e.pointerId);
-      ox = e.clientX - b.x; oy = e.clientY - b.y; lx = e.clientX; ly = e.clientY; lt = performance.now();
+      ox = e.clientX - b.x; oy = e.clientY - b.y; lastX = e.clientX;
     });
     b.el.addEventListener('pointermove', (e) => {
       if (!b.held) return;
-      const now = performance.now(), dt = Math.max(1, now - lt);
-      b.vx = ((e.clientX - lx) / dt) * 16; b.vy = ((e.clientY - ly) / dt) * 16;
-      lx = e.clientX; ly = e.clientY; lt = now;
+      b.tilt = clamp(b.tilt + (e.clientX - lastX) * 0.6, -8, 8); // small lean in the drag direction
+      lastX = e.clientX;
       b.x = clamp(e.clientX - ox, 0, W - b.w); b.y = clamp(e.clientY - oy, 0, H - b.w);
     });
     const release = () => {
+      if (!b.held) return;
       b.held = false; b.el.classList.remove('is-grabbed');
       document.documentElement.classList.remove('is-dragging-icon');
+      b.phase = -performance.now() / 1400; // resume floating from zero offset, so no jump on drop
     };
     b.el.addEventListener('pointerup', release);
     b.el.addEventListener('pointercancel', release);
   });
 
-  const still = reducedMotion.matches;
   let visible = true;
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(hero);
 
   const step = (t) => {
     if (visible) {
       bodies.forEach((b) => {
-        if (!b.held) {
-          b.x += b.vx; b.y += b.vy; b.vx *= 0.93; b.vy *= 0.93;
-          if (b.x < 0 || b.x > W - b.w) { b.vx *= -0.7; b.x = clamp(b.x, 0, W - b.w); }
-          if (b.y < 0 || b.y > H - b.w) { b.vy *= -0.7; b.y = clamp(b.y, 0, H - b.w); }
-        }
-        const bob = still || b.held ? 0 : Math.sin(t / 1400 + b.phase) * 6;
-        const tilt = clamp(b.vx * 2, -18, 18);
-        b.el.style.transform = `translate3d(${b.x}px, ${b.y + bob}px, 0) rotate(${tilt}deg)`;
+        const bob = b.held ? 0 : bobAt(b, t);
+        b.tilt *= 0.85; // lean eases back to upright
+        b.el.style.transform = `translate3d(${b.x}px, ${b.y + bob}px, 0) rotate(${b.tilt.toFixed(2)}deg)`;
       });
     }
     requestAnimationFrame(step);
