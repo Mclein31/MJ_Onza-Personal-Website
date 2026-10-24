@@ -1,0 +1,62 @@
+/* ==========================================================================
+   Stack — skills as schema tables · Journey timeline
+   ========================================================================== */
+.schema {
+  display: grid; gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+.table {
+  border: 1px solid var(--line); border-radius: var(--r-2); overflow: hidden;
+  background: var(--bg-2);
+  transition: border-color var(--dur-2), transform var(--dur-1) var(--ease-out);
+}
+.table:hover { border-color: var(--line-2); }
+.table__head {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  padding: 14px 16px; border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono); font-size: var(--fs-sm);
+}
+.table__head b { font-weight: 500; color: var(--ink); }
+.table__head b::before { content: "▦ "; color: var(--accent-text); }
+.table__head span { color: var(--ink-3); font-size: var(--fs-xs); }
+.table__desc { padding: 14px 16px 10px; color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.55; }
+.table__rows { padding: 4px 6px 8px; }
+.row {
+  position: relative; display: flex; justify-content: space-between; gap: 12px;
+  padding: 8px 10px; border-radius: var(--r-1);
+  font-family: var(--font-mono); font-size: 13px; color: var(--ink-2);
+  transition: background-color var(--dur-1), color var(--dur-1);
+  cursor: default;
+}
+.row::before { content: attr(data-n); color: var(--ink-3); width: 2ch; flex: none; }
+.row span { flex: 1; }
+.row em { font-style: normal; color: var(--ink-3); font-size: 11px; }
+.row:hover, .row.is-joined { background: var(--accent-soft); color: var(--ink); }
+.row.is-joined em { color: var(--accent-text); }
+.schema.is-joining .row:not(.is-joined):not(:hover) { opacity: 0.45; }
+.schema .row { transition: opacity var(--dur-2), background-color var(--dur-1), color var(--dur-1); }
+.schema__hint { margin-top: 18px; font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--ink-3); }
+
+/* Journey */
+.journey { margin-top: var(--section-y); display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 48px; }
+.journey__head h3 { font-size: var(--fs-2xl); }
+.journey__head p { margin-top: 14px; color: var(--ink-2); max-width: 32ch; }
+.timeline { position: relative; padding-left: 36px; }
+.timeline::before, .timeline__fill {
+  content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1px; background: var(--line-2);
+}
+.timeline__fill { background: var(--accent); transform-origin: top; transform: scaleY(var(--tp, 0)); }
+.milestone { position: relative; padding-bottom: 56px; }
+.milestone:last-child { padding-bottom: 0; }
+.milestone::before {
+  content: ""; position: absolute; left: -36px; top: 6px; width: 13px; height: 13px; border-radius: 50%;
+  background: var(--bg); border: 1px solid var(--line-2);
+  transition: background-color var(--dur-3), border-color var(--dur-3), box-shadow var(--dur-3);
+}
+.milestone.is-in::before { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 6px var(--accent-soft); }
+.milestone time { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--accent-text); }
+.milestone h4 { margin-top: 10px; font-size: var(--fs-xl); letter-spacing: -0.02em; }
+.milestone .where { margin-top: 6px; color: var(--ink-3); font-size: var(--fs-sm); }
+.milestone p { margin-top: 14px; color: var(--ink-2); max-width: 58ch; }
+
+@media (max-width: 860px) { .journey { grid-template-columns: minmax(0, 1fr); } }
