@@ -13,14 +13,14 @@ const ICONS = [
   ['vscode-icon.png', 'VS Code', 13, 62, 54],
   ['antigravity-icon.png', 'Antigravity', 56, 52, 54],
   ['cloudflare.svg', 'Cloudflare', 38, 63, 64],
-  ['figma-icon.png', 'Figma', 86, 64, 50],
+  ['figma-icon.png', 'Figma', 91, 69, 50],
   ['java.png', 'Java', 46, 26, 50],
   ['html-icon.png', 'HTML5', 48, 60, 46],
   ['css-icon.png', 'CSS3', 54, 38, 46],
-  ['obsidian-icon.png', 'Obsidian', 66, 60, 48],
+  ['obsidian-icon.png', 'Obsidian', 64, 72, 48],
   ['iterm2-icon.png', 'iTerm2', 20, 45, 48],
-  ['react.svg', 'React', 72, 76, 62],
-  ['nodejs.svg', 'Node.js', 88, 80, 62],
+  ['react.svg', 'React', 78, 80, 62],
+  ['nodejs.svg', 'Node.js', 88, 81, 62],
   ['hono.svg', 'Hono', 30, 18, 52],
 ];
 
