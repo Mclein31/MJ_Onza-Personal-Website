@@ -7,7 +7,7 @@ tags:
   - portfolio
   - web
   - serverless
-last_updated: 2026-08-28
+last_updated: 2026-10-25
 ---
 
 # 🏛️ Personal Website — Architecture
@@ -19,11 +19,11 @@ last_updated: 2026-08-28
 │                        Personal Website Frontend                       │
 │                        (Semantic HTML5 / CSS3)                         │
 ├──────────────────────────────────┬─────────────────────────────────────┤
-│ UI Layout Modules:               │ Interactive Components (main.js):   │
-│ - Floating Frosted Glass Navbar  │ - 3D Coverflow Stage Controller     │
-│ - Interactive Terminal Tabs      │ - Dark/Light Theme Manager          │
-│ - Bento Grid (About/Philosophy)  │ - Typing Effect Engine              │
-│ - 3D Project Coverflow Carousel  │ - Training Slider & Award Lightbox  │
+│ UI Layout Modules:               │ Interactive Components (js/*.js):   │
+│ - Hide-on-scroll Glass Navbar    │ - Pinned Horizontal Work Scroll     │
+│ - Kinetic Hero + SQL Query Card  │ - Dark/Light Theme Manager          │
+│ - Profile Record + Trait Deck    │ - Screenshot Galleries · ⌘K Palette │
+│ - Skills Schema · Award Stack    │ - Film Strip & Award Lightbox       │
 │ - Categorized Skills Grid        │ - AJAX Contact Form Handler         │
 │ - Timeline & Award Showcase      │ - Visit & Like Counter Sync         │
 └──────────────────────────────────┴──────────────────┬──────────────────┘
@@ -45,15 +45,22 @@ last_updated: 2026-08-28
 
 ---
 
-## 🎠 3D Coverflow Carousel Engine (`main.js`)
-- Calculates angular offset:
-  $$\Delta = (i - 	ext{currentIndex} + N) \pmod{N}$$
-- Assigns dynamic CSS classes (`active`, `next`, `prev`, `hidden-left`, `hidden-right`) to trigger hardware-accelerated 3D CSS transforms (`translate3d`, `rotateY`, `scale3d`).
-- Synchronizes indicator dots and active metadata card (title, description, demo link).
+## 🧩 v3 Module Map (`js/`)
+- `main.js` — entry; runs each `init*` inside a try/catch, then the preloader → adds `.hero.is-in`.
+- `util.js` — `$`/`$$`, `clamp`, `lerp`, safe `store` (localStorage/sessionStorage), `viewProgress`, `toast`, `copyText`.
+- `theme.js` — `portfolio-theme` key, OS sync until explicit choice; flash-free bootstrap is inline in `<head>`.
+- `preloader.js` — once per session (`pf-loaded` in sessionStorage), timeout failsafe.
+- `hero.js` — splits the name into `.char` spans; pointer distance drives `font-weight` (300–800); Asia/Manila clock; typed SQL queries.
+- `icons.js` — draggable/throwable tech icons with inertia + bounds (rAF, paused off-screen).
+- `cursor.js` — lerped ring + `data-cursor` labels; `data-magnetic` buttons. Fine pointers only.
+- `scroll.js` — reveals (`data-reveal`, `--i` stagger), progress bar, nav hide/scroll-spy, manifesto word lighting, timeline fill, award card scaling, footer fill.
+- `work.js` — pins `#work` on ≥861px: pin height = track overflow + viewport; scroll progress → `--x`. Otherwise cards stack vertically.
+- `gallery.js` — per-card screenshot galleries (scroll-snap + dots + prev/next + mouse drag).
+- `ui.js` — mobile menu, trait deck, schema row "joins" (`data-join` tags), portrait tilt, DTI film strip, copy email.
+- `lightbox.js` — `PHOTOS` data (awards + hackathon), `<dialog>` viewer, photo strip render.
+- `palette.js` — ⌘K/Ctrl+K/`/` command palette (sections, actions, links).
+- `stats.js` — same keys/endpoints as v2 (`site_total_*`, `site_user_has_liked`); pointer capture only after a real drag so taps still like.
+- `contact.js` — `<dialog>` FormSubmit form; exports `openMessage()`.
 
----
-
-## 🎨 Theme Management & Persistence
-- Automatically detects system preference via `window.matchMedia('(prefers-color-scheme: light)')`.
-- Saves explicit user preference in `localStorage.getItem('portfolio-theme')`.
-- Toggles `data-theme="light"` on document root with smooth CSS variable color transitions.
+## 🎨 Styles (`css/`)
+`tokens.css` (all colors/type/motion; dark default, `[data-theme="light"]` override) → `base.css` → one file per area. All motion respects `prefers-reduced-motion`.

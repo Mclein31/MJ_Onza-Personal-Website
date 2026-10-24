@@ -1,65 +1,62 @@
-# McLein Jei Onza — Modern Developer Portfolio
+# McLein Jei Onza — Developer Portfolio (v3)
 
-A developer portfolio and personal website engineered with precision, high-performance CSS custom properties, responsive Bento grid architecture, and a modern aesthetic inspired by Linear, Apple, and Vercel.
+A hand-built portfolio for a Computer Science student on the data engineering path. No frameworks, no build step: semantic HTML, CSS custom properties and small ES modules, with a serverless stats proxy on Vercel.
 
 Live Site: [onzamj.vercel.app](https://onzamj.vercel.app/)
 
 ---
 
-## ⚡ Tech Stack & Architecture
+## ⚡ Tech Stack
 
-- **Core**: Vanilla Semantic HTML5, Modern CSS3 (Tokens, Bento Grid, Flexbox, Glassmorphism), Vanilla ES6+ JavaScript.
-- **Typography**: Plus Jakarta Sans (Headings & UI), Inter (Body Text), JetBrains Mono (Code, Badges & Terminal).
-- **Theming**: System-synced Obsidian Dark Mode (`#09090b`) & Alabaster Light Mode with local persistence (`localStorage`).
-- **Form Submission**: Asynchronous AJAX submission via FormSubmit (`fetch` API) with real-time state feedback and zero page reloads.
-- **Zero Heavy Dependencies**: <80KB total asset footprint for instantaneous sub-second page loads.
+- **Core**: Semantic HTML5, CSS3 (tokens, grid, `color-mix`, scroll-snap), vanilla ES modules.
+- **Typography**: Bricolage Grotesque (display), Geist (body), Geist Mono (code & labels).
+- **Theming**: Graphite dark + paper light, synced to the OS until the visitor picks one (`portfolio-theme` in `localStorage`).
+- **Contact**: FormSubmit AJAX form in a native `<dialog>`.
+- **Stats**: `api/stats.js` (Vercel function) proxies visit/like counts to Abacus, with a direct fallback.
 
 ---
 
-## 🚀 Key Features
+## 🚀 Features
 
-1. **Floating Frosted Navigation**: Fixed glass pill with backdrop blur (`backdrop-filter: blur(18px)`) and IntersectionObserver-powered active section scroll spy.
-2. **Interactive Hero & Terminal**: Live developer status indicator (🟢 Available for Internships) paired with an interactive multi-tab code terminal (`profile.ts`, `stack.json`, `bash.sh`).
-3. **About Me Bento Grid**: Clean modular layout showcasing engineering philosophy, education credentials, and core metrics.
-4. **Flagship Projects Showcase**: Featured multi-card showcase featuring live demo actions, architecture highlights, and tech stack tags for projects like *Mulat Media*, *Hanguk Grill*, *Cipher Shift*, and *MedRec*.
-5. **Categorized Tech Stack**: Domain-categorized ecosystem (Languages & Core, Developer Tooling, AI & Systems) replacing subjective dot rating scales.
-6. **Academic & Career Timeline**: Structured chronological milestones highlighting Computer Science degree progress at Cagayan State University, coursework, and technical development.
-7. **Contact Hub & Quick Copy**: 1-Click "Copy Email" button with animated toast notification and an asynchronous AJAX contact form.
+1. **Preloader** — a once-per-session row counter that wipes away (with a timeout failsafe).
+2. **Kinetic hero** — the name's letters get heavier near the cursor; a live `psql` card types queries about me; draggable tech icons you can throw.
+3. **Scroll-lit manifesto** — words light up as you scroll.
+4. **Pinned work gallery** — vertical scroll drives a horizontal track on desktop; every project has a swipeable screenshot gallery (stacked cards on mobile).
+5. **Stack as a schema** — skills shown as database tables; hovering a row "joins" related rows.
+6. **Journey timeline** — draws itself on scroll.
+7. **Stacked award cards** — newest first, with a photo lightbox and an auto-scrolling photo strip.
+8. **⌘K command palette** — jump to sections, toggle theme, copy email, open links (`⌘K`, `Ctrl+K` or `/`).
+9. **Details** — custom cursor with labels, magnetic buttons, trait card deck, draggable stats pill, film-grain overlay, full `prefers-reduced-motion` support.
 
 ---
 
 ## 📁 File Structure
 
 ```
+├── api/stats.js        # Vercel function: visits & likes proxy (Abacus)
 ├── assets/
-│   ├── Logo/
-│   │   ├── logo-1.png
-│   │   └── logo-black.png
-│   ├── icons/
-│   │   └── ... (tech & system icons)
+│   ├── fonts/ icons/ Logo/
 │   └── images/
-│       └── ... (project screenshots & profile photos)
-├── index.html      # Semantic HTML5 document & metadata
-├── style.css       # Unified design token stylesheet
-├── main.js         # Interactive scripts & theme controller
-└── README.md       # Project documentation
+│       ├── awards/ trainings/   # recognition & DTI YEP photos
+│       └── projects/            # composed project gallery slides
+├── css/                # tokens, base, nav, fx, hero, about, work, stack, recognition, contact
+├── js/                 # main.js entry + one module per feature
+└── index.html
 ```
 
 ---
 
 ## 🛠️ Local Development
 
-Open `index.html` directly in any modern browser, or run a local lightweight server:
+ES modules need to be served over HTTP (opening the file directly won't load them):
 
 ```bash
-# Using Python
 python3 -m http.server 3000
-
-# Using Node / npx
+# or
 npx serve .
 ```
 
-Navigate to `http://localhost:3000` to view the website.
+Then open `http://localhost:3000`. The stats pill falls back to Abacus directly when `/api/stats` isn't available locally.
 
 ---
 

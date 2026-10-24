@@ -5,10 +5,20 @@ project: Personal Website
 tags:
   - changelog
   - history
-last_updated: 2026-08-28
+last_updated: 2026-10-25
 ---
 
 # 📜 Personal Website — Changelog
+
+## [3.0.0] — Full Rebuild (branch `portfolio-rebuild-v2`)
+- **Changed**: New visual system — graphite + signal lime, paper-white light mode; Bricolage Grotesque / Geist / Geist Mono.
+- **Changed**: `style.css` + `main.js` replaced by `css/*.css` and ES modules in `js/` (no build step).
+- **Added**: Preloader, kinetic hero name, live SQL query card, scroll-lit manifesto, pinned horizontal work section, skills-as-schema tables with row "joins", self-drawing timeline, stacked award cards, ⌘K command palette, custom cursor, magnetic buttons.
+- **Added**: Projects AdvanCare, MedCore and SERVIO; MedRec described as v2. Each card is a swipeable screenshot gallery (no status tags or links, per owner).
+- **Added**: Cagayan Innovation Hack 2026 — 2nd place (₱10,000) with AdvanCare; awards ordered newest → oldest.
+- **Removed**: 3D coverflow, the 25-byte stub stylesheets, hero scroll cue, pulsing nav/status dots.
+- **Changed (later, same day)**: MedRec v2 screens; 3 more Mulat Media slides; Hanguk Grill card removed; Cipher Shift playable in a demo window; phone-frame island inset.
+- **Performance**: award/training photos resized (~46MB → ~9MB); 64px favicon.
 
 ## [2.2.0] — Coverflow & Image Optimization
 - **Changed**: Updated Hanguk Grill project cover image and enhanced 3D coverflow carousel navigation buttons.
