@@ -25,7 +25,6 @@ export function initLightbox() {
   const show = (i) => {
     index = (i + PHOTOS.length) % PHOTOS.length;
     const p = PHOTOS[index];
-    stage.classList.remove('is-zoomed');
     img.style.opacity = 0;
     img.onload = () => { img.style.opacity = 1; };
     img.src = p.src;
@@ -48,14 +47,10 @@ export function initLightbox() {
   $('[data-lb-prev]', dlg).addEventListener('click', () => show(index - 1));
   $('[data-lb-next]', dlg).addEventListener('click', () => show(index + 1));
   $('[data-lb-close]', dlg).addEventListener('click', () => dlg.close());
-  const zoom = () => stage.classList.toggle('is-zoomed');
-  $('[data-lb-zoom]', dlg).addEventListener('click', zoom);
-  img.addEventListener('click', zoom);
   stage.addEventListener('click', (e) => { if (e.target === stage) dlg.close(); });
   dlg.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') show(index - 1);
     if (e.key === 'ArrowRight') show(index + 1);
-    if (e.key.toLowerCase() === 'z') zoom();
   });
 
   // Swipe on touch
