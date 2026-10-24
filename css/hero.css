@@ -58,7 +58,6 @@
 }
 .float-icon img { width: 82%; height: 82%; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.22)); }
 .float-icon.is-grabbed { cursor: grabbing; z-index: 5; }
-:root:not([data-theme="light"]) .float-icon.invert-dark img { filter: invert(1) drop-shadow(0 6px 10px rgba(0, 0, 0, 0.22)); }
 /* Scale the image, not the icon box: `scale` on the box would also multiply its translate position */
 .hero.is-in .float-icon.is-grabbed img { scale: 1.12; transition: scale var(--dur-2) var(--ease-spring); }
 .float-icon .tip {

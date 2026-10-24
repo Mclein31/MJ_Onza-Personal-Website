@@ -1,6 +1,6 @@
 import { $, clamp, reducedMotion } from './util.js';
 
-// [file, label, x%, y%, size px, invert in dark mode?] — placed in the gaps around the name so it stays readable.
+// [file, label, x%, y%, size px] — placed in the gaps around the name so it stays readable.
 const ICONS = [
   ['python-icon.png', 'Python', 52, 15, 76],
   ['postgres-icon.png', 'PostgreSQL', 80, 22, 80],
@@ -21,18 +21,14 @@ const ICONS = [
   ['iterm2-icon.png', 'iTerm2', 20, 45, 48],
   ['react.svg', 'React', 72, 76, 62],
   ['nodejs.svg', 'Node.js', 88, 80, 62],
-  ['expo.svg', 'Expo', 62, 88, 48, true],
-  ['vercel.svg', 'Vercel', 80, 90, 44, true],
   ['hono.svg', 'Hono', 30, 18, 52],
-  ['googlegemini.svg', 'Gemini', 96, 72, 52],
-  ['cursor.png', 'Cursor', 58, 72, 50],
 ];
 
 // Phones stack the name on the left, so they get their own spots: [label, x%, y%]
 const MOBILE = [
   ['Python', 60, 19], ['PostgreSQL', 82, 27], ['Neon', 10, 24], ['Claude AI', 36, 27],
   ['Git', 66, 36], ['TypeScript', 86, 44], ['React', 60, 52], ['Cloudflare', 10, 57],
-  ['VS Code', 34, 60], ['Node.js', 58, 61], ['Gemini', 84, 58],
+  ['VS Code', 34, 60], ['Node.js', 58, 61],
 ];
 
 const SCALE = 1.4; // desktop size multiplier for the sizes above
@@ -43,12 +39,12 @@ export function initIcons() {
   const hero = field.parentElement;
   const small = innerWidth < 860;
   const list = small
-    ? MOBILE.map(([label, x, y]) => { const icon = ICONS.find((ic) => ic[1] === label); return [icon[0], label, x, y, icon[4], icon[5]]; })
+    ? MOBILE.map(([label, x, y]) => { const icon = ICONS.find((ic) => ic[1] === label); return [icon[0], label, x, y, icon[4]]; })
     : ICONS;
 
-  const bodies = list.map(([file, label, px, py, size, invert], i) => {
+  const bodies = list.map(([file, label, px, py, size], i) => {
     const el = document.createElement('div');
-    el.className = 'float-icon' + (invert ? ' invert-dark' : '');
+    el.className = 'float-icon';
     el.style.setProperty('--fi', i);
     if (!small) el.style.setProperty('--size', Math.round(size * SCALE) + 'px');
     el.innerHTML = `<img src="assets/icons/${file}" alt="" draggable="false" decoding="async" /><span class="tip">${label}</span>`;
