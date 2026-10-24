@@ -23,7 +23,8 @@
   font-variation-settings: "opsz" 96;
   user-select: none;
 }
-.hero__name .line { display: block; overflow: hidden; padding-bottom: 0.06em; }
+/* Clip only vertically (for the rise-in); horizontal clipping cut off glyph edges like the final dot */
+.hero__name .line { display: block; overflow-x: visible; overflow-y: clip; padding-bottom: 0.06em; }
 .hero__name .line + .line { text-align: right; }
 .hero__name .char {
   display: inline-block;
@@ -36,7 +37,7 @@
   animation-delay: calc(var(--ci) * 45ms);
 }
 @keyframes char-up { to { transform: translateY(0); } }
-.hero__name .accent-dot { color: var(--accent); }
+.hero__name .accent-dot { color: var(--accent); letter-spacing: 0; }
 
 .hero__bottom {
   display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; align-items: end;
