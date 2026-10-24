@@ -58,7 +58,7 @@ export function initScroll() {
   const nav = $('.nav');
   const progress = $('.progress');
   const words = $('[data-words]') ? splitWords($('[data-words]')) : [];
-  const manifesto = $('.manifesto');
+  const manifesto = $('[data-words]');
   const timeline = $('[data-timeline]');
   const cards = $$('[data-award]');
   const mark = $('[data-footer-mark]');
@@ -78,8 +78,12 @@ export function initScroll() {
     lastY = y;
 
     if (manifesto && words.length) {
-      const p = viewProgress(manifesto, 0.85, 0.35);
-      const lit = Math.floor(p * words.length * 1.05);
+      // Starts as the paragraph enters; every word is lit by the time it's centered on screen
+      const r = manifesto.getBoundingClientRect();
+      const start = innerHeight * 0.9;
+      const end = innerHeight * 0.55 - r.height / 2;
+      const p = clamp((start - r.top) / Math.max(1, start - end), 0, 1);
+      const lit = Math.round(p * words.length);
       words.forEach((w, i) => w.classList.toggle('is-lit', i < lit));
     }
 
