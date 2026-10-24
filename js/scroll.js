@@ -94,10 +94,33 @@ export function initScroll() {
       card.style.setProperty('--s', 1 - overlap * 0.05);
     });
 
-    if (mark) mark.style.setProperty('--fill', viewProgress(mark, 1, 0.75) * 100 + '%');
+    // Footer wordmark fills from the moment it enters until the very bottom of the page
+    if (mark) {
+      const r = mark.getBoundingClientRect();
+      const remaining = Math.max(0, max - y);
+      const fill = clamp((innerHeight - r.top) / Math.max(1, innerHeight - r.top + remaining), 0, 1);
+      mark.style.setProperty('--fill', fill * 100 + '%');
+    }
   };
 
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-  addEventListener('resize', update);
+  // Size the footer wordmark so it spans the container exactly
+  const fitMark = () => {
+    if (!mark) return;
+    const range = document.createRange();
+    range.selectNodeContents(mark);
+    // Text width isn't perfectly linear in font size (hinting), so refine a few times
+    let size = 100;
+    for (let i = 0; i < 4; i++) {
+      mark.style.fontSize = `${size}px`;
+      const textW = range.getBoundingClientRect().width;
+      if (!textW || Math.abs(textW - mark.clientWidth) < 1) break;
+      size *= mark.clientWidth / textW;
+    }
+  };
+  fitMark();
+  document.fonts?.ready.then(() => { fitMark(); update(); });
+
+  addEventListener('resize', () => { fitMark(); update(); });
   update();
 }
