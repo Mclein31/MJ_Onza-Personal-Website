@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Caesar Cipher App</title>
+    <script src="scripts/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.1.4/dist/tesseract.min.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app-container">
+      <header>
+        <div class="clippedSection">
+          <svg
+            viewBox="0 -5 1070 558"
+            preserveAspectRatio="none"
+            class="clipShape"
+          >
+            <path
+              d="M 10,60
+                L 720,60 
+                A 10,10 0,0,0 730,50
+                L 730,10 
+                A 10,10 0,0,1 740,0
+                L 868.5,0 
+                A 10,10 0,0,1 878.5,10
+                L 878.5,50 
+                A 10,10 0,0,0 888.5,60
+                L 1058,60 
+                A 10,10 0,0,1 1069,70
+                L 1069,548
+                L 1,548
+                L 1,70
+                A 10,10 0,0,1 11,60
+                Z"
+              fill="rgba(69,138,209,.6)"
+              stroke="black"
+              stroke-width="2"
+            />
+          </svg>
+        </div>
+        <h1 class="title">Cipher Shift</h1>
+        <nav class="headerNav">
+          <ul class="navButtons">
+            <li id="encodeBtn" class="encode active">Encode</li>
+            <li id="decodeBtn" class="decode">Decode</li>
+          </ul>
+        </nav>
+      </header>
+
+      <main>
+        <div class="cipher-layout">
+          <div class="left-column">
+            <label for="inputText" class="textinsert">INSERT TEXT HERE:</label>
+            <textarea id="inputText" class="inputText"></textarea>
+
+            <div class="shift-row">
+              <input
+                type="number"
+                id="shiftKey"
+                class="shiftKey"
+                placeholder="| Shift Key"
+                min="1"
+                max="25"
+              />
+              <button id="bruteForceBtn" class="bruteForceBtn">
+                BRUTE FORCE
+              </button>
+            </div>
+
+            <label for="resultText" class="textresult">
+              RESULT OF THE <span class="Crypt-type">ENCODED</span> TEXT:
+            </label>
+
+            <div class="result-wrapper">
+              <div class="textarea-container">
+                <textarea
+                  id="resultText"
+                  class="resultText"
+                  readonly
+                ></textarea>
+                <button id="copyResultBtn" class="copyBtn">COPY</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="right-column">
+            <label for="shiftedAlphabet" class="textshifted"
+              >Shifted Alphabet:</label
+            >
+            <textarea
+              id="shiftedAlphabet"
+              class="shiftedAlphabet"
+              rows="2"
+              cols="26"
+              readonly
+            ></textarea>
+
+            <div class="image-section">
+              <label class="textshifted">Image Import:</label>
+              <input type="file" id="imageInput" accept="image/*" hidden />
+              <button id="importBtn" class="importBtn">Import Image</button>
+              <div id="imagePreview" class="imagePreview"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
