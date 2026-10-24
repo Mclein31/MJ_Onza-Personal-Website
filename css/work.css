@@ -128,6 +128,8 @@
   animation: try-ring 1.6s var(--ease-out) infinite;
 }
 @keyframes try-ring { from { transform: scale(0.5); opacity: 0.9; } to { transform: scale(1.6); opacity: 0; } }
+/* Live demo is desktop-only: hidden on phones and tablets (narrow or touch-only screens) */
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) { .project__try { display: none; } }
 
 /* Desktop-style app window */
 .appwin { padding: 0; border: 0; background: transparent; width: 100%; height: 100%; max-width: none; max-height: none; }
