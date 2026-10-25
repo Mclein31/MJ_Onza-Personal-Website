@@ -15,7 +15,6 @@ test('reduced motion: no preloader, nothing hidden, work not pinned', async ({ p
   });
   expect(marqueeMoves, 'the photo marquee should hold still under reduced motion').toBe(false);
 
-  // A blanket transition-duration override once made font-size transition, so the wordmark fit collapsed to ~1px
   await expect.poll(() => page.locator('[data-footer-mark]').evaluate((m) => {
     const r = document.createRange();
     r.selectNodeContents(m);
