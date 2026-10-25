@@ -90,6 +90,12 @@ header {
   z-index: 4;
 }
 
+.clipShape {
+  display: block;
+  width: 100%;
+  height: calc(100% - 0.3rem);
+}
+
 .cipher-layout {
   display: grid;
   grid-template-columns: 2fr 1fr;

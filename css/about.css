@@ -35,6 +35,7 @@
   display: flex; justify-content: space-between; gap: 12px; margin-top: 14px;
   font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--ink-3);
 }
+.about__body { font-family: var(--font-about); }
 .about__body > p { font-size: var(--fs-xl); line-height: 1.5; color: var(--ink-2); max-width: 40ch; }
 .about__body > p + p { margin-top: 1em; }
 .about__body > p strong { color: var(--ink); font-weight: 500; }

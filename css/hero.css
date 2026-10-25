@@ -18,9 +18,8 @@
 
 .hero__name {
   align-self: center;
-  font-family: var(--font-display); font-size: var(--fs-hero);
-  font-weight: 700; line-height: 0.84; letter-spacing: -0.055em;
-  font-variation-settings: "opsz" 96;
+  font-family: var(--font-hero); font-size: var(--fs-hero);
+  font-weight: 700; line-height: 0.84; letter-spacing: -0.045em;
   user-select: none;
 }
 /* Clip only vertically (for the rise-in); horizontal clipping cut off glyph edges like the final dot */
@@ -42,7 +41,7 @@
 .hero__bottom {
   display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; align-items: end;
 }
-.hero__intro { max-width: 46ch; font-size: var(--fs-xl); line-height: 1.45; color: var(--ink-2); }
+.hero__intro { max-width: 46ch; font-family: var(--font-hero-body); font-size: var(--fs-xl); line-height: 1.45; color: var(--ink-2); }
 .hero__intro strong { color: var(--ink); font-weight: 500; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
 

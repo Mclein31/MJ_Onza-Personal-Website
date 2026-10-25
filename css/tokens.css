@@ -6,6 +6,9 @@
   --font-display: "Bricolage Grotesque", "Geist", system-ui, sans-serif;
   --font-body: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  --font-hero: "Lora", Georgia, serif;
+  --font-hero-body: "Open Sans", system-ui, sans-serif;
+  --font-about: "Nunito", system-ui, sans-serif;
 
   --fs-xs: 0.75rem;
   --fs-sm: 0.875rem;
