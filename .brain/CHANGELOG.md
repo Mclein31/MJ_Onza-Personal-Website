@@ -11,6 +11,7 @@ last_updated: 2026-10-25
 # 📜 Personal Website — Changelog
 
 ## [Unreleased] — Testing & Audit (2026-10-25)
+- **Changed**: View counter counts each browser once, ever (`site_user_has_visited` in localStorage), instead of once per session.
 - **Added**: Playwright + axe test suite (`tests/`, `playwright.config.mjs`, dev-only `package.json`); 39 pass, 15 fail on known audit findings (see TODO.md "Design Audit Backlog").
 - **Fixed**: All 15 audit failures — suite now 54/54. Muted-ink contrast, 24px gallery dot targets, keyboard-reachable galleries/film/calendar, inert trait-deck back cards, like-button name, phone stats pill moved into the footer, "Hover"/"Tap" copy, schema tap-to-join, faster clock-timed preloader (~2.1s to a readable name), absolute `og:image` (`assets/images/og-image.jpg`) + canonical.
 - **Removed**: ⌘K command palette (nav "Jump to" button, footer hint, `/` and Ctrl/⌘+K shortcuts, `js/palette.js`) at the owner's request.

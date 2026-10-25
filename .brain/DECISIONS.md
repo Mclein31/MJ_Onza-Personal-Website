@@ -108,3 +108,16 @@ WCAG checks in `npm test`, plus a real bug: the blanket 0.01ms duration made eve
 ### Alternatives
 - Holding the bar for a fixed time after jumps, or a movement threshold alone (rejected: both lose to large late layout shifts).
 
+
+---
+
+## 2026-10-25 — Views Count Unique Visitors
+
+### Decision
+The stats pill's view count increments once per browser, ever: `js/stats.js` sets `site_user_has_visited` in localStorage after a successful increment. Browsers that already have a cached `site_total_visits` count as visited, so existing visitors aren't counted twice when this rolls out.
+
+### Reason
+Owner wants only new visitors to move the number; the old sessionStorage flag counted every new tab or browser restart.
+
+### Alternatives
+- Server-side IP dedup in `api/stats.js` (rejected: Abacus has no per-visitor storage, and it would need a database). Clearing site data, private windows, or another browser/device still count as new visitors.

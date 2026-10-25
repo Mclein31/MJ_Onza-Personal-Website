@@ -91,10 +91,10 @@ export function initStats() {
   });
 
   (async () => {
-    const isNew = !store.get('site_session_active', sessionStorage);
-    if (isNew) store.set('site_session_active', 'true', sessionStorage);
+    // Count each browser once, ever; a cached total means it was counted before this flag existed
+    const isNew = store.get('site_user_has_visited') !== 'true' && store.get('site_total_visits') === null;
     const [v, l] = await Promise.all([request(isNew ? 'increment' : 'get', 'visits'), request('get', 'likes')]);
-    if (typeof v === 'number') { visits = v; visitsEl.textContent = fmt(v); store.set('site_total_visits', v); }
+    if (typeof v === 'number') { visits = v; visitsEl.textContent = fmt(v); store.set('site_total_visits', v); store.set('site_user_has_visited', 'true'); }
     if (typeof l === 'number') { likes = l; likesEl.textContent = fmt(l); store.set('site_total_likes', l); }
   })();
 }
