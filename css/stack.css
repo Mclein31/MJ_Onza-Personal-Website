@@ -37,7 +37,6 @@
 .schema .row { transition: opacity var(--dur-2), background-color var(--dur-1), color var(--dur-1); }
 .schema__hint { margin-top: 18px; font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--ink-3); }
 
-/* Journey */
 .journey { margin-top: var(--section-y); display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 48px; }
 .journey__head h3 { font-size: var(--fs-2xl); }
 .journey__head p { margin-top: 14px; color: var(--ink-2); max-width: 32ch; }

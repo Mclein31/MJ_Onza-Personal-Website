@@ -1,3 +1,6 @@
+/* ==========================================================================
+   Entry — starts every module
+   ========================================================================== */
 import { initTheme } from './theme.js';
 import { initPreloader } from './preloader.js';
 import { initHero } from './hero.js';
@@ -13,7 +16,6 @@ import { initGalleries } from './gallery.js';
 import { initDemo } from './demo.js';
 import { initActivity } from './activity.js';
 
-// Each module guards its own DOM, so one failure never takes down the page
 const run = (name, fn) => { try { fn(); } catch (err) { console.error(`[${name}]`, err); } };
 
 run('theme', initTheme);

@@ -1,7 +1,8 @@
+/* ==========================================================================
+   Work — pinned horizontal scroll
+   ========================================================================== */
 import { $, $$, clamp, reducedMotion } from './util.js';
 
-// Vertical scroll drives a horizontal track while the section is pinned.
-// Small screens and reduced motion get a vertical stack instead.
 export function initWork() {
   const section = $('#work');
   const pin = $('[data-work-pin]');
@@ -41,7 +42,6 @@ export function initWork() {
     track.style.setProperty('--x', `${-p * distance}px`);
     bar?.style.setProperty('--wp', p);
 
-    // Count follows the card nearest the center
     let nearest = 0, best = Infinity;
     projects.forEach((card, i) => {
       const r = card.getBoundingClientRect();

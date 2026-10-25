@@ -45,7 +45,6 @@
 }
 @media (hover: hover) { .text-link:hover { background-size: 100% 100%; color: var(--accent-ink); } }
 
-/* Profile as a record: key / value rows */
 .record { margin-top: 48px; border-top: 1px solid var(--line); font-size: var(--fs-md); }
 .record__row {
   position: relative; display: grid; grid-template-columns: 160px 1fr; gap: 16px;
@@ -61,7 +60,6 @@
 .record__row dd { margin: 0; color: var(--ink); }
 .record__row dd .muted { font-size: var(--fs-sm); }
 
-/* Trait deck */
 .traits { margin-top: 56px; display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center; }
 .deck { position: relative; width: 230px; height: 150px; }
 .deck__card {

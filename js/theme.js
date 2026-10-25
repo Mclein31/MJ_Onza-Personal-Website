@@ -1,3 +1,6 @@
+/* ==========================================================================
+   Theme — light / dark
+   ========================================================================== */
 import { $$, store } from './util.js';
 
 const KEY = 'portfolio-theme';
@@ -16,7 +19,6 @@ export const toggleTheme = () => setTheme(currentTheme() === 'light' ? 'dark' : 
 export function initTheme() {
   $$('[data-theme-toggle]').forEach((btn) => btn.addEventListener('click', toggleTheme));
 
-  // Follow the OS until the visitor makes an explicit choice
   matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
     if (!store.get(KEY)) setTheme(e.matches ? 'light' : 'dark', false);
   });

@@ -1,6 +1,8 @@
+/* ==========================================================================
+   Stats — views and likes
+   ========================================================================== */
 import { $, clamp, store } from './util.js';
 
-// Same storage keys + endpoints as v2.2 so existing visitors keep their "liked" state
 const fmt = (n) => new Intl.NumberFormat('en-US').format(Math.max(0, n || 0));
 
 async function request(type, metric) {
@@ -10,7 +12,7 @@ async function request(type, metric) {
       const data = await res.json();
       if (typeof data.count === 'number') return data.count;
     }
-  } catch { /* not on Vercel — fall through */ }
+  } catch {}
   try {
     const key = metric === 'likes' ? 'portfolio_likes' : 'portfolio_visits';
     const res = await fetch(`https://abacus.jasoncameron.dev/${type === 'increment' ? 'hit' : 'get'}/mcleinonza/${key}`, { cache: 'no-store' });
@@ -34,7 +36,6 @@ function draggable(el, onDragEnd) {
     if (!active) return;
     const dx = e.clientX - sx, dy = e.clientY - sy;
     if (!moved && Math.hypot(dx, dy) < 5) return;
-    // Capture only once it's a real drag, so a plain tap still clicks the like button
     if (!moved) el.setPointerCapture(e.pointerId);
     moved = true; el.classList.add('is-dragging');
     el.style.left = `${clamp(ox + dx, 8, innerWidth - el.offsetWidth - 8)}px`;

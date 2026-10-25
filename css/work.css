@@ -26,7 +26,6 @@
 }
 .project__media img { width: 100%; height: 100%; object-fit: cover; }
 
-/* Swipeable screenshot gallery inside each card */
 .gallery__track {
   display: flex; height: 100%; overflow-x: auto; overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory; scrollbar-width: none; cursor: grab;
@@ -96,7 +95,6 @@
 .work__bar { flex: 1; height: 1px; background: var(--line); overflow: hidden; }
 .work__bar i { display: block; height: 100%; background: var(--ink); transform-origin: left; transform: scaleX(var(--wp, 0)); }
 
-/* Not pinned (small screens, reduced motion): stack cards; galleries keep the horizontal swipe */
 .work:not(.is-pinned) { scroll-margin-top: calc(32px - var(--section-y)); }
 .work:not(.is-pinned) .work__sticky { position: relative; height: auto; overflow: visible; padding-top: var(--section-y); padding-bottom: var(--section-y); gap: 40px; }
 .work:not(.is-pinned) .work__track { transform: none; flex-direction: column; align-items: stretch; gap: 56px; }
@@ -105,7 +103,6 @@
 .work:not(.is-pinned) .work__foot { display: none; }
 @media (max-width: 860px) { .project__info { grid-template-columns: 1fr; } }
 
-/* Award ribbon on a project's media */
 .project__award {
   position: absolute; left: 16px; top: 16px; z-index: 1;
   padding: 7px 12px; border-radius: var(--r-pill);
@@ -114,7 +111,6 @@
   box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.5);
 }
 
-/* "Click me" — opens a live demo window */
 .project__try {
   position: absolute; left: 50%; top: 50%; z-index: 3; translate: -50% -50%;
   display: inline-flex; align-items: center; gap: 10px;
@@ -132,10 +128,8 @@
   animation: try-ring 1.6s var(--ease-out) infinite;
 }
 @keyframes try-ring { from { transform: scale(0.5); opacity: 0.9; } to { transform: scale(1.6); opacity: 0; } }
-/* Live demo is desktop-only: hidden on phones and tablets (narrow or touch-only screens) */
 @media (max-width: 1024px), (hover: none), (any-pointer: coarse) { .project__try { display: none; } }
 
-/* Desktop-style app window */
 .appwin { padding: 0; border: 0; background: transparent; width: 100%; height: 100%; max-width: none; max-height: none; }
 .appwin::backdrop { background: rgba(5, 6, 7, 0.62); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 .appwin__frame {

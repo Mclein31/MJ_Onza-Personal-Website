@@ -2,7 +2,6 @@
    Design tokens — graphite + signal lime
    ========================================================================== */
 :root {
-  /* Type */
   --font-display: "Bricolage Grotesque", "Geist", system-ui, sans-serif;
   --font-body: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
@@ -19,19 +18,16 @@
   --fs-3xl: clamp(2.5rem, 1.6rem + 4vw, 5rem);
   --fs-hero: clamp(3.4rem, 1rem + 11vw, 11.5rem);
 
-  /* Space */
   --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
   --section-y: clamp(5rem, 3rem + 8vw, 10rem);
   --nav-clear: 88px;
   --max-w: 1320px;
 
-  /* Shape */
   --r-1: 6px;
   --r-2: 12px;
   --r-3: 20px;
   --r-pill: 999px;
 
-  /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -40,7 +36,6 @@
   --dur-3: 600ms;
   --dur-4: 900ms;
 
-  /* Dark (default) */
   --bg: #0b0c0d;
   --bg-2: #111214;
   --surface: #16181a;

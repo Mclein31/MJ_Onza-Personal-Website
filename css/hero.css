@@ -22,7 +22,6 @@
   font-weight: 700; line-height: 0.84; letter-spacing: -0.045em;
   user-select: none;
 }
-/* Clip only vertically (for the rise-in); horizontal clipping cut off glyph edges like the final dot */
 .hero__name .line { display: block; overflow-x: visible; overflow-y: clip; padding-bottom: 0.06em; }
 .hero__name .line + .line { text-align: right; }
 .hero__name .char {
@@ -46,7 +45,6 @@
 .hero__cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
 
 
-/* Draggable floating tech icons */
 .icon-field { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: clip; }
 .float-icon {
   position: absolute; top: 0; left: 0; pointer-events: auto;
@@ -57,7 +55,6 @@
 }
 .float-icon img { width: 82%; height: 82%; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.22)); }
 .float-icon.is-grabbed { cursor: grabbing; z-index: 5; }
-/* Scale the image, not the icon box: `scale` on the box would also multiply its translate position */
 .hero.is-in .float-icon.is-grabbed img { scale: 1.12; transition: scale var(--dur-2) var(--ease-spring); }
 .float-icon .tip {
   position: absolute; bottom: calc(100% + 8px); left: 50%; translate: -50% 4px;

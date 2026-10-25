@@ -55,7 +55,6 @@
 .nav__hire { height: 40px; padding-inline: 18px; }
 .nav__menu-btn { display: none; }
 
-/* Mobile menu */
 .menu {
   position: fixed; inset: 0; z-index: 99;
   display: flex; flex-direction: column; justify-content: flex-end; gap: 32px;

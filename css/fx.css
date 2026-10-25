@@ -2,7 +2,6 @@
    Preloader, cursor, scroll progress, toast, stats pill
    ========================================================================== */
 
-/* Preloader: a row counter that "loads" the page, then wipes upward */
 .preloader {
   position: fixed; inset: 0; z-index: 2000;
   display: grid; align-content: end; padding: var(--gutter);
@@ -26,7 +25,6 @@
 .preloader__bar i { display: block; height: 100%; width: 100%; background: var(--accent); transform-origin: left; transform: scaleX(var(--p, 0)); }
 .no-preload .preloader { display: none; }
 
-/* Custom cursor (pointer: fine only) */
 .cursor { display: none; }
 @media (pointer: fine) {
   .has-cursor .cursor {
@@ -53,13 +51,11 @@
   .cursor.is-hidden { opacity: 0; }
 }
 
-/* Scroll progress */
 .progress {
   position: fixed; top: 0; left: 0; right: 0; z-index: 101; height: 2px;
   background: var(--accent); transform-origin: left; transform: scaleX(var(--progress, 0));
 }
 
-/* Toast */
 .toast {
   position: fixed; left: 50%; bottom: 28px; z-index: 1600;
   display: flex; align-items: center; gap: 10px;
@@ -72,7 +68,6 @@
 .toast svg { width: 16px; height: 16px; color: var(--accent-text); }
 :root:not([data-theme="light"]) .toast svg { color: #4a6400; }
 
-/* Stats pill (draggable) */
 .stats {
   position: fixed; right: 20px; bottom: 20px; z-index: 90;
   display: flex; align-items: center; gap: 4px; padding: 5px;

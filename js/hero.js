@@ -1,3 +1,6 @@
+/* ==========================================================================
+   Hero — split name, clock, typed queries
+   ========================================================================== */
 import { $, $$, clamp, finePointer, reducedMotion } from './util.js';
 
 function splitName() {
@@ -24,7 +27,6 @@ function splitName() {
   });
 }
 
-// Letters near the pointer get heavier, far letters get lighter
 function weightField(hero) {
   if (!finePointer.matches || reducedMotion.matches) return;
   const chars = $$('.hero__name .char', hero);

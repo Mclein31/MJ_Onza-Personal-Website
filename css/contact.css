@@ -39,7 +39,6 @@
   .link-row[data-copy]:hover .act svg { transform: none; }
 }
 
-/* Message dialog */
 .msg { padding: 0; border: 0; background: transparent; width: 100%; max-width: 560px; color: var(--ink); }
 .msg::backdrop { background: rgba(5, 6, 7, 0.6); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
 .msg__panel { margin: 16px; border: 1px solid var(--line-2); border-radius: var(--r-3); background: var(--surface); overflow: hidden; animation: panel-in var(--dur-2) var(--ease-out); }
@@ -61,21 +60,17 @@
 .msg__status.ok { color: var(--accent-text); }
 .msg__status.err { color: var(--danger); }
 
-/* Footer */
 .footer { border-top: 1px solid var(--line); padding-top: 40px; padding-bottom: 28px; overflow: hidden; }
 .footer__top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--ink-3); }
 .footer__top nav { display: flex; gap: 20px; }
 @media (hover: hover) { .footer__top a:hover { color: var(--ink); } }
 .footer__mark {
-  /* font-size is fitted to the container width by js/scroll.js; line-height 1 keeps the
-     letter tops inside the box so the fill reaches them */
   margin-top: 24px; font-family: var(--font-display); font-weight: 800; letter-spacing: -0.07em; line-height: 1;
   font-size: 12vw; color: transparent; -webkit-text-stroke: 1px var(--line-2);
   width: 100%; text-align: center; white-space: nowrap; user-select: none;
   background: linear-gradient(var(--ink), var(--ink)) 0 100% / 100% var(--fill, 0%) no-repeat;
   -webkit-background-clip: text; background-clip: text;
 }
-/* No tracking after the final letter, so the box (and the fill) covers its full width */
 .footer__mark .last { letter-spacing: 0; }
 .footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 28px; font-size: var(--fs-xs); color: var(--ink-3); font-family: var(--font-mono); }
 

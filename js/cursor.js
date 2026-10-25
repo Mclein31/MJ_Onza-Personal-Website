@@ -1,3 +1,6 @@
+/* ==========================================================================
+   Custom cursor
+   ========================================================================== */
 import { $, $$, lerp, finePointer, reducedMotion } from './util.js';
 
 export function initCursor() {
@@ -20,7 +23,6 @@ export function initCursor() {
   addEventListener('pointerdown', () => cursor.classList.add('is-down'));
   addEventListener('pointerup', () => cursor.classList.remove('is-down'));
 
-  // Delegate hover states so dynamically added elements work too
   document.addEventListener('pointerover', (e) => {
     const t = e.target.closest('[data-cursor], a, button, .float-icon, .row');
     if (!t) return;
@@ -40,7 +42,6 @@ export function initCursor() {
   };
   loop();
 
-  // Magnetic buttons: pull toward the pointer, spring back on leave
   $$('[data-magnetic]').forEach((el) => {
     el.addEventListener('pointermove', (e) => {
       const r = el.getBoundingClientRect();

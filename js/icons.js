@@ -1,6 +1,8 @@
+/* ==========================================================================
+   Hero icons — draggable floating tech icons
+   ========================================================================== */
 import { $, clamp, reducedMotion } from './util.js';
 
-// [file, label, x%, y%, size px] — placed in the gaps around the name so it stays readable.
 const ICONS = [
   ['python-icon.png', 'Python', 51, 17, 76],
   ['postgres-icon.png', 'PostgreSQL', 80, 21, 80],
@@ -24,14 +26,13 @@ const ICONS = [
   ['hono.svg', 'Hono', 27, 13, 52],
 ];
 
-// Phones stack the name on the left, so they get their own spots: [label, x%, y%]
 const MOBILE = [
   ['Python', 60, 19], ['PostgreSQL', 82, 27], ['Neon', 10, 24], ['Claude AI', 36, 27],
   ['Git', 66, 36], ['TypeScript', 86, 44], ['React', 60, 52], ['Cloudflare', 10, 57],
   ['VS Code', 34, 60], ['Node.js', 58, 61],
 ];
 
-const SCALE = 1.4; // desktop size multiplier for the sizes above
+const SCALE = 1.4;
 
 export function initIcons() {
   const field = $('[data-icon-field]');
@@ -67,22 +68,20 @@ export function initIcons() {
   const still = reducedMotion.matches;
   const bobAt = (b, t) => (still ? 0 : Math.sin(t / 1400 + b.phase) * 6);
 
-  // Dragging: the icon follows the pointer 1:1 and stays exactly where it's dropped (no throw).
-  // The last icon grabbed stays on top, so you can always pick it up again.
   let topZ = 1;
   bodies.forEach((b) => {
     let ox = 0, oy = 0, lastX = 0;
     b.el.addEventListener('pointerdown', (e) => {
-      e.preventDefault(); // no text selection or native image drag while grabbing
+      e.preventDefault();
       document.documentElement.classList.add('is-dragging-icon');
-      b.y += bobAt(b, performance.now()); // keep the icon exactly where it is when grabbed
+      b.y += bobAt(b, performance.now());
       b.el.style.zIndex = String(++topZ);
       b.held = true; b.el.classList.add('is-grabbed'); b.el.setPointerCapture(e.pointerId);
       ox = e.clientX - b.x; oy = e.clientY - b.y; lastX = e.clientX;
     });
     b.el.addEventListener('pointermove', (e) => {
       if (!b.held) return;
-      b.tilt = clamp(b.tilt + (e.clientX - lastX) * 0.6, -8, 8); // small lean in the drag direction
+      b.tilt = clamp(b.tilt + (e.clientX - lastX) * 0.6, -8, 8);
       lastX = e.clientX;
       b.x = clamp(e.clientX - ox, 0, W - b.w); b.y = clamp(e.clientY - oy, 0, H - b.w);
     });
@@ -90,7 +89,7 @@ export function initIcons() {
       if (!b.held) return;
       b.held = false; b.el.classList.remove('is-grabbed');
       document.documentElement.classList.remove('is-dragging-icon');
-      b.phase = -performance.now() / 1400; // resume floating from zero offset, so no jump on drop
+      b.phase = -performance.now() / 1400;
     };
     b.el.addEventListener('pointerup', release);
     b.el.addEventListener('pointercancel', release);
@@ -103,7 +102,7 @@ export function initIcons() {
     if (visible) {
       bodies.forEach((b) => {
         const bob = b.held ? 0 : bobAt(b, t);
-        b.tilt *= 0.85; // lean eases back to upright
+        b.tilt *= 0.85;
         b.el.style.transform = `translate3d(${b.x}px, ${b.y + bob}px, 0) rotate(${b.tilt.toFixed(2)}deg)`;
       });
     }

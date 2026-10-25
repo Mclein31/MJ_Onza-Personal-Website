@@ -1,6 +1,8 @@
+/* ==========================================================================
+   Demo window — live project preview
+   ========================================================================== */
 import { $, $$ } from './util.js';
 
-// "Click me" buttons open a project inside a desktop-style window (iframe loads on first open)
 export function initDemo() {
   const dlg = $('[data-demo]');
   if (!dlg) return;

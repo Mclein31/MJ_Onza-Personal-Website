@@ -1,3 +1,6 @@
+/* ==========================================================================
+   Lightbox — award photos
+   ========================================================================== */
 import { $, $$ } from './util.js';
 
 export const PHOTOS = [
@@ -53,7 +56,6 @@ export function initLightbox() {
     if (e.key === 'ArrowRight') show(index + 1);
   });
 
-  // Swipe on touch
   let sx = null;
   stage.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
   stage.addEventListener('touchend', (e) => {
@@ -63,7 +65,6 @@ export function initLightbox() {
     sx = null;
   });
 
-  // Photo strip: rendered twice so the CSS marquee loops seamlessly
   const strip = $('[data-strip]');
   if (strip) {
     const items = PHOTOS.map((p, i) => `<button class="strip__item" type="button" data-lb="${i}" data-cursor="View" aria-label="View photo: ${p.title}"><img src="${p.src}" alt="" loading="lazy" decoding="async" /></button>`).join('');

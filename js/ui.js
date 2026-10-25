@@ -1,3 +1,6 @@
+/* ==========================================================================
+   UI — menu, trait deck, schema, tilt, photo strip, copy buttons
+   ========================================================================== */
 import { $, $$, clamp, finePointer, reducedMotion, toast, copyText, arrowKeys } from './util.js';
 
 function menu() {
@@ -16,7 +19,6 @@ function menu() {
   addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
 }
 
-// Click the top card: it flies off and rejoins at the back of the deck
 function deck() {
   const el = $('[data-deck]');
   if (!el) return;
@@ -42,7 +44,6 @@ function deck() {
   });
 }
 
-// Hovering (or tapping) a row "joins" it against rows sharing any tag
 function schema() {
   const el = $('[data-schema]');
   if (!el) return;
@@ -92,7 +93,6 @@ function film() {
   track.addEventListener('scroll', () => { if (idxEl) idxEl.textContent = String(current() + 1).padStart(2, '0'); }, { passive: true });
   arrowKeys(track, current, go);
 
-  // Mouse drag to scrub (touch already scrolls natively)
   let down = false, sx = 0, sl = 0;
   track.addEventListener('pointerdown', (e) => {
     if (e.pointerType !== 'mouse') return;

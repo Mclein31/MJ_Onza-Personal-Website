@@ -1,6 +1,8 @@
+/* ==========================================================================
+   Preloader
+   ========================================================================== */
 import { $, store, reducedMotion } from './util.js';
 
-// Counts 0 → 100 once per session, then wipes away. Resolves at 100 so the hero rises under the wipe.
 export function initPreloader() {
   const el = $('.preloader');
   const root = document.documentElement;

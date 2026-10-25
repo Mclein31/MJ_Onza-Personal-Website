@@ -72,7 +72,6 @@ p { text-wrap: pretty; }
 .section { padding-block: var(--section-y); position: relative; }
 .section[id] { scroll-margin-top: calc(32px - var(--section-y)); }
 
-/* Section heading: a mono "table name" + a display headline */
 .section-head { display: grid; gap: 18px; margin-bottom: clamp(2.5rem, 2rem + 3vw, 4.5rem); }
 .section-head .table-name {
   font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--ink-3);
@@ -85,7 +84,6 @@ p { text-wrap: pretty; }
 .muted { color: var(--ink-2); }
 .accent { color: var(--accent-text); }
 
-/* Film grain overlay — gives the flat dark a tactile, printed feel */
 .grain {
   position: fixed; inset: -50%; z-index: 999; pointer-events: none;
   width: 200%; height: 200%;
@@ -101,7 +99,6 @@ p { text-wrap: pretty; }
   80% { transform: translate(6%, 5%); }
 }
 
-/* Buttons */
 .btn {
   --btn-bg: var(--surface-2);
   --btn-ink: var(--ink);
@@ -121,7 +118,6 @@ p { text-wrap: pretty; }
 .btn svg { width: 16px; height: 16px; transition: transform var(--dur-2) var(--ease-out); }
 @media (hover: hover) { .btn:hover svg { transform: translateX(3px); } }
 
-/* Scroll reveal primitives (activated by js/reveal.js) */
 .js [data-reveal] {
   opacity: 0;
   transform: translateY(28px);

@@ -1,3 +1,6 @@
+/* ==========================================================================
+   Scroll — lit words, count-ups, progress
+   ========================================================================== */
 import { $, $$, clamp, viewProgress } from './util.js';
 
 function splitWords(p) {
@@ -42,7 +45,6 @@ function countUp(el) {
 }
 
 export function initScroll() {
-  // One-shot reveals
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (!e.isIntersecting) return;
@@ -53,7 +55,6 @@ export function initScroll() {
   }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
   $$('[data-reveal], .milestone').forEach((el) => io.observe(el));
 
-  // Scroll spy
   const links = $$('.nav__links a');
   const spy = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
@@ -88,7 +89,6 @@ export function initScroll() {
     lastY = y;
 
     if (manifesto && words.length) {
-      // Starts as the paragraph enters; every word is lit by the time it's centered on screen
       const r = manifesto.getBoundingClientRect();
       const start = innerHeight * 0.9;
       const end = innerHeight * 0.55 - r.height / 2;
@@ -99,7 +99,6 @@ export function initScroll() {
 
     if (timeline) timeline.style.setProperty('--tp', viewProgress(timeline, 0.7, 0.5));
 
-    // Each award card shrinks a little as the next one slides over it
     cards.forEach((card, i) => {
       const next = cards[i + 1];
       if (!next) return;
@@ -108,7 +107,6 @@ export function initScroll() {
       card.style.setProperty('--s', 1 - overlap * 0.05);
     });
 
-    // Footer wordmark fills from the moment it enters until the very bottom of the page
     if (mark) {
       const r = mark.getBoundingClientRect();
       const remaining = Math.max(0, max - y);
@@ -126,12 +124,10 @@ export function initScroll() {
   addEventListener('wheel', markIntent, { passive: true });
   addEventListener('touchmove', markIntent, { passive: true });
   addEventListener('keydown', (e) => { if (SCROLL_KEYS.has(e.key)) markIntent(); });
-  // Size the footer wordmark so it spans the container exactly
   const fitMark = () => {
     if (!mark) return;
     const range = document.createRange();
     range.selectNodeContents(mark);
-    // Text width isn't perfectly linear in font size (hinting), so refine a few times
     let size = 100;
     for (let i = 0; i < 4; i++) {
       mark.style.fontSize = `${size}px`;

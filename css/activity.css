@@ -38,7 +38,6 @@
 .activity__legend i[data-l="3"] { background: var(--lv3); }
 .activity__legend i[data-l="4"] { background: var(--lv4); }
 
-/* Calendar: weekday labels, month labels, then 7 rows of day cells flowing by week */
 .activity__scroll { overflow-x: auto; scrollbar-width: thin; padding: 20px clamp(16px, 2vw, 24px) 18px; }
 .activity__scroll:focus-visible { outline-offset: -2px; }
 .activity__cal {
@@ -48,7 +47,6 @@
 }
 .activity__months { grid-column: 2; display: grid; grid-template-columns: repeat(var(--weeks, 53), minmax(0, 1fr)); column-gap: var(--cell-gap); }
 .activity__months span { white-space: nowrap; }
-/* Weekday labels stay pinned while the calendar scrolls sideways on small screens */
 .activity__days {
   grid-row: 2; display: grid; grid-template-rows: repeat(7, minmax(0, 1fr)); row-gap: var(--cell-gap);
   position: sticky; left: 0; z-index: 1; background: var(--bg-2); box-shadow: 10px 0 0 var(--bg-2), -24px 0 0 var(--bg-2);
@@ -76,12 +74,10 @@
 .activity.is-live .cell { opacity: 1; scale: 1; }
 @media (hover: hover) { .activity.is-live .cell:hover { outline-color: var(--ink); transition-delay: 0s; } }
 
-/* Hovering a stat lights up the days it counts and dims the rest */
 .activity[data-hl] .cell { transition-delay: 0s; }
 .activity[data-hl] .cell:not(.is-hl) { opacity: 0.25; }
 .activity[data-hl] .cell.is-hl { outline-color: var(--accent-text); }
 
-/* Loading shimmer and error state */
 .activity__cal.is-loading { min-height: 174px; border-radius: var(--r-2);
   background: linear-gradient(90deg, var(--lv0) 30%, rgba(242, 243, 239, 0.09) 50%, var(--lv0) 70%) 0 0 / 300% 100%;
   animation: act-shimmer 1.6s linear infinite; }
@@ -98,7 +94,6 @@
 .activity__tip.is-on { opacity: 1; }
 .activity__tip b { font-weight: 600; }
 
-/* Stats read like a one-row query result */
 .activity__stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
 .stat {
   padding: 18px 20px 20px; border: 1px solid var(--line); border-radius: var(--r-2); background: var(--bg-2);
