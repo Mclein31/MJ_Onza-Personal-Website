@@ -58,6 +58,19 @@ npx serve .
 
 Then open `http://localhost:3000`. The stats pill falls back to Abacus directly when `/api/stats` isn't available locally.
 
+## 🧪 Testing
+
+Playwright end-to-end tests (dev-only; the site itself still has no build step):
+
+```bash
+npm install
+npx playwright install webkit   # Chrome projects use your installed Google Chrome
+npm test                        # desktop Chrome, Pixel 7, iPhone 14 (WebKit)
+npm run test:report             # open the HTML report
+```
+
+Specs live in `tests/`: page health (console errors, images, overflow, axe WCAG scan), interactions (nav, ⌘K palette, theme, galleries, lightbox, message form, like, GitHub calendar), phone layout and motion/keyboard behaviour. Third-party calls (Abacus, FormSubmit, GitHub contributions) are mocked, so test runs never add visits or likes or send email.
+
 ---
 
 ## 📄 License & Attribution
