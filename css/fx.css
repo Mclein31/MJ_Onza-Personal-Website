@@ -84,6 +84,10 @@
   box-shadow: var(--shadow);
 }
 .stats.is-dragging { cursor: grabbing; }
+/* Phones: a floating pill covers buttons, so it joins the footer's last row instead */
+@media (max-width: 860px) {
+  .stats { position: static; flex: none; touch-action: auto; cursor: auto; box-shadow: none; }
+}
 .stats__cell { display: inline-flex; align-items: center; gap: 7px; height: 34px; padding: 0 12px; border-radius: var(--r-pill); }
 .stats__cell svg { width: 14px; height: 14px; }
 .stats__cell b { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }

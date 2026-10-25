@@ -68,7 +68,16 @@ export function initActivity() {
   const tip = $('[data-act-tip]', root);
   const stats = $('[data-act-stats]');
   const field = (k) => $(`[data-act="${k}"]`, stats);
+  const scroller = $('[data-act-scroll]', root);
   let days = [], sum = null, visible = false, drawn = false;
+
+  // The calendar scrolls sideways on narrow screens: give it a tab stop only then
+  const keyboardReach = new ResizeObserver(() => {
+    if (scroller.scrollWidth > scroller.clientWidth) scroller.tabIndex = 0;
+    else scroller.removeAttribute('tabindex');
+  });
+  keyboardReach.observe(scroller);
+  keyboardReach.observe(cal);
 
   const go = () => {
     if (!drawn || !visible || root.classList.contains('is-live')) return;
@@ -96,7 +105,6 @@ export function initActivity() {
     render(cal, days);
     cal.classList.remove('is-loading');
     cal.setAttribute('aria-label', `GitHub contribution calendar: ${sum.total} contributions in the last year`);
-    const scroller = $('[data-act-scroll]', root);
     scroller.scrollLeft = scroller.scrollWidth; // most recent weeks first on small screens
     const span = { month: 'short', day: 'numeric' };
     $('[data-act-range]', root).textContent = `${day(days[0].date, { month: 'short', year: 'numeric' })} – ${day(days.at(-1).date, { month: 'short', year: 'numeric' })}`;

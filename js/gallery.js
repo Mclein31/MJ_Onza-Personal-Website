@@ -1,6 +1,6 @@
-import { $, $$, clamp } from './util.js';
+import { $, $$, clamp, arrowKeys } from './util.js';
 
-// Screenshot galleries inside project cards: native swipe/trackpad, plus buttons, dots and mouse drag
+// Screenshot galleries inside project cards: native swipe/trackpad, plus buttons, dots, arrow keys and mouse drag
 export function initGalleries() {
   $$('[data-gallery]').forEach((gallery) => {
     const track = $('[data-gallery-track]', gallery);
@@ -25,6 +25,7 @@ export function initGalleries() {
 
     $('[data-gallery-prev]', gallery).addEventListener('click', () => go(current() === 0 ? slides.length - 1 : current() - 1));
     $('[data-gallery-next]', gallery).addEventListener('click', () => go(current() === slides.length - 1 ? 0 : current() + 1));
+    arrowKeys(track, current, go);
 
     // Mouse drag (touch scrolls natively)
     let down = false, sx = 0, sl = 0;

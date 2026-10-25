@@ -25,6 +25,7 @@ async function request(type, metric) {
 function draggable(el, onDragEnd) {
   let sx = 0, sy = 0, ox = 0, oy = 0, active = false, moved = false;
   el.addEventListener('pointerdown', (e) => {
+    if (getComputedStyle(el).position !== 'fixed') return; // in the footer on phones: not draggable
     active = true; moved = false;
     const r = el.getBoundingClientRect();
     sx = e.clientX; sy = e.clientY; ox = r.left; oy = r.top;
@@ -66,7 +67,6 @@ export function initStats() {
   const markLiked = () => {
     likeBtn.classList.add('is-liked');
     likeBtn.setAttribute('aria-pressed', 'true');
-    likeBtn.setAttribute('aria-label', 'You liked this website');
   };
   if (store.get('site_user_has_liked') === 'true') markLiked();
 

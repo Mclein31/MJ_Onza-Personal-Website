@@ -44,3 +44,14 @@ export async function copyText(text) {
     ta.remove();
   }
 }
+
+// Keyboard access for a snap scroller: focusable, ←/→ move one slide
+export function arrowKeys(track, current, go) {
+  track.tabIndex = 0;
+  track.addEventListener('keydown', (e) => {
+    const step = { ArrowLeft: -1, ArrowRight: 1 }[e.key];
+    if (!step) return;
+    e.preventDefault();
+    go(current() + step);
+  });
+}

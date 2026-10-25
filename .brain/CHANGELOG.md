@@ -10,6 +10,11 @@ last_updated: 2026-10-25
 
 # 📜 Personal Website — Changelog
 
+## [Unreleased] — Testing & Audit (2026-10-25)
+- **Added**: Playwright + axe test suite (`tests/`, `playwright.config.mjs`, dev-only `package.json`); 39 pass, 15 fail on known audit findings (see TODO.md "Design Audit Backlog").
+- **Fixed**: All 15 audit failures — suite now 54/54. Muted-ink contrast, 24px gallery dot targets, keyboard-reachable galleries/film/calendar, inert trait-deck back cards, like-button name, phone stats pill moved into the footer, "Hover"/"Tap" copy, schema tap-to-join, faster clock-timed preloader (~2.1s to a readable name), absolute `og:image` (`assets/images/og-image.jpg`) + canonical.
+- **Fixed**: Reduced-motion users saw the footer wordmark collapse to ~1px on phones (blanket 0.01ms transitions made `font-size` transition); reduced motion now limits `transition-property` to opacity/colour. Regression check added to `tests/motion.spec.mjs`.
+
 ## [3.0.0] — Full Rebuild (branch `portfolio-rebuild-v2`)
 - **Changed**: New visual system — graphite + signal lime, paper-white light mode; Bricolage Grotesque / Geist / Geist Mono.
 - **Changed**: `style.css` + `main.js` replaced by `css/*.css` and ES modules in `js/` (no build step).

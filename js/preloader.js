@@ -1,6 +1,6 @@
 import { $, store, reducedMotion } from './util.js';
 
-// Counts 0 → 100 once per session, then wipes away. Resolves when the hero may animate in.
+// Counts 0 → 100 once per session, then wipes away. Resolves at 100 so the hero rises under the wipe.
 export function initPreloader() {
   const el = $('.preloader');
   const root = document.documentElement;
@@ -11,33 +11,34 @@ export function initPreloader() {
 
   const countEl = $('[data-count]', el);
   const bar = $('.preloader__bar i', el);
-  const duration = 1300;
-  let start;
+  const duration = 750;
+  const start = performance.now();
+
+  const paint = (p) => {
+    const eased = 1 - Math.pow(1 - p, 3);
+    countEl.textContent = String(Math.round(eased * 100)).padStart(3, '0');
+    bar.style.setProperty('--p', eased);
+  };
 
   return new Promise((resolve) => {
     let finished = false;
-    const finish = () => {
-      if (finished) return;
+    // Timed by the clock, not by frames: a busy or background tab can starve rAF, and the
+    // loader should still take exactly `duration`. rAF only paints the counter.
+    setTimeout(() => {
       finished = true;
+      paint(1);
       store.set('pf-loaded', '1', sessionStorage);
+      resolve();
       setTimeout(() => {
         el.classList.add('is-done');
-        resolve();
         setTimeout(() => el.remove(), 900);
-      }, 180);
-    };
-    // Failsafe: rAF pauses in background tabs, so never let the loader hold the page hostage
-    setTimeout(finish, duration + 1300);
+      }, 120);
+    }, duration);
 
-    const tick = (t) => {
+    const tick = () => {
       if (finished) return;
-      start ??= t;
-      const p = Math.min(1, (t - start) / duration);
-      const eased = 1 - Math.pow(1 - p, 3);
-      countEl.textContent = String(Math.round(eased * 100)).padStart(3, '0');
-      bar.style.setProperty('--p', eased);
-      if (p < 1) requestAnimationFrame(tick);
-      else finish();
+      paint(Math.min(1, (performance.now() - start) / duration));
+      requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
   });

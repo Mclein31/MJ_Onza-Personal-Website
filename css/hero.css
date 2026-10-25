@@ -33,8 +33,8 @@
   transition: font-weight 380ms var(--ease-out);
 }
 .hero.is-in .hero__name .char {
-  animation: char-up 1100ms var(--ease-out) forwards;
-  animation-delay: calc(var(--ci) * 45ms);
+  animation: char-up 700ms var(--ease-out) forwards;
+  animation-delay: calc(var(--ci) * 30ms);
 }
 @keyframes char-up { to { transform: translateY(0); } }
 .hero__name .accent-dot { color: var(--accent); letter-spacing: 0; }

@@ -65,3 +65,31 @@ Project cards show swipeable galleries of real screenshots composed into device/
 - AI-generated mockups (rejected: less honest than real UI).
 - Bare login-page screenshots of the live sites (rejected: weak visuals).
 
+---
+
+## 2026-10-25 — Playwright Tests as Dev-Only Tooling
+
+### Decision
+Add `@playwright/test` and `@axe-core/playwright` as devDependencies (`package.json` exists only for tooling) with specs in `tests/`. Runs on desktop Chrome, Pixel 7 (installed Chrome) and iPhone 14 (WebKit), served by `tests/serve.mjs`.
+
+### Reason
+Catch regressions in the interaction layer (palette, dialogs, galleries, stats, calendar) and keep accessibility measurable, without adding a build step to the site.
+
+### Consequences
+- Tests mock Abacus, `/api/stats`, the contributions API and FormSubmit, so a run never counts visits/likes or sends email.
+- No `"type": "module"` in `package.json`, so Vercel keeps treating `api/*.js` as before; test files use `.mjs`.
+- All specs pass since the audit fixes (2026-10-25); a failure now means a regression.
+
+---
+
+## 2026-10-25 — Audit Fixes: Phone Stats Pill, Reduced Motion, Preloader Timing
+
+### Decision
+- **Stats pill** lives in the footer's last row in the DOM: it floats (fixed, draggable) above 860px and sits static in the footer on phones, where a floating pill covered buttons.
+- **Reduced motion** limits `transition-property` to opacity/colour properties instead of shrinking every `transition-duration` to 0.01ms.
+- **Preloader** is clock-timed (750ms, `setTimeout`), not frame-timed; the hero rise starts at 100 under the wipe (700ms, 30ms stagger). First visit ≈ 2.1s to a readable name.
+- **Hover instructions** use `.on-hover` / `.on-touch` spans ("Hover" vs "Tap"), and schema rows join on tap.
+
+### Reason
+WCAG checks in `npm test`, plus a real bug: the blanket 0.01ms duration made every element transition `all`, so the footer wordmark fit read stale widths and collapsed to ~1px for reduced-motion phone users. A frame-timed counter also stretched to the 2.6s failsafe whenever rAF was starved.
+

@@ -31,9 +31,9 @@
 .row::before { content: attr(data-n); color: var(--ink-3); width: 2ch; flex: none; }
 .row span { flex: 1; }
 .row em { font-style: normal; color: var(--ink-3); font-size: 11px; }
-.row:hover, .row.is-joined { background: var(--accent-soft); color: var(--ink); }
+.row.is-source, .row.is-joined { background: var(--accent-soft); color: var(--ink); }
 .row.is-joined em { color: var(--accent-text); }
-.schema.is-joining .row:not(.is-joined):not(:hover) { opacity: 0.45; }
+.schema.is-joining .row:not(.is-joined):not(.is-source) { opacity: 0.45; }
 .schema .row { transition: opacity var(--dur-2), background-color var(--dur-1), color var(--dur-1); }
 .schema__hint { margin-top: 18px; font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--ink-3); }
 

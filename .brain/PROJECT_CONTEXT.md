@@ -60,4 +60,4 @@ last_updated: 2026-10-25
 ## ⚠️ Known Limitations
 - ES modules don't load from `file://`; use a local server.
 - AdvanCare staff console slides use intercepted demo data (no real staff login); MedRec has a single image.
-- Student Journalist / Student Leader award dates aren't recorded, so they sit last in the newest→oldest order.
+- Student Journalist / Student Leader were awarded at graduation, June 2022, the same date as With High Honors; the three sit together at the end of the newest→oldest order.

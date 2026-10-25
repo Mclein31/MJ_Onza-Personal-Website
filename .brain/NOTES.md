@@ -11,7 +11,7 @@ last_updated: 2026-10-25
 # 📝 Personal Website — Technical Notes
 
 ## 🎯 Projects in the Work Gallery (order)
-1. [[AdvanCare]] — 3 slides (staff console + app). 🏆 2nd, Cagayan Innovation Hack 2026.
+1. [[AdvanCare]] — 3 slides (staff console + app). 🏆 2nd, Cagayan Innovation Hack 2026. Role: McLein built the software (resident app, staff console, website, API); the team coach delivered the pitch. Copy must not say McLein pitched it.
 2. [[MedCore1|MedCore]] — 3 slides (dashboard + patient app, from MedCore QA captures).
 3. [[SERVIO]] — 2 slides (new UI, offline demo mode).
 4. [[MedRecord_App|MedRec]] — 2 slides (v2 Expo web with intercepted demo data).

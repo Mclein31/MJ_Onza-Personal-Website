@@ -1,4 +1,4 @@
-import { $, $$, clamp, finePointer, reducedMotion, toast, copyText } from './util.js';
+import { $, $$, clamp, finePointer, reducedMotion, toast, copyText, arrowKeys } from './util.js';
 
 function menu() {
   const btn = $('[data-menu-toggle]');
@@ -16,42 +16,53 @@ function menu() {
   addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
 }
 
-// Click the top card: it flies off and rejoins at the back of the deck
+// Click the top card: it flies off and rejoins at the back of the deck.
+// Cards underneath are inert, so the top card is the only target.
 function deck() {
   const el = $('[data-deck]');
   if (!el) return;
-  const order = () => $$('.deck__card', el).forEach((c, i) => c.style.setProperty('--d', Math.min(i, 4)));
+  const order = () => $$('.deck__card', el).forEach((c, i) => {
+    c.style.setProperty('--d', Math.min(i, 4));
+    c.inert = i > 0;
+  });
   order();
   let busy = false;
   el.addEventListener('click', () => {
     if (busy) return;
     busy = true;
     const top = el.firstElementChild;
+    const hadFocus = document.activeElement === top;
     top.classList.add('is-leaving');
     setTimeout(() => {
       top.classList.remove('is-leaving');
       el.append(top);
       order();
+      if (hadFocus) el.firstElementChild.focus({ preventScroll: true });
       busy = false;
     }, reducedMotion.matches ? 0 : 340);
   });
 }
 
-// Hovering a row "joins" it against rows sharing any tag
+// Hovering (or tapping) a row "joins" it against rows sharing any tag
 function schema() {
   const el = $('[data-schema]');
   if (!el) return;
   const rows = $$('.row', el);
+  let source = null;
+  const join = (row) => {
+    source = row;
+    const tags = row ? row.dataset.join.split(' ') : [];
+    el.classList.toggle('is-joining', !!row);
+    rows.forEach((r) => {
+      r.classList.toggle('is-source', r === row);
+      r.classList.toggle('is-joined', !!row && r !== row && r.dataset.join.split(' ').some((t) => tags.includes(t)));
+    });
+  };
   rows.forEach((row) => {
-    const tags = row.dataset.join.split(' ');
-    row.addEventListener('pointerenter', () => {
-      el.classList.add('is-joining');
-      rows.forEach((r) => r.classList.toggle('is-joined', r !== row && r.dataset.join.split(' ').some((t) => tags.includes(t))));
-    });
-    row.addEventListener('pointerleave', () => {
-      el.classList.remove('is-joining');
-      rows.forEach((r) => r.classList.remove('is-joined'));
-    });
+    row.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') join(row); });
+    row.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') join(null); });
+    // Touch: tap a row to join it, tap it again to clear
+    row.addEventListener('click', (e) => { if (e.pointerType !== 'mouse') join(source === row ? null : row); });
   });
 }
 
@@ -81,6 +92,7 @@ function film() {
   $('[data-film-prev]')?.addEventListener('click', () => go(current() - 1));
   $('[data-film-next]')?.addEventListener('click', () => go(current() + 1 >= frames.length ? 0 : current() + 1));
   track.addEventListener('scroll', () => { if (idxEl) idxEl.textContent = String(current() + 1).padStart(2, '0'); }, { passive: true });
+  arrowKeys(track, current, go);
 
   // Mouse drag to scrub (touch already scrolls natively)
   let down = false, sx = 0, sl = 0;

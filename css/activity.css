@@ -40,6 +40,7 @@
 
 /* Calendar: weekday labels, month labels, then 7 rows of day cells flowing by week */
 .activity__scroll { overflow-x: auto; scrollbar-width: thin; padding: 20px clamp(16px, 2vw, 24px) 18px; }
+.activity__scroll:focus-visible { outline-offset: -2px; }
 .activity__cal {
   display: grid; grid-template-columns: 30px minmax(0, 1fr); grid-template-rows: auto auto;
   gap: 8px 10px; min-width: 720px;

@@ -7,11 +7,16 @@
   <meta name="description" content="McLein Jei Onza — Computer Science student at Cagayan State University (Class of 2028) building web apps and training for data engineering with Python, SQL and PostgreSQL." />
   <meta name="author" content="McLein Jei Onza" />
   <meta name="theme-color" content="#0b0c0d" />
+  <link rel="canonical" href="https://onzamj.vercel.app/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://onzamj.vercel.app/" />
   <meta property="og:title" content="McLein Jei Onza — CS student on the data engineering path" />
   <meta property="og:description" content="Web apps today, data pipelines next. Python, SQL, PostgreSQL." />
-  <meta property="og:image" content="assets/images/project3.png" />
+  <meta property="og:image" content="https://onzamj.vercel.app/assets/images/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The McLein Onza portfolio hero: the name in large type among floating tech logos" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" href="assets/Logo/favicon.png" />
   <script>
     // Theme + preloader flags before first paint (no flash)
@@ -318,7 +323,7 @@
       <div class="section-head">
         <span class="table-name" data-reveal>SELECT date, count(*) FROM <b>commits</b> GROUP BY date;</span>
         <h2 data-reveal style="--i:1">A year of shipping, one square at a time.</h2>
-        <p data-reveal style="--i:2">My GitHub contribution graph, pulled live. Each square is a day, and the brighter it glows, the more I pushed. Hover a stat to find it on the graph.</p>
+        <p data-reveal style="--i:2">My GitHub contribution graph, pulled live. Each square is a day, and the brighter it glows, the more I pushed. <span class="on-hover">Hover</span><span class="on-touch">Tap</span> a stat to find it on the graph.</p>
       </div>
       <div class="activity" data-activity data-reveal style="--i:3">
         <div class="activity__head">
@@ -346,7 +351,7 @@
       <div class="section-head">
         <span class="table-name" data-reveal>\d <b>stack</b></span>
         <h2 data-reveal style="--i:1">Five tables, one schema.</h2>
-        <p data-reveal style="--i:2">What I work with, grouped the way I think about it. Hover a row to join it against related rows in the other tables.</p>
+        <p data-reveal style="--i:2">What I work with, grouped the way I think about it. <span class="on-hover">Hover</span><span class="on-touch">Tap</span> a row to join it against related rows in the other tables.</p>
       </div>
       <div class="schema" data-schema>
         <div class="table" data-reveal style="--i:0">
@@ -404,7 +409,7 @@
           </div>
         </div>
       </div>
-      <p class="schema__hint" aria-hidden="true">-- hover a row to JOIN on related skills</p>
+      <p class="schema__hint" aria-hidden="true">-- <span class="on-hover">hover</span><span class="on-touch">tap</span> a row to JOIN on related skills</p>
 
       <div class="journey">
         <div class="journey__head" data-reveal>
@@ -430,7 +435,7 @@
             <time>October 2026</time>
             <h4>2nd place, Cagayan Innovation Hack 2026</h4>
             <div class="where">iHub Innovation Hub · Final Pitch</div>
-            <p>Pitched AdvanCare, a healthcare platform for grassroots communities, and won second place with a ₱10,000 prize.</p>
+            <p>Built the software for AdvanCare, a healthcare platform for grassroots communities, which our coach pitched to second place and a ₱10,000 prize.</p>
           </li>
           <li class="milestone" data-reveal>
             <time>Next</time>
@@ -498,7 +503,7 @@
             <span class="award__no">award_05</span>
             <h3>Student Journalist — Radio Broadcaster</h3>
             <p>Radio broadcasting in Filipino: news delivery, scriptwriting and production for the campus team.</p>
-            <div class="award__by">Ballesteros National High School</div>
+            <div class="award__by">Ballesteros National High School · June 2022</div>
           </div>
           <button class="award__img" type="button" data-lb="0" data-cursor="View" aria-label="View photo: Student Journalist — Radio Broadcaster">
             <img src="assets/images/awards/award-bnhs-journalism-team.jpg" alt="Ballesteros National High School journalism team" loading="lazy" decoding="async" />
@@ -509,7 +514,7 @@
             <span class="award__no">award_06</span>
             <h3>Student Leader</h3>
             <p>Student initiative, representation and community outreach programs.</p>
-            <div class="award__by">Student leadership</div>
+            <div class="award__by">Student leadership · June 2022</div>
           </div>
           <button class="award__img" type="button" data-lb="4" data-cursor="View" aria-label="View photo: Student Leader">
             <img src="assets/images/awards/award-community-leadership.jpg" alt="Student leadership and community outreach group" loading="lazy" decoding="async" />
@@ -605,20 +610,21 @@
       <div class="footer__bottom">
         <span>Hand-built with HTML, CSS &amp; JS. No frameworks.</span>
         <span>Press <kbd>⌘K</kbd> to jump anywhere</span>
+        <!-- Floats bottom-right on wide screens; sits in this row on phones so it never covers a button -->
+        <div class="stats" data-stats role="group" aria-label="Site stats">
+          <span class="stats__cell" title="Total visits">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            <b data-visits>0</b><span class="sr-only">visits</span>
+          </span>
+          <button class="stats__cell stats__like" type="button" data-like aria-pressed="false">
+            <svg class="heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+            <span class="sr-only">Like this website,</span>
+            <b data-likes>0</b><span class="sr-only">likes</span>
+          </button>
+        </div>
       </div>
     </div>
   </footer>
-
-  <div class="stats" data-stats aria-label="Site stats">
-    <span class="stats__cell" title="Total visits">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
-      <b data-visits>0</b>
-    </span>
-    <button class="stats__cell stats__like" type="button" data-like aria-pressed="false" aria-label="Like this website">
-      <svg class="heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>
-      <b data-likes>0</b>
-    </button>
-  </div>
 
   <div class="toast" role="status" aria-live="polite" data-toast>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
