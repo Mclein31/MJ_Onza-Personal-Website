@@ -24,7 +24,6 @@
 
 .strip { margin-top: 56px; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
 .strip__track { display: flex; gap: 14px; width: max-content; animation: strip 50s linear infinite; }
-/* Paused off screen, on hover, and while a keyboard user is inside it */
 .strip.is-offscreen .strip__track, .strip:focus-within .strip__track { animation-play-state: paused; }
 @media (hover: hover) { .strip:hover .strip__track { animation-play-state: paused; } }
 @keyframes strip { to { transform: translateX(-50%); } }

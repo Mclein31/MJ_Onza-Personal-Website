@@ -11,7 +11,6 @@ export function initPreloader() {
 
   const countEl = $('[data-count]', el);
   const bar = $('.preloader__bar i', el);
-  // Overlap page load instead of adding to it: done 750ms after navigation, but counts for at least 350ms
   const start = performance.now();
   const duration = Math.max(350, 750 - start);
 
@@ -23,8 +22,6 @@ export function initPreloader() {
 
   return new Promise((resolve) => {
     let finished = false;
-    // Timed by the clock, not by frames: a busy or background tab can starve rAF, and the
-    // loader should still take exactly `duration`. rAF only paints the counter.
     setTimeout(() => {
       finished = true;
       paint(1);

@@ -1,7 +1,5 @@
 /* ==========================================================================
-   Fonts — self-hosted (SIL Open Font License), served from assets/fonts.
-   Same files and unicode ranges Google Fonts served; Cyrillic/Vietnamese dropped.
-   A subset only downloads when the page uses a character in its range.
+   Fonts — self-hosted
    ========================================================================== */
 @font-face {
   font-family: 'Bricolage Grotesque'; font-style: normal; font-weight: 300 800; font-display: swap;

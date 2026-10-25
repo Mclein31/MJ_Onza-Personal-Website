@@ -45,7 +45,6 @@ export async function copyText(text) {
   }
 }
 
-// Keyboard access for a snap scroller: focusable, ←/→ move one slide
 export function arrowKeys(track, current, go) {
   track.tabIndex = 0;
   track.addEventListener('keydown', (e) => {

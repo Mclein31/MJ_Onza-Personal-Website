@@ -22,9 +22,6 @@ function splitWords(p) {
   return out.filter((n) => n.nodeType === 1);
 }
 
-// The bar hides only when the visitor scrolls down themselves (wheel, trackpad, touch, scroll keys).
-// Scrolling the page does on its own — anchor jumps, ⌘K, late content shifting it — never hides it.
-// Intent lasts while that scroll keeps moving (momentum included) and ends 250ms after it stops.
 const SCROLL_KEYS = new Set(['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' ']);
 let userScroll = false, intentTimer;
 const markIntent = () => {
@@ -85,7 +82,6 @@ export function initScroll() {
       nav.classList.toggle('is-scrolled', y > 24);
       const menuOpen = document.body.classList.contains('is-locked');
       if (userScroll) markIntent();
-      // Hide after the visitor scrolls 48px down; show on any scroll up or any scroll they didn't drive
       if (y < lastY || !userScroll || menuOpen) upY = y;
       nav.classList.toggle('is-hidden', y - upY > 48 && y > 400);
     }

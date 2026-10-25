@@ -40,7 +40,6 @@ export async function gotoReady(page, path = '/') {
   await expect(page.locator('.hero')).toHaveClass(/is-in/);
 }
 
-// Wait until a smooth scroll (anchor jump, palette) has come to rest
 export async function scrollSettled(page) {
   await page.waitForFunction(() => new Promise((r) => { const y = scrollY; setTimeout(() => r(Math.abs(scrollY - y) < 1), 300); }));
 }

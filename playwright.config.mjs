@@ -31,8 +31,6 @@ export default defineConfig({
   },
   projects: [
     ...Object.entries(targets).map(([name, use]) => ({ name, use, testIgnore: /timing\.spec/ })),
-    // The first-visit stopwatch runs as its own stage once everything else is done, so parallel
-    // tests don't skew it. If any earlier test fails, this stage is skipped ("did not run").
     ...Object.entries(targets).map(([name, use]) => ({ name: `${name}-timing`, use, testMatch: /timing\.spec/, dependencies: Object.keys(targets) })),
   ],
 });

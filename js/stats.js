@@ -25,7 +25,7 @@ async function request(type, metric) {
 function draggable(el, onDragEnd) {
   let sx = 0, sy = 0, ox = 0, oy = 0, active = false, moved = false;
   el.addEventListener('pointerdown', (e) => {
-    if (getComputedStyle(el).position !== 'fixed') return; // in the footer on phones: not draggable
+    if (getComputedStyle(el).position !== 'fixed') return;
     active = true; moved = false;
     const r = el.getBoundingClientRect();
     sx = e.clientX; sy = e.clientY; ox = r.left; oy = r.top;

@@ -71,7 +71,6 @@ export function initActivity() {
   const scroller = $('[data-act-scroll]', root);
   let days = [], sum = null, visible = false, drawn = false;
 
-  // The calendar scrolls sideways on narrow screens: give it a tab stop only then
   const keyboardReach = new ResizeObserver(() => {
     if (scroller.scrollWidth > scroller.clientWidth) scroller.tabIndex = 0;
     else scroller.removeAttribute('tabindex');

@@ -13,7 +13,6 @@ test.describe('desktop interactions', () => {
     }
     await expect(page.locator('.nav__links a[href="#contact"]')).toHaveClass(/is-active/);
 
-    // A scroll the visitor drives still tucks the bar away, and scrolling up brings it back
     await page.evaluate(() => scrollTo(0, document.querySelector('#about').offsetTop));
     await scrollSettled(page);
     await page.mouse.move(720, 450);

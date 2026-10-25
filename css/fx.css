@@ -84,7 +84,6 @@
   box-shadow: var(--shadow);
 }
 .stats.is-dragging { cursor: grabbing; }
-/* Phones: a floating pill covers buttons, so it joins the footer's last row instead */
 @media (max-width: 860px) {
   .stats { position: static; flex: none; touch-action: auto; cursor: auto; box-shadow: none; }
 }

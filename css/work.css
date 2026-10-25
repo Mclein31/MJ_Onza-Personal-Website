@@ -9,8 +9,6 @@
 }
 .work__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; }
 .work__head .section-head { margin-bottom: 0; }
-/* Same side offset as .container, so the first card rests under the heading and the last ends on the
-   column's right edge; cards still slide past the screen edges in between */
 .work__track {
   display: flex; gap: clamp(16px, 2vw, 28px); align-items: flex-start;
   padding-inline: calc(max(0px, (100% - var(--max-w)) / 2) + var(--gutter));
@@ -53,7 +51,6 @@
 .gallery__btn:active { transform: scale(0.9); }
 .gallery__btn svg { width: 16px; height: 16px; }
 .gallery__dots { display: flex; }
-/* 24px tap target (WCAG 2.5.8) around the small visible dot */
 .gallery__dots button { display: grid; place-items: center; width: 24px; height: 24px; border-radius: var(--r-pill); }
 .gallery__dots button::before { content: ""; width: 6px; height: 6px; border-radius: var(--r-pill); background: rgba(242, 243, 239, 0.4); transition: width var(--dur-2) var(--ease-out), background-color var(--dur-2); }
 .gallery__dots button[aria-current="true"]::before { width: 18px; background: var(--accent); }
@@ -95,7 +92,6 @@
 .project--more span { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--ink-3); }
 
 .work__foot { display: flex; align-items: center; gap: 18px; font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--ink-3); }
-/* Keep "scroll →" clear of the floating stats pill (fixed bottom-right) on laptop widths */
 .work.is-pinned .work__foot { padding-right: max(var(--gutter), calc(190px - max(0px, (100% - var(--max-w)) / 2))); }
 .work__bar { flex: 1; height: 1px; background: var(--line); overflow: hidden; }
 .work__bar i { display: block; height: 100%; background: var(--ink); transform-origin: left; transform: scaleX(var(--wp, 0)); }

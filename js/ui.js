@@ -16,8 +16,7 @@ function menu() {
   addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
 }
 
-// Click the top card: it flies off and rejoins at the back of the deck.
-// Cards underneath are inert, so the top card is the only target.
+// Click the top card: it flies off and rejoins at the back of the deck
 function deck() {
   const el = $('[data-deck]');
   if (!el) return;
@@ -61,7 +60,6 @@ function schema() {
   rows.forEach((row) => {
     row.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') join(row); });
     row.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') join(null); });
-    // Touch: tap a row to join it, tap it again to clear
     row.addEventListener('click', (e) => { if (e.pointerType !== 'mouse') join(source === row ? null : row); });
   });
 }

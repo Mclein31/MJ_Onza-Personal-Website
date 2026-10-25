@@ -56,7 +56,6 @@ p { text-wrap: pretty; }
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
 
-/* Instructions that differ by input: "Hover" with a mouse, "Tap" on touch screens */
 .on-touch { display: none; }
 @media (hover: none) {
   .on-hover { display: none; }
@@ -130,9 +129,6 @@ p { text-wrap: pretty; }
 }
 .js [data-reveal].is-in { opacity: 1; transform: none; }
 
-/* Reduced motion: nothing moves or resizes, but opacity and colour fades stay as feedback.
-   Limiting transition-property (instead of shrinking every duration) also keeps elements
-   without a declared transition from transitioning `all`, which broke layout measurements. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {

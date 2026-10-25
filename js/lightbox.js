@@ -68,7 +68,6 @@ export function initLightbox() {
   if (strip) {
     const items = PHOTOS.map((p, i) => `<button class="strip__item" type="button" data-lb="${i}" data-cursor="View" aria-label="View photo: ${p.title}"><img src="${p.src}" alt="" loading="lazy" decoding="async" /></button>`).join('');
     strip.innerHTML = items + items.replace(/<button /g, '<button tabindex="-1" aria-hidden="true" ');
-    // Only run the marquee while it's on screen
     const band = strip.parentElement;
     new IntersectionObserver(([e]) => band.classList.toggle('is-offscreen', !e.isIntersecting)).observe(band);
   }
