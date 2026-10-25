@@ -19,6 +19,7 @@
   /* Space */
   --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
   --section-y: clamp(5rem, 3rem + 8vw, 10rem);
+  --nav-clear: 88px;
   --max-w: 1320px;
 
   /* Shape */

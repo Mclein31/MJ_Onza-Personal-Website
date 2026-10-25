@@ -33,6 +33,7 @@ test('keyboard: skip link is first, dialogs trap and release focus', async ({ pa
   await page.locator('.nav__hire').focus();
   await page.keyboard.press('Enter');
   await expect(page.locator('[data-message]')).toBeVisible();
+  await expect(page.locator('#fName')).toBeFocused();
   for (let i = 0; i < 8; i++) await page.keyboard.press('Tab');
   const inside = await page.evaluate(() => !!document.activeElement.closest('[data-message]'));
   expect(inside, 'focus stays inside the open dialog').toBe(true);

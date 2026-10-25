@@ -7,7 +7,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
-  scroll-padding-top: 88px;
+  scroll-padding-top: var(--nav-clear);
 }
 
 body {
@@ -70,6 +70,7 @@ p { text-wrap: pretty; }
 }
 
 .section { padding-block: var(--section-y); position: relative; }
+.section[id] { scroll-margin-top: calc(32px - var(--section-y)); }
 
 /* Section heading: a mono "table name" + a display headline */
 .section-head { display: grid; gap: 18px; margin-bottom: clamp(2.5rem, 2rem + 3vw, 4.5rem); }
@@ -128,6 +129,8 @@ p { text-wrap: pretty; }
   transition-delay: calc(var(--i, 0) * 70ms);
 }
 .js [data-reveal].is-in { opacity: 1; transform: none; }
+
+@keyframes panel-in { from { opacity: 0; transform: translateY(-8px) scale(0.98); } }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

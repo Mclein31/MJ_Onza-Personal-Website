@@ -74,7 +74,7 @@
 .lightbox__nav.prev { left: 0; } .lightbox__nav.next { right: 0; }
 .lightbox__cap h4 { font-size: var(--fs-xl); letter-spacing: -0.02em; }
 .lightbox__cap p { margin-top: 6px; color: #a7aaa3; font-size: var(--fs-sm); max-width: 70ch; }
-.lightbox[open] .lightbox__inner { animation: palette-in var(--dur-2) var(--ease-out); }
+.lightbox[open] .lightbox__inner { animation: panel-in var(--dur-2) var(--ease-out); }
 
 @media (max-width: 860px) {
   .award { grid-template-columns: minmax(0, 1fr); top: calc(84px + var(--i) * 12px); }

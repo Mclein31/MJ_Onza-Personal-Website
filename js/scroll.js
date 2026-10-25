@@ -118,6 +118,11 @@ export function initScroll() {
   };
 
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('a[href^="#"]')) return;
+    userScroll = false;
+    clearTimeout(intentTimer);
+  });
   addEventListener('wheel', markIntent, { passive: true });
   addEventListener('touchmove', markIntent, { passive: true });
   addEventListener('keydown', (e) => { if (SCROLL_KEYS.has(e.key)) markIntent(); });

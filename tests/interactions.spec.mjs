@@ -8,6 +8,10 @@ test.describe('desktop interactions', () => {
     for (const id of ['about', 'stack', 'recognition', 'contact']) {
       await page.click(`.nav__links a[href="#${id}"]`);
       await expect(page.locator(`#${id}`)).toBeInViewport();
+      await expect.poll(() => page.locator(`#${id} .table-name`).first().evaluate((h) => {
+        const gap = h.getBoundingClientRect().top - document.querySelector('.nav__inner').getBoundingClientRect().bottom;
+        return gap > 20 && gap < 80;
+      }), { message: `#${id} heading lands just under the nav` }).toBe(true);
       await scrollSettled(page);
       await expect(page.locator('.nav'), 'a jump down must not hide the bar').not.toHaveClass(/is-hidden/);
     }
@@ -20,28 +24,6 @@ test.describe('desktop interactions', () => {
     await expect(page.locator('.nav')).toHaveClass(/is-hidden/);
     await page.mouse.wheel(0, -200);
     await expect(page.locator('.nav')).not.toHaveClass(/is-hidden/);
-  });
-
-  test('command palette opens with Ctrl/⌘+K, filters, runs and closes', async ({ page }) => {
-    await gotoReady(page);
-    const palette = page.locator('[data-palette]');
-    await page.keyboard.press('ControlOrMeta+k');
-    await expect(palette).toBeVisible();
-    await expect(page.locator('[data-palette-input]')).toBeFocused();
-    await page.keyboard.type('recog');
-    await expect(page.locator('.palette__item')).toHaveCount(1);
-    await page.keyboard.press('Enter');
-    await expect(palette).toBeHidden();
-    await expect(page.locator('#recognition')).toBeInViewport();
-    await scrollSettled(page);
-    await expect(page.locator('.nav'), 'a palette jump must not hide the bar').not.toHaveClass(/is-hidden/);
-
-    await page.keyboard.press('/');
-    await expect(palette).toBeVisible();
-    await page.keyboard.type('zzzz');
-    await expect(page.locator('.palette__empty')).toBeVisible();
-    await page.keyboard.press('Escape');
-    await expect(palette).toBeHidden();
   });
 
   test('project gallery buttons and dots move between screenshots', async ({ page }) => {

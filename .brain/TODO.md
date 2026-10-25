@@ -36,7 +36,7 @@ Each item below is either a check in `npm test` (marked 🧪) or a skill finding
 
 ## 🟡 Medium Priority
 - [ ] Add an interactive blog / tech articles section linking to published pieces.
-- [x] Implement command palette (`Cmd+K` / `Ctrl+K`) for keyboard-driven site navigation. (v3)
+- [x] ~~Command palette (`Cmd+K` / `Ctrl+K`)~~ — built in v3, removed 2026-10-25 at the owner's request ("Jump to" button, footer hint and shortcut).
 
 ## 🟢 Low Priority
 - [ ] Add sound effects toggle (subtle click audio for terminal and buttons).

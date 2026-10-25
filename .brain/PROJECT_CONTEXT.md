@@ -15,7 +15,7 @@ last_updated: 2026-10-25
 # 🌐 Personal Website — Project Context
 
 ## 📌 Overview & Purpose
-**Personal Website** is the developer portfolio of **McLein Jei Onza** (BSCS, Cagayan State University, Class of 2028; aiming for data engineering). v3 (Oct 2026) is a full rebuild with a data-pipeline theme: kinetic hero with a live SQL query card, scroll-lit manifesto, pinned horizontal work section with per-project screenshot galleries, skills as schema tables, a self-drawing journey timeline, stacked award cards (newest first, led by the Cagayan Innovation Hack 2026 2nd place), the DTI YEP feature, a ⌘K command palette, and the existing visit/like stats.
+**Personal Website** is the developer portfolio of **McLein Jei Onza** (BSCS, Cagayan State University, Class of 2028; aiming for data engineering). v3 (Oct 2026) is a full rebuild with a data-pipeline theme: kinetic hero with a live SQL query card, scroll-lit manifesto, pinned horizontal work section with per-project screenshot galleries, skills as schema tables, a self-drawing journey timeline, stacked award cards (newest first, led by the Cagayan Innovation Hack 2026 2nd place), the DTI YEP feature, and the existing visit/like stats.
 
 ---
 

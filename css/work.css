@@ -1,7 +1,7 @@
 /* ==========================================================================
    Work — pinned horizontal scroll (desktop), swipe track (mobile)
    ========================================================================== */
-.work { position: relative; }
+.work { position: relative; scroll-margin-top: calc(-1 * var(--nav-clear)); }
 .work__pin { position: relative; }
 .work__sticky {
   position: sticky; top: 0; height: 100svh; overflow: hidden;
@@ -97,6 +97,7 @@
 .work__bar i { display: block; height: 100%; background: var(--ink); transform-origin: left; transform: scaleX(var(--wp, 0)); }
 
 /* Not pinned (small screens, reduced motion): stack cards; galleries keep the horizontal swipe */
+.work:not(.is-pinned) { scroll-margin-top: calc(32px - var(--section-y)); }
 .work:not(.is-pinned) .work__sticky { position: relative; height: auto; overflow: visible; padding-top: var(--section-y); padding-bottom: var(--section-y); gap: 40px; }
 .work:not(.is-pinned) .work__track { transform: none; flex-direction: column; align-items: stretch; gap: 56px; }
 .work:not(.is-pinned) .project, .work:not(.is-pinned) .project--more { width: 100%; min-width: 0; }

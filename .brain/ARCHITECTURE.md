@@ -22,7 +22,7 @@ last_updated: 2026-10-25
 │ UI Layout Modules:               │ Interactive Components (js/*.js):   │
 │ - Hide-on-scroll Glass Navbar    │ - Pinned Horizontal Work Scroll     │
 │ - Kinetic Hero + SQL Query Card  │ - Dark/Light Theme Manager          │
-│ - Profile Record + Trait Deck    │ - Screenshot Galleries · ⌘K Palette │
+│ - Profile Record + Trait Deck    │ - Screenshot Galleries              │
 │ - Skills Schema · Award Stack    │ - Film Strip & Award Lightbox       │
 │ - Categorized Skills Grid        │ - AJAX Contact Form Handler         │
 │ - Timeline & Award Showcase      │ - Visit & Like Counter Sync         │
@@ -58,7 +58,6 @@ last_updated: 2026-10-25
 - `gallery.js` — per-card screenshot galleries (scroll-snap + dots + prev/next + mouse drag).
 - `ui.js` — mobile menu, trait deck, schema row "joins" (`data-join` tags), portrait tilt, DTI film strip, copy email.
 - `lightbox.js` — `PHOTOS` data (awards + hackathon), `<dialog>` viewer, photo strip render.
-- `palette.js` — ⌘K/Ctrl+K/`/` command palette (sections, actions, links).
 - `stats.js` — same keys/endpoints as v2 (`site_total_*`, `site_user_has_liked`); pointer capture only after a real drag so taps still like.
 - `contact.js` — `<dialog>` FormSubmit form; exports `openMessage()`.
 
