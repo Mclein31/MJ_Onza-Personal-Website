@@ -20,9 +20,9 @@ last_updated: 2026-10-25
 ---
 
 ## 🎯 Current Objectives & Status
-- **Status**: v3 built on branch `portfolio-rebuild-v2` (uncommitted as of 2026-10-25; not yet deployed). `main` / production is still v2.2.
-- **Live Deployment (v2.2)**: [onzamj.vercel.app](https://onzamj.vercel.app/)
-- **Next**: owner review → commit → merge/deploy.
+- **Status**: v3 is on `main` (pushed) and live — confirmed on onzamj.vercel.app 2026-10-25. Design audit backlog cleared; Playwright suite green.
+- **Live Deployment (v3)**: [onzamj.vercel.app](https://onzamj.vercel.app/)
+- **Next**: commit + push the 2026-10-25 polish round (nav, fonts, motion, strip, Work alignment).
 
 ---
 

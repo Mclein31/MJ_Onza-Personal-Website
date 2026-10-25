@@ -11,7 +11,7 @@ last_updated: 2026-10-25
 # 📋 Personal Website — TODO & Task Tracker
 
 ## 🔴 High Priority
-- [ ] Review v3 on `portfolio-rebuild-v2`, commit, then merge and deploy.
+- [x] Review v3, commit, merge and deploy — live on onzamj.vercel.app (confirmed 2026-10-25).
 - [x] Confirm hackathon wording ("I built the software side…"): confirmed. McLein built the software; the team coach delivered the pitch. Journey timeline reworded from "Pitched AdvanCare…" to match.
 - [x] Dates for Student Journalist / Student Leader awards: both given at graduation, June 2022 (same as With High Honors).
 - [ ] Optional: real AdvanCare staff-console screenshot and more MedRec screens for the galleries.
@@ -27,10 +27,12 @@ Each item below is either a check in `npm test` (marked 🧪) or a skill finding
 - [x] 🧪 Gallery/film tracks focusable with ←/→ (`arrowKeys()` in `util.js`); calendar scroller focusable only while it overflows; trait deck back cards `inert`; like button name now includes its visible count.
 - [x] 🧪 "Hover" copy → "Tap" on touch screens (`.on-hover` / `.on-touch`); schema rows join on tap.
 - [x] Reduced motion now limits `transition-property` to opacity/colour (was 0.01ms on everything, which also collapsed the footer wordmark to ~1px on phones).
-- [ ] Self-host the fonts: the Google Fonts stylesheet is render-blocking (~200–250ms on a cold load) and makes the first-visit timing test flaky under parallel load.
-- [ ] Photo strip is an infinite marquee (Impeccable + Taste flag it); consider a static strip or pausing off-screen.
-- [ ] Motion polish (Emil): hover effects not gated by `(hover: hover)` (schema rows done); nav active dot enters from `scale(0)` and calendar cells from `scale: 0.4` (start ≥0.9 with opacity); several UI transitions 500–1100ms (aim ≤300ms for UI).
-- [ ] Nav jump hides the bar (scroll-down hide triggers on anchor scrolls), so the next link needs a scroll up first.
+- [x] Fonts self-hosted (`css/fonts.css`, `assets/fonts/*-v*.woff2`, latin/latin-ext + Geist Mono symbols2); no Google requests, DOMContentLoaded ~250ms → ~100ms.
+- [x] Photo strip kept as a marquee (owner didn't pick; default) but pauses off screen, on hover and on keyboard focus. Make it static if preferred.
+- [x] Motion polish: all 35 `:hover` rules gated by `(hover: hover)`; nav dot starts at scale 0.5 + fade; calendar cells at 0.9; UI transitions (hover, nav, menu, theme icon, toast, deck, dialogs) → 240ms. Entrances (preloader, hero, reveals, calendar fill, theme crossfade) unchanged.
+- [x] Nav bar now hides only on visitor-driven scrolls (wheel/touch/scroll keys); anchor jumps, ⌘K and layout shifts never hide it.
+- [x] Work section track aligned to the content column (first card under the heading, last card on the right edge); "scroll →" kept clear of the stats pill.
+- [ ] Hero floating icons reach the screen edge on phones (up to 412px on a 412px screen) — check whether that's intended.
 
 ## 🟡 Medium Priority
 - [ ] Add an interactive blog / tech articles section linking to published pieces.

@@ -39,7 +39,7 @@ function deck() {
       order();
       if (hadFocus) el.firstElementChild.focus({ preventScroll: true });
       busy = false;
-    }, reducedMotion.matches ? 0 : 340);
+    }, reducedMotion.matches ? 0 : 240);
   });
 }
 

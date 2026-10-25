@@ -13,6 +13,9 @@ last_updated: 2026-10-25
 ## [Unreleased] — Testing & Audit (2026-10-25)
 - **Added**: Playwright + axe test suite (`tests/`, `playwright.config.mjs`, dev-only `package.json`); 39 pass, 15 fail on known audit findings (see TODO.md "Design Audit Backlog").
 - **Fixed**: All 15 audit failures — suite now 54/54. Muted-ink contrast, 24px gallery dot targets, keyboard-reachable galleries/film/calendar, inert trait-deck back cards, like-button name, phone stats pill moved into the footer, "Hover"/"Tap" copy, schema tap-to-join, faster clock-timed preloader (~2.1s to a readable name), absolute `og:image` (`assets/images/og-image.jpg`) + canonical.
+- **Fixed**: Nav bar no longer hides after a nav link / ⌘K jump (hides only on visitor-driven scrolls). Work section track now sits on the content column instead of starting at the screen gutter (was ~300px off on 1920px screens).
+- **Changed**: Self-hosted fonts; hover effects gated to hover-capable devices; UI transitions cut to 240ms; nav dot / calendar cells no longer grow from near-zero; photo strip pauses off screen; preloader overlaps page load (done 750ms after navigation, min 350ms of counting).
+- **Tests**: First-visit timing measured from the page's animation timeline and run as a separate stage after the suite (`*-timing` projects); nav tests assert the bar stays visible after jumps and still hides on wheel scroll.
 - **Fixed**: Reduced-motion users saw the footer wordmark collapse to ~1px on phones (blanket 0.01ms transitions made `font-size` transition); reduced motion now limits `transition-property` to opacity/colour. Regression check added to `tests/motion.spec.mjs`.
 
 ## [3.0.0] — Full Rebuild (branch `portfolio-rebuild-v2`)

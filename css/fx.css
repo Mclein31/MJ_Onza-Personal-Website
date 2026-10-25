@@ -66,7 +66,7 @@
   padding: 12px 18px; border-radius: var(--r-pill);
   background: var(--ink); color: var(--bg); font-size: var(--fs-sm); font-weight: 500;
   transform: translate(-50%, 140%); opacity: 0;
-  transition: transform var(--dur-3) var(--ease-spring), opacity var(--dur-2);
+  transition: transform var(--dur-2) var(--ease-spring), opacity var(--dur-2);
 }
 .toast.is-show { transform: translate(-50%, 0); opacity: 1; }
 .toast svg { width: 16px; height: 16px; color: var(--accent-text); }
@@ -92,7 +92,7 @@
 .stats__cell svg { width: 14px; height: 14px; }
 .stats__cell b { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
 .stats__like { position: relative; transition: background-color var(--dur-2); }
-.stats__like:hover { background: var(--surface-2); }
+@media (hover: hover) { .stats__like:hover { background: var(--surface-2); } }
 .stats__like .heart { transition: transform var(--dur-2) var(--ease-spring), color var(--dur-2); }
 .stats__like.is-liked .heart { color: var(--danger); fill: currentColor; }
 .stats__like.pop .heart { animation: heart-pop 520ms var(--ease-spring); }

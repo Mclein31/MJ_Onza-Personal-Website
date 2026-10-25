@@ -10,7 +10,7 @@
   background: var(--bg-2);
   transition: border-color var(--dur-2), transform var(--dur-1) var(--ease-out);
 }
-.table:hover { border-color: var(--line-2); }
+@media (hover: hover) { .table:hover { border-color: var(--line-2); } }
 .table__head {
   display: flex; justify-content: space-between; align-items: center; gap: 12px;
   padding: 14px 16px; border-bottom: 1px solid var(--line);

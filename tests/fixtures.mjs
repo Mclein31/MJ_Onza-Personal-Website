@@ -40,13 +40,11 @@ export async function gotoReady(page, path = '/') {
   await expect(page.locator('.hero')).toHaveClass(/is-in/);
 }
 
-// The bar hides while the page scrolls down (including after a nav jump); a visitor scrolls up a little to get it back
-export async function revealNav(page) {
-  await page.waitForFunction(() => new Promise((r) => { const y = scrollY; setTimeout(() => r(Math.abs(scrollY - y) < 1), 200); }));
-  await page.evaluate(() => window.scrollBy(0, -150));
-  await expect(page.locator('.nav')).not.toHaveClass(/is-hidden/);
+// Wait until a smooth scroll (anchor jump, palette) has come to rest
+export async function scrollSettled(page) {
+  await page.waitForFunction(() => new Promise((r) => { const y = scrollY; setTimeout(() => r(Math.abs(scrollY - y) < 1), 300); }));
 }
 
-export const isMobile = (testInfo) => testInfo.project.name !== 'desktop-chrome';
+export const isMobile = (testInfo) => !testInfo.project.name.startsWith('desktop');
 
 export { expect };

@@ -87,9 +87,24 @@ Catch regressions in the interaction layer (palette, dialogs, galleries, stats, 
 ### Decision
 - **Stats pill** lives in the footer's last row in the DOM: it floats (fixed, draggable) above 860px and sits static in the footer on phones, where a floating pill covered buttons.
 - **Reduced motion** limits `transition-property` to opacity/colour properties instead of shrinking every `transition-duration` to 0.01ms.
-- **Preloader** is clock-timed (750ms, `setTimeout`), not frame-timed; the hero rise starts at 100 under the wipe (700ms, 30ms stagger). First visit ≈ 2.1s to a readable name.
+- **Preloader** is clock-timed (`setTimeout`), not frame-timed, and overlaps page load: done 750ms after navigation (min 350ms of counting). The hero rise starts at 100 under the wipe (700ms, 30ms stagger). First visit ≈ 1.8–2.1s to a readable name.
 - **Hover instructions** use `.on-hover` / `.on-touch` spans ("Hover" vs "Tap"), and schema rows join on tap.
 
 ### Reason
 WCAG checks in `npm test`, plus a real bug: the blanket 0.01ms duration made every element transition `all`, so the footer wordmark fit read stale widths and collapsed to ~1px for reduced-motion phone users. A frame-timed counter also stretched to the 2.6s failsafe whenever rAF was starved.
+
+---
+
+## 2026-10-25 — Nav Hides on Visitor Intent; Fonts Self-Hosted
+
+### Decision
+- The nav bar hides only on scrolls the visitor drives (wheel/trackpad, touch, scroll keys), 48px past where they last scrolled up; any other scroll (anchor jumps, ⌘K, layout shifts from late content) keeps it visible.
+- Fonts are self-hosted from `assets/fonts/` via `css/fonts.css` (OFL), same files and unicode ranges Google served, Cyrillic/Vietnamese dropped.
+
+### Reason
+- Timer-based "hold during jump" logic kept failing when content above the viewport resized after arrival (browser scroll anchoring scrolls the page down). Intent is the real signal.
+- The Google Fonts stylesheet was render-blocking (~200–250ms cold) and an external dependency.
+
+### Alternatives
+- Holding the bar for a fixed time after jumps, or a movement threshold alone (rejected: both lose to large late layout shifts).
 

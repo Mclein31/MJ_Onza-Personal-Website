@@ -1,25 +1,5 @@
 import { test, expect, gotoReady, isMobile } from './fixtures.mjs';
 
-// Time from navigation until every letter of the hero name has finished rising into place
-async function nameSettledAfter(page) {
-  const t0 = Date.now();
-  await page.goto('/');
-  await page.waitForFunction(() => {
-    const chars = [...document.querySelectorAll('.hero__name .char')];
-    return chars.length && chars.every((c) => getComputedStyle(c).transform === 'none' || getComputedStyle(c).transform === 'matrix(1, 0, 0, 1, 0, 0)');
-  }, null, { timeout: 15_000 });
-  return Date.now() - t0;
-}
-
-test('first visit shows the name within 2.5s; repeat visits skip the preloader', async ({ page }, testInfo) => {
-  const first = await nameSettledAfter(page);
-  await expect(page.locator('.preloader')).toHaveCount(0);
-  const repeat = await nameSettledAfter(page); // same session: preloader is skipped
-  testInfo.annotations.push({ type: 'timing', description: `name settled: first visit ${first}ms, repeat ${repeat}ms` });
-  expect(repeat).toBeLessThan(first);
-  expect(first, 'visitors wait this long to read the name on their first visit').toBeLessThan(2500);
-});
-
 test('reduced motion: no preloader, nothing hidden, work not pinned', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');

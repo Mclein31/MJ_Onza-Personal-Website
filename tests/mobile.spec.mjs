@@ -1,4 +1,4 @@
-import { test, expect, gotoReady, revealNav } from './fixtures.mjs';
+import { test, expect, gotoReady, scrollSettled } from './fixtures.mjs';
 
 test.describe('phones', () => {
   test.skip(({ isMobile }) => !isMobile, 'phone only');
@@ -15,7 +15,8 @@ test.describe('phones', () => {
     await expect(menu).not.toHaveClass(/is-open/);
     await expect(page.locator('#work')).toBeInViewport();
 
-    await revealNav(page);
+    await scrollSettled(page);
+    await expect(page.locator('.nav'), 'the menu button is still reachable after the jump').not.toHaveClass(/is-hidden/);
     await btn.click();
     await page.keyboard.press('Escape');
     await expect(menu).not.toHaveClass(/is-open/);

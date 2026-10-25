@@ -69,7 +69,7 @@ npm test                        # desktop Chrome, Pixel 7, iPhone 14 (WebKit)
 npm run test:report             # open the HTML report
 ```
 
-Specs live in `tests/`: page health (console errors, images, overflow, axe WCAG scan), interactions (nav, ⌘K palette, theme, galleries, lightbox, message form, like, GitHub calendar), phone layout and motion/keyboard behaviour. Third-party calls (Abacus, FormSubmit, GitHub contributions) are mocked, so test runs never add visits or likes or send email.
+Specs live in `tests/`: page health (console errors, images, overflow, axe WCAG scan), interactions (nav, ⌘K palette, theme, galleries, lightbox, message form, like, GitHub calendar), phone layout and motion/keyboard behaviour. The first-visit timing check (`tests/timing.spec.mjs`) runs as a separate stage after everything else so parallel tests don't skew it; it's skipped if an earlier test fails. Third-party calls (Abacus, FormSubmit, GitHub contributions) are mocked, so test runs never add visits or likes or send email.
 
 ---
 

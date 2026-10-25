@@ -22,6 +22,17 @@ function splitWords(p) {
   return out.filter((n) => n.nodeType === 1);
 }
 
+// The bar hides only when the visitor scrolls down themselves (wheel, trackpad, touch, scroll keys).
+// Scrolling the page does on its own — anchor jumps, ⌘K, late content shifting it — never hides it.
+// Intent lasts while that scroll keeps moving (momentum included) and ends 250ms after it stops.
+const SCROLL_KEYS = new Set(['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' ']);
+let userScroll = false, intentTimer;
+const markIntent = () => {
+  userScroll = true;
+  clearTimeout(intentTimer);
+  intentTimer = setTimeout(() => { userScroll = false; }, 250);
+};
+
 function countUp(el) {
   const to = Number(el.dataset.countup);
   const t0 = performance.now();
@@ -62,7 +73,7 @@ export function initScroll() {
   const timeline = $('[data-timeline]');
   const cards = $$('[data-award]');
   const mark = $('[data-footer-mark]');
-  let lastY = scrollY, ticking = false;
+  let lastY = scrollY, upY = scrollY, ticking = false;
 
   const update = () => {
     ticking = false;
@@ -73,7 +84,10 @@ export function initScroll() {
     if (nav) {
       nav.classList.toggle('is-scrolled', y > 24);
       const menuOpen = document.body.classList.contains('is-locked');
-      nav.classList.toggle('is-hidden', !menuOpen && y > lastY && y > 400);
+      if (userScroll) markIntent();
+      // Hide after the visitor scrolls 48px down; show on any scroll up or any scroll they didn't drive
+      if (y < lastY || !userScroll || menuOpen) upY = y;
+      nav.classList.toggle('is-hidden', y - upY > 48 && y > 400);
     }
     lastY = y;
 
@@ -108,6 +122,9 @@ export function initScroll() {
   };
 
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener('wheel', markIntent, { passive: true });
+  addEventListener('touchmove', markIntent, { passive: true });
+  addEventListener('keydown', (e) => { if (SCROLL_KEYS.has(e.key)) markIntent(); });
   // Size the footer wordmark so it spans the container exactly
   const fitMark = () => {
     if (!mark) return;

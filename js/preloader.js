@@ -11,8 +11,9 @@ export function initPreloader() {
 
   const countEl = $('[data-count]', el);
   const bar = $('.preloader__bar i', el);
-  const duration = 750;
+  // Overlap page load instead of adding to it: done 750ms after navigation, but counts for at least 350ms
   const start = performance.now();
+  const duration = Math.max(350, 750 - start);
 
   const paint = (p) => {
     const eased = 1 - Math.pow(1 - p, 3);

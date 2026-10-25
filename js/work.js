@@ -27,7 +27,11 @@ export function initWork() {
       track.style.removeProperty('--x');
       return;
     }
-    distance = Math.max(0, track.scrollWidth - innerWidth);
+    // Travel until the last card's right edge (plus the track's end padding) meets the viewport's
+    // right edge; measured from the card, since browsers differ on counting end padding in scrollWidth
+    const last = track.lastElementChild;
+    const end = last.offsetLeft + last.offsetWidth + parseFloat(getComputedStyle(track).paddingRight);
+    distance = Math.max(0, end - track.clientWidth);
     pin.style.height = `${innerHeight + distance}px`;
     update();
   };

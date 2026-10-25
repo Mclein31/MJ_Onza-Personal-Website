@@ -1,16 +1,26 @@
-import { test, expect, gotoReady, revealNav } from './fixtures.mjs';
+import { test, expect, gotoReady, scrollSettled } from './fixtures.mjs';
 
 test.describe('desktop interactions', () => {
   test.skip(({ isMobile }) => isMobile, 'desktop only');
 
-  test('nav links jump to their sections and scroll-spy follows', async ({ page }) => {
+  test('nav links jump to their sections, the bar stays visible, scroll-spy follows', async ({ page }) => {
     await gotoReady(page);
     for (const id of ['about', 'stack', 'recognition', 'contact']) {
-      await revealNav(page);
       await page.click(`.nav__links a[href="#${id}"]`);
       await expect(page.locator(`#${id}`)).toBeInViewport();
+      await scrollSettled(page);
+      await expect(page.locator('.nav'), 'a jump down must not hide the bar').not.toHaveClass(/is-hidden/);
     }
     await expect(page.locator('.nav__links a[href="#contact"]')).toHaveClass(/is-active/);
+
+    // A scroll the visitor drives still tucks the bar away, and scrolling up brings it back
+    await page.evaluate(() => scrollTo(0, document.querySelector('#about').offsetTop));
+    await scrollSettled(page);
+    await page.mouse.move(720, 450);
+    await page.mouse.wheel(0, 600);
+    await expect(page.locator('.nav')).toHaveClass(/is-hidden/);
+    await page.mouse.wheel(0, -200);
+    await expect(page.locator('.nav')).not.toHaveClass(/is-hidden/);
   });
 
   test('command palette opens with Ctrl/⌘+K, filters, runs and closes', async ({ page }) => {
@@ -24,6 +34,8 @@ test.describe('desktop interactions', () => {
     await page.keyboard.press('Enter');
     await expect(palette).toBeHidden();
     await expect(page.locator('#recognition')).toBeInViewport();
+    await scrollSettled(page);
+    await expect(page.locator('.nav'), 'a palette jump must not hide the bar').not.toHaveClass(/is-hidden/);
 
     await page.keyboard.press('/');
     await expect(palette).toBeVisible();

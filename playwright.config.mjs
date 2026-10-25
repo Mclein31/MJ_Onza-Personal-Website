@@ -4,6 +4,12 @@ import { defineConfig, devices } from '@playwright/test';
 // Chromium projects use the installed Google Chrome (`channel: 'chrome'`), so only WebKit is downloaded.
 const PORT = 4173;
 
+const targets = {
+  'desktop-chrome': { ...devices['Desktop Chrome'], channel: 'chrome', viewport: { width: 1440, height: 900 } },
+  'pixel-7': { ...devices['Pixel 7'], channel: 'chrome' },
+  'iphone-14': { ...devices['iPhone 14'] },
+};
+
 export default defineConfig({
   testDir: 'tests',
   timeout: 45_000,
@@ -24,8 +30,9 @@ export default defineConfig({
     stderr: 'ignore',
   },
   projects: [
-    { name: 'desktop-chrome', use: { ...devices['Desktop Chrome'], channel: 'chrome', viewport: { width: 1440, height: 900 } } },
-    { name: 'pixel-7', use: { ...devices['Pixel 7'], channel: 'chrome' } },
-    { name: 'iphone-14', use: { ...devices['iPhone 14'] } },
+    ...Object.entries(targets).map(([name, use]) => ({ name, use, testIgnore: /timing\.spec/ })),
+    // The first-visit stopwatch runs as its own stage once everything else is done, so parallel
+    // tests don't skew it. If any earlier test fails, this stage is skipped ("did not run").
+    ...Object.entries(targets).map(([name, use]) => ({ name: `${name}-timing`, use, testMatch: /timing\.spec/, dependencies: Object.keys(targets) })),
   ],
 });
