@@ -31,7 +31,7 @@ last_updated: 2026-10-25
 - **Scripting**: Vanilla ES modules in `js/` (no build step; must be served over HTTP)
 - **Serverless**: `api/stats.js` (Vercel) → Abacus counter
 - **Services**: Abacus (`abacus.jasoncameron.dev`, namespace `mcleinonza`), FormSubmit AJAX
-- **Typography** (self-hosted, `css/fonts.css`): Lora (hero name), Open Sans (hero intro), Nunito (About body), Bricolage Grotesque (section headings/display), Geist (body), Geist Mono (labels/code)
+- **Typography** (self-hosted, `css/fonts.css`): Hedvig Letters Serif (heads, name, wordmark), Geist (body), Geist Mono (data only: identifiers, timestamps, figures). v4 Studio look, see DECISIONS 2026-10-27.
 
 ---
 

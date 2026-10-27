@@ -121,3 +121,17 @@ Owner wants only new visitors to move the number; the old sessionStorage flag co
 
 ### Alternatives
 - Server-side IP dedup in `api/stats.js` (rejected: Abacus has no per-visitor storage, and it would need a database). Clearing site data, private windows, or another browser/device still count as new visitors.
+
+---
+
+## 2026-10-27 — v4 Visual Redesign: Hallmark "Studio" Theme, Data Touches
+
+### Decision
+The draggable tech icons (eight data and backend tools, ink-toned with colour on hover or drag, in their own zone, never over the name) and the scroll-lit manifesto stay (owner asked to bring them back). Full redesign of the look and layout with the Hallmark skill (theme Studio, chosen by the owner over the dealt Almanac): cool proof paper with a dot grid, Hedvig Letters Serif heads over Geist, Geist Mono only for data (schema table names, column types, timestamps, figures), crop-marked "printed sheets" for galleries, tables and photos, one orange for the primary action. Light and dark both derived from the same tokens. Content, links, form fields, script hooks and tests unchanged; all Playwright specs pass.
+
+### Dropped (owner reviewed live)
+Custom cursor and magnetic buttons, photo marquee (now a still rail), SQL-style eyebrows above headings (`.table-name` stays as a hook on each head block for the nav-landing test), hand-drawn macOS demo window chrome, hero font-metric guides (owner found them odd).
+
+### Notes
+- `css/tokens.css` opens with the Hallmark stamp, waivers and dismissals; `.hallmark/` holds the before record and log.
+- `theme.js` still sets `theme-color` to `#f2f3ef` / `#0b0c0d` (the theme test asserts it); the new paper is slightly cooler.
