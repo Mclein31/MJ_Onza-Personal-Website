@@ -50,6 +50,8 @@
   .hero__mark { margin-block: var(--space-2xl) 0; }
 }
 @media (max-width: 40rem) {
+  /* The name fills the phone's width: "McLein" is 3.41em wide in Hedvig */
+  .hero { --fs-name: 26.5vw; }
   .hero__name .line + .line { padding-left: 0.5em; }
 }
 

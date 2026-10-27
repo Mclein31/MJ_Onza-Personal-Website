@@ -58,3 +58,7 @@
   --color-dot: color-mix(in oklab, var(--color-ink) 16%, transparent);
   --shadow-sheet: 1px 2px 0 oklch(8% 0.01 240 / 0.5), 10px 18px 36px -14px oklch(6% 0.01 240 / 0.7);
 }
+
+/* Tighter gutters and section gaps on tablets and phones */
+@media (max-width: 60rem) { :root { --gutter: 24px; --section-gap-s: 80px; --section-gap: 96px; --section-gap-l: 120px; } }
+@media (max-width: 40rem) { :root { --gutter: 16px; --section-gap-s: 56px; --section-gap: 72px; --section-gap-l: 96px; --gap-columns: 16px; } }
