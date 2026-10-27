@@ -1,7 +1,7 @@
 /* ==========================================================================
    Hero icons — draggable floating tech icons
    ========================================================================== */
-import { $, clamp, reducedMotion } from './util.js';
+import { $, $$, clamp, reducedMotion } from './util.js';
 
 const ICONS = [
   ['python-icon.png', 'Python', 51, 17, 76],
@@ -26,47 +26,83 @@ const ICONS = [
   ['hono.svg', 'Hono', 27, 13, 52],
 ];
 
-const MOBILE = [
-  ['Python', 60, 19], ['PostgreSQL', 82, 27], ['Neon', 10, 24], ['Claude AI', 36, 27],
-  ['Git', 66, 36], ['TypeScript', 86, 44], ['React', 60, 52], ['Cloudflare', 10, 57],
-  ['VS Code', 34, 60], ['Node.js', 58, 61],
-];
 
-const SCALE = 1.4;
 
 export function initIcons() {
   const field = $('[data-icon-field]');
   if (!field) return;
   const hero = field.parentElement;
-  const small = innerWidth < 860;
-  const list = small
-    ? MOBILE.map(([label, x, y]) => { const icon = ICONS.find((ic) => ic[1] === label); return [icon[0], label, x, y, icon[4]]; })
-    : ICONS;
+  // The data and backend story only; when space runs out, the last ones are left out
+  const ORDER = ['Python', 'PostgreSQL', 'Neon', 'Cloudflare', 'Git', 'GitHub', 'TypeScript', 'Claude AI'];
+  const list = ORDER.map((label) => ICONS.find((ic) => ic[1] === label)).filter(Boolean);
 
-  const bodies = list.map(([file, label, px, py, size], i) => {
+  const bodies = list.map(([file, label], i) => {
     const el = document.createElement('div');
     el.className = 'float-icon';
     el.style.setProperty('--fi', i);
-    if (!small) el.style.setProperty('--size', Math.round(size * SCALE) + 'px');
     el.innerHTML = `<img src="assets/icons/${file}" alt="" draggable="false" decoding="async" /><span class="tip">${label}</span>`;
     field.append(el);
-    return { el, px, py, x: 0, y: 0, w: 0, held: false, tilt: 0, phase: Math.random() * Math.PI * 2 };
+    return { el, x: 0, y: 0, w: 0, held: false, tilt: 0, phase: Math.random() * Math.PI * 2 };
   });
+
+  // The icons get their own zone: right of the name, the grid's right edge on the container's,
+  // centred on the name; where that is too narrow (phones), one row between the top rule and the name
+  const measure = () => {
+    const box = hero.getBoundingClientRect();
+    const rel = (r) => ({ l: r.left - box.left, t: r.top - box.top, r: r.right - box.left, b: r.bottom - box.top });
+    const meta = rel($('.hero__meta', hero).getBoundingClientRect());
+    const lines = $$('.hero__name .line', hero).map((line) => { const rg = document.createRange(); rg.selectNodeContents(line); return rel(rg.getBoundingClientRect()); });
+    const cta = rel($('.hero__cta', hero).getBoundingClientRect());
+    return { meta, cta, nameRight: Math.max(...lines.map((r) => r.r)), nameTop: Math.min(...lines.map((r) => r.t)), nameBottom: Math.max(...lines.map((r) => r.b)) };
+  };
 
   let W = 0, H = 0;
   const layout = () => {
     W = hero.clientWidth; H = hero.clientHeight;
-    bodies.forEach((b) => {
-      b.w = b.el.offsetWidth;
-      b.x = clamp((b.px / 100) * W, 0, W - b.w);
-      b.y = clamp((b.py / 100) * H, 0, H - b.w);
+    const m = measure();
+    const n = bodies.length;
+    // An even split only: 4 by 2, else a smaller 2 by 4 that ends level with the name, else one row above the name
+    const tries = innerWidth < 860 ? [] : [[64, 4, m.cta.b - m.meta.b], [52, 4, m.cta.b - m.meta.b], [52, 2, m.nameBottom - m.nameTop]];
+    let size = 44, fit = 0;
+    for (const [s, c, h] of tries) {
+      const g = s * 0.6, sp = (k) => k * s + (k - 1) * g;
+      if (sp(c) <= m.meta.r - (m.nameRight + s) && sp(Math.ceil(n / c)) <= h) { size = s; fit = c; break; }
+    }
+    const gap = size * 0.6, step = size + gap;
+    const span = (k) => k * size + (k - 1) * gap;
+    field.style.setProperty('--size', size + 'px');
+    let cols, rows, ox, oy;
+    if (fit) {
+      cols = fit; rows = Math.ceil(n / cols);
+      ox = m.meta.r - span(cols);
+      oy = clamp((m.nameTop + m.nameBottom) / 2 - span(rows) / 2, m.meta.b + gap, m.cta.b - span(rows));
+    } else {
+      cols = Math.min(n, Math.floor((m.meta.r - m.meta.l + gap) / step)); rows = 1;
+      const bandH = m.nameTop - m.meta.b;
+      if (bandH < size + gap) cols = 0;
+      ox = m.meta.l; oy = m.meta.b + (bandH - size) / 2;
+    }
+    bodies.forEach((b, i) => {
+      b.w = size;
+      b.el.hidden = i >= cols * rows;
+      if (b.el.hidden) return;
+      b.x = ox + (i % cols) * step;
+      b.y = oy + Math.floor(i / cols) * step;
     });
   };
   layout();
   addEventListener('resize', layout);
+  // Re-place when the name or the hero changes size (the web font swapping in, a resize)
+  let lastKey = '';
+  const ro = new ResizeObserver(() => {
+    const key = `${hero.clientWidth}x${hero.clientHeight}:${$('.hero__name', hero)?.offsetWidth}:${$('.hero__intro', hero)?.offsetTop}`;
+    if (key !== lastKey) { lastKey = key; layout(); }
+  });
+  [hero, $('.hero__name', hero), $('.hero__intro', hero)].forEach((el) => el && ro.observe(el));
+  addEventListener('load', layout);
 
   const still = reducedMotion.matches;
-  const bobAt = (b, t) => (still ? 0 : Math.sin(t / 1400 + b.phase) * 6);
+  const bobAt = (b, t) => (still ? 0 : Math.sin(t / 1400 + b.phase) * 3);
 
   let topZ = 1;
   bodies.forEach((b) => {
