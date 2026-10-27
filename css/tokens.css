@@ -1,78 +1,60 @@
+/* Hallmark · shape: Marquee Hero (draw bcb382) · genre: editorial · theme: Studio (by request, deal 3/3, seed portfolio-computer-science-student-be53·2e7a121a·2026-10-27·r0) · redesign: full
+ * hero: Poster, the name on the proof grid · nav: edge-aligned bar (swap from masthead) · footer: mast (swap from index columns) · imagery: the product, 14 composed screenshots · photographs: the owner's own awards and training · signature: the name set large on the proof grid; data set as data in Geist Mono
+ * axes: light/roman-serif/warm · posture: restrained · contrast: pass · fold: pass · copy: owner's words, gate lines reworded · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H5 E4 S5 R4 V4 · weakest: P, a student portfolio argues little; the construction guides make the claim that the work is measured, not decorated */
+/* Hallmark · waive 47b · one frame per slide, real screens inside · the composed screenshots of AdvanCare, MedCore, SERVIO and MedRec were made from the running apps; rebuilding them needs the raw captures */
+/* Hallmark · dismissed 67 · "HTML5 / CSS3" and "SERVIO" are an acronym and the product's own name, typed that way, not a caps style */
+/* Hallmark · dismissed 76 · the lightbox <img> is filled by lightbox.js when the viewer opens; it never renders empty */
+/* Hallmark · dismissed F4 · the active gallery dot is a 1px indicator, not a button recipe */
+/* Hallmark · dismissed F15 · 62rem caps the section head block only; one container (1440) holds every section */
+/* Hallmark · waive 38iii · the owner asked for the scroll-lit manifesto back; its data words (modeled, Python, SQL and PostgreSQL) light in orange once, below the hero */
+/* Hallmark · kept eight draggable tech icons in the hero at the owner's request, in ink tones (brand colour on hover or drag) so they sit inside the palette; · dropped the custom cursor, and the photo marquee · Studio keeps still except state and one guide draw */
+
 /* ==========================================================================
-   Design tokens — graphite + signal lime
+   Design tokens — Studio proof paper
    ========================================================================== */
 :root {
-  --font-display: "Bricolage Grotesque", "Geist", system-ui, sans-serif;
-  --font-body: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
-  --font-hero: "Lora", Georgia, serif;
-  --font-hero-body: "Open Sans", system-ui, sans-serif;
-  --font-about: "Nunito", system-ui, sans-serif;
-
-  --fs-xs: 0.75rem;
-  --fs-sm: 0.875rem;
-  --fs-md: 1rem;
-  --fs-lg: 1.125rem;
-  --fs-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
-  --fs-2xl: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem);
-  --fs-3xl: clamp(2.5rem, 1.6rem + 4vw, 5rem);
-  --fs-hero: clamp(3.4rem, 1rem + 11vw, 11.5rem);
-
-  --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
-  --section-y: clamp(5rem, 3rem + 8vw, 10rem);
+  color-scheme: light;
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+  --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.25rem; --text-xl: 1.5625rem; --text-2xl: 1.953rem; --text-3xl: 2.441rem;
+  --text-display-s: clamp(2.25rem, 4vw + 0.5rem, 3.75rem); --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --text-section: clamp(2rem, 2.5vw + 1rem, 3.5rem); --text-title: clamp(1.25rem, 0.75vw + 0.875rem, 1.625rem); --text-lead: clamp(1.125rem, 0.35vw + 1rem, 1.375rem);
+  --text-mark: clamp(4.5rem, 15.5vw, 14.5rem);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in: cubic-bezier(0.7, 0, 0.84, 0); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
+  --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
   --nav-clear: 88px;
-  --max-w: 1320px;
+  --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
 
-  --r-1: 6px;
-  --r-2: 12px;
-  --r-3: 20px;
-  --r-pill: 999px;
+  --font-display: "Hedvig Letters Serif", ui-serif, Georgia, serif;
+  --font-body: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "Geist Mono", ui-monospace, "SF Mono", monospace;
+  --radius-card: 3px; --radius-pill: 3px; --rule-hair: 1px;
+  --tracking-display: -0.022em; --display-weight: 400;
 
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --dur-1: 150ms;
-  --dur-2: 240ms;
-  --dur-3: 600ms;
-  --dur-4: 900ms;
 
-  --bg: #0b0c0d;
-  --bg-2: #111214;
-  --surface: #16181a;
-  --surface-2: #1d1f22;
-  --line: rgba(242, 243, 239, 0.08);
-  --line-2: rgba(242, 243, 239, 0.16);
-  --ink: #f2f3ef;
-  --ink-2: #a7aaa3;
-  --ink-3: #878a83;
-  --accent: #c8f03c;
-  --accent-text: #c8f03c;
-  --accent-ink: #0b0c0d;
-  --accent-soft: rgba(200, 240, 60, 0.12);
-  --danger: #ff6b5b;
-  --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 24px 48px -24px rgba(0, 0, 0, 0.6);
-  --grain-opacity: 0.06;
-
-  color-scheme: dark;
+  --color-paper: oklch(97.2% 0.006 215); --color-paper-2: oklch(94% 0.009 215); --color-paper-3: oklch(90.5% 0.011 215); --color-paper-hi: oklch(99% 0.004 215);
+  --color-ink: oklch(16% 0.032 250); --color-ink-2: oklch(34% 0.022 245); --color-muted: oklch(47% 0.018 240);
+  --color-rule: oklch(84% 0.010 225);
+  --color-accent: oklch(68% 0.172 50); --color-accent-2: oklch(63% 0.17 48); --color-accent-text: oklch(52% 0.15 48); --color-accent-ink: oklch(16% 0.032 250); --color-focus: oklch(52% 0.15 48);
+  --color-guide: oklch(68% 0.172 50);
+  --color-error: oklch(52% 0.19 27); --color-success: oklch(48% 0.12 150);
+  --color-scrim: oklch(16% 0.032 250 / 0.72);
+  --color-dot: color-mix(in oklab, var(--color-ink) 20%, transparent);
+  --color-mark: color-mix(in oklab, var(--color-ink) 72%, transparent);
+  --shadow-sheet: 1px 2px 0 color-mix(in oklab, var(--color-ink) 7%, transparent), 10px 18px 36px -14px color-mix(in oklab, var(--color-ink) 32%, transparent);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.1 0 0 0 0 0.16 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-:root[data-theme="light"] {
-  --bg: #f2f3ef;
-  --bg-2: #e9eae5;
-  --surface: #ffffff;
-  --surface-2: #f7f8f5;
-  --line: rgba(11, 12, 13, 0.09);
-  --line-2: rgba(11, 12, 13, 0.18);
-  --ink: #0b0c0d;
-  --ink-2: #4a4d48;
-  --ink-3: #62655f;
-  --accent: #c8f03c;
-  --accent-text: #4a6400;
-  --accent-ink: #0b0c0d;
-  --accent-soft: rgba(110, 150, 0, 0.12);
-  --danger: #c2341f;
-  --shadow: 0 1px 2px rgba(11, 12, 13, 0.04), 0 24px 48px -28px rgba(11, 12, 13, 0.25);
-  --grain-opacity: 0.035;
-
-  color-scheme: light;
+/* Night proof: derived, not inverted */
+:root:not([data-theme="light"]) {
+  color-scheme: dark;
+  --color-paper: oklch(17% 0.014 240); --color-paper-2: oklch(20.5% 0.016 240); --color-paper-3: oklch(24% 0.018 240); --color-paper-hi: oklch(22% 0.016 240);
+  --color-ink: oklch(94% 0.008 215); --color-ink-2: oklch(82% 0.012 220); --color-muted: oklch(70% 0.014 225);
+  --color-rule: oklch(32% 0.016 235);
+  --color-accent: oklch(72% 0.165 52); --color-accent-2: oklch(77% 0.15 54); --color-accent-text: oklch(74% 0.16 52); --color-accent-ink: oklch(17% 0.014 240); --color-focus: oklch(76% 0.16 52);
+  --color-guide: oklch(66% 0.15 50);
+  --color-error: oklch(70% 0.17 27); --color-success: oklch(72% 0.13 150);
+  --color-dot: color-mix(in oklab, var(--color-ink) 16%, transparent);
+  --shadow-sheet: 1px 2px 0 oklch(8% 0.01 240 / 0.5), 10px 18px 36px -14px oklch(6% 0.01 240 / 0.7);
 }
