@@ -80,7 +80,7 @@ export function initIcons() {
       cols = Math.min(n, Math.floor((m.meta.r - m.meta.l + gap) / step)); rows = 1;
       const bandH = m.nameTop - m.meta.b;
       if (bandH < size + gap) cols = 0;
-      ox = m.meta.l; oy = m.meta.b + (bandH - size) / 2;
+      ox = m.meta.l + ((m.meta.r - m.meta.l) - (cols * step - gap)) / 2; oy = m.meta.b + (bandH - size) / 2;
     }
     bodies.forEach((b, i) => {
       b.w = size;

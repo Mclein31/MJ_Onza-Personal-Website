@@ -72,6 +72,7 @@
 
 @media (max-width: 860px) {
   .about__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xl); }
-  .portrait { position: relative; top: 0; max-width: 420px; }
-  .traits { grid-template-columns: minmax(0, 1fr); }
+  .portrait { position: relative; top: 0; max-width: 420px; width: 100%; justify-self: center; }
+  /* The deck is an object, not text: centred with its caption under it */
+  .traits { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; gap: var(--space-md); }
 }

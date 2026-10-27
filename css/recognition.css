@@ -90,7 +90,7 @@
 
 @media (max-width: 860px) {
   .award, .award--lead { grid-template-columns: minmax(0, 1fr); }
-  .award__img { max-width: 520px; }
+  .award__img { max-width: 520px; justify-self: center; }
   .training { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) { .lightbox[open] .lightbox__inner { animation: none; } }
