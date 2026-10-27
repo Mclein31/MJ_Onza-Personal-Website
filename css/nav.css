@@ -1,81 +1,70 @@
 /* ==========================================================================
-   Navigation, mobile menu
+   Nav — edge-aligned bar on the proof ground, hides on visitor scroll
    ========================================================================== */
 .nav {
-  position: fixed; inset: 0 0 auto 0; z-index: 100;
-  padding-block: 14px;
-  transition: transform var(--dur-2) var(--ease-out);
+  position: fixed; inset: 0 0 auto; z-index: var(--z-sticky-nav);
+  transition: transform var(--dur-long) var(--ease-out);
 }
-.nav.is-hidden { transform: translateY(-110%); }
+.nav.is-hidden { transform: translateY(-100%); }
 .nav__inner {
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  height: 56px; padding-inline: 10px 10px;
-  border: 1px solid transparent; border-radius: var(--r-pill);
-  transition: background-color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), backdrop-filter var(--dur-2);
+  display: flex; align-items: center; gap: var(--space-lg);
+  height: 72px;
+  border-bottom: var(--rule-hair) solid transparent;
+  transition: border-color var(--dur-short) var(--ease-out);
 }
-.nav.is-scrolled .nav__inner {
-  background: color-mix(in srgb, var(--bg) 72%, transparent);
-  border-color: var(--line);
-  backdrop-filter: blur(16px) saturate(1.4);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+.nav::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: var(--color-paper); opacity: 0;
+  transition: opacity var(--dur-short) var(--ease-out);
 }
+.nav.is-scrolled::before { opacity: 1; }
+.nav.is-scrolled .nav__inner { border-color: var(--color-ink); }
+
 .nav__brand {
-  display: inline-flex; align-items: center; padding-left: 12px;
-  font-family: var(--font-mono); font-size: var(--fs-sm); font-weight: 500;
+  font-family: var(--font-display); font-size: var(--text-xl); letter-spacing: -0.01em; line-height: 1;
+  color: var(--color-ink); white-space: nowrap;
 }
-.nav__links { display: flex; gap: 2px; }
+.nav__links { display: flex; gap: var(--space-lg); margin-left: auto; }
 .nav__links a {
-  position: relative; padding: 8px 14px; border-radius: var(--r-pill);
-  font-size: var(--fs-sm); color: var(--ink-2);
-  transition: color var(--dur-2) var(--ease-out);
+  position: relative; padding-block: var(--space-xs);
+  font-size: var(--text-sm); font-weight: 500; color: var(--color-ink-2); white-space: nowrap;
+  transition: color var(--dur-short) var(--ease-out);
 }
-.nav__links a.is-active { color: var(--ink); }
-@media (hover: hover) { .nav__links a:hover { color: var(--ink); } }
 .nav__links a::after {
-  content: ""; position: absolute; left: 50%; bottom: 3px;
-  width: 4px; height: 4px; border-radius: 50%; background: var(--accent);
-  transform: translateX(-50%) scale(0.5); opacity: 0;
-  transition: transform var(--dur-2) var(--ease-spring), opacity var(--dur-1);
+  content: ""; position: absolute; inset: auto 0 2px; height: 1px; background: var(--color-accent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform var(--dur-short) var(--ease-out);
 }
-.nav__links a.is-active::after { transform: translateX(-50%) scale(1); opacity: 1; }
-.nav__actions { display: flex; align-items: center; gap: 6px; }
-.icon-btn {
-  display: grid; place-items: center; width: 40px; height: 40px;
-  border-radius: 50%; color: var(--ink-2);
-  transition: color var(--dur-2), background-color var(--dur-2), transform var(--dur-1) var(--ease-out);
-}
-@media (hover: hover) { .icon-btn:hover { color: var(--ink); background: var(--surface-2); } }
-.icon-btn:active { transform: scale(0.92); }
-.icon-btn svg { width: 18px; height: 18px; }
+@media (hover: hover) { .nav__links a:hover { color: var(--color-ink); } }
+.nav__links a.is-active { color: var(--color-ink); }
+.nav__links a.is-active::after { transform: none; }
+
+.nav__actions { display: flex; align-items: center; gap: var(--space-xs); }
 .theme-toggle .sun { display: none; }
 :root[data-theme="light"] .theme-toggle .sun { display: block; }
 :root[data-theme="light"] .theme-toggle .moon { display: none; }
-.theme-toggle svg { transition: transform var(--dur-2) var(--ease-spring); }
-@media (hover: hover) { .theme-toggle:hover svg { transform: rotate(-20deg); } }
-.nav__hire { height: 40px; padding-inline: 18px; }
+.nav__hire { min-height: 44px; }
 .nav__menu-btn { display: none; }
 
+/* Phone menu: a full sheet of paper, links set in Hedvig */
 .menu {
-  position: fixed; inset: 0; z-index: 99;
-  display: flex; flex-direction: column; justify-content: flex-end; gap: 32px;
-  padding: 100px var(--gutter) 40px;
-  background: var(--bg);
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path var(--dur-2) var(--ease-in-out);
-  visibility: hidden;
+  position: fixed; inset: 0; z-index: var(--z-sticky);
+  display: flex; flex-direction: column; justify-content: flex-end; gap: var(--space-lg);
+  padding: var(--space-4xl) var(--gutter) var(--space-xl);
+  visibility: hidden; opacity: 0;
+  transition: opacity var(--dur-short) var(--ease-out), visibility 0s linear var(--dur-short);
 }
-.menu.is-open { clip-path: inset(0 0 0 0); visibility: visible; }
+.menu.is-open { visibility: visible; opacity: 1; transition: opacity var(--dur-short) var(--ease-out); }
 .menu a.menu__link {
-  display: flex; align-items: baseline; gap: 14px;
-  font-family: var(--font-display); font-weight: 700; font-size: clamp(2.6rem, 11vw, 4rem);
-  letter-spacing: -0.04em; line-height: 1;
-  opacity: 0; transform: translateY(40px);
-  transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding-block: var(--space-sm); border-bottom: var(--rule-hair) solid var(--color-rule);
+  font-family: var(--font-display); font-size: clamp(2.5rem, 11vw, 3.75rem); letter-spacing: -0.02em; line-height: 1;
+  color: var(--color-ink);
 }
-.menu a.menu__link small { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--ink-3); font-weight: 400; letter-spacing: 0; }
-.menu.is-open a.menu__link { opacity: 1; transform: none; transition-delay: calc(80ms + var(--i) * 40ms); }
+.menu a.menu__link small { font-family: var(--font-body); font-size: var(--text-sm); color: var(--color-muted); font-variant-numeric: tabular-nums; letter-spacing: 0; }
 
 @media (max-width: 960px) {
   .nav__links, .nav__hire { display: none; }
   .nav__menu-btn { display: grid; }
+  .nav__actions { margin-left: auto; }
 }
