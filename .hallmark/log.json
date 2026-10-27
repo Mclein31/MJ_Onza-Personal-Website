@@ -1,0 +1,36 @@
+[
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "page",
+  "shape": "Marquee Hero",
+  "theme": "studio",
+  "axes": "light/roman-serif/warm",
+  "hero": "Poster",
+  "nav": "edge-aligned",
+  "footer": "mast",
+  "imagery": "the product, 14 composed screenshots; owner photos",
+  "photos": [],
+  "entry": "index.html",
+  "fingerprint": "marquee/poster/edge/mast/index/sheets",
+  "sections": [
+   "hero",
+   "statement",
+   "about record",
+   "work sheets",
+   "activity chart",
+   "schema cards",
+   "journey rows",
+   "awards index",
+   "training split",
+   "contact",
+   "footer mast"
+  ],
+  "signature": "the name set large on the proof grid; data in Geist Mono",
+  "waived": [
+   "47b"
+  ],
+  "prompt": "portfolio of a computer science student heading into data engineering",
+  "date": "2026-10-27"
+ }
+]
