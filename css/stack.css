@@ -3,14 +3,15 @@
    ========================================================================== */
 .schema { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-2xl) var(--gap-columns); }
 .table {
-  grid-column: span 2; --o: 10px;
+  grid-column: span 2; --o: 10px; container-type: inline-size;
   display: flex; flex-direction: column;
   padding: var(--space-lg); border-radius: var(--radius-card);
   background: var(--color-paper-hi); box-shadow: var(--shadow-sheet);
 }
 .table:nth-child(4) { grid-column: 2 / span 2; }
 .table__head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-sm); padding-bottom: var(--space-sm); border-bottom: var(--rule-hair) solid var(--color-ink); }
-.table__head b { font-family: var(--font-display); font-weight: 400; font-size: var(--text-xl); color: var(--color-ink); overflow-wrap: anywhere; min-width: 0; font-variant-numeric: tabular-nums; }
+/* "python_scripting" is 8em: the name shrinks on narrow cards rather than breaking mid-word */
+.table__head b { font-family: var(--font-display); font-weight: 400; font-size: min(var(--text-xl), (100cqi - 4rem) / 8.2); color: var(--color-ink); overflow-wrap: anywhere; min-width: 0; font-variant-numeric: tabular-nums; }
 .table__head span { font-size: var(--text-sm); color: var(--color-muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .table__desc { padding-block: var(--space-sm) var(--space-md); font-size: var(--text-sm); color: var(--color-ink-2); }
 .table__rows { margin-top: auto; }

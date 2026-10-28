@@ -45,13 +45,13 @@
 .hero__intro { font-size: var(--text-lead); line-height: 1.45; color: var(--color-ink-2); max-width: 34ch; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
 
-@media (max-width: 60rem) {
+/* Phones and portrait tablets: the hero sizes to its content (a full-height hero leaves a tall
+   portrait screen half empty) and the name fills the column: "McLein" is 3.41em wide in Hedvig */
+@media (max-width: 60rem), (orientation: portrait) and (max-width: 80rem) {
+  .hero { --fs-name: calc((100vw - 2 * var(--gutter)) / 3.45); }
   .hero__inner { min-height: auto; padding-top: calc(var(--nav-clear) + var(--space-md)); }
-  .hero__mark { margin-block: var(--space-2xl) 0; }
-}
-@media (max-width: 40rem) {
-  /* The name fills the phone's width: "McLein" is 3.41em wide in Hedvig */
-  .hero { --fs-name: 26.5vw; }
+  /* Room for the icon row: the name's glyph box rises well above its line box at tablet sizes */
+  .hero__mark { margin-block: max(var(--space-2xl), calc(var(--fs-name) * 0.45)) 0; }
   .hero__name .line + .line { padding-left: 0.5em; }
 }
 

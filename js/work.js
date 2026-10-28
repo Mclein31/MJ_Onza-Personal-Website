@@ -13,8 +13,9 @@ export function initWork() {
   const countEl = $('[data-work-count]');
   const bar = $('.work__bar');
   const total = String(projects.length).padStart(2, '0');
-  // Pin only where a card, its text and the progress row fit one screen
-  const wide = matchMedia('(min-width: 861px) and (min-height: 760px)');
+  // Pin only where a card, its text and the progress row fit one screen; portrait screens
+  // (tablets) stack the cards full width instead of leaving the frame half empty
+  const wide = matchMedia('(min-width: 861px) and (min-height: 760px) and (orientation: landscape)');
   let distance = 0, ticking = false;
 
   const setCount = (i) => {

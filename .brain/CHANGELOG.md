@@ -10,6 +10,11 @@ last_updated: 2026-10-25
 
 # 📜 Personal Website — Changelog
 
+## Tablet hero (2026-10-29)
+- **Fixed**: Portrait tablets (iPad Mini/Air/Pro 13) — the hero name was 16vw (about half the width) and the iPad Pro got the full-height desktop hero with the top half empty. Phones and portrait screens up to 80rem now share one rule: hero sized to content, name sized to fill the column (`(100vw − 2·gutter) / 3.45`), icon row above. Landscape tablets keep the desktop layout.
+- **Fixed**: Work section on portrait tablets (iPad Pro 13) pinned sideways with 60vw cards and ~400px of empty frame. The pin now also requires `orientation: landscape` (`js/work.js`); portrait screens get the stacked full-width cards.
+- **Fixed** (24-device sweep, 320px phones → 2560px desktop; no horizontal overflow anywhere): contact email split mid-word at 320/390/912/1032/1024 — key column fixed at 4.5rem, value shrinks with its container (floor `--text-lg`), `<wbr>` after the @ for the smallest phones. Stack table names ("python_scripting") broke mid-word at 320 — name size follows the card width. Stats pill floated over content on touch tablets — now in the footer on `(hover: none) and (pointer: coarse)` too.
+
 ## [Unreleased] — Testing & Audit (2026-10-25)
 - **Changed**: View counter counts each browser once, ever (`site_user_has_visited` in localStorage), instead of once per session.
 - **Added**: Playwright + axe test suite (`tests/`, `playwright.config.mjs`, dev-only `package.json`); 39 pass, 15 fail on known audit findings (see TODO.md "Design Audit Backlog").

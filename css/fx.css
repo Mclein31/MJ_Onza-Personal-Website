@@ -36,7 +36,8 @@
 .toast.is-show { opacity: 1; transform: translate(-50%, 0); }
 .toast svg { width: 16px; height: 16px; color: var(--color-success); }
 
-/* Stats: a small printed tab, floating on desktop, in the footer on phones */
+/* Stats: a small printed tab, floating on desktop, in the footer on phones and touch tablets
+   (where it can't be dragged clear and sits over content) */
 .stats {
   position: fixed; right: var(--space-lg); bottom: var(--space-lg); z-index: var(--z-raised);
   display: flex; align-items: center; gap: var(--space-2xs); padding: var(--space-2xs);
@@ -47,7 +48,7 @@
   box-shadow: var(--shadow-sheet);
 }
 .stats.is-dragging { cursor: grabbing; }
-@media (max-width: 860px) {
+@media (max-width: 860px), (hover: none) and (pointer: coarse) {
   .stats { position: static; flex: none; touch-action: auto; cursor: auto; box-shadow: none; }
 }
 .stats__cell { display: inline-flex; align-items: center; gap: var(--space-xs); height: 36px; padding: 0 var(--space-sm); border-radius: 2px; }
