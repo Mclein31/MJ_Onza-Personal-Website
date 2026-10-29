@@ -67,6 +67,12 @@ p { text-wrap: pretty; }
 /* Sections: the head block lands just under the nav on a jump */
 .section { --pad-top: var(--section-gap); padding-block: var(--pad-top) 0; position: relative; }
 .section[id] { scroll-margin-top: calc(var(--space-md) - var(--pad-top)); }
+/* A hairline halfway through the gap above each section; the Work band brings its own edges */
+.section::before {
+  content: ""; position: absolute; top: calc(var(--pad-top) / 2); left: var(--gutter); right: var(--gutter);
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+.work + .section::before { display: none; }
 
 .section-head { margin-bottom: var(--space-2xl); }
 .section-head h2 { font-size: var(--text-section); max-width: 18ch; }

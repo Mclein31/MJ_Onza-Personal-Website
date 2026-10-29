@@ -62,10 +62,11 @@
 }
 .gallery__dots button[aria-current="true"]::before { background: var(--color-ink); transform: scaleY(3); }
 
+/* Stops short of the gallery controls (two buttons, three dots); wraps on narrow cards */
 .project__award {
-  position: absolute; left: var(--space-sm); bottom: 0; z-index: 2;
+  position: absolute; left: var(--space-sm); right: 184px; bottom: 0; z-index: 2;
   display: flex; align-items: center; height: 52px;
-  font-size: var(--text-sm); font-weight: 500; color: var(--color-ink);
+  font-size: var(--text-sm); font-weight: 500; line-height: 1.25; color: var(--color-ink);
 }
 
 .project__info { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-xs) var(--gap-columns); align-items: start; border-top: var(--rule-hair) solid var(--color-ink); padding-top: var(--space-md); }
