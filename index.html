@@ -91,21 +91,18 @@
   </header>
 
   <div class="menu proof" id="menu" aria-hidden="true">
-    <a class="menu__link" href="#about" style="--i:0">About <small>01</small></a>
-    <a class="menu__link" href="#work" style="--i:1">Work <small>02</small></a>
-    <a class="menu__link" href="#stack" style="--i:2">Stack <small>03</small></a>
-    <a class="menu__link" href="#recognition" style="--i:3">Recognition <small>04</small></a>
-    <a class="menu__link" href="#contact" style="--i:4">Contact <small>05</small></a>
+    <a class="menu__link" href="#about" style="--i:0">About</a>
+    <a class="menu__link" href="#work" style="--i:1">Work</a>
+    <a class="menu__link" href="#stack" style="--i:2">Stack</a>
+    <a class="menu__link" href="#recognition" style="--i:3">Recognition</a>
+    <a class="menu__link" href="#contact" style="--i:4">Contact</a>
   </div>
 
   <main id="main">
     <section class="hero" id="top" aria-label="Introduction">
       <div class="hero__ground proof" aria-hidden="true"></div>
       <div class="container hero__inner">
-        <div class="hero__meta">
-          <span>Open to internships in 2026</span>
-          <span>Tuguegarao City, PH, <time data-clock>--:--</time> local time</span>
-        </div>
+        <div class="hero__meta" aria-hidden="true"></div>
 
         <div class="hero__mark">
           <h1 class="hero__name" aria-label="McLein Onza">
@@ -139,7 +136,6 @@
           <div class="portrait__frame">
             <img src="assets/images/profile.jpeg" alt="Portrait of McLein Jei Onza" width="1005" height="1402" loading="lazy" decoding="async" />
           </div>
-          <figcaption class="portrait__caption"><span>McLein Jei G. Onza</span><span>BSCS, Class of 2028</span></figcaption>
         </figure>
 
         <div class="about__body">
@@ -147,12 +143,7 @@
           <p>Most days that means writing Python, modeling tables in PostgreSQL, and building full-stack web apps that real people use. I like seeing how a relational schema turns into a working product. Have a project or an opening? <a class="text-link" href="#contact">Let’s talk</a>.</p>
 
           <dl class="record" aria-label="Profile">
-            <div class="record__row"><dt>School</dt><dd>Cagayan State University, Carig Campus</dd></div>
-            <div class="record__row"><dt>Program</dt><dd>BS Computer Science <span class="muted">2024 to 2028</span></dd></div>
-            <div class="record__row"><dt>Building</dt><dd>AdvanCare, MedCore and SERVIO <span class="muted">health and services platforms</span></dd></div>
-            <div class="record__row"><dt>Learning</dt><dd>Python and PostgreSQL</dd></div>
-            <div class="record__row"><dt>Aiming for</dt><dd>Data engineering</dd></div>
-            <div class="record__row"><dt>Latest win</dt><dd>2nd place, Cagayan Innovation Hack 2026 <span class="muted">with AdvanCare</span></dd></div>
+            <div class="record__row"><dt>Program</dt><dd>BS Computer Science, 2024 to 2028</dd></div>
             <div class="record__row"><dt>Shipped</dt><dd><span data-countup="7">7</span>+ projects</dd></div>
             <div class="record__row"><dt>Off the clock</dt><dd>Tennis, and a long manhwa reading list</dd></div>
           </dl>
@@ -166,7 +157,6 @@
               <button class="deck__card" type="button"><b>Systems minded</b></button>
               <button class="deck__card" type="button"><b>Detail oriented</b></button>
             </div>
-            <p>Tap the deck to deal the next card. Six of them, all true.</p>
           </div>
         </div>
       </div>
@@ -176,9 +166,8 @@
       <div class="work__pin" data-work-pin>
         <div class="work__sticky">
           <div class="container work__head">
-            <div class="section-head section-head--split">
+            <div class="section-head">
               <h2>Things I’ve built.</h2>
-              <p>Six projects, newest first. Each set of screens comes from the running app.</p>
             </div>
           </div>
           <div class="work__track" data-work-track>
@@ -197,7 +186,7 @@
               </div>
             </div>
             <div class="project__info">
-              <h3>AdvanCare<small>Healthcare platform for grassroots communities</small></h3>
+              <h3>AdvanCare</h3>
               <p>Affordable care plans, telehealth, non-emergency transport and caregiver booking for Cagayan barangays: a resident app, a staff console for LGU teams and an AI care assistant.</p>
               <ul class="project__stack" aria-label="Built with"><li>React</li><li>Capacitor</li><li>Hono on Workers</li><li>Neon Postgres</li><li>Drizzle</li><li>Gemini assistant</li></ul>
             </div>
@@ -216,7 +205,7 @@
               </div>
             </div>
             <div class="project__info">
-              <h3>MedCore<small>Hospital billing command center</small></h3>
+              <h3>MedCore</h3>
               <p>Applies PhilHealth, HMO and senior/PWD deductions in order so cashiers and security see one final balance. A staff dashboard, a patient companion app and an AI concierge.</p>
               <ul class="project__stack" aria-label="Built with"><li>Vercel dashboard</li><li>Expo</li><li>Hono on Workers</li><li>Neon Postgres</li></ul>
             </div>
@@ -234,7 +223,7 @@
               </div>
             </div>
             <div class="project__info">
-              <h3>SERVIO<small>On-demand local services marketplace</small></h3>
+              <h3>SERVIO</h3>
               <p>Services sold like catalog items: upfront prices, instant technician matching, live on-the-way tracking and in-app escrow. Launching in Tuguegarao City.</p>
               <ul class="project__stack" aria-label="Built with"><li>Ionic</li><li>Angular</li><li>Capacitor</li><li>Hono on Workers</li><li>Drizzle</li><li>Postgres</li><li>Durable Objects</li></ul>
             </div>
@@ -242,8 +231,9 @@
           <article class="project">
             <div class="project__media gallery crop" data-gallery aria-roledescription="carousel" aria-label="MedRec screenshots">
               <div class="gallery__track" data-gallery-track>
-                <figure class="gallery__slide"><img src="assets/images/projects/medrec-1.jpg" alt="MedRec: Medical ID, records and an AI-read lab result" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
-                <figure class="gallery__slide"><img src="assets/images/projects/medrec-2.jpg" alt="MedRec: Profile and record detail" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
+                <figure class="gallery__slide"><img src="assets/images/projects/medrec-1.jpg" alt="MedRec: Medical ID, records list and a QR share pass" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
+                <figure class="gallery__slide"><img src="assets/images/projects/medrec-2.jpg" alt="MedRec: Ask Remy finding a blood test, and a plain-language health summary" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
+                <figure class="gallery__slide"><img src="assets/images/projects/medrec-3.jpg" alt="MedRec: Sharing with a doctor, and profile settings" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
               </div>
               <div class="gallery__ui">
                 <button class="gallery__btn" type="button" data-gallery-prev aria-label="Previous screenshot of MedRec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
@@ -252,7 +242,7 @@
               </div>
             </div>
             <div class="project__info">
-              <h3>MedRec<small>Personal medical records app</small></h3>
+              <h3>MedRec</h3>
               <p>Upload records, get plain-language AI readings, share them by QR and keep a Medical ID, rebuilt for v2 on a serverless stack.</p>
               <ul class="project__stack" aria-label="Built with"><li>Expo</li><li>Cloudflare Workers</li><li>Neon Postgres</li><li>R2 storage</li><li>Gemini</li></ul>
             </div>
@@ -271,8 +261,9 @@
               </div>
             </div>
             <div class="project__info">
-              <h3>Mulat Media<small>Student publication CMS</small></h3>
+              <h3>Mulat Media</h3>
               <p>A multi-page publication platform with article submission workflows, category hierarchies and role-based editorial access, backed by Supabase with row-level security.</p>
+              <a class="text-link project__link" href="https://mulat-media.vercel.app/" target="_blank" rel="noopener noreferrer">mulat-media.vercel.app</a>
               <ul class="project__stack" aria-label="Built with"><li>HTML / CSS / JS</li><li>Supabase Postgres</li><li>Auth + RLS</li><li>Storage</li></ul>
             </div>
           </article>
@@ -284,7 +275,7 @@
               <button class="project__try" type="button" data-demo-open="demos/cipher-shift/" data-demo-title="Cipher Shift" data-cursor="Try it">Try it live</button>
             </div>
             <div class="project__info">
-              <h3>Cipher Shift<small>Cryptography &amp; OCR desktop tool</small></h3>
+              <h3>Cipher Shift</h3>
               <p>A Caesar cipher desktop app that pulls text out of images with OCR and brute-forces shifts with frequency heuristics to surface the most likely plaintext.</p>
               <ul class="project__stack" aria-label="Built with"><li>Electron</li><li>Canvas OCR</li><li>Frequency analysis</li></ul>
             </div>
@@ -297,22 +288,16 @@
           <div class="container work__foot" aria-hidden="true">
             <span data-work-count>01 / 07</span>
             <span class="work__bar"><i></i></span>
-            <span>Scroll</span>
           </div>
         </div>
       </div>
     </section>
 
     <section class="section container" id="activity" aria-label="GitHub activity">
-      <div class="section-head section-head--split table-name">
+      <div class="section-head table-name">
         <h2>A year of shipping, one square at a time.</h2>
-        <p>My GitHub contributions, pulled live: the darker the square, the more I pushed. <span class="on-hover">Hover</span><span class="on-touch">Tap</span> a figure to find it on the graph.</p>
       </div>
       <div class="activity" data-activity>
-        <div class="activity__head">
-          <b>contributions</b>
-          <span data-act-range>last 12 months</span>
-        </div>
         <div class="activity__scroll" data-act-scroll>
           <div class="activity__cal is-loading" data-act-cal role="img" aria-label="GitHub contribution calendar, loading"></div>
         </div>
@@ -331,14 +316,12 @@
     </section>
 
     <section class="section container" id="stack">
-      <div class="section-head section-head--split table-name">
+      <div class="section-head table-name">
         <h2>Five tables, one schema.</h2>
-        <p>What I work with, grouped the way I think about it. <span class="on-hover">Hover</span><span class="on-touch">Tap</span> a row to join it against related rows in the other tables.</p>
       </div>
       <div class="schema" data-schema>
         <div class="table crop">
-          <div class="table__head"><b>python_scripting</b><span>5 rows</span></div>
-          <p class="table__desc">Clean Python for problem solving, small automation utilities, OCR text extraction and data wrangling.</p>
+          <div class="table__head"><b>python_scripting</b></div>
           <div class="table__rows">
             <div class="row" data-n="1" data-join="data py"><span>Python 3</span><em>lang</em></div>
             <div class="row" data-n="2" data-join="cs"><span>Algorithms</span><em>core</em></div>
@@ -348,8 +331,7 @@
           </div>
         </div>
         <div class="table crop">
-          <div class="table__head"><b>sql_databases</b><span>5 rows</span></div>
-          <p class="table__desc">Relational modeling, SQL queries, PostgreSQL and SQLite: normalized schemas with data integrity in mind.</p>
+          <div class="table__head"><b>sql_databases</b></div>
           <div class="table__rows">
             <div class="row" data-n="1" data-join="data db"><span>PostgreSQL</span><em>db</em></div>
             <div class="row" data-n="2" data-join="data db"><span>SQL queries</span><em>db</em></div>
@@ -359,8 +341,7 @@
           </div>
         </div>
         <div class="table crop">
-          <div class="table__head"><b>web_fullstack</b><span>5 rows</span></div>
-          <p class="table__desc">Responsive web platforms with modern JavaScript, semantic HTML, CSS Grid/Flexbox and REST APIs.</p>
+          <div class="table__head"><b>web_fullstack</b></div>
           <div class="table__rows">
             <div class="row" data-n="1" data-join="web"><span>JavaScript (ES6+)</span><em>lang</em></div>
             <div class="row" data-n="2" data-join="web"><span>HTML5 / CSS3</span><em>web</em></div>
@@ -370,8 +351,7 @@
           </div>
         </div>
         <div class="table crop">
-          <div class="table__head"><b>ai_workflows</b><span>5 rows</span></div>
-          <p class="table__desc">Local and hosted LLMs plus agentic tooling to move faster without skipping the understanding.</p>
+          <div class="table__head"><b>ai_workflows</b></div>
           <div class="table__rows">
             <div class="row" data-n="1" data-join="ai"><span>Google Antigravity</span><em>agent</em></div>
             <div class="row" data-n="2" data-join="ai py"><span>Local LLMs (Ollama)</span><em>model</em></div>
@@ -381,8 +361,7 @@
           </div>
         </div>
         <div class="table crop">
-          <div class="table__head"><b>toolchain</b><span>4 rows</span></div>
-          <p class="table__desc">The everyday kit: version control, editors and the terminal.</p>
+          <div class="table__head"><b>toolchain</b></div>
           <div class="table__rows">
             <div class="row" data-n="1" data-join="ship"><span>Git &amp; GitHub</span><em>vcs</em></div>
             <div class="row" data-n="2" data-join="ship ai"><span>VS Code / Cursor</span><em>editor</em></div>
@@ -395,7 +374,6 @@
       <div class="journey">
         <div class="journey__head">
           <h3>How I got here.</h3>
-          <p>Formal Computer Science training alongside hands-on software work.</p>
         </div>
         <ol class="timeline" data-timeline>
           <span class="timeline__fill" aria-hidden="true"></span>
@@ -408,19 +386,11 @@
           <li class="milestone">
             <time>2023 to present</time>
             <h4>Independent full-stack &amp; systems work</h4>
-            <div class="where">Digital solutions and open-source projects</div>
             <p>Shipped <em>Mulat Media</em> and <em>Hanguk Grill</em>, then moved into full-stack platforms: <em>AdvanCare</em> for community healthcare, <em>MedCore</em> for hospital billing, <em>SERVIO</em> for local services and <em>MedRec</em> for personal health records.</p>
-          </li>
-          <li class="milestone">
-            <time>October 2026</time>
-            <h4>2nd place, Cagayan Innovation Hack 2026</h4>
-            <div class="where">iHub Innovation Hub, Final Pitch</div>
-            <p>Built the software for AdvanCare, a healthcare platform for grassroots communities, which our coach pitched to second place and a ₱10,000 prize.</p>
           </li>
           <li class="milestone">
             <time>Next</time>
             <h4>Data engineering</h4>
-            <div class="where">Pipelines, warehouses, the boring-on-purpose stuff</div>
             <p>Going deeper on SQL, PostgreSQL internals and Python for data, then moving into ETL pipelines and orchestration.</p>
           </li>
         </ol>
@@ -428,16 +398,15 @@
     </section>
 
     <section class="section container" id="recognition">
-      <div class="section-head section-head--split table-name">
+      <div class="section-head table-name">
         <h2>Recognition along the way.</h2>
-        <p>From a 2nd-place finish at Cagayan Innovation Hack 2026 back to campus journalism, student leadership and the DTI Youth Entrepreneurship Program.</p>
       </div>
       <div class="awards" data-awards>
         <article class="award award--lead" data-award>
           <div>
             <h3>2nd place, Cagayan Innovation Hack 2026</h3>
             <p>Our team placed second at the Final Pitch with <strong>AdvanCare</strong>, an AI-enabled healthcare platform for grassroots communities, and took home <strong>₱10,000</strong>. I built the software side: the resident app, staff console, website and API.</p>
-            <div class="award__by"><span>iHub Innovation Hub, Final Pitch</span><time>Oct 19, 2026</time><span>Theme: “From Local Challenges to Innovative Solutions”</span></div>
+            <div class="award__by"><span>iHub Innovation Hub, Final Pitch</span><time>Oct 19, 2026</time></div>
           </div>
           <button class="award__img" type="button" data-lb="7" data-cursor="View" aria-label="View photo: Cagayan Innovation Hack 2026, 2nd place">
             <img src="assets/images/awards/cih-2026-check.jpg" alt="Holding the 2nd place prize check at Cagayan Innovation Hack 2026" loading="lazy" decoding="async" />
@@ -506,17 +475,10 @@
       </div>
       <div class="training">
         <div class="training__text">
-          <div class="training__meta"><time>May 19 to 21, 2024</time><span>Lingu, Solana, Cagayan</span></div>
           <h3>DTI Youth Entrepreneurship Program</h3>
-          <h4>Be Your Own Boss! Business ideation and a seed-funding pitch</h4>
+          <div class="training__meta"><time>May 19 to 21, 2024</time><span>Lingu, Solana, Cagayan</span></div>
           <p>An intensive three-day boot camp run by DTI Region 02 / SMEDD on entrepreneurial thinking, business model generation, financial viability and pitching digital ideas for sponsorship and seed funding.</p>
           <p>Our team built and presented the live pitch for <strong>MedCore</strong>, an AI-powered healthcare optimization concept, and won the <strong>Pitch Perfect</strong> award along with the <strong>Silent Billionaire</strong> recognition.</p>
-          <ul class="outcomes">
-            <li><span>Pitch Perfect award</span><span>won</span></li>
-            <li><span>Silent Billionaire recognition</span><span>won</span></li>
-            <li><span>MedCore live pitch</span><span>presented</span></li>
-            <li><span>Organizer</span><span>DTI-SMEDD</span></li>
-          </ul>
         </div>
         <div class="film crop" data-film>
           <div class="film__track" data-film-track>
@@ -544,19 +506,18 @@
       <h2 class="contact__title table-name">Let’s work together.</h2>
       <div class="contact__grid">
         <div class="contact__lede">
-          <h3>Looking for the next problem worth solving.</h3>
           <p>I’m open to internships and projects in data engineering, database design, AI systems and full-stack development.</p>
           <button class="btn btn--accent" type="button" data-message-open>Write me a message</button>
         </div>
         <div class="links">
           <button class="link-row" type="button" data-copy="mcleinonza0531@gmail.com" data-cursor="Copy">
-            <span class="k">email</span><span class="v">mcleinonza0531@<wbr>gmail.com</span><span class="act">copy <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span>
+            <span class="v">mcleinonza0531@<wbr>gmail.com</span><span class="act">copy <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span>
           </button>
           <a class="link-row" href="https://github.com/Mclein31" target="_blank" rel="noopener noreferrer">
-            <span class="k">github</span><span class="v">github.com/Mclein31</span><span class="act">open <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <span class="v">github.com/Mclein31</span><span class="act">open <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
           <a class="link-row" href="https://www.linkedin.com/in/mclein-jei-onza-9b0769322/" target="_blank" rel="noopener noreferrer">
-            <span class="k">linkedin</span><span class="v">in/mclein-jei-onza</span><span class="act">open <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <span class="v">in/mclein-jei-onza</span><span class="act">open <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
         </div>
       </div>
@@ -576,7 +537,6 @@
       </div>
       <div class="footer__mark" data-footer-mark aria-hidden="true">mclein.onz<span class="last">a</span></div>
       <div class="footer__bottom">
-        <span>Hand-built with HTML, CSS &amp; JS. No frameworks.</span>
         <div class="stats" data-stats role="group" aria-label="Site stats">
           <span class="stats__cell" title="Total visits">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>

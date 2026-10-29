@@ -55,7 +55,7 @@
 .stats__cell svg { width: 16px; height: 16px; }
 .stats__cell b { color: var(--color-ink); font-weight: 500; font-variant-numeric: tabular-nums; }
 .stats__like { position: relative; transition: background-color var(--dur-short) var(--ease-out); }
-@media (hover: hover) { .stats__like:hover { background: var(--color-paper-2); } }
+@media (hover: hover) { .stats__like:hover { background: var(--color-hover); } }
 .stats__like:active { background: var(--color-paper-3); }
 .stats__like .heart { transition: color var(--dur-short) var(--ease-out); }
 .stats__like.is-liked .heart { color: var(--color-accent); fill: currentColor; }

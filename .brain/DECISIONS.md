@@ -59,7 +59,7 @@ Opening `index.html` from disk no longer works; use a local server.
 ## 2026-10-25 — Project Galleries Use Composed Real Screenshots
 
 ### Decision
-Project cards show swipeable galleries of real screenshots composed into device/browser frames (`assets/images/projects/*.jpg`). No live links or status tags on cards (owner's request). Demo data came from each app's own demo mode (SERVIO offline demo, AdvanCare built-in demo profile) or in-browser intercepted API responses (AdvanCare staff console) — nothing was written to any project database. MedCore uses its existing QA captures in `MedCore1/docs/validation/ui-polish/after/`.
+Project cards show swipeable galleries of real screenshots composed into device/browser frames (`assets/images/projects/*.jpg`). No live links or status tags on cards (owner's request), except Mulat Media, which links to mulat-media.vercel.app (owner's request, 2026-10-29). Demo data came from each app's own demo mode (SERVIO offline demo, AdvanCare built-in demo profile) or in-browser intercepted API responses (AdvanCare staff console) — nothing was written to any project database. MedCore uses its existing QA captures in `MedCore1/docs/validation/ui-polish/after/`.
 
 ### Alternatives
 - AI-generated mockups (rejected: less honest than real UI).

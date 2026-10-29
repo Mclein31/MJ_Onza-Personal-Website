@@ -61,7 +61,6 @@
   font-family: var(--font-display); font-size: clamp(2.5rem, 11vw, 3.75rem); letter-spacing: -0.02em; line-height: 1;
   color: var(--color-ink);
 }
-.menu a.menu__link small { font-family: var(--font-body); font-size: var(--text-sm); color: var(--color-muted); font-variant-numeric: tabular-nums; letter-spacing: 0; }
 
 @media (max-width: 960px) {
   .nav__links, .nav__hire { display: none; }

@@ -20,10 +20,7 @@
 .hero__meta {
   display: flex; justify-content: space-between; gap: var(--space-md); flex-wrap: wrap;
   padding-bottom: var(--space-sm); border-bottom: var(--rule-hair) solid var(--color-ink);
-  font-size: var(--text-sm); font-weight: 500; color: var(--color-muted);
-  font-variant-numeric: tabular-nums;
 }
-.hero__meta time { color: var(--color-ink); }
 
 .hero__mark { position: relative; margin-block: auto 0; }
 .hero__name {

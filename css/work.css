@@ -51,7 +51,7 @@
   display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--radius-pill); color: var(--color-ink);
   transition: background-color var(--dur-short) var(--ease-out);
 }
-@media (hover: hover) { .gallery__btn:hover { background: var(--color-paper-2); } }
+@media (hover: hover) { .gallery__btn:hover { background: var(--color-hover); } }
 .gallery__btn:active { background: var(--color-paper-3); }
 .gallery__btn svg { width: 18px; height: 18px; }
 .gallery__dots { display: flex; }
@@ -70,8 +70,8 @@
 
 .project__info { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-xs) var(--gap-columns); align-items: start; border-top: var(--rule-hair) solid var(--color-ink); padding-top: var(--space-md); }
 .project__info h3 { font-size: var(--text-2xl); }
-.project__info h3 small { display: block; margin-top: var(--space-xs); font-family: var(--font-body); font-size: var(--text-sm); font-weight: 500; letter-spacing: 0; color: var(--color-muted); }
 .project__info p { color: var(--color-ink-2); max-width: 60ch; }
+.project__link { justify-self: start; margin-top: var(--space-xs); font-size: var(--text-sm); color: var(--color-ink-2); }
 .project__stack { grid-column: 2; display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-md); margin-top: var(--space-xs); font-size: var(--text-sm); color: var(--color-muted); }
 
 .project--more {
@@ -108,7 +108,6 @@
 /* Short screens: the pinned frame gives the cards the room the intro line took */
 @media (max-height: 820px) {
   .work.is-pinned .work__head .section-head { margin-bottom: var(--space-md); }
-  .work.is-pinned .work__head .section-head p { display: none; }
 }
 
 /* Cipher Shift: a printed control over the sheet, desktop pointers only */
@@ -120,7 +119,7 @@
   font-weight: 500; box-shadow: var(--shadow-sheet);
   transition: background-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
 }
-@media (hover: hover) { .project__try:hover { background: var(--color-accent-2); } }
+@media (hover: hover) { .project__try:hover { background: var(--color-accent-hover); } }
 .project__try:active { transform: translateY(1px); }
 @media (max-width: 1024px), (hover: none), (any-pointer: coarse) { .project__try { display: none; } }
 
@@ -146,7 +145,7 @@
 .appwin__hint { color: var(--color-muted); font-weight: 500; }
 .appwin__lights { order: 3; margin-left: auto; }
 .appwin__lights .close { display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--radius-pill); color: var(--color-ink); transition: background-color var(--dur-short) var(--ease-out); }
-@media (hover: hover) { .appwin__lights .close:hover { background: var(--color-paper-2); } }
+@media (hover: hover) { .appwin__lights .close:hover { background: var(--color-hover); } }
 .appwin__lights .close svg { width: 14px; height: 14px; }
 .appwin__body { position: relative; background: var(--color-paper-hi); }
 .appwin__body iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }

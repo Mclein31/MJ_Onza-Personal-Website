@@ -107,7 +107,6 @@ export function initActivity() {
     cal.setAttribute('aria-label', `GitHub contribution calendar: ${sum.total} contributions in the last year`);
     scroller.scrollLeft = scroller.scrollWidth;
     const span = { month: 'short', day: 'numeric' };
-    $('[data-act-range]', root).textContent = `${day(days[0].date, { month: 'short', year: 'numeric' })} – ${day(days.at(-1).date, { month: 'short', year: 'numeric' })}`;
     field('daysNote').textContent = `of ${days.length} days had a push`;
     const s = sum.streak;
     field('streakNote').textContent = s.len ? `${s.len === 1 ? 'day' : 'days'} in a row · ${day(days[s.start].date, span)}–${day(days[s.start + s.len - 1].date, span)}` : 'days in a row';
