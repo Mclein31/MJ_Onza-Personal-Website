@@ -10,6 +10,12 @@ last_updated: 2026-10-25
 
 # 📜 Personal Website — Changelog
 
+## Less copy, quieter hovers (2026-10-29)
+- **Changed**: Owner felt the layout still read as AI-made (labels and subtext around every heading). Section heads are now the heading alone (dropped the side paragraphs on Work, Activity, Stack, Recognition). Removed: hero meta line (kept as a bare rule; `icons.js` measures it), portrait caption, deck hint, 5 of 8 About record rows, project subtitles, "Scroll" label, activity card header, table descriptions and row counts, journey subtext and the hackathon milestone (covered in Recognition), lead-award theme line, training subtitle and outcomes list, contact h3 and link keys, footer tagline, menu numbers.
+- **Changed**: Hover is a tint: `--color-hover` (paper-2 at 55%) and `--color-accent-hover` (accent with 6% ink) in `tokens.css`, used by every button; lifts cut to 1px.
+- **Added**: Mulat Media card links to its live site, mulat-media.vercel.app (`.project__link`), at the owner's request; the other cards still have no live links.
+- **Changed**: MedRec gallery recaptured from the warm folio redesign (DD-45 in MedRecord_App) and recomposed in its own palette with Remy: 3 slides (was 2, old mint look).
+
 ## Tablet hero (2026-10-29)
 - **Fixed**: Portrait tablets (iPad Mini/Air/Pro 13) — the hero name was 16vw (about half the width) and the iPad Pro got the full-height desktop hero with the top half empty. Phones and portrait screens up to 80rem now share one rule: hero sized to content, name sized to fill the column (`(100vw − 2·gutter) / 3.45`), icon row above. Landscape tablets keep the desktop layout.
 - **Fixed**: Work section on portrait tablets (iPad Pro 13) pinned sideways with 60vw cards and ~400px of empty frame. The pin now also requires `orientation: landscape` (`js/work.js`); portrait screens get the stacked full-width cards.
