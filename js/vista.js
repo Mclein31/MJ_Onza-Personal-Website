@@ -18,14 +18,17 @@ function scene(cols, rows) {
   const put = (y, x, c, l) => { y = Math.round(y); x = Math.round(x); if (y >= 0 && y < rows && x >= 0 && x < cols) { ch[y][x] = c; ly[y][x] = l; } };
   const free = (y, x) => ch[y]?.[x] === ' ';
   const H = Math.round(rows * 0.68);
+  const V = Math.min(rows, cols * 0.55);                     // height unit: keeps land from turning to spikes on tall, narrow grids
 
   // Island on the right: rises to a headland where the lighthouse stands
   const lx = Math.round(cols * 0.76);
-  const isleF = (x) => {
-    const u = (x - cols * 0.52) / (cols * 0.48);
+  const pad = 5 + 2 * Math.max(1, Math.round(cols / 110));    // flat ground under the lighthouse
+  const isleF = (x0) => {
+    const x = x0 - lx < 0 ? Math.min(lx, x0 + pad) : Math.max(lx, x0 - pad);
+    const u = (x0 - cols * 0.52) / (cols * 0.48);
     if (u < 0) return H;
-    const head = Math.exp(-(((x - lx) / (cols * 0.06)) ** 2)) * rows * 0.12;
-    const body = Math.sqrt(Math.max(0, u)) * rows * 0.1 + noise((x / cols) * 22, 4) * rows * 0.05;
+    const head = Math.exp(-(((x - lx) / Math.max(cols * 0.06, V * 0.3)) ** 2)) * V * 0.12;
+    const body = Math.sqrt(Math.max(0, u)) * V * 0.1 + noise((x / cols) * 22, 4) * V * 0.05;
     const e = Math.min(1, u / 0.3), shore = e * e * (3 - 2 * e);        // the shore rises gently out of the water
     return H - 1 - Math.min(H * 0.7, (head + body) * shore);
   };
@@ -37,21 +40,25 @@ function scene(cols, rows) {
     put(t, x, l > t && r > t ? '^' : l > t ? '/' : r > t ? '\\' : f < t ? '-' : '_', 'ink');
     for (let y = t + 1; y < H; y++) put(y, x, hash(x * 13 + y * 7) < 0.35 ? ':' : '.', 'mute');
   }
-  return { ch, ly, H, lx, put, free, isle };
+  return { ch, ly, H, V, lx, put, free, isle };
 }
 
 const stamp = (put, y, x, lines, layerOf) => lines.forEach((s, i) => [...s].forEach((c, j) => { if (c !== ' ') put(y + i, x + j, c, layerOf(c)); }));
 
 function paint(cols, rows, t = 0) {
-  const S = scene(cols, rows), { ch, ly, H, lx, put, free, isle } = S;
+  const S = scene(cols, rows), { ch, ly, H, V, lx, put, free, isle } = S;
   const s = Math.max(1, Math.round(cols / 110));            // object scale: more cells on wide grids
   // Lighthouse: tapered, striped tower
-  const y0 = isle(lx), th = Math.max(5, Math.min(Math.round(rows * 0.2), y0 - 5 - 3 * s));
+  const y0 = isle(lx), wb0 = 2 + 2 * s, th = Math.max(5, Math.min(Math.round(V * 0.22), Math.round(wb0 * 3.3), y0 - 5 - 3 * s));
   const wb = 2 + 2 * s, wt = 1 + s;
   for (let k = 0; k < th; k++) {
     const y = y0 - 1 - k, w = Math.round(wb - ((wb - wt) * k) / th), band = Math.floor(k / (2 * s)) % 3 === 0;
     put(y, lx - w, '/', 'ink'); put(y, lx + w, '\\', 'ink');
     for (let x = lx - w + 1; x < lx + w; x++) put(y, x, k < 2 * s && Math.abs(x - lx) < s ? '|' : band ? '#' : ':', band ? 'ink' : 'mute');
+  }
+  // Stone foundation on the flat ground
+  for (let k = 0; k <= Math.floor(s / 2); k++) {
+    for (let x = lx - wb - 2 - k; x <= lx + wb + 2 + k; x++) put(y0 + k, x, x === lx - wb - 2 - k ? '[' : x === lx + wb + 2 + k ? ']' : k ? '#' : '=', 'ink');
   }
   // Gallery, lantern, roof
   let y = y0 - 1 - th;

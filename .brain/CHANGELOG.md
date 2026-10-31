@@ -11,7 +11,7 @@ last_updated: 2026-10-31
 # 📜 Personal Website — Changelog
 
 ## Footer vista (2026-10-31)
-- **Added**: Full-width ASCII scene under the footer wordmark (owner's request: a scenic reward for reaching the end): Cape Engaño lighthouse on Palaui Island, Cagayan, at night. Starry sky spans the whole footer behind the text. A shaded full moon (left) with maria and craters, a dock with a lamp and a footpath up to the lighthouse, an island shore that slopes in smoothly, trees, a sailboat crossing, waves drifting, and a beam that sweeps down onto the sea without retracting. Runs on its own clock (not tied to scroll); still under reduced motion. Small type (~4px per column) for detail.
+- **Added**: Full-width ASCII scene under the footer wordmark (owner's request: a scenic reward for reaching the end): Cape Engaño lighthouse on Palaui Island, Cagayan, at night. Starry sky spans the whole footer behind the text. A shaded full moon (left) with maria and craters, a dock with a lamp and a footpath up to the lighthouse, an island shore that slopes in smoothly, land and tower heights scaled to the grid's proportions so phones and tablets get a broad hill and a stone foundation (no needle-thin peak), trees, a sailboat crossing, waves drifting, and a beam that sweeps down onto the sea without retracting. Runs on its own clock (not tied to scroll); still under reduced motion. Small type (~4px per column) for detail.
 - **Changed**: The footer is exactly one screen tall (100svh); the scene fills whatever space the rows leave. Tests: 66 pass.
 - Rejected along the way: a mountain-lake scene, a 0/1 decode reveal, a static-only version.
 
