@@ -5,10 +5,14 @@ project: Personal Website
 tags:
   - changelog
   - history
-last_updated: 2026-10-31
+last_updated: 2026-11-01
 ---
 
 # 📜 Personal Website — Changelog
+
+## SERVIO promo v2 (2026-11-01)
+- **Changed**: `assets/video/servio-promo.mp4` now holds the new 39s feature-led cut with the new voiceover (re-rendered in `SERVIO/promo-video/servio-promo-vo.mp4`, 15 MB). Encoded with the recipe in NOTES.md: 6.0 MB, SSIM 0.996, peak 3.5 Mbps. Poster is the new end card at 37s (logo, "Help, delivered." and 8 feature chips), 1280×720. The button and the video's aria-label say 39 seconds instead of 30.
+- **Checked**: plays in Chrome and WebKit (script). Tests: 87 pass, 15 skipped.
 
 ## MedRec promo video (2026-10-31)
 - **Added**: The MedRec promo (from `MedRecord_App/promo_video/medrec-promo.mp4`) as the last slide of the MedRec deck, plus the same "Watch the 30-second promo" button under its description, as SERVIO has (owner asked for the same treatment). Re-encoded with the SERVIO recipe to `assets/video/medrec-promo.mp4` (7.8 MB, was 54 MB; peak 4.2 Mbps in the flying-papers scene). Overall SSIM 0.964: 0–17s ≈0.995; the aubergine scenes from 18s drop to 0.89–0.95 because the source's film grain is smoothed out, while text and UI stay sharp. Poster is the 28s end card ("MedRec — Medical records, together."), 1280×720 (`medrec-promo-poster.webp`). Label omits "with voiceover": not confirmed whether it has narration or only music.
