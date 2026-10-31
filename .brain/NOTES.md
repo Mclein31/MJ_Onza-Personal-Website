@@ -33,3 +33,6 @@ Slides use **MockUPhone** device frames ([oursky/mockuphone.com](https://github.
 ## 🎨 Theme Tokens (v3)
 - Dark: bg `#0b0c0d`, ink `#f2f3ef` · Light: bg `#f2f3ef`, ink `#0b0c0d`
 - Accent (signal lime): `#c8f03c`; accent text on light `#4a6400`
+
+## ⚠️ Android Chrome auto-darken
+Chrome on Android repaints pages that don't declare dark support when the phone is in dark mode (borders fade, backgrounds go grey). Keep `<meta name="color-scheme" content="light dark">` and `color-scheme: only light` on the light theme. Reproduce: launch Chrome with `--enable-features=WebContentsForceDark`, emulate `colorScheme: 'dark'`, store `portfolio-theme=light`.

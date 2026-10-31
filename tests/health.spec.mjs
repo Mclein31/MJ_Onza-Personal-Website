@@ -68,3 +68,11 @@ test('has no WCAG 2 A/AA violations (axe)', async ({ page }, testInfo) => {
   await testInfo.attach('axe-violations.json', { body: JSON.stringify(results.violations, null, 2), contentType: 'application/json' });
   expect(summary).toEqual([]);
 });
+
+test('the light theme opts out of Android Chrome auto-darkening', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await page.addInitScript(() => localStorage.setItem('portfolio-theme', 'light'));
+  await page.goto('/');
+  await expect(page.locator('meta[name="color-scheme"]')).toHaveAttribute('content', /dark/);
+  expect(await page.evaluate(() => getComputedStyle(document.documentElement).colorScheme)).toMatch(/only/);
+});
