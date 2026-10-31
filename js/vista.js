@@ -21,17 +21,20 @@ function scene(cols, rows) {
 
   // Island on the right: rises to a headland where the lighthouse stands
   const lx = Math.round(cols * 0.76);
-  const isle = (x) => {
+  const isleF = (x) => {
     const u = (x - cols * 0.52) / (cols * 0.48);
     if (u < 0) return H;
     const head = Math.exp(-(((x - lx) / (cols * 0.06)) ** 2)) * rows * 0.12;
-    const body = Math.sqrt(Math.max(0, u)) * rows * 0.1 + noise(x * 0.12, 4) * rows * 0.05;
-    return Math.round(H - 1 - Math.min(H * 0.7, head + body));
+    const body = Math.sqrt(Math.max(0, u)) * rows * 0.1 + noise((x / cols) * 22, 4) * rows * 0.05;
+    const e = Math.min(1, u / 0.3), shore = e * e * (3 - 2 * e);        // the shore rises gently out of the water
+    return H - 1 - Math.min(H * 0.7, (head + body) * shore);
   };
+  const isle = (x) => Math.round(isleF(x));
   for (let x = 0; x < cols; x++) {
-    const t = isle(x), l = isle(x - 1), r = isle(x + 1);
+    const f = isleF(x), t = Math.round(f), l = isle(x - 1), r = isle(x + 1);
     if (t >= H) continue;
-    put(t, x, l > t && r > t ? '^' : l > t ? '/' : r > t ? '\\' : '_', 'ink');
+    // Half-row precision on flat runs: '-' sits mid-cell, '_' at its foot
+    put(t, x, l > t && r > t ? '^' : l > t ? '/' : r > t ? '\\' : f < t ? '-' : '_', 'ink');
     for (let y = t + 1; y < H; y++) put(y, x, hash(x * 13 + y * 7) < 0.35 ? ':' : '.', 'mute');
   }
   return { ch, ly, H, lx, put, free, isle };
@@ -69,6 +72,19 @@ function paint(cols, rows, t = 0) {
     if (top >= H - 1 || Math.abs(x - lx) < wb + 3 || hash(x * 4.3) > 0.4) continue;
     const h = 1 + Math.floor(hash(x * 2.9) * (s + 1));
     for (let k = 1; k <= h; k++) put(top - k, x, k === h ? '^' : 'A', 'ink');
+  }
+  // Footpath from the dock up the hill to the lighthouse door
+  const dockEnd = Math.round(cols * 0.545);
+  {
+    const [x0, y0p, x1, y1p, x2, y2p] = [dockEnd, H - 1, lx - cols * 0.05, H - 2, lx - wb - 1, y0 - 1];
+    let px = -1, py = -1;
+    for (let i = 0; i <= cols * 4; i++) {
+      const q = i / (cols * 4), a = (1 - q) * (1 - q), b = 2 * q * (1 - q), c = q * q;
+      const x = Math.round(a * x0 + b * x1 + c * x2), y = Math.max(isle(x) + 1, Math.round(a * y0p + b * y1p + c * y2p));
+      if (x === px && y === py) continue;
+      put(y, x, py >= 0 && y < py ? '/' : py >= 0 && y > py ? '\\' : '_', 'ink');
+      px = x; py = y;
+    }
   }
   // Beam: always full length; it sweeps slowly up and down, so its light slides along the water
   // At the left edge its centre swings from the sky (k < 0) to well out on the sea (k > 0)
@@ -115,6 +131,14 @@ function paint(cols, rows, t = 0) {
     }
   }
   // A small sailboat
+  // Dock: a plank deck on pilings off the island's west shore, a lamp at its end
+  const dockStart = Math.round(dockEnd - cols * 0.07);
+  for (let x = dockStart; x <= dockEnd; x++) {
+    put(H - 1, x, x === dockStart ? '[' : '=', 'ink');
+    if ((x - dockStart) % (3 + s) === 0) for (let k = 0; k <= s; k++) put(H + k, x, '|', 'ink');
+  }
+  for (let k = 2; k <= 2 + 2 * s; k++) put(H - k, dockStart + 1, '|', 'ink');
+  put(H - 3 - 2 * s, dockStart + 1, 'o', 'accent');
   // A sailboat crossing slowly
   const bh = 2 + 2 * s, bx = Math.round(((cols * 0.28 + t * 0.8 * s) % (cols + 12 * s)) - 8 * s), by = H + Math.max(1, Math.round((rows - H) * 0.25));
   for (let k = 0; k < bh; k++) {
