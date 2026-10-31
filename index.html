@@ -178,6 +178,7 @@
               <div class="gallery__track" data-gallery-track>
                 <figure class="gallery__slide" data-title="Home and live tracking" data-desc="Find a trusted helper from home, then follow them on a live map from accepted to arrived. Payment stays in escrow until you share your PIN."><img src="assets/images/projects/servio-1.webp" alt="SERVIO: Home and live tracking" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
                 <figure class="gallery__slide" data-title="Bulletin, home and directory" data-desc="Neighbors post requests to the bulletin, browse helpers by skill in the directory and book verified ones at upfront hourly rates."><img src="assets/images/projects/servio-2.webp" alt="SERVIO: Directory, profile and tracking" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
+                <figure class="gallery__slide gallery__slide--video" data-video-title="SERVIO"><video src="assets/video/servio-promo.mp4" poster="assets/video/servio-promo-poster.webp" controls playsinline preload="none" aria-label="SERVIO promo video, 30 seconds, with voiceover"></video></figure>
               </div>
               <div class="gallery__ui">
                 <button class="gallery__btn" type="button" data-gallery-zoom aria-label="View SERVIO screenshots larger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
@@ -189,6 +190,7 @@
             <div class="project__info">
               <h3>SERVIO</h3>
               <p>Services sold like catalog items: upfront prices, instant technician matching, live on-the-way tracking and in-app escrow. Launching in Tuguegarao City.</p>
+              <button class="text-link project__link" type="button" data-video-open="assets/video/servio-promo.mp4" data-video-poster="assets/video/servio-promo-poster.webp" data-video-title="SERVIO">Watch the 30-second promo</button>
               <ul class="project__stack" aria-label="Built with"><li>Ionic</li><li>Angular</li><li>Capacitor</li><li>Hono on Workers</li><li>Drizzle</li><li>Postgres</li><li>Durable Objects</li></ul>
             </div>
           </article>
@@ -602,6 +604,21 @@
       <div class="appwin__body">
         <div class="appwin__loading" data-demo-loading>Loading the app…</div>
         <iframe data-demo-frame title="Live demo"></iframe>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="appwin appwin--video" data-video aria-labelledby="videoTitle">
+    <div class="appwin__frame">
+      <div class="appwin__bar">
+        <div class="appwin__lights">
+          <button class="close" type="button" data-video-close aria-label="Close video"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 2l6 6M8 2 2 8"/></svg></button>
+        </div>
+        <span class="appwin__title" id="videoTitle" data-video-title-el>SERVIO</span>
+        <span class="appwin__hint">promo video</span>
+      </div>
+      <div class="appwin__body">
+        <video data-video-player controls playsinline preload="none"></video>
       </div>
     </div>
   </dialog>

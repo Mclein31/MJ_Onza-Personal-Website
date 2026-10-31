@@ -3,7 +3,8 @@ import { test, expect, gotoReady } from './fixtures.mjs';
 
 test('loads without console errors or failed requests', async ({ page }) => {
   const errors = [];
-  page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+  // Playwright's WebKit build lacks the icons for its own <video controls>; that noise is not the page's
+  page.on('console', (m) => { if (m.type() === 'error' && !m.text().startsWith('Button failed to load, iconName')) errors.push(m.text()); });
   page.on('pageerror', (e) => errors.push(e.message));
   page.on('requestfailed', (r) => errors.push(`${r.failure()?.errorText} ${r.url()}`));
   page.on('response', (r) => { if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`); });

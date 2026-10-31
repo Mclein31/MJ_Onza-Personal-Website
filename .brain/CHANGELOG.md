@@ -10,6 +10,10 @@ last_updated: 2026-10-31
 
 # 📜 Personal Website — Changelog
 
+## SERVIO promo video (2026-10-31)
+- **Added**: The SERVIO promo with voiceover (from `SERVIO/promo-video/servio-promo-vo.mp4`) as the last slide of the SERVIO deck, plus a "Watch the 30-second promo" button under the title that opens it in a video window (owner asked for both). Re-encoded for the web to `assets/video/servio-promo.mp4` (H.264 CRF 26, faststart, 7.1 MB, was 28 MB; SSIM 0.993); poster is the end card (`servio-promo-poster.webp`). `preload="none"`, so nothing loads until play.
+- **Tests**: 78 pass (new: video window opens, pauses on close, returns focus; deck's last slide is the video and expand opens the video window). `health.spec` ignores Playwright WebKit's "Button failed to load, iconName" errors, which its own `<video controls>` icons raise. `tests/serve.mjs` serves `.mp4` as `video/mp4`.
+
 ## Footer vista (2026-10-31)
 - **Added**: Muted colour: island in three greens, brick-and-off-white lighthouse with a red roof. Light theme is daytime: lamp off (no beam or water glint), the moon becomes a sun with turning rays and a shimmer on the sea, clouds drift, no stars, dock lamp off; heavier glyphs and deeper tones for contrast. Toggling the theme redraws at once.
 - **Fixed**: View count inflated by non-visitors: on localhost (no `/api`) the client fell back to Abacus `hit`, so every local load and every automated browser (tests, screenshots) counted. Now only real browsers on a non-local host count (`navigator.webdriver` and hostname check). Visits moved to a fresh Abacus key `portfolio_views`, created at 232 (old `portfolio_visits` stopped at 526). Likes unchanged (72).

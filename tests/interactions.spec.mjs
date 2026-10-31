@@ -54,6 +54,36 @@ test.describe('desktop interactions', () => {
   });
 });
 
+test('SERVIO promo opens in a video window, stops on close, focus returns', async ({ page }) => {
+  await gotoReady(page);
+  const opener = page.locator('[data-video-open]');
+  await opener.scrollIntoViewIfNeeded();
+  await opener.click({ force: true }); // on desktop it sits on the moving work track
+  const win = page.locator('[data-video]');
+  await expect(win).toBeVisible();
+  const player = win.locator('[data-video-player]');
+  await expect(player).toHaveAttribute('src', /assets\/video\/servio-promo\.mp4$/);
+  await page.keyboard.press('Escape');
+  await expect(win).toBeHidden();
+  await expect.poll(() => player.evaluate((v) => v.paused)).toBe(true); // the close event comes a task later
+  await expect(page.locator('body')).not.toHaveClass(/is-locked/);
+  await expect(opener).toBeFocused();
+});
+
+test('SERVIO deck ends on the promo video; expanding it opens the video window', async ({ page }) => {
+  await gotoReady(page);
+  const gallery = page.locator('[data-gallery]', { has: page.locator('video') });
+  await expect(gallery.locator('.gallery__slide').last().locator('video')).toHaveAttribute('poster', /servio-promo-poster\.webp$/);
+  await gallery.scrollIntoViewIfNeeded();
+  await gallery.locator('[data-gallery-dots] button').last().click({ force: true });
+  await expect(gallery.locator('[data-gallery-dots] button').last()).toHaveAttribute('aria-current', 'true');
+  await gallery.locator('[data-gallery-zoom]').click({ force: true });
+  await expect(page.locator('[data-video]')).toBeVisible();
+  await expect(page.locator('[data-lightbox]')).toBeHidden();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('[data-video]')).toBeHidden();
+});
+
 test('theme toggle switches and survives a reload', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'dark' });
   await gotoReady(page);

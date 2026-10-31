@@ -14,6 +14,7 @@ import { initStats } from './stats.js';
 import { initContact } from './contact.js';
 import { initGalleries } from './gallery.js';
 import { initDemo } from './demo.js';
+import { initVideo } from './video.js';
 import { initActivity } from './activity.js';
 import { initVista } from './vista.js';
 
@@ -25,6 +26,7 @@ run('scroll', initScroll);
 run('work', initWork);
 run('galleries', initGalleries);
 run('demo', initDemo);
+run('video', initVideo);
 run('ui', initUI);
 run('lightbox', initLightbox);
 run('activity', initActivity);
