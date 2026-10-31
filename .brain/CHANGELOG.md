@@ -10,6 +10,10 @@ last_updated: 2026-11-01
 
 # 📜 Personal Website — Changelog
 
+## Promo buttons more visible (2026-11-01)
+- **Changed**: The three "Watch the N-second promo" buttons (AdvanCare, SERVIO, MedRec) were small grey underlined text; owner asked for them to stand out. They're now printed controls (`.btn` + `.project__promo`: ink border, inset rule, 44px tall, `--text-sm`) with an orange play mark (`--color-accent-text`), the outlined style of "Message me", not the filled orange of the main calls to action. `button.project__link` rule removed; `.project__link` stays for the Mulat Media site link.
+- **Tests**: 93 pass, 15 skipped.
+
 ## AdvanCare promo video (2026-11-01)
 - **Added**: The AdvanCare promo (from `AdvanCare/promo_video/AdvanCare-promo-30s.mp4`, 22 MB, 1080p60) as the last slide of the AdvanCare deck, plus the "Watch the 30-second promo" button under its description, as SERVIO and MedRec have (owner asked for the same treatment). Encoded with the recipe in NOTES.md plus `-vf fps=30` to match the other promos: `assets/video/advancare-promo.mp4`, 5.6 MB, SSIM 0.993, peak 2.75 Mbps. Poster is the end card at 29.5s (logo, "No barangay resident left behind.", "Cagayan · Philippines"), 1280×720 (`advancare-promo-poster.webp`). It has narration (checked with a whisper transcript), so the aria-label says "with voiceover". The award line sits in the margin under the slides, so it doesn't cover the video's controls.
 - **Checked**: plays in Chrome and WebKit (script).
