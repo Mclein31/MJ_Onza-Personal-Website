@@ -63,7 +63,11 @@
 @keyframes sheet-in { from { opacity: 0; transform: translateY(12px); } }
 
 /* Footer: a mast on the proof ground, the wordmark sized to the container */
-.footer { position: relative; padding-top: var(--space-xl); padding-bottom: var(--space-lg); border-top: var(--rule-hair) solid var(--color-ink); }
+/* One screen tall: the vista takes whatever the rows above and below leave */
+.footer {
+  position: relative; display: flex; flex-direction: column; height: 100svh; min-height: 560px; overflow: hidden;
+  padding-top: var(--nav-clear); padding-bottom: var(--space-lg); border-top: var(--rule-hair) solid var(--color-ink);
+}
 .footer__top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-md); font-size: var(--text-sm); color: var(--color-muted); }
 .footer__top nav { display: flex; flex-wrap: wrap; gap: var(--space-lg); }
 .footer__top a { color: var(--color-ink); transition: color var(--dur-short) var(--ease-out); }
@@ -79,6 +83,20 @@
   margin-top: var(--space-lg); padding-top: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule);
   font-size: var(--text-sm); color: var(--color-muted);
 }
+
+/* Vista: holds the scene's place under the wordmark; its colour layers cover the whole footer, behind the text */
+.footer > .container { position: relative; z-index: 1; }
+.vista {
+  flex: 1 1 auto; min-height: 0; margin-top: var(--space-lg);
+  -webkit-user-select: none; user-select: none; pointer-events: none;
+}
+.vista__layer {
+  position: absolute; inset: 0; margin: 0;
+  font-family: var(--font-data); font-size: var(--fs, 12px); line-height: 1.1; letter-spacing: 0; white-space: pre;
+}
+.vista__layer--ink { color: var(--color-ink); }
+.vista__layer--mute { color: var(--color-muted); }
+.vista__layer--accent { color: var(--color-accent); }
 
 @media (max-width: 860px) {
   /* Footer rows wrap on small screens: centred they read as one block, not a ragged edge */

@@ -58,6 +58,7 @@ last_updated: 2026-10-31
 - `gallery.js` — per-card screenshot galleries (scroll-snap + dots + prev/next + mouse drag). A tap, Enter or the expand button opens the set in the lightbox (`openViewer`), using each slide's `data-title` / `data-desc` as the caption.
 - `ui.js` — mobile menu, trait deck, schema row "joins" (`data-join` tags), portrait tilt, DTI film strip, copy email.
 - `lightbox.js` — `PHOTOS` data (awards + hackathon), `<dialog>` viewer, photo strip render. `openViewer(items, i, from)` reuses the dialog for project screenshots (`.is-wide` sheet, "Screenshot viewer" label, arrows hidden for a single slide).
+- `vista.js` — footer ASCII scene (Cape Engaño lighthouse at night): drawn each frame into a char grid, split into three `<pre>` colour layers (ink, muted, accent). Grid from the footer's free width/height; objects scale with it. ~12fps while on screen, still under reduced motion.
 - `stats.js` — same keys/endpoints as v2 (`site_total_*`, `site_user_has_liked`); pointer capture only after a real drag so taps still like.
 - `contact.js` — `<dialog>` FormSubmit form; exports `openMessage()`.
 

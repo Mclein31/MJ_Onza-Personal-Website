@@ -15,6 +15,7 @@ import { initContact } from './contact.js';
 import { initGalleries } from './gallery.js';
 import { initDemo } from './demo.js';
 import { initActivity } from './activity.js';
+import { initVista } from './vista.js';
 
 const run = (name, fn) => { try { fn(); } catch (err) { console.error(`[${name}]`, err); } };
 
@@ -31,4 +32,5 @@ run('stats', initStats);
 run('contact', initContact);
 run('icons', initIcons);
 run('hero', initHero);
+run('vista', initVista);
 initPreloader().then(() => document.querySelector('.hero')?.classList.add('is-in'));

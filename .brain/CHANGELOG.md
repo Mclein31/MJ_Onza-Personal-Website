@@ -10,6 +10,11 @@ last_updated: 2026-10-31
 
 # 📜 Personal Website — Changelog
 
+## Footer vista (2026-10-31)
+- **Added**: Full-width ASCII scene under the footer wordmark (owner's request: a scenic reward for reaching the end): Cape Engaño lighthouse on Palaui Island, Cagayan, at night. Starry sky spans the whole footer behind the text. A shaded full moon with maria and craters, trees, a sailboat crossing, waves drifting, and a beam that sweeps down onto the sea without retracting. Runs on its own clock (not tied to scroll); still under reduced motion. Small type (~4px per column) for detail.
+- **Changed**: The footer is exactly one screen tall (100svh); the scene fills whatever space the rows leave. Tests: 66 pass.
+- Rejected along the way: a mountain-lake scene, a 0/1 decode reveal, a static-only version.
+
 ## Project-first, clear slides (2026-10-31)
 - **Fixed**: iMac screenshots (AdvanCare, MedCore) and the Mulat Media iPad/MacBook screens didn't fill their device screens (16:10 captures letterboxed in 16:9 frames). All 15 slides rebuilt on MockUPhone device frames (iMac, MacBook Pro 14, iPad Air, iPhone 14 Pro) with every screenshot filling its screen; Mulat Media and MedRec recaptured at the exact device sizes. (A CSS-frame version from earlier the same day was rejected as fake.)
 - **Changed**: Slides have transparent backgrounds (WebP with alpha, 2000×1125, 1.2 MB total, was ~1.9 MB of JPEG); brand gradients, logos and taglines dropped. Gallery sheet has no fill or shadow.
