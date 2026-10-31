@@ -66,7 +66,7 @@
 /* One screen tall: the vista takes whatever the rows above and below leave */
 .footer {
   position: relative; display: flex; flex-direction: column; height: 100svh; min-height: 560px; overflow: hidden;
-  padding-top: var(--nav-clear); padding-bottom: var(--space-lg); border-top: var(--rule-hair) solid var(--color-ink);
+  padding-top: var(--space-xl); padding-bottom: var(--space-lg); border-top: var(--rule-hair) solid var(--color-ink);
 }
 .footer__top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-md); font-size: var(--text-sm); color: var(--color-muted); }
 .footer__top nav { display: flex; flex-wrap: wrap; gap: var(--space-lg); }

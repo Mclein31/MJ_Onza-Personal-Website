@@ -65,6 +65,11 @@ export function initScroll() {
   $$('main section[id]').forEach((s) => spy.observe(s));
 
   const nav = $('.nav');
+  // The bar steps aside once the footer's edge reaches it, so the vista shows in full
+  const footer = $('footer');
+  const clearFooter = () => nav?.classList.toggle('is-away', !!footer && footer.getBoundingClientRect().top <= nav.offsetHeight);
+  addEventListener('scroll', clearFooter, { passive: true });
+  addEventListener('resize', clearFooter);
   const progress = $('.progress');
   const words = $('[data-words]') ? splitWords($('[data-words]')) : [];
   const manifesto = $('[data-words]');

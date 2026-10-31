@@ -74,3 +74,12 @@ test('reduced motion: the footer vista is drawn and holds still', async ({ page 
   await page.waitForTimeout(600);
   expect(await vistaText(page)).toBe(a);
 });
+
+test('the header steps aside at the footer and returns above it', async ({ page }) => {
+  await gotoReady(page);
+  await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
+  await expect(page.locator('.nav')).toHaveClass(/is-away/);
+  await expect.poll(() => page.locator('.nav').evaluate((n) => n.getBoundingClientRect().bottom), { message: 'the bar is off screen' }).toBeLessThanOrEqual(1);
+  await page.evaluate(() => scrollTo(0, document.querySelector('footer').offsetTop - innerHeight));
+  await expect(page.locator('.nav')).not.toHaveClass(/is-away/);
+});
