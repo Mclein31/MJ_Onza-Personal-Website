@@ -47,7 +47,11 @@ export function initGalleries() {
     });
     const sync = () => {
       dots.forEach((d, i) => d.setAttribute('aria-current', String(i === current())));
-      videos.forEach((v) => { if (v.closest('.gallery__slide') !== slides[current()]) v.pause(); });
+      // Off its slide a video stops; on it, it starts buffering so play is instant (Safari waits otherwise)
+      videos.forEach((v) => {
+        if (v.closest('.gallery__slide') !== slides[current()]) v.pause();
+        else v.preload = 'auto';
+      });
     };
     sync();
     track.addEventListener('scroll', sync, { passive: true });

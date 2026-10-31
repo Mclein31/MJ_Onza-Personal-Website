@@ -57,8 +57,9 @@ test.describe('desktop interactions', () => {
 test('SERVIO promo opens in a video window, stops on close, focus returns', async ({ page }) => {
   await gotoReady(page);
   const opener = page.locator('[data-video-open]');
-  await opener.scrollIntoViewIfNeeded();
-  await opener.click({ force: true }); // on desktop it sits on the moving work track
+  // Keyboard, not a click: on desktop the button rides the moving work track, and a click can land behind it
+  await opener.focus();
+  await page.keyboard.press('Enter');
   const win = page.locator('[data-video]');
   await expect(win).toBeVisible();
   const player = win.locator('[data-video-player]');

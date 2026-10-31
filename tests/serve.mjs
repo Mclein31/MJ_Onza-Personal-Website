@@ -16,7 +16,16 @@ createServer(async (req, res) => {
   if (path.endsWith('/')) path += 'index.html';
   try {
     const body = await readFile(join(root, path));
-    res.writeHead(200, { 'Content-Type': types[extname(path).toLowerCase()] || 'application/octet-stream' });
+    const type = types[extname(path).toLowerCase()] || 'application/octet-stream';
+    // WebKit only plays video from servers that answer byte ranges (Vercel does)
+    const range = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range || '');
+    if (range) {
+      const start = range[1] ? Number(range[1]) : Math.max(0, body.length - Number(range[2]));
+      const end = range[1] && range[2] ? Math.min(Number(range[2]), body.length - 1) : body.length - 1;
+      res.writeHead(206, { 'Content-Type': type, 'Accept-Ranges': 'bytes', 'Content-Range': `bytes ${start}-${end}/${body.length}`, 'Content-Length': end - start + 1 });
+      return res.end(body.subarray(start, end + 1));
+    }
+    res.writeHead(200, { 'Content-Type': type, 'Accept-Ranges': 'bytes' });
     res.end(body);
   } catch {
     res.writeHead(404).end('Not found');

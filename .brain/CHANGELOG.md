@@ -12,6 +12,8 @@ last_updated: 2026-10-31
 
 ## SERVIO promo video (2026-10-31)
 - **Added**: The SERVIO promo with voiceover (from `SERVIO/promo-video/servio-promo-vo.mp4`) as the last slide of the SERVIO deck, plus a "Watch the 30-second promo" button under the title that opens it in a video window (owner asked for both). Re-encoded for the web to `assets/video/servio-promo.mp4` (H.264 CRF 26, faststart, 7.1 MB, was 28 MB; SSIM 0.993); poster is the end card (`servio-promo-poster.webp`). `preload="none"`, so nothing loads until play.
+- **Fixed** (same day, after deploy): Safari sat on a loading spinner after play. The slide now switches to `preload="auto"` when it becomes the current slide, so the film is buffered before play. Re-encoded with a 3 Mbps cap and 2s keyframes (peak 5.9 → 3.8 Mbps in the town scene, 6.4 MB). `tests/serve.mjs` answers byte ranges, which WebKit needs to play MP4 locally. The video-window test now opens it by keyboard (a forced click could miss the moving work track).
+- **Checked**: view/like counts are not locked. Abacus keys are live and the proxy increments; 232 holds because only new browsers count, once each (owner's own browser, localhost and automated browsers never do).
 - **Tests**: 78 pass (new: video window opens, pauses on close, returns focus; deck's last slide is the video and expand opens the video window). `health.spec` ignores Playwright WebKit's "Button failed to load, iconName" errors, which its own `<video controls>` icons raise. `tests/serve.mjs` serves `.mp4` as `video/mp4`.
 
 ## Footer vista (2026-10-31)
