@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   }
 
   const { type = 'get', metric = 'visits' } = req.query;
-  const key = metric === 'likes' ? 'portfolio_likes' : 'portfolio_visits';
+  const key = metric === 'likes' ? 'portfolio_likes' : 'portfolio_views';   // portfolio_views: restarted at 232 on 2026-10-31
 
   // Abacus: free, no-auth, namespace-isolated counter API
   // GET  → https://abacus.jasoncameron.dev/get/mcleinonza/<key>

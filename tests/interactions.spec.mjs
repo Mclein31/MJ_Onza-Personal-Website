@@ -163,15 +163,13 @@ test('like button counts once per visitor (mocked counter)', async ({ page }) =>
   expect(page.stats.hits.filter((h) => h.includes('increment') && h.includes('likes'))).toHaveLength(1);
 });
 
-test('views count once per visitor, not per session (mocked counter)', async ({ page }) => {
+test('local and automated browsers read the view count but never add to it (mocked counter)', async ({ page }) => {
   await gotoReady(page);
-  await expect(page.locator('[data-visits]')).toHaveText('101');
-  await page.reload();
-  await expect(page.locator('[data-visits]')).toHaveText('101');
+  await expect(page.locator('[data-visits]')).toHaveText('100');
   await page.evaluate(() => sessionStorage.clear());
   await page.reload();
-  await expect(page.locator('[data-visits]')).toHaveText('101');
-  expect(page.stats.hits.filter((h) => h.includes('increment') && h.includes('visits'))).toHaveLength(1);
+  await expect(page.locator('[data-visits]')).toHaveText('100');
+  expect(page.stats.hits.filter((h) => h.includes('increment') && h.includes('visits'))).toHaveLength(0);
 });
 
 test('GitHub calendar renders a full year and settled stats', async ({ page }) => {

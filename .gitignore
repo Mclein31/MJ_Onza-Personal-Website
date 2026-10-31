@@ -6,3 +6,4 @@ blob-report/
 .hallmark/
 .slides/
 .playwright-mcp/
+.env*

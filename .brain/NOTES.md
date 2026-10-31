@@ -36,3 +36,7 @@ Slides use **MockUPhone** device frames ([oursky/mockuphone.com](https://github.
 
 ## ⚠️ Android Chrome auto-darken
 Chrome on Android repaints pages that don't declare dark support when the phone is in dark mode (borders fade, backgrounds go grey). Keep `<meta name="color-scheme" content="light dark">` and `color-scheme: only light` on the light theme. Reproduce: launch Chrome with `--enable-features=WebContentsForceDark`, emulate `colorScheme: 'dark'`, store `portfolio-theme=light`.
+
+## 📈 View counter (Abacus)
+Visits: `mcleinonza/portfolio_views` (created 2026-10-31 at 232); likes: `mcleinonza/portfolio_likes`. The admin key for `portfolio_views` is in `.env.local` (git-ignored, keep private): to correct the count, `curl -X POST "https://abacus.jasoncameron.dev/set/mcleinonza/portfolio_views?value=N" -H "Authorization: Bearer $ABACUS_VIEWS_ADMIN_KEY"`. Local hosts and automated browsers never increment.
+

@@ -97,6 +97,19 @@
 .vista__layer--ink { color: var(--color-ink); }
 .vista__layer--mute { color: var(--color-muted); }
 .vista__layer--accent { color: var(--color-accent); }
+/* Muted palette: island greens (dark to light), brick red and off-white lighthouse, daytime sun and clouds */
+.vista { --v-g1: oklch(40% 0.045 155); --v-g2: oklch(50% 0.055 150); --v-g3: oklch(60% 0.06 140); --v-red: oklch(56% 0.11 25); --v-white: oklch(88% 0.008 85); --v-sun: oklch(78% 0.09 80); --v-cloud: oklch(70% 0.01 240); }
+:root[data-theme="light"] .vista { --v-g1: oklch(32% 0.05 155); --v-g2: oklch(40% 0.06 150); --v-g3: oklch(48% 0.065 140); --v-red: oklch(48% 0.12 25); --v-white: oklch(70% 0.012 240); --v-sun: oklch(66% 0.11 70); --v-cloud: oklch(58% 0.014 240); }
+/* Light theme: heavier glyphs and deeper greys so the drawing holds up on pale paper */
+:root[data-theme="light"] .vista__layer { font-weight: 500; }
+:root[data-theme="light"] .vista__layer--mute { color: var(--color-ink-2); }
+.vista__layer--g1 { color: var(--v-g1); }
+.vista__layer--g2 { color: var(--v-g2); }
+.vista__layer--g3 { color: var(--v-g3); }
+.vista__layer--red { color: var(--v-red); }
+.vista__layer--white { color: var(--v-white); }
+.vista__layer--sun { color: var(--v-sun); }
+.vista__layer--cloud { color: var(--v-cloud); }
 
 @media (max-width: 860px) {
   /* Footer rows wrap on small screens: centred they read as one block, not a ragged edge */
