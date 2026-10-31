@@ -31,11 +31,11 @@ test.describe('desktop interactions', () => {
     const gallery = page.locator('[data-gallery]').first();
     await gallery.scrollIntoViewIfNeeded();
     const dots = gallery.locator('[data-gallery-dots] button');
-    await expect(dots).toHaveCount(3);
+    await expect(dots).toHaveCount(4); // 3 screenshots + the promo
     await gallery.locator('[data-gallery-next]').click();
     await expect(dots.nth(1)).toHaveAttribute('aria-current', 'true');
-    await dots.nth(2).click();
-    await expect(dots.nth(2)).toHaveAttribute('aria-current', 'true');
+    await dots.nth(3).click();
+    await expect(dots.nth(3)).toHaveAttribute('aria-current', 'true');
     await gallery.locator('[data-gallery-next]').click(); // wraps to the first
     await expect(dots.nth(0)).toHaveAttribute('aria-current', 'true');
   });
@@ -54,7 +54,7 @@ test.describe('desktop interactions', () => {
   });
 });
 
-for (const [name, slug] of [['SERVIO', 'servio'], ['MedRec', 'medrec']]) {
+for (const [name, slug] of [['AdvanCare', 'advancare'], ['SERVIO', 'servio'], ['MedRec', 'medrec']]) {
   test(`${name} promo opens in a video window, stops on close, focus returns`, async ({ page }) => {
     await gotoReady(page);
     const opener = page.locator(`[data-video-open][data-video-title="${name}"]`);
@@ -93,7 +93,7 @@ test('the video window swaps film, poster and title between promos', async ({ pa
   await gotoReady(page);
   const win = page.locator('[data-video]');
   const player = win.locator('[data-video-player]');
-  for (const [name, slug] of [['SERVIO', 'servio'], ['MedRec', 'medrec']]) {
+  for (const [name, slug] of [['AdvanCare', 'advancare'], ['SERVIO', 'servio'], ['MedRec', 'medrec']]) {
     await page.locator(`[data-video-open][data-video-title="${name}"]`).focus();
     await page.keyboard.press('Enter');
     await expect(win.locator('[data-video-title-el]')).toHaveText(name);

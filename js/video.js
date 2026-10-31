@@ -3,7 +3,7 @@
    ========================================================================== */
 import { $, $$ } from './util.js';
 
-// Opens { src, poster, title } in the window; a gallery's video slide (SERVIO, MedRec) uses it to play larger
+// Opens { src, poster, title } in the window; a gallery's video slide (AdvanCare, SERVIO, MedRec) uses it to play larger
 let openSet = null;
 export const openVideo = (clip, from, at) => openSet?.(clip, from, at);
 

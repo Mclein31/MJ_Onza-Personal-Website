@@ -10,6 +10,11 @@ last_updated: 2026-11-01
 
 # 📜 Personal Website — Changelog
 
+## AdvanCare promo video (2026-11-01)
+- **Added**: The AdvanCare promo (from `AdvanCare/promo_video/AdvanCare-promo-30s.mp4`, 22 MB, 1080p60) as the last slide of the AdvanCare deck, plus the "Watch the 30-second promo" button under its description, as SERVIO and MedRec have (owner asked for the same treatment). Encoded with the recipe in NOTES.md plus `-vf fps=30` to match the other promos: `assets/video/advancare-promo.mp4`, 5.6 MB, SSIM 0.993, peak 2.75 Mbps. Poster is the end card at 29.5s (logo, "No barangay resident left behind.", "Cagayan · Philippines"), 1280×720 (`advancare-promo-poster.webp`). It has narration (checked with a whisper transcript), so the aria-label says "with voiceover". The award line sits in the margin under the slides, so it doesn't cover the video's controls.
+- **Checked**: plays in Chrome and WebKit (script).
+- **Tests**: 93 pass, 15 skipped. The promo-window, deck and swap tests now include AdvanCare; the first-deck dots test expects 4 dots and jumps to the last before wrapping.
+
 ## SERVIO promo v2 (2026-11-01)
 - **Changed**: `assets/video/servio-promo.mp4` now holds the new 39s feature-led cut with the new voiceover (re-rendered in `SERVIO/promo-video/servio-promo-vo.mp4`, 15 MB). Encoded with the recipe in NOTES.md: 6.0 MB, SSIM 0.996, peak 3.5 Mbps. Poster is the new end card at 37s (logo, "Help, delivered." and 8 feature chips), 1280×720. The button and the video's aria-label say 39 seconds instead of 30.
 - **Checked**: plays in Chrome and WebKit (script). Tests: 87 pass, 15 skipped.

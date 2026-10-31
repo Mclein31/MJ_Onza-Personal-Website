@@ -79,7 +79,7 @@
 .project__info h3 { font-size: var(--text-2xl); }
 .project__info p { color: var(--color-ink-2); max-width: 60ch; }
 .project__link { justify-self: start; margin-top: var(--space-xs); font-size: var(--text-sm); color: var(--color-ink-2); }
-/* As a button (SERVIO promo) it gets a 44px tap height; the margins keep the text where a link's would sit */
+/* As a button (a promo) it gets a 44px tap height; the margins keep the text where a link's would sit */
 button.project__link { min-height: 44px; margin-block: calc(var(--space-xs) - 11px) -11px; }
 .project__stack { grid-column: 2; display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-md); margin-top: var(--space-xs); font-size: var(--text-sm); color: var(--color-muted); }
 

@@ -5,13 +5,13 @@ project: Personal Website
 tags:
   - notes
   - reference
-last_updated: 2026-10-31
+last_updated: 2026-11-01
 ---
 
 # 📝 Personal Website — Technical Notes
 
 ## 🎯 Projects in the Work Gallery (order)
-1. [[AdvanCare]] — 3 slides (staff console + app). 🏆 2nd, Cagayan Innovation Hack 2026. Role: McLein built the software (resident app, staff console, website, API); the team coach delivered the pitch. Copy must not say McLein pitched it.
+1. [[AdvanCare]] — 3 slides (staff console + app) + the 30s promo with voiceover as slide 4, also behind a "Watch the 30-second promo" button (2026-11-01). Source: `AdvanCare/promo_video/AdvanCare-promo-30s.mp4` (1080p60); same re-encode command as SERVIO plus `-vf fps=30`. 🏆 2nd, Cagayan Innovation Hack 2026. Role: McLein built the software (resident app, staff console, website, API); the team coach delivered the pitch. Copy must not say McLein pitched it.
 2. [[MedCore1|MedCore]] — 3 slides (dashboard + patient app, from MedCore QA captures).
 3. [[SERVIO]] — 2 slides (new UI, offline demo mode) + the 39s promo video (v2, feature-led, 2026-11-01) as slide 3, also behind a "Watch the 39-second promo" button. Source: `SERVIO/promo-video/servio-promo-vo.mp4` (its Remotion project is gone); re-encode with `ffmpeg -i <src> -c:v libx264 -preset slow -crf 26 -maxrate 3M -bufsize 3M -g 60 -keyint_min 60 -sc_threshold 0 -profile:v high -level 4.1 -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 128k assets/video/servio-promo.mp4`.
 4. [[MedRecord_App|MedRec]] — 3 slides in its warm folio look (ivory/aubergine, Remy): records + Medical ID + QR pass; Ask Remy + health summary; share + profile. Expo web with intercepted demo data (2026-10-29). Slide 4 is the 30s promo, also behind a "Watch the 30-second promo" button (2026-10-31). Source: `MedRecord_App/promo_video/medrec-promo.mp4`; same re-encode command as SERVIO.
