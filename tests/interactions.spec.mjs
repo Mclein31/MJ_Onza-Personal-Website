@@ -54,35 +54,54 @@ test.describe('desktop interactions', () => {
   });
 });
 
-test('SERVIO promo opens in a video window, stops on close, focus returns', async ({ page }) => {
-  await gotoReady(page);
-  const opener = page.locator('[data-video-open]');
-  // Keyboard, not a click: on desktop the button rides the moving work track, and a click can land behind it
-  await opener.focus();
-  await page.keyboard.press('Enter');
-  const win = page.locator('[data-video]');
-  await expect(win).toBeVisible();
-  const player = win.locator('[data-video-player]');
-  await expect(player).toHaveAttribute('src', /assets\/video\/servio-promo\.mp4$/);
-  await page.keyboard.press('Escape');
-  await expect(win).toBeHidden();
-  await expect.poll(() => player.evaluate((v) => v.paused)).toBe(true); // the close event comes a task later
-  await expect(page.locator('body')).not.toHaveClass(/is-locked/);
-  await expect(opener).toBeFocused();
-});
+for (const [name, slug] of [['SERVIO', 'servio'], ['MedRec', 'medrec']]) {
+  test(`${name} promo opens in a video window, stops on close, focus returns`, async ({ page }) => {
+    await gotoReady(page);
+    const opener = page.locator(`[data-video-open][data-video-title="${name}"]`);
+    // Keyboard, not a click: on desktop the button rides the moving work track, and a click can land behind it
+    await opener.focus();
+    await page.keyboard.press('Enter');
+    const win = page.locator('[data-video]');
+    await expect(win).toBeVisible();
+    await expect(win.locator('[data-video-title-el]')).toHaveText(name);
+    const player = win.locator('[data-video-player]');
+    await expect(player).toHaveAttribute('src', new RegExp(`assets/video/${slug}-promo\\.mp4$`));
+    await page.keyboard.press('Escape');
+    await expect(win).toBeHidden();
+    await expect.poll(() => player.evaluate((v) => v.paused)).toBe(true); // the close event comes a task later
+    await expect(page.locator('body')).not.toHaveClass(/is-locked/);
+    await expect(opener).toBeFocused();
+  });
 
-test('SERVIO deck ends on the promo video; expanding it opens the video window', async ({ page }) => {
+  test(`${name} deck ends on the promo video; expanding it opens the video window`, async ({ page }) => {
+    await gotoReady(page);
+    const gallery = page.locator(`[data-gallery]:has(.gallery__slide--video[data-video-title="${name}"])`);
+    await expect(gallery.locator('.gallery__slide').last().locator('video')).toHaveAttribute('poster', new RegExp(`${slug}-promo-poster\\.webp$`));
+    await gallery.scrollIntoViewIfNeeded();
+    await gallery.locator('[data-gallery-dots] button').last().click({ force: true });
+    await expect(gallery.locator('[data-gallery-dots] button').last()).toHaveAttribute('aria-current', 'true');
+    await gallery.locator('[data-gallery-zoom]').click({ force: true });
+    await expect(page.locator('[data-video]')).toBeVisible();
+    await expect(page.locator('[data-video-player]')).toHaveAttribute('src', new RegExp(`assets/video/${slug}-promo\\.mp4$`));
+    await expect(page.locator('[data-lightbox]')).toBeHidden();
+    await page.keyboard.press('Escape');
+    await expect(page.locator('[data-video]')).toBeHidden();
+  });
+}
+
+test('the video window swaps film, poster and title between promos', async ({ page }) => {
   await gotoReady(page);
-  const gallery = page.locator('[data-gallery]', { has: page.locator('video') });
-  await expect(gallery.locator('.gallery__slide').last().locator('video')).toHaveAttribute('poster', /servio-promo-poster\.webp$/);
-  await gallery.scrollIntoViewIfNeeded();
-  await gallery.locator('[data-gallery-dots] button').last().click({ force: true });
-  await expect(gallery.locator('[data-gallery-dots] button').last()).toHaveAttribute('aria-current', 'true');
-  await gallery.locator('[data-gallery-zoom]').click({ force: true });
-  await expect(page.locator('[data-video]')).toBeVisible();
-  await expect(page.locator('[data-lightbox]')).toBeHidden();
-  await page.keyboard.press('Escape');
-  await expect(page.locator('[data-video]')).toBeHidden();
+  const win = page.locator('[data-video]');
+  const player = win.locator('[data-video-player]');
+  for (const [name, slug] of [['SERVIO', 'servio'], ['MedRec', 'medrec']]) {
+    await page.locator(`[data-video-open][data-video-title="${name}"]`).focus();
+    await page.keyboard.press('Enter');
+    await expect(win.locator('[data-video-title-el]')).toHaveText(name);
+    await expect(player).toHaveAttribute('src', new RegExp(`${slug}-promo\\.mp4$`));
+    await expect(player).toHaveAttribute('poster', new RegExp(`${slug}-promo-poster\\.webp$`));
+    await page.keyboard.press('Escape');
+    await expect(win).toBeHidden();
+  }
 });
 
 test('theme toggle switches and survives a reload', async ({ page }) => {

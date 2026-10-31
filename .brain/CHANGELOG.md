@@ -10,6 +10,11 @@ last_updated: 2026-10-31
 
 # 📜 Personal Website — Changelog
 
+## MedRec promo video (2026-10-31)
+- **Added**: The MedRec promo (from `MedRecord_App/promo_video/medrec-promo.mp4`) as the last slide of the MedRec deck, plus the same "Watch the 30-second promo" button under its description, as SERVIO has (owner asked for the same treatment). Re-encoded with the SERVIO recipe to `assets/video/medrec-promo.mp4` (7.8 MB, was 54 MB; peak 4.2 Mbps in the flying-papers scene). Overall SSIM 0.964: 0–17s ≈0.995; the aubergine scenes from 18s drop to 0.89–0.95 because the source's film grain is smoothed out, while text and UI stay sharp. Poster is the 28s end card ("MedRec — Medical records, together."), 1280×720 (`medrec-promo-poster.webp`). Label omits "with voiceover": not confirmed whether it has narration or only music.
+- **Code**: none needed in `gallery.js` / `video.js`; both were already per-deck. Plays in Chrome and WebKit (checked by script).
+- **Tests**: 87 pass, 15 skipped. The promo-window and deck tests now run for SERVIO and MedRec (picked by `data-video-title`), plus one that opens both in turn and checks the window swaps film, poster and title.
+
 ## SERVIO promo video (2026-10-31)
 - **Added**: The SERVIO promo with voiceover (from `SERVIO/promo-video/servio-promo-vo.mp4`) as the last slide of the SERVIO deck, plus a "Watch the 30-second promo" button under the title that opens it in a video window (owner asked for both). Re-encoded for the web to `assets/video/servio-promo.mp4` (H.264 CRF 26, faststart, 7.1 MB, was 28 MB; SSIM 0.993); poster is the end card (`servio-promo-poster.webp`). `preload="none"`, so nothing loads until play.
 - **Fixed** (same day, after deploy): Safari sat on a loading spinner after play. The slide now switches to `preload="auto"` when it becomes the current slide, so the film is buffered before play. Re-encoded with a 3 Mbps cap and 2s keyframes (peak 5.9 → 3.8 Mbps in the town scene, 6.4 MB). `tests/serve.mjs` answers byte ranges, which WebKit needs to play MP4 locally. The video-window test now opens it by keyboard (a forced click could miss the moving work track).

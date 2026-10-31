@@ -5,7 +5,7 @@ project: Personal Website
 tags:
   - notes
   - reference
-last_updated: 2026-10-25
+last_updated: 2026-10-31
 ---
 
 # 📝 Personal Website — Technical Notes
@@ -14,7 +14,7 @@ last_updated: 2026-10-25
 1. [[AdvanCare]] — 3 slides (staff console + app). 🏆 2nd, Cagayan Innovation Hack 2026. Role: McLein built the software (resident app, staff console, website, API); the team coach delivered the pitch. Copy must not say McLein pitched it.
 2. [[MedCore1|MedCore]] — 3 slides (dashboard + patient app, from MedCore QA captures).
 3. [[SERVIO]] — 2 slides (new UI, offline demo mode) + the 30s promo video as slide 3, also behind a "Watch the 30-second promo" button. Source: `SERVIO/promo-video/servio-promo-vo.mp4` (its Remotion project is gone); re-encode with `ffmpeg -i <src> -c:v libx264 -preset slow -crf 26 -maxrate 3M -bufsize 3M -g 60 -keyint_min 60 -sc_threshold 0 -profile:v high -level 4.1 -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 128k assets/video/servio-promo.mp4`.
-4. [[MedRecord_App|MedRec]] — 3 slides in its warm folio look (ivory/aubergine, Remy): records + Medical ID + QR pass; Ask Remy + health summary; share + profile. Expo web with intercepted demo data (2026-10-29).
+4. [[MedRecord_App|MedRec]] — 3 slides in its warm folio look (ivory/aubergine, Remy): records + Medical ID + QR pass; Ask Remy + health summary; share + profile. Expo web with intercepted demo data (2026-10-29). Slide 4 is the 30s promo, also behind a "Watch the 30-second promo" button (2026-10-31). Source: `MedRecord_App/promo_video/medrec-promo.mp4`; same re-encode command as SERVIO.
 5. [[Mulat_Media_Website]] — 4 slides (original screenshot + live-site captures).
 6. [[CaesarCipherApp_FINAL|Cipher Shift]] — 1 image + "Click me" live demo window (`demos/cipher-shift/`, a copy of the app's web files; font paths fixed, Tesseract pinned to 4.1.4).
 Hanguk Grill card removed (2026-10-25); still mentioned in the journey timeline. Phone frames have a 50px status-bar inset so the Dynamic Island never covers app headers.
