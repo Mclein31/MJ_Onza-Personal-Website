@@ -71,7 +71,7 @@
 .footer__mark {
   margin-top: var(--space-xl); font-family: var(--font-display); letter-spacing: -0.02em; line-height: 0.9;
   font-size: 12vw; color: var(--color-ink);
-  width: 100%; white-space: nowrap; user-select: none;
+  width: 100%; white-space: nowrap; -webkit-user-select: none; user-select: none;
 }
 .footer__mark .last { letter-spacing: 0; }
 .footer__bottom {

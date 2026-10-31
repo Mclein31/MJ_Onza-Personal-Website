@@ -2,7 +2,7 @@
  * hero: Poster, the name on the proof grid · nav: edge-aligned bar (swap from masthead) · footer: mast (swap from index columns) · imagery: the product, 14 composed screenshots · photographs: the owner's own awards and training · signature: the name set large on the proof grid; data set as data in Geist Mono
  * axes: light/roman-serif/warm · posture: restrained · contrast: pass · fold: pass · copy: owner's words, gate lines reworded · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H5 E4 S5 R4 V4 · weakest: P, a student portfolio argues little; the construction guides make the claim that the work is measured, not decorated */
-/* Hallmark · waive 47b · one frame per slide, real screens inside · the composed screenshots of AdvanCare, MedCore, SERVIO and MedRec were made from the running apps; rebuilding them needs the raw captures */
+/* Hallmark · waive 47b · one frame per slide, real screens inside · the screens come from the running apps, composed on a transparent ground in MockUPhone device frames, each screenshot sized to its frame's screen (kit in .slides/, see .brain/NOTES.md) */
 /* Hallmark · dismissed 67 · "HTML5 / CSS3" and "SERVIO" are an acronym and the product's own name, typed that way, not a caps style */
 /* Hallmark · dismissed 76 · the lightbox <img> is filled by lightbox.js when the viewer opens; it never renders empty */
 /* Hallmark · dismissed F4 · the active gallery dot is a 1px indicator, not a button recipe */

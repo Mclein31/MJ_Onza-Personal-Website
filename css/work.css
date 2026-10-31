@@ -9,6 +9,7 @@
   padding-top: calc(var(--nav-clear) + var(--space-lg)); padding-bottom: var(--space-lg);
 }
 .work__head .section-head { margin-bottom: var(--space-xl); }
+.work.is-pinned .work__head .section-head { margin-bottom: var(--space-md); }
 .work__track {
   display: flex; gap: var(--space-2xl); align-items: flex-start;
   padding-block: var(--space-md);
@@ -16,31 +17,33 @@
   transform: translate3d(var(--x, 0px), 0, 0);
 }
 .project {
-  flex: none; width: min(60vw, 820px, calc((100svh - 600px) * 1.7778));
+  /* As large as the pinned frame allows: 530px is the head, controls, text and progress row */
+  flex: none; width: min(74vw, 1180px, calc((100svh - 530px) * 1.7778));
   container-type: inline-size;
   min-width: 340px;
-  display: grid; grid-template-rows: auto auto; gap: var(--space-lg);
+  display: grid; grid-template-rows: auto auto; gap: var(--space-md);
 }
 
-/* The sheet: pale stock, crop marks, a bottom margin that holds the controls */
+/* Clear sheet: the devices sit on the band; crop marks and a bottom margin hold the controls */
 .project__media {
   position: relative; display: block;
   padding: var(--space-sm) var(--space-sm) 56px;
   border-radius: var(--radius-card);
-  background: var(--color-paper-hi); box-shadow: var(--shadow-sheet);
 }
 .gallery__track {
   display: flex; aspect-ratio: 16 / 9; overflow-x: auto; overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory; scrollbar-width: none; cursor: grab;
+  /* Safari only honours the prefix; without it a mouse drag selects the whole pinned section */
+  -webkit-user-select: none; user-select: none;
   border-radius: 2px;
 }
 .gallery__track::-webkit-scrollbar { display: none; }
 .gallery__track.is-dragging { cursor: grabbing; scroll-snap-type: none; }
 .gallery__track:focus-visible { outline-offset: 2px; }
-.gallery__slide { flex: none; width: 100%; height: 100%; margin: 0; scroll-snap-align: start; overflow: hidden; }
+.gallery__slide { flex: none; width: 100%; height: 100%; margin: 0; scroll-snap-align: start; overflow: hidden; cursor: zoom-in; }
+.gallery__track.is-dragging .gallery__slide { cursor: grabbing; }
 .gallery__slide img {
-  width: 100%; height: 100%; object-fit: cover; pointer-events: none; user-select: none;
-  outline: var(--rule-hair) solid color-mix(in oklab, var(--color-ink) 8%, transparent); outline-offset: -1px;
+  width: 100%; height: 100%; object-fit: contain; pointer-events: none; -webkit-user-select: none; user-select: none;
 }
 
 .gallery__ui {
@@ -62,9 +65,9 @@
 }
 .gallery__dots button[aria-current="true"]::before { background: var(--color-ink); transform: scaleY(3); }
 
-/* Stops short of the gallery controls (two buttons, three dots); wraps on narrow cards */
+/* Stops short of the gallery controls (three buttons, three dots); wraps on narrow cards */
 .project__award {
-  position: absolute; left: var(--space-sm); right: 184px; bottom: 0; z-index: 2;
+  position: absolute; left: var(--space-sm); right: 232px; bottom: 0; z-index: 2;
   display: flex; align-items: center; height: 52px;
   font-size: var(--text-sm); font-weight: 500; line-height: 1.25; color: var(--color-ink);
 }
@@ -101,6 +104,10 @@
 @container (max-width: 640px) {
   .project__info { grid-template-columns: minmax(0, 1fr); }
   .project__stack { grid-column: 1; }
+}
+/* Beside the controls the award would wrap to four lines; it takes its own line under the slide */
+@container (max-width: 560px) {
+  .project__award { position: static; height: auto; padding: var(--space-sm) var(--space-2xs) 0; }
 }
 @media (max-width: 860px) {
   .project__info { grid-template-columns: minmax(0, 1fr); }

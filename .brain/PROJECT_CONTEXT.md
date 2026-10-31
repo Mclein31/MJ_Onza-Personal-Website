@@ -40,7 +40,7 @@ last_updated: 2026-10-25
 - `css/` — `tokens.css` first; one stylesheet per area.
 - `js/` — `main.js` entry + one module per feature (see ARCHITECTURE.md).
 - `api/stats.js` — visits/likes proxy.
-- `assets/images/projects/` — composed gallery slides; `awards/` includes `cih-2026-*.jpg` (hackathon).
+- `assets/images/projects/` — composed gallery slides (transparent WebP, see NOTES); `awards/` includes `cih-2026-*.jpg` (hackathon).
 
 ---
 
@@ -60,4 +60,4 @@ last_updated: 2026-10-25
 ## ⚠️ Known Limitations
 - ES modules don't load from `file://`; use a local server.
 - AdvanCare staff console slides use intercepted demo data (no real staff login); MedRec has a single image.
-- Student Journalist / Student Leader were awarded at graduation, June 2022, the same date as With High Honors; the three sit together at the end of the newest→oldest order.
+- Student Leader was awarded at graduation, June 2022, the same date as With High Honors; both sit at the end of the newest→oldest order. The Student Journalist card was removed at the owner's request (2026-10-31); its team photo stays in the photo strip.

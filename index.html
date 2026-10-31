@@ -70,8 +70,8 @@
       <div class="nav__inner">
         <a class="nav__brand" href="#top" aria-label="McLein Onza, back to top">mclein.onza</a>
         <nav class="nav__links" aria-label="Primary">
-          <a href="#about">About</a>
           <a href="#work">Work</a>
+          <a href="#about">About</a>
           <a href="#stack">Stack</a>
           <a href="#recognition">Recognition</a>
           <a href="#contact">Contact</a>
@@ -91,8 +91,8 @@
   </header>
 
   <div class="menu proof" id="menu" aria-hidden="true">
-    <a class="menu__link" href="#about" style="--i:0">About</a>
-    <a class="menu__link" href="#work" style="--i:1">Work</a>
+    <a class="menu__link" href="#work" style="--i:0">Work</a>
+    <a class="menu__link" href="#about" style="--i:1">About</a>
     <a class="menu__link" href="#stack" style="--i:2">Stack</a>
     <a class="menu__link" href="#recognition" style="--i:3">Recognition</a>
     <a class="menu__link" href="#contact" style="--i:4">Contact</a>
@@ -119,6 +119,142 @@
           </div>
         </div>
         <div class="icon-field" data-icon-field aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="work" id="work" aria-label="Selected work">
+      <div class="work__pin" data-work-pin>
+        <div class="work__sticky">
+          <div class="container work__head">
+            <div class="section-head">
+              <h2>Things I’ve built.</h2>
+            </div>
+          </div>
+          <div class="work__track" data-work-track>
+          <article class="project">
+            <div class="project__media gallery" data-gallery aria-roledescription="carousel" aria-label="AdvanCare screenshots">
+              <div class="gallery__track" data-gallery-track>
+                <figure class="gallery__slide" data-title="Staff console and resident app" data-desc="The LGU overview counts who is waiting for a caregiver, what is in progress, what was escalated and what was billed, across every municipality. Beside it, the resident app, where a family asks for help in one tap."><img src="assets/images/projects/advancare-1.webp" alt="AdvanCare: Staff console and resident app" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
+                <figure class="gallery__slide" data-title="Resident app" data-desc="Residents pick a service (telehealth, RHU visits, triage, prescriptions), see their family plan on the home screen, and book any available telehealth doctor in Cagayan."><img src="assets/images/projects/advancare-2.webp" alt="AdvanCare: Resident app: home, services and doctor booking" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
+                <figure class="gallery__slide" data-title="Service requests" data-desc="Every telehealth, RHU, triage, prescription and transport request in one queue: who asked, when they want it, who is assigned and where it stands."><img src="assets/images/projects/advancare-3.webp" alt="AdvanCare: Staff console: service requests" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
+              </div>
+              <span class="project__award">2nd place, Cagayan Innovation Hack 2026</span>
+              <div class="gallery__ui">
+                <button class="gallery__btn" type="button" data-gallery-zoom aria-label="View AdvanCare screenshots larger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+                <button class="gallery__btn" type="button" data-gallery-prev aria-label="Previous screenshot of AdvanCare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                <div class="gallery__dots" data-gallery-dots></div>
+                <button class="gallery__btn" type="button" data-gallery-next aria-label="Next screenshot of AdvanCare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+              </div>
+            </div>
+            <div class="project__info">
+              <h3>AdvanCare</h3>
+              <p>Affordable care plans, telehealth, non-emergency transport and caregiver booking for Cagayan barangays: a resident app, a staff console for LGU teams and an AI care assistant.</p>
+              <ul class="project__stack" aria-label="Built with"><li>React</li><li>Capacitor</li><li>Hono on Workers</li><li>Neon Postgres</li><li>Drizzle</li><li>Gemini assistant</li></ul>
+            </div>
+          </article>
+          <article class="project">
+            <div class="project__media gallery" data-gallery aria-roledescription="carousel" aria-label="MedCore screenshots">
+              <div class="gallery__track" data-gallery-track>
+                <figure class="gallery__slide" data-title="Billing dashboard and patient app" data-desc="Staff see discharge holds, pending HMO authorizations, flagged claims, bed census and receivables at a glance. The patient app shows the balance left after coverage."><img src="assets/images/projects/medcore-1.webp" alt="MedCore: Hospital dashboard and patient app" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
+                <figure class="gallery__slide" data-title="Patient app" data-desc="Patients see their bill, the PhilHealth and HMO coverage applied to it and what is left to pay, then pay or ask Cora AI to explain a charge."><img src="assets/images/projects/medcore-2.webp" alt="MedCore: Patient app: bill, home and coverage" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
+                <figure class="gallery__slide" data-title="Encounters and ledgers" data-desc="One bill with each deduction applied in order: VAT exemption, senior/PWD discount, PhilHealth, then HMO. Every line shows what each payer covers and what is contested."><img src="assets/images/projects/medcore-3.webp" alt="MedCore: Encounters and ledgers dashboard" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
+              </div>
+              <div class="gallery__ui">
+                <button class="gallery__btn" type="button" data-gallery-zoom aria-label="View MedCore screenshots larger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+                <button class="gallery__btn" type="button" data-gallery-prev aria-label="Previous screenshot of MedCore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                <div class="gallery__dots" data-gallery-dots></div>
+                <button class="gallery__btn" type="button" data-gallery-next aria-label="Next screenshot of MedCore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+              </div>
+            </div>
+            <div class="project__info">
+              <h3>MedCore</h3>
+              <p>Applies PhilHealth, HMO and senior/PWD deductions in order so cashiers and security see one final balance. A staff dashboard, a patient companion app and an AI concierge.</p>
+              <ul class="project__stack" aria-label="Built with"><li>Vercel dashboard</li><li>Expo</li><li>Hono on Workers</li><li>Neon Postgres</li></ul>
+            </div>
+          </article>
+          <article class="project">
+            <div class="project__media gallery" data-gallery aria-roledescription="carousel" aria-label="SERVIO screenshots">
+              <div class="gallery__track" data-gallery-track>
+                <figure class="gallery__slide" data-title="Home and live tracking" data-desc="Find a trusted helper from home, then follow them on a live map from accepted to arrived. Payment stays in escrow until you share your PIN."><img src="assets/images/projects/servio-1.webp" alt="SERVIO: Home and live tracking" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
+                <figure class="gallery__slide" data-title="Bulletin, home and directory" data-desc="Neighbors post requests to the bulletin, browse helpers by skill in the directory and book verified ones at upfront hourly rates."><img src="assets/images/projects/servio-2.webp" alt="SERVIO: Directory, profile and tracking" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
+              </div>
+              <div class="gallery__ui">
+                <button class="gallery__btn" type="button" data-gallery-zoom aria-label="View SERVIO screenshots larger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+                <button class="gallery__btn" type="button" data-gallery-prev aria-label="Previous screenshot of SERVIO"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                <div class="gallery__dots" data-gallery-dots></div>
+                <button class="gallery__btn" type="button" data-gallery-next aria-label="Next screenshot of SERVIO"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+              </div>
+            </div>
+            <div class="project__info">
+              <h3>SERVIO</h3>
+              <p>Services sold like catalog items: upfront prices, instant technician matching, live on-the-way tracking and in-app escrow. Launching in Tuguegarao City.</p>
+              <ul class="project__stack" aria-label="Built with"><li>Ionic</li><li>Angular</li><li>Capacitor</li><li>Hono on Workers</li><li>Drizzle</li><li>Postgres</li><li>Durable Objects</li></ul>
+            </div>
+          </article>
+          <article class="project">
+            <div class="project__media gallery" data-gallery aria-roledescription="carousel" aria-label="MedRec screenshots">
+              <div class="gallery__track" data-gallery-track>
+                <figure class="gallery__slide" data-title="Medical ID, records and a share pass" data-desc="The Medical ID keeps blood type, allergies, conditions and an emergency contact. Records list newest first, and a timed QR pass shares only the records you pick."><img src="assets/images/projects/medrec-1.webp" alt="MedRec: Medical ID, records list and a QR share pass" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
+                <figure class="gallery__slide" data-title="Ask Remy and a health summary" data-desc="Ask Remy finds records in plain language, here the latest blood test. The health summary turns conditions, medications and recent results into one short page."><img src="assets/images/projects/medrec-2.webp" alt="MedRec: Ask Remy finding a blood test, and a plain-language health summary" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
+                <figure class="gallery__slide" data-title="Sharing and profile" data-desc="Pick records, set a time limit and send a link; active and past shares stay listed. The profile holds health details, privacy settings and record exports."><img src="assets/images/projects/medrec-3.webp" alt="MedRec: Sharing with a doctor, and profile settings" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
+              </div>
+              <div class="gallery__ui">
+                <button class="gallery__btn" type="button" data-gallery-zoom aria-label="View MedRec screenshots larger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+                <button class="gallery__btn" type="button" data-gallery-prev aria-label="Previous screenshot of MedRec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                <div class="gallery__dots" data-gallery-dots></div>
+                <button class="gallery__btn" type="button" data-gallery-next aria-label="Next screenshot of MedRec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+              </div>
+            </div>
+            <div class="project__info">
+              <h3>MedRec</h3>
+              <p>Upload records, get plain-language AI readings, share them by QR and keep a Medical ID, rebuilt for v2 on a serverless stack.</p>
+              <ul class="project__stack" aria-label="Built with"><li>Expo</li><li>Cloudflare Workers</li><li>Neon Postgres</li><li>R2 storage</li><li>Gemini</li></ul>
+            </div>
+          </article>
+          <article class="project">
+            <div class="project__media gallery" data-gallery aria-roledescription="carousel" aria-label="Mulat Media screenshots">
+              <div class="gallery__track" data-gallery-track>
+                <figure class="gallery__slide" data-title="Front page on every screen" data-desc="The student newsroom front page on laptop, tablet and phone: masthead, featured story and newsroom photo, laid out for each screen."><img src="assets/images/projects/mulat-1.webp" alt="Mulat Media: Home page on laptop, tablet and phone" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
+                <figure class="gallery__slide" data-title="Front page and newsroom on tablet" data-desc="Tablets keep the full masthead and story. The members page introduces the writers, editors and photographers behind each issue."><img src="assets/images/projects/mulat-2.webp" alt="Mulat Media: Home and newsroom pages on tablet and phone" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
+                <figure class="gallery__slide" data-title="About page and articles" data-desc="The About page tells how the newsroom started. On phones, articles are grouped by section: opinion, news, entertainment, sports and campus press."><img src="assets/images/projects/mulat-3.webp" alt="Mulat Media: About page on laptop and articles on phone" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
+              </div>
+              <div class="gallery__ui">
+                <button class="gallery__btn" type="button" data-gallery-zoom aria-label="View Mulat Media screenshots larger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+                <button class="gallery__btn" type="button" data-gallery-prev aria-label="Previous screenshot of Mulat Media"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                <div class="gallery__dots" data-gallery-dots></div>
+                <button class="gallery__btn" type="button" data-gallery-next aria-label="Next screenshot of Mulat Media"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+              </div>
+            </div>
+            <div class="project__info">
+              <h3>Mulat Media</h3>
+              <p>A multi-page publication platform with article submission workflows, category hierarchies and role-based editorial access, backed by Supabase with row-level security.</p>
+              <a class="text-link project__link" href="https://mulat-media.vercel.app/" target="_blank" rel="noopener noreferrer">mulat-media.vercel.app</a>
+              <ul class="project__stack" aria-label="Built with"><li>HTML / CSS / JS</li><li>Supabase Postgres</li><li>Auth + RLS</li><li>Storage</li></ul>
+            </div>
+          </article>
+          <article class="project">
+            <div class="project__media gallery" data-gallery aria-roledescription="carousel" aria-label="Cipher Shift screenshots">
+              <div class="gallery__track" data-gallery-track>
+                <figure class="gallery__slide" data-title="Encoding a message" data-desc="Type a message, pick a shift and read the result beside the shifted alphabet. Import an image and OCR pulls its text out to encode or decode."><img src="assets/images/projects/cipher-1.webp" alt="Cipher Shift: Encoding a message" width="2000" height="1125" loading="lazy" decoding="async" draggable="false" /></figure>
+              </div>
+              <button class="project__try" type="button" data-demo-open="demos/cipher-shift/" data-demo-title="Cipher Shift" data-cursor="Try it">Try it live</button>
+            </div>
+            <div class="project__info">
+              <h3>Cipher Shift</h3>
+              <p>A Caesar cipher desktop app that pulls text out of images with OCR and brute-forces shifts with frequency heuristics to surface the most likely plaintext.</p>
+              <ul class="project__stack" aria-label="Built with"><li>Electron</li><li>Canvas OCR</li><li>Frequency analysis</li></ul>
+            </div>
+          </article>
+            <a class="project project--more" href="https://github.com/Mclein31?tab=repositories" target="_blank" rel="noopener noreferrer" data-cursor="GitHub">
+              <b>More on GitHub</b>
+              <span>github.com/Mclein31</span>
+            </a>
+          </div>
+          <div class="container work__foot" aria-hidden="true">
+            <span data-work-count>01 / 07</span>
+            <span class="work__bar"><i></i></span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -157,137 +293,6 @@
               <button class="deck__card" type="button"><b>Systems minded</b></button>
               <button class="deck__card" type="button"><b>Detail oriented</b></button>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="work" id="work" aria-label="Selected work">
-      <div class="work__pin" data-work-pin>
-        <div class="work__sticky">
-          <div class="container work__head">
-            <div class="section-head">
-              <h2>Things I’ve built.</h2>
-            </div>
-          </div>
-          <div class="work__track" data-work-track>
-          <article class="project">
-            <div class="project__media gallery crop" data-gallery aria-roledescription="carousel" aria-label="AdvanCare screenshots">
-              <div class="gallery__track" data-gallery-track>
-                <figure class="gallery__slide"><img src="assets/images/projects/advancare-1.jpg" alt="AdvanCare: Staff console and resident app" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
-                <figure class="gallery__slide"><img src="assets/images/projects/advancare-2.jpg" alt="AdvanCare: Resident app: home, services and doctor booking" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
-                <figure class="gallery__slide"><img src="assets/images/projects/advancare-3.jpg" alt="AdvanCare: Staff console: service requests" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
-              </div>
-              <span class="project__award">2nd place, Cagayan Innovation Hack 2026</span>
-              <div class="gallery__ui">
-                <button class="gallery__btn" type="button" data-gallery-prev aria-label="Previous screenshot of AdvanCare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-                <div class="gallery__dots" data-gallery-dots></div>
-                <button class="gallery__btn" type="button" data-gallery-next aria-label="Next screenshot of AdvanCare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
-              </div>
-            </div>
-            <div class="project__info">
-              <h3>AdvanCare</h3>
-              <p>Affordable care plans, telehealth, non-emergency transport and caregiver booking for Cagayan barangays: a resident app, a staff console for LGU teams and an AI care assistant.</p>
-              <ul class="project__stack" aria-label="Built with"><li>React</li><li>Capacitor</li><li>Hono on Workers</li><li>Neon Postgres</li><li>Drizzle</li><li>Gemini assistant</li></ul>
-            </div>
-          </article>
-          <article class="project">
-            <div class="project__media gallery crop" data-gallery aria-roledescription="carousel" aria-label="MedCore screenshots">
-              <div class="gallery__track" data-gallery-track>
-                <figure class="gallery__slide"><img src="assets/images/projects/medcore-1.jpg" alt="MedCore: Hospital dashboard and patient app" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
-                <figure class="gallery__slide"><img src="assets/images/projects/medcore-2.jpg" alt="MedCore: Patient app: bill, home and coverage" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
-                <figure class="gallery__slide"><img src="assets/images/projects/medcore-3.jpg" alt="MedCore: Encounters and ledgers dashboard" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
-              </div>
-              <div class="gallery__ui">
-                <button class="gallery__btn" type="button" data-gallery-prev aria-label="Previous screenshot of MedCore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-                <div class="gallery__dots" data-gallery-dots></div>
-                <button class="gallery__btn" type="button" data-gallery-next aria-label="Next screenshot of MedCore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
-              </div>
-            </div>
-            <div class="project__info">
-              <h3>MedCore</h3>
-              <p>Applies PhilHealth, HMO and senior/PWD deductions in order so cashiers and security see one final balance. A staff dashboard, a patient companion app and an AI concierge.</p>
-              <ul class="project__stack" aria-label="Built with"><li>Vercel dashboard</li><li>Expo</li><li>Hono on Workers</li><li>Neon Postgres</li></ul>
-            </div>
-          </article>
-          <article class="project">
-            <div class="project__media gallery crop" data-gallery aria-roledescription="carousel" aria-label="SERVIO screenshots">
-              <div class="gallery__track" data-gallery-track>
-                <figure class="gallery__slide"><img src="assets/images/projects/servio-1.jpg" alt="SERVIO: Bulletin, home and live tracking" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
-                <figure class="gallery__slide"><img src="assets/images/projects/servio-2.jpg" alt="SERVIO: Directory, profile and tracking" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
-              </div>
-              <div class="gallery__ui">
-                <button class="gallery__btn" type="button" data-gallery-prev aria-label="Previous screenshot of SERVIO"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-                <div class="gallery__dots" data-gallery-dots></div>
-                <button class="gallery__btn" type="button" data-gallery-next aria-label="Next screenshot of SERVIO"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
-              </div>
-            </div>
-            <div class="project__info">
-              <h3>SERVIO</h3>
-              <p>Services sold like catalog items: upfront prices, instant technician matching, live on-the-way tracking and in-app escrow. Launching in Tuguegarao City.</p>
-              <ul class="project__stack" aria-label="Built with"><li>Ionic</li><li>Angular</li><li>Capacitor</li><li>Hono on Workers</li><li>Drizzle</li><li>Postgres</li><li>Durable Objects</li></ul>
-            </div>
-          </article>
-          <article class="project">
-            <div class="project__media gallery crop" data-gallery aria-roledescription="carousel" aria-label="MedRec screenshots">
-              <div class="gallery__track" data-gallery-track>
-                <figure class="gallery__slide"><img src="assets/images/projects/medrec-1.jpg" alt="MedRec: Medical ID, records list and a QR share pass" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
-                <figure class="gallery__slide"><img src="assets/images/projects/medrec-2.jpg" alt="MedRec: Ask Remy finding a blood test, and a plain-language health summary" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
-                <figure class="gallery__slide"><img src="assets/images/projects/medrec-3.jpg" alt="MedRec: Sharing with a doctor, and profile settings" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
-              </div>
-              <div class="gallery__ui">
-                <button class="gallery__btn" type="button" data-gallery-prev aria-label="Previous screenshot of MedRec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-                <div class="gallery__dots" data-gallery-dots></div>
-                <button class="gallery__btn" type="button" data-gallery-next aria-label="Next screenshot of MedRec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
-              </div>
-            </div>
-            <div class="project__info">
-              <h3>MedRec</h3>
-              <p>Upload records, get plain-language AI readings, share them by QR and keep a Medical ID, rebuilt for v2 on a serverless stack.</p>
-              <ul class="project__stack" aria-label="Built with"><li>Expo</li><li>Cloudflare Workers</li><li>Neon Postgres</li><li>R2 storage</li><li>Gemini</li></ul>
-            </div>
-          </article>
-          <article class="project">
-            <div class="project__media gallery crop" data-gallery aria-roledescription="carousel" aria-label="Mulat Media screenshots">
-              <div class="gallery__track" data-gallery-track>
-                <figure class="gallery__slide"><img src="assets/images/projects/mulat-1.jpg" alt="Mulat Media: Home page on desktop and phone" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
-                <figure class="gallery__slide"><img src="assets/images/projects/mulat-2.jpg" alt="Mulat Media: Newsroom pages" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
-                <figure class="gallery__slide"><img src="assets/images/projects/mulat-3.jpg" alt="Mulat Media: About page and articles on mobile" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
-              </div>
-              <div class="gallery__ui">
-                <button class="gallery__btn" type="button" data-gallery-prev aria-label="Previous screenshot of Mulat Media"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-                <div class="gallery__dots" data-gallery-dots></div>
-                <button class="gallery__btn" type="button" data-gallery-next aria-label="Next screenshot of Mulat Media"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
-              </div>
-            </div>
-            <div class="project__info">
-              <h3>Mulat Media</h3>
-              <p>A multi-page publication platform with article submission workflows, category hierarchies and role-based editorial access, backed by Supabase with row-level security.</p>
-              <a class="text-link project__link" href="https://mulat-media.vercel.app/" target="_blank" rel="noopener noreferrer">mulat-media.vercel.app</a>
-              <ul class="project__stack" aria-label="Built with"><li>HTML / CSS / JS</li><li>Supabase Postgres</li><li>Auth + RLS</li><li>Storage</li></ul>
-            </div>
-          </article>
-          <article class="project">
-            <div class="project__media gallery crop" data-gallery aria-roledescription="carousel" aria-label="Cipher Shift screenshots">
-              <div class="gallery__track" data-gallery-track>
-                <figure class="gallery__slide"><img src="assets/images/projects/cipher-1.jpg" alt="Cipher Shift: The app with its logo" width="1600" height="900" loading="lazy" decoding="async" draggable="false" /></figure>
-              </div>
-              <button class="project__try" type="button" data-demo-open="demos/cipher-shift/" data-demo-title="Cipher Shift" data-cursor="Try it">Try it live</button>
-            </div>
-            <div class="project__info">
-              <h3>Cipher Shift</h3>
-              <p>A Caesar cipher desktop app that pulls text out of images with OCR and brute-forces shifts with frequency heuristics to surface the most likely plaintext.</p>
-              <ul class="project__stack" aria-label="Built with"><li>Electron</li><li>Canvas OCR</li><li>Frequency analysis</li></ul>
-            </div>
-          </article>
-            <a class="project project--more" href="https://github.com/Mclein31?tab=repositories" target="_blank" rel="noopener noreferrer" data-cursor="GitHub">
-              <b>More on GitHub</b>
-              <span>github.com/Mclein31</span>
-            </a>
-          </div>
-          <div class="container work__foot" aria-hidden="true">
-            <span data-work-count>01 / 07</span>
-            <span class="work__bar"><i></i></span>
           </div>
         </div>
       </div>
@@ -440,16 +445,6 @@
           </div>
           <button class="award__img" type="button" data-lb="2" data-cursor="View" aria-label="View photo: With High Honors">
             <img src="assets/images/awards/cert-high-honors.jpg" alt="With High Honors certificate of recognition" loading="lazy" decoding="async" />
-          </button>
-        </article>
-        <article class="award" data-award>
-          <div>
-            <h3>Student Journalist, Radio Broadcaster</h3>
-            <p>Radio broadcasting in Filipino: news delivery, scriptwriting and production for the campus team.</p>
-            <div class="award__by"><span>Ballesteros National High School</span><time>June 2022</time></div>
-          </div>
-          <button class="award__img" type="button" data-lb="0" data-cursor="View" aria-label="View photo: Student Journalist, Radio Broadcaster">
-            <img src="assets/images/awards/award-bnhs-journalism-team.jpg" alt="Ballesteros National High School journalism team" loading="lazy" decoding="async" />
           </button>
         </article>
         <article class="award" data-award>

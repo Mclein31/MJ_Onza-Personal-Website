@@ -56,7 +56,7 @@
 .film__track:focus-visible { outline-offset: 2px; }
 .film__frame { flex: none; width: 100%; margin: 0; scroll-snap-align: start; }
 .film__frame .ph { aspect-ratio: 4 / 3; overflow: hidden; border-radius: 2px; background: var(--color-paper-2); }
-.film__frame img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; user-select: none; }
+.film__frame img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; -webkit-user-select: none; user-select: none; }
 .film__frame figcaption { margin-top: var(--space-sm); color: var(--color-ink-2); font-size: var(--text-sm); }
 .film__ctrl { display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-xs); }
 .film__count { font-family: var(--font-data); font-size: var(--text-sm); color: var(--color-muted); font-variant-numeric: tabular-nums; }
@@ -82,6 +82,14 @@
 .lightbox__cap { padding: var(--space-md) var(--space-lg) var(--space-lg); border-top: var(--rule-hair) solid var(--color-rule); }
 .lightbox__cap h4 { font-size: var(--text-title); }
 .lightbox__cap p { margin-top: var(--space-2xs); color: var(--color-ink-2); font-size: var(--text-sm); max-width: 70ch; }
+.lightbox__nav[hidden] { display: none; }
+/* Project screenshots: a wider sheet, the slide as large as the screen allows */
+.lightbox.is-wide .lightbox__inner { width: min(1600px, 96%); }
+.lightbox.is-wide .lightbox__stage { padding-inline: 56px; }
+/* 260px leaves room for the bar, stage padding and a three-line caption inside the 92svh sheet */
+.lightbox.is-wide .lightbox__stage img { width: 100%; max-height: calc(92svh - 260px); }
+.lightbox.is-wide .lightbox__cap p { font-size: var(--text-md); }
+@media (max-width: 700px) { .lightbox.is-wide .lightbox__stage { padding-inline: var(--space-xs); } .lightbox.is-wide .lightbox__nav { top: auto; bottom: var(--space-xs); translate: none; } }
 @keyframes sheet-in { from { opacity: 0; transform: translateY(12px); } }
 
 @media (max-width: 860px) {

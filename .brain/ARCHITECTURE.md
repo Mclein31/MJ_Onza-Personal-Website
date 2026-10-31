@@ -7,7 +7,7 @@ tags:
   - portfolio
   - web
   - serverless
-last_updated: 2026-10-25
+last_updated: 2026-10-31
 ---
 
 # 🏛️ Personal Website — Architecture
@@ -55,9 +55,9 @@ last_updated: 2026-10-25
 - `cursor.js` — lerped ring + `data-cursor` labels; `data-magnetic` buttons. Fine pointers only.
 - `scroll.js` — reveals (`data-reveal`, `--i` stagger), progress bar, nav hide/scroll-spy, manifesto word lighting, timeline fill, award card scaling, footer fill.
 - `work.js` — pins `#work` on ≥861px: pin height = track overflow + viewport; scroll progress → `--x`. Otherwise cards stack vertically.
-- `gallery.js` — per-card screenshot galleries (scroll-snap + dots + prev/next + mouse drag).
+- `gallery.js` — per-card screenshot galleries (scroll-snap + dots + prev/next + mouse drag). A tap, Enter or the expand button opens the set in the lightbox (`openViewer`), using each slide's `data-title` / `data-desc` as the caption.
 - `ui.js` — mobile menu, trait deck, schema row "joins" (`data-join` tags), portrait tilt, DTI film strip, copy email.
-- `lightbox.js` — `PHOTOS` data (awards + hackathon), `<dialog>` viewer, photo strip render.
+- `lightbox.js` — `PHOTOS` data (awards + hackathon), `<dialog>` viewer, photo strip render. `openViewer(items, i, from)` reuses the dialog for project screenshots (`.is-wide` sheet, "Screenshot viewer" label, arrows hidden for a single slide).
 - `stats.js` — same keys/endpoints as v2 (`site_total_*`, `site_user_has_liked`); pointer capture only after a real drag so taps still like.
 - `contact.js` — `<dialog>` FormSubmit form; exports `openMessage()`.
 

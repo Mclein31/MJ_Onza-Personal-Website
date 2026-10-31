@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Lightbox — award photos
+   Lightbox — award photos and project screenshots
    ========================================================================== */
 import { $, $$ } from './util.js';
 
@@ -15,6 +15,10 @@ export const PHOTOS = [
   { src: 'cih-2026-stage.jpg', title: 'AdvanCare on stage — Cagayan Innovation Hack 2026', desc: 'With the AdvanCare platform on screen after the Final Pitch. Theme: “From Local Challenges to Innovative Solutions.”' },
 ].map((p) => ({ ...p, src: 'assets/images/awards/' + p.src }));
 
+// Opens any set of { src, title, desc } in the viewer; galleries use it for project screenshots
+let openSet = null;
+export const openViewer = (items, i, from) => openSet?.(items, i, from);
+
 export function initLightbox() {
   const dlg = $('[data-lightbox]');
   if (!dlg) return;
@@ -23,21 +27,29 @@ export function initLightbox() {
   const title = $('[data-lb-title]', dlg);
   const desc = $('[data-lb-desc]', dlg);
   const count = $('[data-lb-count]', dlg);
-  let index = 0, opener = null;
+  let index = 0, opener = null, items = PHOTOS;
 
   const show = (i) => {
-    index = (i + PHOTOS.length) % PHOTOS.length;
-    const p = PHOTOS[index];
+    index = (i + items.length) % items.length;
+    const p = items[index];
     img.style.opacity = 0;
     img.onload = () => { img.style.opacity = 1; };
     img.src = p.src;
     img.alt = p.title;
     title.textContent = p.title;
     desc.textContent = p.desc;
-    count.textContent = `${index + 1} / ${PHOTOS.length}`;
+    count.textContent = `${index + 1} / ${items.length}`;
   };
-  const open = (i, from) => {
+  const open = (i, from, list = PHOTOS) => {
     opener = from;
+    items = list;
+    const shots = list !== PHOTOS;
+    dlg.classList.toggle('is-wide', shots);
+    dlg.setAttribute('aria-label', shots ? 'Screenshot viewer' : 'Photo viewer');
+    $$('[data-lb-prev], [data-lb-next]', dlg).forEach((b) => {
+      b.hidden = list.length < 2;
+      b.setAttribute('aria-label', `${'lbPrev' in b.dataset ? 'Previous' : 'Next'} ${shots ? 'screenshot' : 'photo'}`);
+    });
     show(i);
     dlg.showModal();
     document.body.classList.add('is-locked');
@@ -46,6 +58,8 @@ export function initLightbox() {
     document.body.classList.remove('is-locked');
     opener?.focus();
   });
+
+  openSet = (list, i, from) => open(i, from, list);
 
   $('[data-lb-prev]', dlg).addEventListener('click', () => show(index - 1));
   $('[data-lb-next]', dlg).addEventListener('click', () => show(index + 1));

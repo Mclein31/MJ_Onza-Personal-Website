@@ -56,10 +56,22 @@ Opening `index.html` from disk no longer works; use a local server.
 
 ---
 
+## 2026-10-31 — Project-First Page, Clear Gallery Slides
+
+### Decision
+- **Work comes first**: the Work section sits right after the hero (before the manifesto and About), and is first in the nav and phone menu.
+- **Slides are transparent**: no brand gradients, logos or taglines in the gallery images; devices sit straight on the Work band in both themes. The gallery sheet lost its paper fill and shadow (crop marks stay).
+- **Real device frames from MockUPhone** (Apache-2.0); screenshots are captured or cropped to each frame's exact screen size, so screens never show black bars. Hand-drawn CSS frames were tried first and rejected by the owner as fake.
+
+### Reason
+Owner asked for a more project-centred site with clear (not coloured) slide backgrounds, and pointed out the iMac and iPad screenshots did not fill their screens.
+
+---
+
 ## 2026-10-25 — Project Galleries Use Composed Real Screenshots
 
 ### Decision
-Project cards show swipeable galleries of real screenshots composed into device/browser frames (`assets/images/projects/*.jpg`). No live links or status tags on cards (owner's request), except Mulat Media, which links to mulat-media.vercel.app (owner's request, 2026-10-29). Demo data came from each app's own demo mode (SERVIO offline demo, AdvanCare built-in demo profile) or in-browser intercepted API responses (AdvanCare staff console) — nothing was written to any project database. MedCore uses its existing QA captures in `MedCore1/docs/validation/ui-polish/after/`.
+Project cards show swipeable galleries of real screenshots composed into device/browser frames (`assets/images/projects/*.webp` since 2026-10-31, transparent). No live links or status tags on cards (owner's request), except Mulat Media, which links to mulat-media.vercel.app (owner's request, 2026-10-29). Demo data came from each app's own demo mode (SERVIO offline demo, AdvanCare built-in demo profile) or in-browser intercepted API responses (AdvanCare staff console) — nothing was written to any project database. MedCore uses its existing QA captures in `MedCore1/docs/validation/ui-polish/after/`.
 
 ### Alternatives
 - AI-generated mockups (rejected: less honest than real UI).

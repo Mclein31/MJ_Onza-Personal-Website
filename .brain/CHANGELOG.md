@@ -5,10 +5,19 @@ project: Personal Website
 tags:
   - changelog
   - history
-last_updated: 2026-10-25
+last_updated: 2026-10-31
 ---
 
 # 📜 Personal Website — Changelog
+
+## Project-first, clear slides (2026-10-31)
+- **Fixed**: iMac screenshots (AdvanCare, MedCore) and the Mulat Media iPad/MacBook screens didn't fill their device screens (16:10 captures letterboxed in 16:9 frames). All 15 slides rebuilt on MockUPhone device frames (iMac, MacBook Pro 14, iPad Air, iPhone 14 Pro) with every screenshot filling its screen; Mulat Media and MedRec recaptured at the exact device sizes. (A CSS-frame version from earlier the same day was rejected as fake.)
+- **Changed**: Slides have transparent backgrounds (WebP with alpha, 2000×1125, 1.2 MB total, was ~1.9 MB of JPEG); brand gradients, logos and taglines dropped. Gallery sheet has no fill or shadow.
+- **Changed**: Work moved directly under the hero; Work is first in the nav and phone menu.
+- **Added**: Screenshot viewer: tap a slide (or Enter, or the new expand button) to open the project's set in a wide lightbox, with a short note per slide. Project cards are larger (up to 74vw / 1180px).
+- **Fixed**: On narrow cards (≤560px) the AdvanCare award line wrapped to four lines beside the controls; it now takes its own line under the slide.
+- **Tests**: 60 pass (new: screenshot viewer opens at the current slide, returns focus, and award photos still open in the narrow viewer). WebKit had to be reinstalled for Playwright 1.64.1 (`npx playwright install webkit`).
+- **Removed**: Student Journalist, Radio Broadcaster award card.
 
 ## Less copy, quieter hovers (2026-10-29)
 - **Changed**: Owner felt the layout still read as AI-made (labels and subtext around every heading). Section heads are now the heading alone (dropped the side paragraphs on Work, Activity, Stack, Recognition). Removed: hero meta line (kept as a bare rule; `icons.js` measures it), portrait caption, deck hint, 5 of 8 About record rows, project subtitles, "Scroll" label, activity card header, table descriptions and row counts, journey subtext and the hackathon milestone (covered in Recognition), lead-award theme line, training subtitle and outcomes list, contact h3 and link keys, footer tagline, menu numbers.

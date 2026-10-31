@@ -83,6 +83,42 @@ test('award photo opens the lightbox, arrows page through, focus returns on clos
   await expect(first).toBeFocused();
 });
 
+test('a project slide opens the screenshot viewer at that slide, with its note', async ({ page }) => {
+  await gotoReady(page);
+  const gallery = page.locator('[data-gallery]').first();
+  await gallery.scrollIntoViewIfNeeded();
+  const slides = gallery.locator('.gallery__slide');
+  await gallery.locator('[data-gallery-next]').click();
+  await expect(gallery.locator('[data-gallery-dots] button').nth(1)).toHaveAttribute('aria-current', 'true');
+
+  const zoom = gallery.locator('[data-gallery-zoom]');
+  await zoom.click();
+  const box = page.locator('[data-lightbox]');
+  await expect(box).toBeVisible();
+  await expect(box).toHaveClass(/is-wide/);
+  await expect(box).toHaveAttribute('aria-label', 'Screenshot viewer');
+  await expect(page.locator('[data-lb-count]')).toHaveText('2 / 3');
+  await expect(page.locator('[data-lb-title]')).toHaveText(await slides.nth(1).getAttribute('data-title'));
+  await expect(page.locator('[data-lb-img]')).toHaveJSProperty('complete', true);
+  await page.keyboard.press('ArrowRight');
+  await expect(page.locator('[data-lb-title]')).toHaveText(await slides.nth(2).getAttribute('data-title'));
+  await page.keyboard.press('Escape');
+  await expect(box).toBeHidden();
+  await expect(zoom).toBeFocused();
+
+  // Tapping the slide itself opens the viewer too
+  await slides.nth(1).click();
+  await expect(box).toBeVisible();
+  await page.keyboard.press('Escape');
+
+  // The award photos still open in the narrow photo viewer afterwards
+  const award = page.locator('.award__img').first();
+  await award.scrollIntoViewIfNeeded();
+  await award.click();
+  await expect(box).not.toHaveClass(/is-wide/);
+  await expect(box).toHaveAttribute('aria-label', 'Photo viewer');
+});
+
 test('message form validates, then sends (mocked) and confirms', async ({ page }) => {
   await gotoReady(page);
   await page.locator('.contact [data-message-open]').scrollIntoViewIfNeeded();

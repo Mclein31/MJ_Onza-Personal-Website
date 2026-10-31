@@ -5,7 +5,7 @@ project: Personal Website
 tags:
   - todo
   - backlog
-last_updated: 2026-10-25
+last_updated: 2026-10-31
 ---
 
 # 📋 Personal Website — TODO & Task Tracker
