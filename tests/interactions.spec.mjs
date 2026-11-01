@@ -54,7 +54,7 @@ test.describe('desktop interactions', () => {
   });
 });
 
-for (const [name, slug] of [['AdvanCare', 'advancare'], ['SERVIO', 'servio'], ['MedRec', 'medrec']]) {
+for (const [name, slug] of [['AdvanCare', 'advancare'], ['MedCore', 'medcore'], ['SERVIO', 'servio'], ['MedRec', 'medrec']]) {
   test(`${name} promo opens in a video window, stops on close, focus returns`, async ({ page }) => {
     await gotoReady(page);
     const opener = page.locator(`[data-video-open][data-video-title="${name}"]`);
@@ -93,7 +93,7 @@ test('the video window swaps film, poster and title between promos', async ({ pa
   await gotoReady(page);
   const win = page.locator('[data-video]');
   const player = win.locator('[data-video-player]');
-  for (const [name, slug] of [['AdvanCare', 'advancare'], ['SERVIO', 'servio'], ['MedRec', 'medrec']]) {
+  for (const [name, slug] of [['AdvanCare', 'advancare'], ['MedCore', 'medcore'], ['SERVIO', 'servio'], ['MedRec', 'medrec']]) {
     await page.locator(`[data-video-open][data-video-title="${name}"]`).focus();
     await page.keyboard.press('Enter');
     await expect(win.locator('[data-video-title-el]')).toHaveText(name);

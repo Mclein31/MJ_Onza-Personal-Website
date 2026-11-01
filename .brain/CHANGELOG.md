@@ -10,6 +10,12 @@ last_updated: 2026-11-01
 
 # 📜 Personal Website — Changelog
 
+## MedCore promo video; promo buttons relabelled (2026-11-01)
+- **Added**: The MedCore promo (from `MedCore1/docs/media/production/medcore-promo.mp4`, 24 MB, 32s, 1080p60, owner's voiceover) as the last slide of the MedCore deck, plus a watch button under its description, as the other three have (owner asked). Encoded with the recipe in NOTES.md plus `-vf fps=30`: `assets/video/medcore-promo.mp4`, 4.7 MB, SSIM 0.994, peak 2.1 Mbps. Poster is the end card at 31.5s (logo, "MedCore", "Clear the way for care."), 1280×720 (`medcore-promo-poster.webp`). Aria-label says "with voiceover" (the production README lists the owner's VO).
+- **Changed**: All four promo buttons now read "Watch the product video" (owner asked for something like "Watch the product promotion video"), with the running time after a hairline as a Geist Mono timecode (0:30, 0:32, 0:39, 0:30). The timecode is `aria-hidden`; a `.sr-only` ", N seconds" is read instead. Fits on one line at 320px.
+- **Checked**: plays in Chrome and WebKit (script).
+- **Tests**: 99 pass, 15 skipped. The promo-window, deck and swap tests now include MedCore.
+
 ## Promo buttons more visible (2026-11-01)
 - **Changed**: The three "Watch the N-second promo" buttons (AdvanCare, SERVIO, MedRec) were small grey underlined text; owner asked for them to stand out. They're now printed controls (`.btn` + `.project__promo`: ink border, inset rule, 44px tall, `--text-sm`) with an orange play mark (`--color-accent-text`), the outlined style of "Message me", not the filled orange of the main calls to action. `button.project__link` rule removed; `.project__link` stays for the Mulat Media site link.
 - **Tests**: 93 pass, 15 skipped.
