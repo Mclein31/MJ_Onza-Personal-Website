@@ -51,17 +51,21 @@ last_updated: 2026-11-01
 - `theme.js` — `portfolio-theme` key, OS sync until explicit choice; flash-free bootstrap is inline in `<head>`.
 - `preloader.js` — once per session (`pf-loaded` in sessionStorage), timeout failsafe.
 - `hero.js` — splits the name into `.char` spans; pointer distance drives `font-weight` (300–800); Asia/Manila clock; typed SQL queries.
-- `icons.js` — draggable/throwable tech icons with inertia + bounds (rAF, paused off-screen).
 - `cursor.js` — lerped ring + `data-cursor` labels; `data-magnetic` buttons. Fine pointers only.
 - `scroll.js` — reveals (`data-reveal`, `--i` stagger), progress bar, nav hide/scroll-spy, manifesto word lighting, timeline fill, award card scaling, footer fill.
 - `work.js` — pins `#work` on ≥861px: pin height = track overflow + viewport; scroll progress → `--x`. Otherwise cards stack vertically.
 - `gallery.js` — per-card screenshot galleries (scroll-snap + dots + prev/next + mouse drag). A tap, Enter or the expand button opens the set in the lightbox (`openViewer`), using each slide's `data-title` / `data-desc` as the caption. A slide holding a `<video>` (the last of AdvanCare's, MedCore's, SERVIO's and MedRec's) is left out of the lightbox set: its own controls take clicks, mouse drags on it don't scroll the deck, it pauses when another slide shows or it leaves the screen, and expand opens it in the video window at the same time.
 - `video.js` — `<dialog data-video>` player on the demo window's sheet (`.appwin--video`, 16:9). Opened by `[data-video-open]` buttons (src, poster, title in data attributes) or `openVideo(clip, from, at)`; plays with sound on open, pauses on close.
-- `ui.js` — mobile menu, trait deck, schema row "joins" (`data-join` tags), portrait tilt, DTI film strip, copy email.
+- `ui.js` — mobile menu, "What I do" accordion (`[data-does]`, one row open), schema row "joins" (`data-join` tags), DTI film strip, copy email. (The trait deck and portrait tilt code stay but have no markup since the 2026-11-01 redesign.)
+- `reveal.js` — sets `.reveal-ready` (skipped under reduced motion, so nothing hides without it): `[data-scrub]` headings split into words whose opacity follows the scroll (0.14 → 1) and whose `.hl` boxes wipe ink left to right (`--wipe`); `[data-rise]` blocks rise once (`="kids"` staggers children); hero `.ln` lines rise out of a mask on `.hero.is-in`.
+- `journey.js` — pins `[data-years]` (adds `.is-pinned`, height = n × 75svh + 100svh), shows one `.yr` per stretch of scroll, types its `data-q` SQL line. Reduced motion: a static stacked list.
+- `wallet.js` — contact channel passes: tap a header to bring that pass to the front (`--pos`, `.is-front`, others `inert`); types the email's first line once on screen; fills the GitHub pass with the last 18 weeks from the activity calendar; 12-hour Asia/Manila clock (`[data-clock-12]`).
+- `icons.js` — 24 draggable tool/stack logos (`ICONS`: file, label, mono flag) laid out as a staggered grid inside `.hero__zone` (the hero's right column; below the buttons on phones), five or more columns, ≤58px; draggable anywhere in the hero with a gentle bob. Ink-grey at rest, brand colour on hover/drag; black marks (Vercel, Expo) invert on the night page. New logos from Simple Icons (CC0), coloured with the brand hex: supabase, sqlite, drizzle, angular, ionic, capacitor, expo, vercel, gemini.
+- `sfx.js` — interface sounds synthesized with Web Audio (no files): one capture-phase click listener picks click / open / close / whoosh / toggle / success / pop / drop / step; typing ticks from `wallet.js` and `journey.js`. Silent until the first pointer or key press (autoplay rules); `[data-sfx-toggle]` mutes, stored as `portfolio-sfx`.
 - `lightbox.js` — `PHOTOS` data (awards + hackathon), `<dialog>` viewer, photo strip render. `openViewer(items, i, from)` reuses the dialog for project screenshots (`.is-wide` sheet, "Screenshot viewer" label, arrows hidden for a single slide).
 - `vista.js` — footer ASCII scene (Cape Engaño lighthouse at night): drawn each frame into a char grid, split into three `<pre>` colour layers (ink, muted, accent). Grid from the footer's free width/height; objects scale with it. ~12fps while on screen, still under reduced motion.
 - `stats.js` — same keys/endpoints as v2 (`site_total_*`, `site_user_has_liked`); pointer capture only after a real drag so taps still like.
 - `contact.js` — `<dialog>` FormSubmit form; exports `openMessage()`.
 
 ## 🎨 Styles (`css/`)
-`tokens.css` (all colors/type/motion; dark default, `[data-theme="light"]` override) → `base.css` → one file per area. All motion respects `prefers-reduced-motion`.
+`tokens.css` (all colors/type/motion; dark default, `[data-theme="light"]` override) → `base.css` → one file per area, plus `reveal.css`, `journey.css`, `wallet.css`, and `footer.css` (footer + vista, kept apart so redesigns leave it alone; its wordmark uses `--font-mark`, Hedvig). All motion respects `prefers-reduced-motion`.

@@ -6,7 +6,7 @@ tags:
   - decisions
   - portfolio
   - web
-last_updated: 2026-10-25
+last_updated: 2026-11-01
 ---
 
 # ⚖️ Personal Website — Technical Decisions
@@ -147,3 +147,18 @@ Custom cursor and magnetic buttons, photo marquee (now a still rail), SQL-style 
 ### Notes
 - `css/tokens.css` opens with the Hallmark stamp, waivers and dismissals; `.hallmark/` holds the before record and log.
 - `theme.js` still sets `theme-color` to `#f2f3ef` / `#0b0c0d` (the theme test asserts it); the new paper is slightly cooler.
+
+---
+
+## 2026-11-01 — Redesign after jeancreate.com, own colours and footer
+
+### Decision
+Restyle the whole page after the owner's reference (jeancreate.com): one heavy grotesk (Geist) with tight tracking, floating pill nav, scroll-read headings with ink highlight boxes, rounded cards, a pinned year-by-year journey, and a dark contact with a wallet of channel cards. Keep the current colour tokens, the footer (moved to `css/footer.css`), and Work directly after the hero. Add interface sounds with a mute toggle.
+
+### Reason
+Owner liked the reference's text animation, UI and UX ("premium, not vibecoded") and asked for something similar but not a copy. The data-engineering identity supplies the differences: typed SQL in the journey, schema tables, a GitHub pass from real activity.
+
+### Alternatives
+- The design-taste skill's house rules (no pill nav, no eyebrows, no highlighted words, no index numbers) were set aside: the owner chose those devices from the reference.
+- Inter as in the reference: rejected, Geist was already self-hosted with the full weight axis.
+
