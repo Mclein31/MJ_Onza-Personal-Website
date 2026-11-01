@@ -1,61 +1,43 @@
 /* ==========================================================================
-   Stack — five tables as printed cards · journey as a ruled timeline
+   Stack — five tables as rounded cards in one grid; hover a row to see what it joins
    ========================================================================== */
-.schema { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-2xl) var(--gap-columns); }
+.schema { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-md); }
 .table {
-  grid-column: span 2; --o: 10px; container-type: inline-size;
+  grid-column: span 2; container-type: inline-size;
   display: flex; flex-direction: column;
-  padding: var(--space-lg); border-radius: var(--radius-card);
-  background: var(--color-paper-hi); box-shadow: var(--shadow-sheet);
+  padding: var(--space-lg) var(--space-lg) var(--space-md); border-radius: var(--radius-card);
+  background: var(--color-card);
+  transition: transform var(--dur-long) var(--ease-quint);
 }
-.table:nth-child(4) { grid-column: 2 / span 2; }
-.table__head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-sm); padding-bottom: var(--space-sm); border-bottom: var(--rule-hair) solid var(--color-ink); }
-/* "python_scripting" is 8em: the name shrinks on narrow cards rather than breaking mid-word */
-.table__head b { font-family: var(--font-display); font-weight: 400; font-size: min(var(--text-xl), (100cqi - 4rem) / 8.2); color: var(--color-ink); overflow-wrap: anywhere; min-width: 0; font-variant-numeric: tabular-nums; }
-.table__rows { margin-top: var(--space-xs); }
+.table:nth-child(1), .table:nth-child(2) { grid-column: span 3; }
+/* The first table is the dark one */
+.table:nth-child(1) { --t-ink: var(--color-paper); --t-mute: color-mix(in oklab, var(--color-paper) 58%, transparent); --t-line: color-mix(in oklab, var(--color-paper) 12%, transparent); background: var(--color-ink); }
+.table { --t-ink: var(--color-ink); --t-mute: var(--color-muted); --t-line: color-mix(in oklab, var(--color-ink) 8%, transparent); }
+.table__head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-sm); padding-bottom: var(--space-md); }
+.table__head b { font-size: min(var(--text-lg), (100cqi - 2rem) / 9); color: var(--t-ink); overflow-wrap: anywhere; min-width: 0; }
+.table__head b::before { content: "table "; color: var(--t-mute); }
+.table__rows { margin-top: auto; }
 .row {
   display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: var(--space-xs);
-  min-height: 40px; padding-inline: var(--space-2xs);
-  border-top: var(--rule-hair) solid var(--color-rule);
+  min-height: 42px; padding-inline: var(--space-xs); border-radius: 12px;
+  border-top: var(--rule-hair) solid var(--t-line);
   cursor: pointer;
   transition: background-color var(--dur-short) var(--ease-out), opacity var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
 }
-.row::before { content: attr(data-n); font-size: var(--text-sm); color: var(--color-muted); font-variant-numeric: tabular-nums; }
-.row span { color: var(--color-ink); }
-.row em { font-style: normal; font-size: var(--text-sm); color: var(--color-muted); }
-.row.is-source { background: var(--color-ink); }
-.row.is-source span, .row.is-source em, .row.is-source::before { color: var(--color-paper); }
-.row.is-joined { background: color-mix(in oklab, var(--color-accent) 16%, var(--color-paper-hi)); box-shadow: inset 2px 0 0 var(--color-guide); }
-.schema.is-joining .row:not(.is-joined):not(.is-source) { opacity: 0.4; }
-
-/* Journey */
-.journey {
-  display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--space-xl) var(--gap-columns);
-  margin-top: var(--section-gap); padding-top: var(--space-xl); border-top: var(--rule-hair) solid var(--color-ink);
-}
-.journey__head { align-self: start; position: sticky; top: calc(var(--nav-clear) + var(--space-lg)); display: grid; gap: var(--space-md); }
-.journey__head h3 { font-size: var(--text-section); line-height: 1.02; letter-spacing: var(--tracking-display); }
-.timeline { position: relative; }
-.timeline__fill { display: none; }
-.milestone {
-  display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 5fr); gap: var(--space-2xs) var(--gap-columns);
-  padding-block: var(--space-lg); border-bottom: var(--rule-hair) solid var(--color-rule);
-}
-.milestone:first-child { padding-top: 0; }
-.milestone time { grid-row: span 3; font-size: var(--text-sm); font-weight: 500; color: var(--color-muted); font-variant-numeric: tabular-nums; padding-top: var(--space-2xs); }
-.milestone h4 { font-size: var(--text-title); }
-.milestone .where { font-size: var(--text-sm); color: var(--color-muted); }
-.milestone p { margin-top: var(--space-xs); color: var(--color-ink-2); max-width: 58ch; }
+.row::before { content: attr(data-n); font-size: var(--text-sm); color: var(--t-mute); font-variant-numeric: tabular-nums; }
+.row span { color: var(--t-ink); font-weight: 500; }
+.row em { font-style: normal; font-size: var(--text-sm); color: var(--t-mute); }
+.row.is-source { background: var(--color-accent); border-color: transparent; }
+.row.is-source span, .row.is-source em, .row.is-source::before { color: var(--color-accent-ink); }
+.row.is-joined { background: color-mix(in oklab, var(--color-accent) 18%, transparent); border-color: transparent; }
+.row.is-source + .row, .row.is-joined + .row { border-color: transparent; }
+.schema.is-joining .row:not(.is-joined):not(.is-source) { opacity: 0.35; }
 
 @media (max-width: 1100px) {
   .schema { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .table, .table:nth-child(4) { grid-column: auto; }
+  .table, .table:nth-child(1), .table:nth-child(2) { grid-column: auto; }
   .table:last-child { grid-column: 1 / -1; }
 }
 @media (max-width: 860px) {
-  .schema { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
-  .journey { grid-template-columns: minmax(0, 1fr); }
-  .journey__head { position: static; }
-  .milestone { grid-template-columns: minmax(0, 1fr); }
-  .milestone time { grid-row: auto; }
+  .schema { grid-template-columns: minmax(0, 1fr); }
 }
