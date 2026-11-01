@@ -6,8 +6,8 @@
 .journey__intro { margin-bottom: var(--space-2xl); }
 
 .years__list { display: grid; gap: var(--space-4xl); }
-.yr { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); grid-template-rows: auto 1fr; gap: var(--space-md) var(--space-2xl); align-items: start; }
-.yr__words { grid-row: span 2; display: grid; gap: 0.06em; font-size: clamp(2.5rem, 4.6vw, 4.75rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.92; }
+.yr { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); grid-template-rows: auto 1fr; gap: var(--space-md) var(--space-2xl); align-items: start; }
+.yr__words { grid-row: span 2; display: grid; gap: 0.06em; font-size: clamp(2.375rem, 4.2vw, 4.375rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.92; }
 .yr__year { color: var(--color-ink); }
 /* Each part stays on one line */
 .yr__words > p { white-space: nowrap; }
@@ -28,7 +28,7 @@
 .yr__media--face { background: #fefefd; }
 .yr__media--face img { object-fit: contain; object-position: 50% 100%; }
 .yr__note { grid-column: 2; }
-.yr__note h3 { font-size: var(--text-lg); font-weight: 650; }
+.yr__note h3 { font-size: 1.1875rem; font-weight: 650; }
 .yr__note p { margin-top: var(--space-2xs); color: var(--color-ink-2); max-width: 46ch; }
 /* No picture: the note sits level with the words, a little larger */
 .yr__note--solo { grid-row: 1 / span 2; align-self: center; display: grid; justify-items: start; gap: var(--space-sm); }
@@ -72,10 +72,10 @@
 
 @media (max-width: 860px) {
   .yr { grid-template-columns: minmax(0, 1fr); }
-  .yr__words { grid-row: auto; font-size: clamp(1.75rem, 8.4vw, 3.25rem); }
+  .yr__words { grid-row: auto; font-size: clamp(1.625rem, 7.8vw, 3rem); }
   .yr__note--solo { grid-row: auto; }
   .yr__note { grid-column: 1; }
-    .yr__media { aspect-ratio: 16 / 10; max-height: 30svh; width: 100%; }
+    .yr__media { aspect-ratio: 16 / 10; max-height: 34svh; width: 100%; }
 }
 
 
