@@ -9,7 +9,7 @@ tags:
   - web
   - showcase
   - serverless
-last_updated: 2026-10-25
+last_updated: 2026-11-01
 ---
 
 # 🌐 Personal Website — Project Context
@@ -37,8 +37,15 @@ last_updated: 2026-10-25
 
 ## 📂 Key Files & Structure
 - `index.html` — all sections: hero, manifesto, about, work, stack + journey, recognition, training, contact, footer, dialogs.
+- Favicon (2026-11-01): owner's portrait in a black formal shirt, phone retained, white background; zoomed toward the face in a circular crop with transparent corners. `assets/Logo/favicon-circle-{64,192}.png`, sourced from `mclein-formal-circle.png`; original full photo is `mclein-formal-phone.png`.
 - `css/` — `tokens.css` first; one stylesheet per area.
 - `js/` — `main.js` entry + one module per feature (see ARCHITECTURE.md).
+- Hero layout (owner-approved exception to desktop restoration): single-column with a 100vh minimum height, oversized desktop name on one line, quiet lower-background marquee, intro/actions sharing a row on desktop and stacking on smaller screens, and full-width icon carousel at the bottom. The whole content group sits 24–56px higher (6vh) to reduce the blank area below navigation; short screens retain normal navigation clearance. Primary hero action is a filled pill; secondary action remains text. Decorative background text runs at half speed (140/158/176/194s per loop).
+- Hero tools: horizontal, swipeable carousel in `.hero__zone`, with gentle looping auto-scroll, hover/focus/touch pause and arrow-key support; no visible play/pause control. Icons can be dragged out and spring back into their slots; reduced motion disables auto-scroll and returns dragged icons immediately. Mobile hero uses 24px after nav clearance and between text and icons (2026-11-01).
+- Section headings (2026-11-01): use only the main headings; owner removed all small uppercase dot-prefixed section labels (Selected work, About, Journey, Activity, Stack, Recognition, Training).
+- Responsive layout scope (2026-11-01): preserve the original desktop/laptop layouts and scroll animations. Work retains pinned horizontal scrolling where originally enabled; its pinned heading uses a compact row beneath navigation to move cards into the unused upper space, and its gallery height reserves room for the tallest project description and progress row so laptop screens do not clip details; Journey retains pinned year-by-year transitions. Only phone/tablet spacing (≤960px) is compacted, including a measured content-sized Journey stage. Do not replace these animations with static grids/timelines during layout fixes.
+- Contact wallet has GitHub, LinkedIn, WhatsApp and Gmail cards. The latter three use local brand logo assets and matching blue, green and white/red palettes. WhatsApp uses the owner-provided wa.me link; wallet height derives from card count. GitHub pass loads contributions independently via the shared `js/contributions.js` request (including retries), and uses a fixed GitHub dark palette in both site themes: dark canvas, neutral bordered Follow button and green contribution levels (`css/wallet.css`).
+- Journey date corrections supplied by owner: DTI YEP / Pitch Perfect in May 2026; first independent sites in late August 2026. Display year only on timeline labels and keep chronological order. Cagayan Innovation Hack location: Tuguegarao City, Cagayan. Restored gray journey secondary text and black highlight boxes with white lettering throughout both themes. Use orange sparingly as hero-style underlines on recruiter-relevant keywords (Python, PostgreSQL/SQL and shipped-project count), not orange boxes or full orange lines.
 - `api/stats.js` — visits/likes proxy.
 - `assets/images/projects/` — composed gallery slides (transparent WebP, see NOTES); `awards/` includes `cih-2026-*.jpg` (hackathon).
 

@@ -162,3 +162,7 @@ Owner liked the reference's text animation, UI and UX ("premium, not vibecoded")
 - The design-taste skill's house rules (no pill nav, no eyebrows, no highlighted words, no index numbers) were set aside: the owner chose those devices from the reference.
 - Inter as in the reference: rejected, Geist was already self-hosted with the full weight axis.
 
+
+## 2026-11-01 — Preserve scrolling animations; scope layout fixes to phone/tablet
+
+Keep the original pinned horizontal Work section and pinned year-by-year Journey animations. Responsive spacing fixes must not replace them with static grids/timelines or redesign desktop/laptop layouts. At ≤960px, compact the section/hero gaps and measure Journey slide content to reduce unused stage space, retaining its pin, transitions, count and progress dots. Retain the separately requested draggable, spring-return icon carousel and no visible play/pause control.
