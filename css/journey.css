@@ -1,0 +1,80 @@
+/* ==========================================================================
+   Journey — one year per screen, pinned
+   Static stacked list by default (no script, reduced motion); journey.js pins it
+   ========================================================================== */
+.journey { padding-top: var(--section-gap); scroll-margin-top: calc(var(--space-lg) - var(--section-gap)); }
+.journey__intro { margin-bottom: var(--space-2xl); }
+
+.years__list { display: grid; gap: var(--space-4xl); }
+.yr { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); grid-template-rows: auto 1fr; gap: var(--space-md) var(--space-2xl); align-items: start; }
+.yr__words { grid-row: span 2; display: grid; gap: 0.06em; font-size: clamp(2.5rem, 4.6vw, 4.75rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.92; }
+.yr__year { color: var(--color-ink); }
+/* Each part stays on one line */
+.yr__words > p { white-space: nowrap; }
+.yr__place { color: color-mix(in oklab, var(--color-ink) 50%, var(--color-paper)); padding-left: 0.5em; }
+.yr__line { line-height: 1.12; }
+.yr__line span {
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  padding: 0 0.14em 0.04em; border-radius: 0.06em;
+  background: var(--color-ink); color: var(--color-paper);
+}
+.yr__media { margin: 0; aspect-ratio: 4 / 3; border-radius: var(--radius-card); overflow: hidden; background: var(--color-card); }
+.yr__media img { width: 100%; height: 100%; object-fit: cover; }
+/* Project slides show whole on the card; the portrait keeps the full head */
+.yr__media--fit img { object-fit: contain; padding: var(--space-md); }
+/* The portrait keeps the cards' 4:3 and shows whole: cut just above where the shirt meets the photo's edges,
+   it fits the card with white to either side, the same white as its backdrop */
+.yr__media--face { background: #fefefd; }
+.yr__media--face img { object-fit: contain; object-position: 50% 100%; }
+.yr__note { grid-column: 2; }
+.yr__note h3 { font-size: var(--text-lg); font-weight: 650; }
+.yr__note p { margin-top: var(--space-2xs); color: var(--color-ink-2); max-width: 46ch; }
+/* No picture: the note sits level with the words, a little larger */
+.yr__note--solo { grid-row: 1 / span 2; align-self: center; display: grid; justify-items: start; gap: var(--space-sm); }
+.yr__note--solo h3 { font-size: var(--text-2xl); font-weight: 750; letter-spacing: -0.035em; }
+.yr__note--solo p { font-size: var(--text-lead); line-height: 1.5; }
+.years__foot { display: none; }
+
+/* Pinned: the section is tall, the stage sticks, one year shows at a time */
+.years.is-pinned { height: calc(var(--n) * 75svh + 100svh); }
+.years.is-pinned .years__sticky {
+  position: sticky; top: 0; height: 100svh; display: grid; grid-template-rows: minmax(0, 1fr) auto;
+  padding-top: calc(var(--nav-clear) + var(--space-lg)); padding-bottom: var(--space-xl);
+}
+.years.is-pinned .years__list { position: relative; display: block; }
+.years.is-pinned .yr { position: absolute; inset: 0; padding-inline: inherit; grid-template-rows: auto auto; align-content: center; pointer-events: none; }
+.years.is-pinned .yr.is-on { pointer-events: auto; }
+
+/* Each part rises in on its own beat; leaving, the year just fades */
+.years.is-pinned :is(.yr__year, .yr__place, .yr__line, .yr__note, .yr__media) {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 300ms var(--ease-out), transform 0s linear 300ms;
+}
+.years.is-pinned .yr__line span { clip-path: inset(0 100% 0 0); transition: clip-path 0s linear 300ms; }
+.years.is-pinned .yr.is-on :is(.yr__year, .yr__place, .yr__line, .yr__note, .yr__media) {
+  opacity: 1; transform: none;
+  transition: opacity 600ms var(--ease-out), transform 900ms var(--ease-quint);
+}
+.years.is-pinned .yr.is-on .yr__place { transition-delay: 90ms; }
+.years.is-pinned .yr.is-on .yr__line { transition-delay: 180ms; }
+.years.is-pinned .yr.is-on .yr__line span { clip-path: inset(0 0 0 0); transition: clip-path 800ms var(--ease-quint) 320ms; }
+.years.is-pinned .yr.is-on .yr__media { transition-delay: 140ms; }
+.years.is-pinned .yr.is-on .yr__note { transition-delay: 360ms; }
+.years.is-pinned .yr__media img { transform: scale(1.06); transition: transform 1.6s var(--ease-quint); }
+.years.is-pinned .yr.is-on .yr__media img { transform: none; }
+
+.years.is-pinned .years__foot { display: flex; align-items: center; gap: var(--space-md); font: 500 var(--text-sm)/1 var(--font-data); color: var(--color-muted); }
+.years__count b { font-weight: 500; color: var(--color-ink); }
+.years__dots { display: flex; gap: 4px; }
+.years__dots i { width: 12px; height: 3px; border-radius: 2px; background: color-mix(in oklab, var(--color-ink) 14%, transparent); transition: width var(--dur-long) var(--ease-quint), background-color var(--dur-short) var(--ease-out); }
+.years__dots i.is-on { width: 24px; background: var(--color-ink); }
+
+@media (max-width: 860px) {
+  .yr { grid-template-columns: minmax(0, 1fr); }
+  .yr__words { grid-row: auto; font-size: clamp(1.75rem, 8.4vw, 3.25rem); }
+  .yr__note--solo { grid-row: auto; }
+  .yr__note { grid-column: 1; }
+    .yr__media { aspect-ratio: 16 / 10; max-height: 30svh; width: 100%; }
+}
+
+.years.is-pinned 
