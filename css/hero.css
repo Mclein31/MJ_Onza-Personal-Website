@@ -16,13 +16,13 @@
   line-height: 0.95; text-wrap: nowrap;
 }
 /* Colour only the i's dot, preserving the original glyph and spacing. */
-.hero__name { --name-accent: #ffb078; }
+.hero__name { --name-accent: #e8894d; }
 .hero__i {
   background: linear-gradient(to bottom, var(--name-accent) 34%, var(--color-ink) 34%);
   background-clip: text; -webkit-background-clip: text;
   color: transparent;
 }
-.hero__period { color: var(--name-accent); }
+.hero__period { color: var(--name-accent); margin-left: 0.06em; }
 @media (min-width: 961px) {
   .hero__name { display: flex; gap: 0.18em; }
 }
