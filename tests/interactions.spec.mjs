@@ -8,8 +8,8 @@ test.describe('desktop interactions', () => {
     for (const id of ['about', 'stack', 'recognition', 'contact']) {
       await page.click(`.nav__links a[href="#${id}"]`);
       await expect(page.locator(`#${id}`)).toBeInViewport();
-      // The section's label lands just under the floating nav (contact is a full screen of its own)
-      if (id !== 'contact') await expect.poll(() => page.locator(`#${id} .eyebrow`).first().evaluate((h) => {
+      // The section's main heading lands just under the floating nav (contact is a full screen of its own)
+      if (id !== 'contact') await expect.poll(() => page.locator(`#${id} h2`).first().evaluate((h) => {
         const gap = h.getBoundingClientRect().top - document.querySelector('.nav__inner').getBoundingClientRect().bottom;
         return gap > 12 && gap < 80;
       }), { message: `#${id} heading lands just under the nav` }).toBe(true);
