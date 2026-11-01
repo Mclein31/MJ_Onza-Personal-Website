@@ -91,12 +91,11 @@ export function initStats() {
   });
 
   (async () => {
-    // Count each browser once, ever; a cached total means it was counted before this flag existed
+    // Every visit counts (no once-per-browser lock since 2026-11-01)
     // Local copies and automated browsers (tests, screenshots) only read the total; they inflated it before
     const real = !navigator.webdriver && !/^(localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\])$/.test(location.hostname);
-    const isNew = real && store.get('site_user_has_visited') !== 'true' && store.get('site_total_visits') === null;
-    const [v, l] = await Promise.all([request(isNew ? 'increment' : 'get', 'visits'), request('get', 'likes')]);
-    if (typeof v === 'number') { visits = v; visitsEl.textContent = fmt(v); store.set('site_total_visits', v); store.set('site_user_has_visited', 'true'); }
+    const [v, l] = await Promise.all([request(real ? 'increment' : 'get', 'visits'), request('get', 'likes')]);
+    if (typeof v === 'number') { visits = v; visitsEl.textContent = fmt(v); store.set('site_total_visits', v); }
     if (typeof l === 'number') { likes = l; likesEl.textContent = fmt(l); store.set('site_total_likes', l); }
   })();
 }
