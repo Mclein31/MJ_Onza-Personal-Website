@@ -1,21 +1,21 @@
 /* ==========================================================================
-   Preloader · toast · stats pill
+   Preloader (in the redesign's type: a heavy count, a thick progress bar) · toast · stats pill
    ========================================================================== */
 .preloader {
   position: fixed; inset: 0; z-index: var(--z-toast);
   display: grid; align-items: end;
   padding: var(--gutter);
-  color: var(--color-ink);
+  background: var(--color-paper); color: var(--color-ink);
   transition: opacity var(--dur-long) var(--ease-out), visibility 0s linear var(--dur-long);
 }
 .preloader.is-done { opacity: 0; visibility: hidden; }
 .no-preload .preloader { display: none; }
-.preloader__row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-lg); }
-.preloader__name { font-family: var(--font-display); font-size: var(--text-xl); }
-.preloader__count { font-family: var(--font-display); font-size: var(--text-display-s); line-height: 1; font-variant-numeric: tabular-nums; }
-.preloader__bar { position: relative; height: 1px; margin-top: var(--space-md); background: var(--color-rule); }
+.preloader__row { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-lg); }
+.preloader__name { padding-bottom: 0.6em; font-size: var(--text-lg); font-weight: 650; letter-spacing: -0.03em; }
+.preloader__count { font-size: clamp(4rem, 13vw, 11rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.85; font-variant-numeric: tabular-nums; }
+.preloader__bar { position: relative; height: 4px; margin-top: var(--space-lg); border-radius: 2px; overflow: hidden; background: color-mix(in oklab, var(--color-ink) 10%, transparent); }
 .preloader__bar i {
-  position: absolute; inset: 0; background: var(--color-guide);
+  position: absolute; inset: 0; border-radius: inherit; background: var(--color-ink);
   transform: scaleX(var(--p, 0)); transform-origin: left;
 }
 
