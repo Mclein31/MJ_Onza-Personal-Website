@@ -15,6 +15,14 @@
   font-size: clamp(4rem, 10.5vw, 10rem); font-weight: var(--display-weight); letter-spacing: var(--tracking-display);
   line-height: 0.95; text-wrap: nowrap;
 }
+/* Colour only the i's dot, preserving the original glyph and spacing. */
+.hero__name { --name-accent: #ffb078; }
+.hero__i {
+  background: linear-gradient(to bottom, var(--name-accent) 34%, var(--color-ink) 34%);
+  background-clip: text; -webkit-background-clip: text;
+  color: transparent;
+}
+.hero__period { color: var(--name-accent); }
 @media (min-width: 961px) {
   .hero__name { display: flex; gap: 0.18em; }
 }
