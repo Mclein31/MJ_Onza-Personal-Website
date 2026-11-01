@@ -7,7 +7,7 @@
 
 .years__list { display: grid; gap: var(--space-4xl); }
 .yr { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); grid-template-rows: auto 1fr; gap: var(--space-md) var(--space-2xl); align-items: start; }
-.yr__words { grid-row: span 2; display: grid; gap: 0.06em; font-size: clamp(2.375rem, 4.2vw, 4.375rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.92; }
+.yr__words { grid-row: span 2; display: grid; gap: 0.06em; font-size: clamp(2rem, 3.6vw, 3.75rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.92; }
 .yr__year { color: var(--color-ink); }
 /* Each part stays on one line */
 .yr__words > p { white-space: nowrap; }
@@ -72,7 +72,7 @@
 
 @media (max-width: 860px) {
   .yr { grid-template-columns: minmax(0, 1fr); }
-  .yr__words { grid-row: auto; font-size: clamp(1.625rem, 7.8vw, 3rem); }
+  .yr__words { grid-row: auto; font-size: clamp(1.5rem, 6.8vw, 2.625rem); }
   .yr__note--solo { grid-row: auto; }
   .yr__note { grid-column: 1; }
     .yr__media { aspect-ratio: 16 / 10; max-height: 34svh; width: 100%; }
