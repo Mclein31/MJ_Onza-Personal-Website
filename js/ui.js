@@ -1,5 +1,5 @@
 /* ==========================================================================
-   UI — menu, trait deck, schema, tilt, photo strip, copy buttons
+   UI — menu, what I do, schema, tilt, photo strip, copy buttons
    ========================================================================== */
 import { $, $$, clamp, finePointer, reducedMotion, toast, copyText, arrowKeys } from './util.js';
 
@@ -105,6 +105,19 @@ function film() {
   });
 }
 
+// What I do: one row open at a time; the open row's button closes it
+function does() {
+  const rows = $$('[data-does] .does__row');
+  const set = (row, open) => {
+    row.classList.toggle('is-open', open);
+    $('.does__btn', row).setAttribute('aria-expanded', String(open));
+  };
+  rows.forEach((row) => $('.does__btn', row).addEventListener('click', () => {
+    const open = !row.classList.contains('is-open');
+    rows.forEach((r) => set(r, r === row && open));
+  }));
+}
+
 function copyButtons() {
   $$('[data-copy]').forEach((btn) => btn.addEventListener('click', async () => {
     await copyText(btn.dataset.copy);
@@ -115,6 +128,7 @@ function copyButtons() {
 export function initUI() {
   menu();
   deck();
+  does();
   schema();
   tilt();
   film();
