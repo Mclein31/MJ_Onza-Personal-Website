@@ -18,7 +18,8 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="The McLein Onza portfolio hero: the name in large type beside floating tech logos" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" type="image/png" href="assets/Logo/favicon.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/Logo/favicon-circle-64.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/Logo/favicon-circle-192.png" />
   <script>
     // Theme + preloader flags before first paint (no flash)
     (function () {
@@ -123,16 +124,19 @@
             <span class="line ln" style="--i:0"><span>McLein</span></span>
             <span class="line ln" style="--i:1"><span>Onza.</span></span>
           </h1>
+          <div class="hero__details">
           <p class="hero__intro">I build <mark class="mk" style="--i:0">full-stack apps</mark> and train in <mark class="mk" style="--i:1">data engineering</mark>.</p>
           <div class="hero__cta">
             <a class="cta-link" href="#work">See the work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7l10 10M17 8v9H8"/></svg></a>
             <button class="cta-link cta-link--soft" type="button" data-message-open>Send a message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></button>
           </div>
+          </div>
         </div>
-        <div class="hero__zone" aria-hidden="true"></div>
-        <div class="icon-field" data-icon-field aria-hidden="true"></div>
+        <div class="hero__zone">
+          <div class="icon-field" data-icon-field tabindex="0" role="region" aria-label="Tools and technologies, scroll to explore"></div>
+        </div>
       </div>
-      <a class="hero__scroll" href="#work" aria-label="Scroll to work"><span>Scroll</span><i></i></a>
+
     </section>
 
     <section class="work" id="work" aria-label="Selected work">
@@ -140,7 +144,7 @@
         <div class="work__sticky">
           <div class="container work__head">
             <div class="section-head">
-              <span class="eyebrow">Selected work</span>
+
               <h2 data-scrub>Things I’ve <span class="hl">built.</span></h2>
             </div>
           </div>
@@ -283,15 +287,15 @@
     <section class="section container about" id="about">
       <div class="about__intro">
         <div class="section-head">
-          <span class="eyebrow">About</span>
+
           <h2 data-scrub>Student first, builder always, now learning <span class="hl">how data flows.</span></h2>
         </div>
         <div class="about__body" data-rise="kids">
           <p class="about__lede">CS student at Cagayan State University, headed for data engineering.</p>
-          <p>I write Python, model tables in PostgreSQL and ship apps people use. Have an opening? <a class="text-link" href="#contact">Let’s talk</a>.</p>
+          <p>I write <span class="keyword">Python</span>, model tables in <span class="keyword">PostgreSQL</span> and ship apps people use. Have an opening? <a class="text-link" href="#contact">Let’s talk</a>.</p>
           <dl class="facts" aria-label="Profile">
             <div><dt>Program</dt><dd>BS Computer Science, 2024 to 2028</dd></div>
-            <div><dt>Shipped</dt><dd><span data-countup="7">7</span>+ projects</dd></div>
+            <div><dt>Shipped</dt><dd><span class="keyword"><span data-countup="7">7</span>+ projects</span></dd></div>
             <div><dt>Off the clock</dt><dd>Tennis and a long manhwa list</dd></div>
           </dl>
         </div>
@@ -334,9 +338,9 @@
 
     <section class="journey" id="journey">
       <div class="container journey__intro section-head">
-        <span class="eyebrow">Journey</span>
+
         <h2 data-scrub>Where I’ve been <span class="hl">so far.</span></h2>
-        <p>From high school honors to shipping full-stack platforms. Keep scrolling.</p>
+        <p>From high school honors to shipping full-stack platforms.</p>
       </div>
       <div class="years" data-years style="--n:7">
         <div class="years__sticky">
@@ -352,16 +356,16 @@
             </li>
             <li class="yr" style="--k:1">
               <div class="yr__words">
-                <p class="yr__year">2023.</p>
-                <p class="yr__place">On my own.</p>
-                <p class="yr__line"><span>First sites shipped.</span></p>
+                <p class="yr__year">2024.</p>
+                <p class="yr__place">Carig Campus.</p>
+                <p class="yr__line"><span>BS Computer Science.</span></p>
               </div>
-              <figure class="yr__media yr__media--fit"><img src="assets/images/projects/mulat-1.webp" alt="Mulat Media on laptop, tablet and phone" loading="lazy" decoding="async" draggable="false" /></figure>
-              <div class="yr__note"><h3>Independent full-stack work</h3><p>Shipped Mulat Media, a publication platform with editorial roles on Supabase, and Hanguk Grill.</p></div>
+              <figure class="yr__media yr__media--face"><img src="assets/images/portrait.webp" alt="Portrait of McLein Jei Onza" width="1000" height="874" loading="lazy" decoding="async" draggable="false" /></figure>
+              <div class="yr__note"><h3>Cagayan State University, Tuguegarao City</h3><p>Data structures and algorithms, object-oriented programming in Java and Python, database systems, operating systems and software engineering. Expected 2028.</p></div>
             </li>
             <li class="yr" style="--k:2">
               <div class="yr__words">
-                <p class="yr__year">2024.</p>
+                <p class="yr__year">2026.</p>
                 <p class="yr__place">Solana, Cagayan.</p>
                 <p class="yr__line"><span>Pitch Perfect.</span></p>
               </div>
@@ -370,17 +374,17 @@
             </li>
             <li class="yr" style="--k:3">
               <div class="yr__words">
-                <p class="yr__year">2024.</p>
-                <p class="yr__place">Carig Campus.</p>
-                <p class="yr__line"><span>BS Computer Science.</span></p>
+                <p class="yr__year">2026.</p>
+                <p class="yr__place">On my own.</p>
+                <p class="yr__line"><span>First sites shipped.</span></p>
               </div>
-              <figure class="yr__media yr__media--face"><img src="assets/images/portrait.webp" alt="Portrait of McLein Jei Onza" width="1000" height="874" loading="lazy" decoding="async" draggable="false" /></figure>
-              <div class="yr__note"><h3>Cagayan State University, Tuguegarao City</h3><p>Data structures and algorithms, object-oriented programming in Java and Python, database systems, operating systems and software engineering. Expected 2028.</p></div>
+              <figure class="yr__media yr__media--fit"><img src="assets/images/projects/mulat-1.webp" alt="Mulat Media on laptop, tablet and phone" loading="lazy" decoding="async" draggable="false" /></figure>
+              <div class="yr__note"><h3>Independent full-stack work</h3><p>Shipped Mulat Media, a publication platform with editorial roles on Supabase, and Hanguk Grill.</p></div>
             </li>
             <li class="yr" style="--k:4">
               <div class="yr__words">
                 <p class="yr__year">2026.</p>
-                <p class="yr__place">iHub, Cagayan.</p>
+                <p class="yr__place">Tuguegarao City, Cagayan.</p>
                 <p class="yr__line"><span>2nd place.</span></p>
               </div>
               <figure class="yr__media"><img src="assets/images/awards/cih-2026-check.jpg" alt="Holding the 2nd place prize check at Cagayan Innovation Hack 2026" loading="lazy" decoding="async" draggable="false" /></figure>
@@ -401,9 +405,10 @@
                 <p class="yr__place">An internship.</p>
                 <p class="yr__line"><span>Data engineering.</span></p>
               </div>
-              <div class="yr__note yr__note--solo"><h3>Looking for my first data role</h3><p>An internship where I can work on real pipelines: SQL and PostgreSQL first, Python for data, then ETL and orchestration.</p><a class="cta-link" href="#contact">Get in touch <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+              <div class="yr__note yr__note--solo"><h3>Looking for my first data role</h3><p>An internship where I can work on real pipelines: <span class="keyword">SQL and PostgreSQL</span> first, Python for data, then ETL and orchestration.</p><a class="cta-link" href="#contact">Get in touch <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
             </li>
           </ol>
+
           <div class="container years__foot" aria-hidden="true"><span class="years__count"><b data-yr-i>01</b> / 07</span><span class="years__dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
         </div>
       </div>
@@ -411,7 +416,7 @@
 
     <section class="section container" id="activity" aria-label="GitHub activity">
       <div class="section-head">
-        <span class="eyebrow">Activity</span>
+
         <h2 data-scrub>A year of shipping, <span class="hl">one square at a time.</span></h2>
       </div>
       <div class="activity" data-activity data-rise>
@@ -434,7 +439,7 @@
 
     <section class="section container" id="stack">
       <div class="section-head">
-        <span class="eyebrow">Stack</span>
+
         <h2 data-scrub>Five tables, <span class="hl">one schema.</span></h2>
         <p>Point at a row to see what it joins across the stack.</p>
       </div>
@@ -494,7 +499,7 @@
 
     <section class="section container" id="recognition">
       <div class="section-head">
-        <span class="eyebrow">Recognition</span>
+
         <h2 data-scrub>Recognition <span class="hl">along the way.</span></h2>
       </div>
       <div class="awards" data-awards data-rise="kids">
@@ -512,7 +517,7 @@
           <div>
             <h3>Pitch Perfect</h3>
             <p>Top presentation award for the live pitch of MedCore, an AI-powered healthcare optimization concept.</p>
-            <div class="award__by"><span>DTI Region 02, Youth Entrepreneurship Program</span><time>May 2024</time></div>
+            <div class="award__by"><span>DTI Region 02, Youth Entrepreneurship Program</span><time>May 2026</time></div>
           </div>
           <button class="award__img" type="button" data-lb="1" data-cursor="View" aria-label="View photo: Pitch Perfect">
             <img src="assets/images/awards/cert-pitch-and-silent-billionaire.jpg" alt="Pitch Perfect and Silent Billionaire certificates" loading="lazy" decoding="async" />
@@ -522,7 +527,7 @@
           <div>
             <h3>Silent Billionaire</h3>
             <p>A distinct recognition for exceptional impact and dedication during the program.</p>
-            <div class="award__by"><span>DTI Region 02, Youth Entrepreneurship Program</span><time>May 2024</time></div>
+            <div class="award__by"><span>DTI Region 02, Youth Entrepreneurship Program</span><time>May 2026</time></div>
           </div>
           <button class="award__img" type="button" data-lb="3" data-cursor="View" aria-label="View photo: Silent Billionaire">
             <img src="assets/images/awards/award-dti-yep-team.jpg" alt="DTI YEP pitch presentation team" loading="lazy" decoding="async" />
@@ -557,13 +562,13 @@
 
     <section class="section container" id="training" aria-label="Training">
       <div class="section-head">
-        <span class="eyebrow">Training</span>
+
         <h2 data-scrub>Three days of <span class="hl">learning to pitch.</span></h2>
       </div>
       <div class="training" data-rise="kids">
         <div class="training__text">
           <h3>DTI Youth Entrepreneurship Program</h3>
-          <div class="training__meta"><time>May 19 to 21, 2024</time><span>Lingu, Solana, Cagayan</span></div>
+          <div class="training__meta"><time>May 19 to 21, 2026</time><span>Lingu, Solana, Cagayan</span></div>
           <p>An intensive three-day boot camp run by DTI Region 02 / SMEDD on entrepreneurial thinking, business model generation, financial viability and pitching digital ideas for sponsorship and seed funding.</p>
           <p>Our team built and presented the live pitch for <strong>MedCore</strong>, an AI-powered healthcare optimization concept, and won the <strong>Pitch Perfect</strong> award along with the <strong>Silent Billionaire</strong> recognition.</p>
         </div>
@@ -623,15 +628,23 @@
               </div>
             </article>
             <article class="pass pass--in">
-              <button class="pass__head" type="button" aria-expanded="false"><span class="pass__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zm6.5 0h3.8v1.5h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1v5.46h-4v-4.84c0-1.16-.02-2.64-1.61-2.64-1.61 0-1.86 1.26-1.86 2.56v4.92h-4z"/></svg></span>LinkedIn</button>
+              <button class="pass__head" type="button" aria-expanded="false"><span class="pass__icon"><img src="assets/icons/linkedin-brand.svg" alt="" width="24" height="24" /></span>LinkedIn</button>
               <div class="pass__body">
                 <b class="pass__name">McLein Jei Onza</b>
                 <p class="pass__note">Computer Science student · Cagayan State University</p>
                 <a class="pass__go" href="https://www.linkedin.com/in/mclein-jei-onza-9b0769322/" target="_blank" rel="noopener noreferrer">Connect <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
               </div>
             </article>
+            <article class="pass pass--wa">
+              <button class="pass__head" type="button" aria-expanded="false"><span class="pass__icon"><img src="assets/icons/whatsapp.svg" alt="" width="24" height="24" /></span>WhatsApp</button>
+              <div class="pass__body">
+                <b class="pass__name">McLein Jei G. Onza</b>
+                <p class="pass__note">Projects, collaborations, or a quick hello.</p>
+                <a class="pass__go" href="https://wa.me/639524781573?text=Hi%20McLein%21%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20talk%20about%20a%20project%20or%20opportunity." target="_blank" rel="noopener noreferrer">Chat on WhatsApp <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              </div>
+            </article>
             <article class="pass pass--mail">
-              <button class="pass__head" type="button" aria-expanded="true"><span class="pass__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg></span>Email</button>
+              <button class="pass__head" type="button" aria-expanded="true"><span class="pass__icon"><img src="assets/icons/gmail.png" alt="" width="24" height="24" /></span>Gmail</button>
               <div class="pass__body">
                 <div class="compose" aria-hidden="true">
                   <div class="compose__to">To <span><img src="assets/images/avatar.webp" alt="" />McLein</span></div>

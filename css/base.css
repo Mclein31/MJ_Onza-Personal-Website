@@ -75,22 +75,22 @@ main .container { max-width: calc(var(--wrap) + 2 * var(--gutter)); }
 .section-head h2 { font-size: var(--text-section); max-width: 24ch; }
 .section-head p { margin-top: var(--space-md); max-width: 52ch; color: var(--color-muted); font-size: var(--text-lead); }
 
-/* Section label: a dot and the name, spaced capitals */
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 0.6em; margin-bottom: var(--space-md);
-  font-size: var(--text-xs); font-weight: 550; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted);
-}
-.eyebrow::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
-
-/* Highlight box: ink fills behind the words left to right, the words turn paper (reveal.js drives --wipe) */
+/* Highlight box: black fills behind the words left to right, the words turn white (reveal.js drives --wipe) */
 .hl {
   -webkit-box-decoration-break: clone; box-decoration-break: clone;
   padding: 0 0.12em; margin: 0 -0.02em; border-radius: 0.12em;
-  background: linear-gradient(var(--color-ink), var(--color-ink)) no-repeat 0 0 / var(--wipe, 100%) 100%;
-  color: var(--color-paper);
+  background: linear-gradient(var(--color-highlight), var(--color-highlight)) no-repeat 0 0 / var(--wipe, 100%) 100%;
+  color: var(--color-highlight-ink);
   transition: color var(--dur-short) var(--ease-out);
 }
 .hl.is-dim { color: var(--color-ink); }
+
+/* Sparse recruiter-facing keywords use the hero's orange underline treatment. */
+.keyword {
+  color: var(--color-ink); font-weight: 600;
+  background: linear-gradient(color-mix(in oklab, var(--color-accent) 42%, transparent), color-mix(in oklab, var(--color-accent) 42%, transparent)) no-repeat 0 88% / 100% 0.32em;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
 
 .muted { color: var(--color-muted); }
 
@@ -180,4 +180,15 @@ main .container { max-width: calc(var(--wrap) + 2 * var(--gutter)); }
 .milestone time, .training__meta time, .award__by time,
 .work__foot [data-work-count] {
   font-family: var(--font-data); font-weight: 400; letter-spacing: 0; font-variant-numeric: tabular-nums;
+}
+
+/* Compact section rhythm only on phones and tablets. */
+@media (max-width: 960px) {
+  .section { --pad-top: var(--space-lg); margin-top: var(--section-gap-s); }
+  .section::before {
+    content: ""; position: absolute; top: 0; left: var(--gutter); right: var(--gutter);
+    height: 1px; background: var(--color-rule); pointer-events: none;
+  }
+  .section-head { margin-bottom: var(--space-lg); }
+  .does { margin-top: var(--space-xl); }
 }
