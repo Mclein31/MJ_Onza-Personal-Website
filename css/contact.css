@@ -1,40 +1,55 @@
 /* ==========================================================================
-   Contact · message dialog · footer mast
+   Contact · message dialog
    ========================================================================== */
-.contact { padding-bottom: var(--section-gap); }
-.contact__title { font-size: var(--text-display); max-width: 14ch; line-height: 1; }
-.contact__grid {
-  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-2xl) var(--gap-columns);
-  margin-top: var(--space-2xl); align-items: start;
+/* Contact follows the page theme; the card and passes carry it */
+.contact {
+  --line: color-mix(in oklab, var(--color-ink) 12%, transparent);
+  position: relative; display: grid; align-items: center; min-height: 100svh;
+  padding-block: calc(var(--nav-clear) + var(--space-2xl)) var(--space-3xl);
 }
-.contact__lede { display: grid; gap: var(--space-md); justify-items: start; }
-.contact__lede p { color: var(--color-ink-2); max-width: 44ch; }
-.contact__lede .btn { margin-top: var(--space-xs); }
+.contact__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-2xl) var(--space-3xl); align-items: center; }
+.contact__lede { display: grid; justify-items: start; gap: var(--space-lg); }
+.contact__lede h2 { font-size: clamp(2.25rem, 2.6vw + 1.2rem, 3.75rem); font-weight: 700; letter-spacing: -0.035em; max-width: 14ch; line-height: 1.08; }
+.contact__lede p { color: var(--color-ink-2); max-width: 46ch; font-size: var(--text-lead); line-height: 1.5; }
+.contact .cta-link--soft { color: var(--color-muted); }
 
-/* Links: a ruled set */
-.links { border-top: var(--rule-hair) solid var(--color-ink); container-type: inline-size; }
-.link-row {
-  --v-room: 6rem; /* action, gap and padding */
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-md);
-  width: 100%; min-height: 64px; padding-inline: var(--space-xs);
-  border-bottom: var(--rule-hair) solid var(--color-rule);
-  text-align: left; color: var(--color-ink);
-  transition: background-color var(--dur-short) var(--ease-out);
+/* Availability: a plain outlined tag */
+.avail { display: inline-flex; align-items: center; gap: var(--space-xs); padding: 7px 14px; border-radius: var(--radius-pill); border: var(--rule-hair) solid color-mix(in oklab, var(--color-ink) 16%, transparent); color: var(--color-ink-2); font-size: var(--text-sm); font-weight: 500; }
+
+/* Three projects as small cards: the slide whole on the card, the name under it */
+.contact__work { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-sm); width: 100%; max-width: 600px; margin-top: var(--space-xs); }
+.contact__tile { display: grid; gap: var(--space-xs); color: var(--color-ink); }
+.contact__tile span:first-child { display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: var(--radius-sm); background: var(--color-card); transition: background-color var(--dur-short) var(--ease-out); }
+.contact__tile img { width: 100%; height: 100%; object-fit: contain; padding: 8px; transition: transform var(--dur-long) var(--ease-quint); }
+.contact__tile b { font-size: var(--text-sm); font-weight: 600; letter-spacing: -0.01em; padding-inline: 2px; }
+.contact__tile small { display: block; font-size: var(--text-xs); color: var(--color-muted); font-weight: 400; }
+@media (hover: hover) { .contact__tile:hover span:first-child { background: var(--color-card-2); } .contact__tile:hover img { transform: scale(1.05); } }
+.contact__tile:active img { transform: scale(0.98); }
+
+/* The card: who, local time, one message button, then the wallet of channels */
+.idcard { display: grid; gap: var(--space-md); padding: var(--space-lg); border-radius: 32px; background: var(--color-paper-2); outline: var(--rule-hair) solid var(--line); outline-offset: -1px; }
+.idcard__top { display: flex; align-items: center; gap: var(--space-md); padding: var(--space-2xs); }
+.idcard__face { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; background: #fff; }
+.idcard__top div { display: grid; gap: 2px; }
+.idcard__top b { font-size: var(--text-lg); font-weight: 600; letter-spacing: -0.02em; }
+.idcard__top span { font-size: var(--text-sm); color: var(--color-ink-2); }
+.idcard__top .idcard__time { color: var(--color-muted); font-variant-numeric: tabular-nums; }
+.idcard__msg {
+  display: flex; align-items: center; gap: var(--space-sm); width: 100%; padding: 16px 18px; border-radius: 18px;
+  outline: var(--rule-hair) solid var(--line); outline-offset: -1px; text-align: left;
+  transition: background-color var(--dur-short) var(--ease-out), outline-color var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-quint);
 }
-@media (hover: hover) { .link-row:hover { background: var(--color-hover); } }
-.link-row:active { background: var(--color-paper-3); }
-.link-row:focus-visible { outline-offset: -2px; }
-/* The email (12.7em) shrinks to stay on one line; below the text-lg floor it breaks after the @ */
-.link-row .v { font-family: var(--font-display); font-size: clamp(var(--text-lg), (100cqi - var(--v-room)) / 13, var(--text-xl)); letter-spacing: -0.01em; overflow-wrap: anywhere; min-width: 0; }
-.link-row .act { display: inline-flex; align-items: center; gap: var(--space-xs); font-size: var(--text-sm); font-weight: 500; color: var(--color-muted); }
-.link-row .act svg { width: 16px; height: 16px; }
+.idcard__msg b { font-size: var(--text-lg); font-weight: 650; letter-spacing: -0.02em; }
+.idcard__msg svg { width: 18px; height: 18px; margin-left: auto; transition: transform var(--dur-long) var(--ease-quint); }
+@media (hover: hover) { .idcard__msg:hover { background: var(--color-paper-3); outline-color: color-mix(in oklab, var(--color-ink) 30%, transparent); } .idcard__msg:hover svg { transform: translateX(3px); } }
+.idcard__msg:active { transform: scale(0.99); }
 
 /* Message dialog: one printed sheet */
 .msg { margin: auto; padding: 0; border: 0; background: transparent; width: 100%; max-width: 560px; color: var(--color-ink); }
 .msg::backdrop { background: var(--color-scrim); }
 .msg__panel {
-  margin: var(--space-md); border: var(--rule-hair) solid var(--color-ink); border-radius: var(--radius-card);
-  background: var(--color-paper-hi); color: var(--color-ink); box-shadow: var(--shadow-sheet);
+  margin: var(--space-md); border-radius: var(--radius-card); overflow: hidden;
+  background: var(--color-paper-hi); color: var(--color-ink); box-shadow: var(--shadow-float);
   animation: sheet-in var(--dur-long) var(--ease-out);
 }
 .msg__bar {
@@ -47,7 +62,7 @@
 .field label { font-size: var(--text-sm); font-weight: 500; color: var(--color-ink-2); }
 .field input, .field textarea {
   width: 100%; min-height: 48px; padding: var(--space-sm) var(--space-md);
-  border: var(--rule-hair) solid var(--color-muted); border-radius: var(--radius-pill);
+  border: var(--rule-hair) solid color-mix(in oklab, var(--color-ink) 18%, transparent); border-radius: 14px;
   background: var(--color-paper); color: var(--color-ink); font-size: var(--text-md);
   outline: 2px solid transparent; outline-offset: -1px;
 }
@@ -62,60 +77,9 @@
 .msg__status.err { color: var(--color-error); }
 @keyframes sheet-in { from { opacity: 0; transform: translateY(12px); } }
 
-/* Footer: a mast on the proof ground, the wordmark sized to the container */
-/* One screen tall: the vista takes whatever the rows above and below leave */
-.footer {
-  position: relative; display: flex; flex-direction: column; height: 100svh; min-height: 560px; overflow: hidden;
-  padding-top: var(--space-xl); padding-bottom: var(--space-lg); border-top: var(--rule-hair) solid var(--color-ink);
-}
-.footer__top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-md); font-size: var(--text-sm); color: var(--color-muted); }
-.footer__top nav { display: flex; flex-wrap: wrap; gap: var(--space-lg); }
-.footer__top a { color: var(--color-ink); transition: color var(--dur-short) var(--ease-out); }
-@media (hover: hover) { .footer__top a:hover { color: var(--color-muted); } }
-.footer__mark {
-  margin-top: var(--space-xl); font-family: var(--font-display); letter-spacing: -0.02em; line-height: 0.9;
-  font-size: 12vw; color: var(--color-ink);
-  width: 100%; white-space: nowrap; -webkit-user-select: none; user-select: none;
-}
-.footer__mark .last { letter-spacing: 0; }
-.footer__bottom {
-  display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: var(--space-sm);
-  margin-top: var(--space-lg); padding-top: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule);
-  font-size: var(--text-sm); color: var(--color-muted);
-}
-
-/* Vista: holds the scene's place under the wordmark; its colour layers cover the whole footer, behind the text */
-.footer > .container { position: relative; z-index: 1; }
-.vista {
-  flex: 1 1 auto; min-height: 0; margin-top: var(--space-lg);
-  -webkit-user-select: none; user-select: none; pointer-events: none;
-}
-.vista__layer {
-  position: absolute; inset: 0; margin: 0;
-  font-family: var(--font-data); font-size: var(--fs, 12px); line-height: 1.1; letter-spacing: 0; white-space: pre;
-}
-.vista__layer--ink { color: var(--color-ink); }
-.vista__layer--mute { color: var(--color-muted); }
-.vista__layer--accent { color: var(--color-accent); }
-/* Muted palette: island greens (dark to light), brick red and off-white lighthouse, daytime sun and clouds */
-.vista { --v-g1: oklch(40% 0.045 155); --v-g2: oklch(50% 0.055 150); --v-g3: oklch(60% 0.06 140); --v-red: oklch(56% 0.11 25); --v-white: oklch(88% 0.008 85); --v-sun: oklch(78% 0.09 80); --v-cloud: oklch(70% 0.01 240); }
-:root[data-theme="light"] .vista { --v-g1: oklch(32% 0.05 155); --v-g2: oklch(40% 0.06 150); --v-g3: oklch(48% 0.065 140); --v-red: oklch(48% 0.12 25); --v-white: oklch(70% 0.012 240); --v-sun: oklch(66% 0.11 70); --v-cloud: oklch(58% 0.014 240); }
-/* Light theme: heavier glyphs and deeper greys so the drawing holds up on pale paper */
-:root[data-theme="light"] .vista__layer { font-weight: 500; }
-:root[data-theme="light"] .vista__layer--mute { color: var(--color-ink-2); }
-.vista__layer--g1 { color: var(--v-g1); }
-.vista__layer--g2 { color: var(--v-g2); }
-.vista__layer--g3 { color: var(--v-g3); }
-.vista__layer--red { color: var(--v-red); }
-.vista__layer--white { color: var(--v-white); }
-.vista__layer--sun { color: var(--v-sun); }
-.vista__layer--cloud { color: var(--v-cloud); }
-
 @media (max-width: 860px) {
-  /* Footer rows wrap on small screens: centred they read as one block, not a ragged edge */
-  .footer__top, .footer__bottom { flex-direction: column; align-items: center; text-align: center; }
-  .footer__top nav { justify-content: center; }
   .contact__grid { grid-template-columns: minmax(0, 1fr); }
-  .link-row { padding-block: var(--space-sm); }
+  .contact { min-height: auto; padding-block: var(--section-gap) var(--space-3xl); }
+  .contact__lede h2 { max-width: 12ch; }
 }
 @media (prefers-reduced-motion: reduce) { .msg__panel { animation: none; } }

@@ -1,0 +1,68 @@
+/* ==========================================================================
+   Wallet — channel passes stacked like cards in a wallet; tap one to bring it forward
+   wallet.js sets --pos (0 at the back) and .is-front; without script the front pass shows
+   ========================================================================== */
+.wallet { --peek: 56px; --front: 228px; position: relative; height: calc(2 * var(--peek) + var(--front)); }
+.pass {
+  --pos: 0;
+  position: absolute; inset: 0 0 auto; height: var(--front); z-index: var(--pos);
+  border-radius: 22px; overflow: hidden;
+  background: var(--p-bg); color: var(--p-ink);
+  box-shadow: 0 -10px 24px -14px color-mix(in oklab, oklch(16% 0.032 250) 45%, transparent);
+  transform: translateY(calc(var(--pos) * var(--peek)));
+  transition: transform 650ms var(--ease-quint);
+}
+.pass:nth-child(1) { --pos: 0; } .pass:nth-child(2) { --pos: 1; } .pass:nth-child(3) { --pos: 2; }
+.pass--mail { --p-bg: oklch(97% 0.006 215); --p-ink: oklch(16% 0.032 250); --p-mute: oklch(47% 0.018 240); --p-go: oklch(16% 0.032 250); --p-go-ink: oklch(97% 0.006 215); }
+.pass--in { --p-bg: #0a66c2; --p-ink: #fff; --p-mute: oklch(100% 0 0 / 0.72); --p-go: #fff; --p-go-ink: #0a58a8; }
+.pass--gh { --p-bg: #6e40c9; --p-ink: #fff; --p-mute: oklch(100% 0 0 / 0.84); --p-go: #fff; --p-go-ink: #5a32a8; }
+
+.pass__head {
+  display: flex; align-items: center; gap: var(--space-sm); width: 100%; height: var(--peek); padding: 0 18px;
+  font-size: var(--text-md); font-weight: 650; letter-spacing: -0.015em; color: inherit; text-align: left;
+}
+.pass:not(.is-front) .pass__head { cursor: pointer; }
+@media (hover: hover) { .pass:not(.is-front) .pass__head:hover { background: oklch(100% 0 0 / 0.08); } }
+.pass__head:focus-visible { outline-offset: -3px; border-radius: 22px; }
+.pass__icon { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; background: var(--p-ink); color: var(--p-bg); }
+.pass__icon svg { width: 18px; height: 18px; }
+
+.pass__body { position: relative; height: calc(var(--front) - var(--peek)); padding: 0 18px 18px; opacity: 0; transition: opacity 250ms var(--ease-out); }
+.pass.is-front .pass__body { opacity: 1; transition: opacity 500ms var(--ease-out) 180ms; }
+.pass__name { display: block; margin-top: var(--space-sm); font-size: var(--text-xl); font-weight: 700; letter-spacing: -0.03em; }
+.pass__note { margin-top: var(--space-2xs); font-size: var(--text-sm); color: var(--p-mute); }
+.pass__go, .pass__copy {
+  display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 16px; border-radius: var(--radius-pill);
+  font-size: var(--text-sm); font-weight: 650; transition: transform var(--dur-short) var(--ease-quint), background-color var(--dur-short) var(--ease-out);
+}
+.pass__go { position: absolute; right: 18px; bottom: 18px; background: var(--p-go); color: var(--p-go-ink); }
+.pass__go svg { width: 14px; height: 14px; }
+@media (hover: hover) { .pass__go:hover, .pass__copy:hover { transform: scale(1.04); } }
+.pass__go:active, .pass__copy:active { transform: scale(0.96); }
+
+/* Email: a little compose window that types its first line */
+.compose { width: calc(100% - 110px); display: grid; border-radius: 14px; background: #fff; color: oklch(16% 0.032 250); outline: var(--rule-hair) solid oklch(16% 0.032 250 / 0.1); outline-offset: -1px; font-size: var(--text-sm); }
+.compose > div { padding: 8px 12px; }
+.compose > div + div { border-top: var(--rule-hair) solid oklch(16% 0.032 250 / 0.08); }
+.compose__to { display: flex; align-items: center; gap: var(--space-xs); color: oklch(47% 0.018 240); }
+.compose__to span { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px 2px 2px; border-radius: var(--radius-pill); background: oklch(93% 0.02 250); color: oklch(40% 0.12 255); font-weight: 600; }
+.compose__to img { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; }
+.compose__msg { min-height: 3.6em; line-height: 1.45; }
+.compose .caret { display: inline-block; width: 1.5px; height: 1.05em; margin-left: 1px; vertical-align: -0.15em; background: oklch(52% 0.15 255); animation: caret 1s steps(1) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
+.pass__acts { position: absolute; right: 18px; bottom: 18px; display: grid; gap: var(--space-xs); justify-items: end; }
+.pass__acts .pass__go { position: static; }
+.pass__copy { background: oklch(16% 0.032 250 / 0.07); color: var(--p-ink); }
+
+/* GitHub: the last eighteen weeks, in white on GitHub's purple */
+.pass__grid { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 9px); grid-auto-columns: 9px; gap: 3px; margin-top: var(--space-xs); }
+.pass__grid i { border-radius: 2px; background: oklch(100% 0 0 / 0.12); }
+.pass__grid i[data-l="1"] { background: oklch(100% 0 0 / 0.32); }
+.pass__grid i[data-l="2"] { background: oklch(100% 0 0 / 0.52); }
+.pass__grid i[data-l="3"] { background: oklch(100% 0 0 / 0.74); }
+.pass__grid i[data-l="4"] { background: #fff; }
+.pass--gh .pass__note { margin-top: var(--space-sm); }
+
+@media (prefers-reduced-motion: reduce) { .pass, .pass__body { transition: none; } .compose .caret { animation: none; } }
+@media (max-width: 420px) { .compose { width: 100%; } .pass__acts { flex-direction: row; display: flex; } .wallet { --front: 268px; } .pass__body { display: grid; align-content: start; gap: var(--space-sm); } }
+.wallet:not(.is-live) .pass:last-child .pass__body { opacity: 1; }
