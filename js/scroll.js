@@ -56,13 +56,26 @@ export function initScroll() {
   $$('[data-reveal], .milestone').forEach((el) => io.observe(el));
 
   const links = $$('.nav__links a');
+  const pill = $('.nav__pill');
+  // The pill slides under the active link; with none active (the hero) it fades out
+  const placePill = () => {
+    if (!pill) return;
+    const a = links.find((l) => l.classList.contains('is-active'));
+    pill.style.setProperty('--po', a ? 1 : 0);
+    if (!a) return;
+    pill.style.setProperty('--px', `${a.offsetLeft}px`);
+    pill.style.setProperty('--pw', `${a.offsetWidth}px`);
+  };
   const spy = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (!e.isIntersecting) return;
       links.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === '#' + e.target.id));
+      placePill();
     });
   }, { rootMargin: '-45% 0px -50% 0px' });
   $$('main section[id]').forEach((s) => spy.observe(s));
+  document.fonts?.ready.then(placePill);
+  addEventListener('resize', placePill);
 
   const nav = $('.nav');
   // The bar steps aside once the footer's edge reaches it, so the vista shows in full

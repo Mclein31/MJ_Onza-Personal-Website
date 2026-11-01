@@ -1,68 +1,78 @@
 /* ==========================================================================
-   Nav — edge-aligned bar on the proof ground, hides on visitor scroll
+   Nav — a floating bar: wordmark, links with a sliding pill, theme, one action
    ========================================================================== */
 .nav {
-  position: fixed; inset: 0 0 auto; z-index: var(--z-sticky-nav);
-  transition: transform var(--dur-long) var(--ease-out);
+  position: fixed; inset: var(--space-lg) 0 auto; z-index: var(--z-sticky-nav);
+  padding-inline: var(--gutter); pointer-events: none;
+  transition: transform var(--dur-long) var(--ease-quint);
 }
-.nav.is-hidden, .nav.is-away { transform: translateY(-100%); }
+.nav.is-hidden, .nav.is-away { transform: translateY(calc(-100% - var(--space-lg) - 8px)); }
+.nav > .container { max-width: 1056px; padding: 0; }
 .nav__inner {
-  display: flex; align-items: center; gap: var(--space-lg);
-  height: 72px;
-  border-bottom: var(--rule-hair) solid transparent;
-  transition: border-color var(--dur-short) var(--ease-out);
+  position: relative; display: flex; align-items: center; gap: var(--space-md);
+  height: var(--nav-h); padding: 0 8px 0 22px; border-radius: var(--radius-pill);
+  pointer-events: auto;
 }
-.nav::before {
-  content: ""; position: absolute; inset: 0; z-index: -1;
-  background: var(--color-paper); opacity: 0;
-  transition: opacity var(--dur-short) var(--ease-out);
+/* The bar's ground fades in once the page moves */
+.nav__inner::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+  background: var(--color-paper-hi); box-shadow: var(--shadow-float);
+  outline: var(--rule-hair) solid color-mix(in oklab, var(--color-ink) 7%, transparent);
+  opacity: 0; transition: opacity var(--dur-long) var(--ease-out);
 }
-.nav.is-scrolled::before { opacity: 1; }
-.nav.is-scrolled .nav__inner { border-color: var(--color-ink); }
+.nav.is-scrolled .nav__inner::before { opacity: 1; }
 
-.nav__brand {
-  font-family: var(--font-display); font-size: var(--text-xl); letter-spacing: -0.01em; line-height: 1;
-  color: var(--color-ink); white-space: nowrap;
-}
-.nav__links { display: flex; gap: var(--space-lg); margin-left: auto; }
+.nav__brand { font-size: var(--text-md); font-weight: 650; letter-spacing: -0.03em; color: var(--color-ink); white-space: nowrap; }
+
+.nav__links { position: relative; display: flex; gap: 2px; margin-inline: auto; }
 .nav__links a {
-  position: relative; padding-block: var(--space-xs);
-  font-size: var(--text-sm); font-weight: 500; color: var(--color-ink-2); white-space: nowrap;
+  position: relative; z-index: 1; display: inline-flex; align-items: center; height: 36px; padding: 0 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.9375rem; font-weight: 500; letter-spacing: -0.01em; color: var(--color-muted); white-space: nowrap;
   transition: color var(--dur-short) var(--ease-out);
-}
-.nav__links a::after {
-  content: ""; position: absolute; inset: auto 0 2px; height: 1px; background: var(--color-accent);
-  transform: scaleX(0); transform-origin: left;
-  transition: transform var(--dur-short) var(--ease-out);
 }
 @media (hover: hover) { .nav__links a:hover { color: var(--color-ink); } }
 .nav__links a.is-active { color: var(--color-ink); }
-.nav__links a.is-active::after { transform: none; }
+/* One pill slides to the active link (scroll.js sets its place) */
+.nav__pill {
+  position: absolute; top: 0; left: 0; height: 36px; width: var(--pw, 0px); border-radius: var(--radius-pill);
+  background: var(--color-card); transform: translateX(var(--px, 0px)); opacity: var(--po, 0);
+  transition: transform var(--dur-long) var(--ease-quint), width var(--dur-long) var(--ease-quint), opacity var(--dur-short) var(--ease-out);
+}
 
-.nav__actions { display: flex; align-items: center; gap: var(--space-xs); }
+.nav__actions { display: flex; align-items: center; gap: var(--space-2xs); }
 .theme-toggle .sun { display: none; }
 :root[data-theme="light"] .theme-toggle .sun { display: block; }
 :root[data-theme="light"] .theme-toggle .moon { display: none; }
-.nav__hire { min-height: 44px; }
+.theme-toggle svg { width: 18px; height: 18px; }
+.sfx-toggle svg { width: 18px; height: 18px; }
+.sfx-toggle .off, .sfx-off .sfx-toggle .on { display: none; }
+.sfx-off .sfx-toggle .off { display: block; }
+.nav__hire { min-height: 44px; padding: 0 20px; font-size: 0.9375rem; }
 .nav__menu-btn { display: none; }
 
-/* Phone menu: a full sheet of paper, links set in Hedvig */
+/* Phone menu: a full sheet, links set large and heavy */
 .menu {
   position: fixed; inset: 0; z-index: var(--z-sticky);
-  display: flex; flex-direction: column; justify-content: flex-end; gap: var(--space-lg);
+  display: flex; flex-direction: column; justify-content: flex-end; gap: var(--space-2xs);
   padding: var(--space-4xl) var(--gutter) var(--space-xl);
+  background: var(--color-paper);
   visibility: hidden; opacity: 0;
   transition: opacity var(--dur-short) var(--ease-out), visibility 0s linear var(--dur-short);
 }
 .menu.is-open { visibility: visible; opacity: 1; transition: opacity var(--dur-short) var(--ease-out); }
 .menu a.menu__link {
-  display: flex; align-items: baseline; justify-content: space-between;
-  padding-block: var(--space-sm); border-bottom: var(--rule-hair) solid var(--color-rule);
-  font-family: var(--font-display); font-size: clamp(2.5rem, 11vw, 3.75rem); letter-spacing: -0.02em; line-height: 1;
+  display: block; padding-block: var(--space-2xs);
+  font-size: clamp(2.5rem, 12vw, 3.75rem); font-weight: 800; letter-spacing: -0.05em; line-height: 1.05;
   color: var(--color-ink);
+  transform: translateY(16px); opacity: 0;
+  transition: transform var(--dur-long) var(--ease-quint), opacity var(--dur-long) var(--ease-out);
+  transition-delay: calc(var(--i) * 45ms);
 }
+.menu.is-open a.menu__link { transform: none; opacity: 1; }
 
 @media (max-width: 960px) {
+  .nav { inset-block-start: var(--space-md); }
   .nav__links, .nav__hire { display: none; }
   .nav__menu-btn { display: grid; }
   .nav__actions { margin-left: auto; }
