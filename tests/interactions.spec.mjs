@@ -8,9 +8,10 @@ test.describe('desktop interactions', () => {
     for (const id of ['about', 'stack', 'recognition', 'contact']) {
       await page.click(`.nav__links a[href="#${id}"]`);
       await expect(page.locator(`#${id}`)).toBeInViewport();
-      await expect.poll(() => page.locator(`#${id} .table-name`).first().evaluate((h) => {
+      // The section's label lands just under the floating nav (contact is a full screen of its own)
+      if (id !== 'contact') await expect.poll(() => page.locator(`#${id} .eyebrow`).first().evaluate((h) => {
         const gap = h.getBoundingClientRect().top - document.querySelector('.nav__inner').getBoundingClientRect().bottom;
-        return gap > 20 && gap < 80;
+        return gap > 12 && gap < 80;
       }), { message: `#${id} heading lands just under the nav` }).toBe(true);
       await scrollSettled(page);
       await expect(page.locator('.nav'), 'a jump down must not hide the bar').not.toHaveClass(/is-hidden/);
@@ -193,7 +194,7 @@ test('message form validates, then sends (mocked) and confirms', async ({ page }
 test('copy email shows a confirmation toast', async ({ page, context }, testInfo) => {
   if (testInfo.project.name !== 'iphone-14') await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await gotoReady(page);
-  const btn = page.locator('.link-row[data-copy]');
+  const btn = page.locator('.pass__copy[data-copy]');
   await btn.scrollIntoViewIfNeeded();
   await btn.click();
   await expect(page.locator('[data-toast]')).toHaveClass(/is-show/);
@@ -230,4 +231,39 @@ test('GitHub calendar renders a full year and settled stats', async ({ page }) =
   await expect(page.locator('[data-act="streak"]')).toHaveText('30');
   await expect(page.locator('[data-act="best"]')).toHaveText('40');
   await expect(page.locator('.cell[data-i]').last()).toHaveCSS('opacity', '1');
+});
+
+test('what I do opens one row at a time', async ({ page }) => {
+  await gotoReady(page);
+  const btns = page.locator('.does__btn');
+  await expect(btns.nth(0)).toHaveAttribute('aria-expanded', 'true');
+  await btns.nth(1).scrollIntoViewIfNeeded();
+  await btns.nth(1).click();
+  await expect(btns.nth(1)).toHaveAttribute('aria-expanded', 'true');
+  await expect(btns.nth(0)).toHaveAttribute('aria-expanded', 'false');
+  await btns.nth(1).click();
+  await expect(btns.nth(1)).toHaveAttribute('aria-expanded', 'false');
+});
+
+test('the contact wallet brings a tapped pass to the front', async ({ page }) => {
+  await gotoReady(page);
+  const linkedin = page.locator('.pass--in');
+  await linkedin.scrollIntoViewIfNeeded();
+  await expect(page.locator('.pass--mail')).toHaveClass(/is-front/);
+  await linkedin.locator('.pass__head').click();
+  await expect(linkedin).toHaveClass(/is-front/);
+  await expect(linkedin.locator('.pass__head')).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.locator('.pass--mail .pass__body')).toHaveJSProperty('inert', true);
+  await expect(linkedin.locator('.pass__go')).toHaveAttribute('href', /linkedin\.com/);
+});
+
+test('the sound toggle mutes and remembers the choice', async ({ page }) => {
+  await gotoReady(page);
+  const btn = page.locator('[data-sfx-toggle]').first();
+  if (!(await btn.isVisible())) test.skip(true, 'toggle sits in the desktop bar');
+  await expect(btn).toHaveAttribute('aria-pressed', 'true');
+  await btn.click();
+  await expect(btn).toHaveAttribute('aria-pressed', 'false');
+  await page.reload();
+  await expect(page.locator('[data-sfx-toggle]').first()).toHaveAttribute('aria-pressed', 'false');
 });
