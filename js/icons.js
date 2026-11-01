@@ -1,10 +1,6 @@
-/* ==========================================================================
-   Hero icons — the tools and stack, floating in the right-hand zone; drag them anywhere in the hero
-   ========================================================================== */
-import { $, $$, clamp, reducedMotion } from './util.js';
-import { play } from './sfx.js';
+/* Hero tools: swipeable carousel with gentle automatic scrolling. */
+import { $, reducedMotion } from './util.js';
 
-// [file, label, mono] — mono marks are black and turn white on the night page
 const ICONS = [
   ['python-icon.png', 'Python'], ['postgres-icon.png', 'PostgreSQL'], ['sqlite.svg', 'SQLite'],
   ['neon.svg', 'Neon'], ['supabase.svg', 'Supabase'], ['drizzle.svg', 'Drizzle'],
@@ -18,93 +14,149 @@ const ICONS = [
 
 export function initIcons() {
   const field = $('[data-icon-field]');
-  const zone = $('.hero__zone');
-  if (!field || !zone) return;
-  const box = field.parentElement;
+  if (!field) return;
 
-  const bodies = ICONS.map(([file, label, mono], i) => {
-    const el = document.createElement('div');
-    el.className = 'float-icon' + (mono ? ' float-icon--mono' : '');
-    el.style.setProperty('--fi', i);
-    el.innerHTML = `<img src="assets/icons/${file}" alt="" draggable="false" decoding="async" /><span class="tip">${label}</span>`;
-    field.append(el);
-    return { el, x: 0, y: 0, w: 0, held: false, moved: false, tilt: 0, phase: Math.random() * Math.PI * 2 };
-  });
+  const track = document.createElement('div');
+  track.className = 'icon-track';
+  const group = document.createElement('ul');
+  group.className = 'icon-group';
+  for (const [file, label, mono] of ICONS) {
+    const item = document.createElement('li');
+    item.className = 'tech-icon' + (mono ? ' tech-icon--mono' : '');
+    const img = document.createElement('img');
+    img.src = `assets/icons/${file}`;
+    img.alt = label;
+    img.draggable = false;
+    item.title = label;
+    item.append(img);
+    group.append(item);
+  }
+  track.append(group);
+  field.append(track);
 
-  // An even grid in the zone, as large as fits; icons that were dragged stay where they were left
-  let W = 0, H = 0;
-  const layout = () => {
-    W = box.clientWidth; H = box.clientHeight;
-    const b = box.getBoundingClientRect(), z = zone.getBoundingClientRect();
-    const zx = z.left - b.left, zy = z.top - b.top, zw = z.width, zh = z.height;
-    const n = bodies.length;
-    let best = null;
-    // Five columns or more, capped size: a loose cloud beside the name, not a tall wall
-    for (let cols = 5; cols <= 8; cols++) {
-      const rows = Math.ceil(n / cols);
-      const s = Math.min(58, zw / (cols + (cols - 1) * 0.55), zh / (rows + (rows - 1) * 0.55));
-      if (!best || s > best.s) best = { cols, rows, s };
-    }
-    const { cols, rows, s } = best;
-    const gap = s * 0.55, step = s + gap;
-    field.style.setProperty('--size', `${s}px`);
-    const ox = zx + zw - (cols * step - gap), oy = zy + (zh - (rows * step - gap)) / 2;
-    bodies.forEach((bd, i) => {
-      bd.w = s;
-      if (bd.moved) { bd.x = clamp(bd.x, 0, W - s); bd.y = clamp(bd.y, 0, H - s); return; }
-      // Odd rows shift half a step, so the grid reads as scattered rather than a table
-      const row = Math.floor(i / cols);
-      bd.x = ox + (i % cols) * step - (row % 2 ? step / 2 : 0) + step / 4;
-      bd.y = oy + row * step;
-    });
+  let drag = null;
+  const restore = () => {
+    if (!drag) return;
+    drag.item.classList.remove('is-lifted');
+    drag.ghost.remove();
+    drag = null;
   };
-  layout();
-  new ResizeObserver(layout).observe(box);
-  addEventListener('load', layout);
-  document.fonts?.ready.then(layout);
+  const grab = e => {
+    if (!e.isPrimary || e.button !== 0) return;
+    const item = e.target.closest('.tech-icon');
+    if (!item) return;
+    e.preventDefault();
+    if (!drag || item !== drag.ghost) {
+      restore();
+      const ghost = document.createElement('div');
+      ghost.className = item.className + ' tech-icon--drag';
+      ghost.setAttribute('aria-hidden', 'true');
+      ghost.append(item.querySelector('img').cloneNode());
+      const rect = item.getBoundingClientRect();
+      Object.assign(ghost.style, { left: `${rect.left}px`, top: `${rect.top}px`, width: `${rect.width}px`, height: `${rect.height}px` });
+      document.body.append(ghost);
+      item.classList.add('is-lifted');
+      drag = { item, ghost, x: 0, y: 0, vx: 0, vy: 0 };
+      ghost.addEventListener('pointerdown', grab);
+      ghost.addEventListener('pointermove', move);
+      ghost.addEventListener('pointerup', drop);
+      ghost.addEventListener('pointercancel', drop);
+      ghost.addEventListener('lostpointercapture', drop);
+    }
+    Object.assign(drag, { held: true, id: e.pointerId, px: e.clientX, py: e.clientY, time: e.timeStamp, vx: 0, vy: 0 });
+    drag.ghost.style.cursor = 'grabbing';
+    drag.ghost.setPointerCapture(e.pointerId);
+  };
+  const move = e => {
+    if (!drag?.held || e.pointerId !== drag.id) return;
+    const dx = e.clientX - drag.px, dy = e.clientY - drag.py;
+    const dt = Math.max(8, e.timeStamp - drag.time) / 1000;
+    drag.x += dx; drag.y += dy;
+    drag.vx = Math.max(-1500, Math.min(1500, dx / dt));
+    drag.vy = Math.max(-1500, Math.min(1500, dy / dt));
+    drag.px = e.clientX; drag.py = e.clientY; drag.time = e.timeStamp;
+    drag.ghost.style.transform = `translate3d(${drag.x}px, ${drag.y}px, 0)`;
+  };
+  const drop = e => {
+    if (!drag?.held || e.pointerId !== drag.id) return;
+    drag.held = false;
+    drag.ghost.style.cursor = 'grab';
+    if (e.timeStamp - drag.time > 80 || e.type !== 'pointerup') drag.vx = drag.vy = 0;
+    if (reducedMotion.matches) restore();
+  };
+  field.addEventListener('pointerdown', grab);
 
-  const still = reducedMotion.matches;
-  const bobAt = (b, t) => (still ? 0 : Math.sin(t / 1400 + b.phase) * 3);
+  let clone;
+  const syncMotion = () => {
+    restore();
+    clone?.remove();
+    clone = null;
+    if (!reducedMotion.matches) {
+      clone = group.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.append(clone);
+    }
+  };
+  syncMotion();
+  reducedMotion.addEventListener('change', syncMotion);
 
-  let topZ = 1;
-  bodies.forEach((b) => {
-    let ox = 0, oy = 0, lastX = 0;
-    b.el.addEventListener('pointerdown', (e) => {
-      e.preventDefault();
-      document.documentElement.classList.add('is-dragging-icon');
-      b.y += bobAt(b, performance.now());
-      b.el.style.zIndex = String(++topZ);
-      b.held = true; b.moved = true;
-      b.el.classList.add('is-grabbed'); b.el.setPointerCapture(e.pointerId);
-      ox = e.clientX - b.x; oy = e.clientY - b.y; lastX = e.clientX;
-      play('tap');
-    });
-    b.el.addEventListener('pointermove', (e) => {
-      if (!b.held) return;
-      b.tilt = clamp(b.tilt + (e.clientX - lastX) * 0.6, -8, 8);
-      lastX = e.clientX;
-      b.x = clamp(e.clientX - ox, 0, W - b.w); b.y = clamp(e.clientY - oy, 0, H - b.w);
-    });
-    const release = () => {
-      if (!b.held) return;
-      b.held = false; b.el.classList.remove('is-grabbed');
-      document.documentElement.classList.remove('is-dragging-icon');
-      b.phase = -performance.now() / 1400;
-    };
-    b.el.addEventListener('pointerup', release);
-    b.el.addEventListener('pointercancel', release);
+  let hovering = false, focused = false, touching = false;
+  let resumeAt = 0, visible = false, previous = 0;
+  field.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hovering = true; });
+  field.addEventListener('pointerleave', () => { hovering = false; });
+  field.addEventListener('focusin', () => { focused = true; });
+  field.addEventListener('focusout', () => { focused = false; });
+  field.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    e.preventDefault();
+    field.scrollBy({ left: e.key === 'ArrowRight' ? 84 : -84, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
   });
+  field.addEventListener('pointerdown', () => { touching = true; });
+  const release = () => {
+    if (!touching) return;
+    touching = false;
+    resumeAt = performance.now() + 3000;
+  };
+  addEventListener('pointerup', release);
+  addEventListener('pointercancel', release);
+  new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }).observe(field);
 
-  let visible = true;
-  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(box);
-  const frame = (t) => {
-    if (visible) bodies.forEach((b) => {
-      const bob = b.held ? 0 : bobAt(b, t);
-      b.tilt *= 0.85;
-      b.el.style.transform = `translate3d(${b.x}px, ${b.y + bob}px, 0) rotate(${b.tilt.toFixed(2)}deg)`;
-    });
+  // Carry fractional pixels separately: scrollLeft rounds them in some browsers.
+  let position = field.scrollLeft;
+  const frame = now => {
+    const dt = previous ? Math.min(now - previous, 50) : 0;
+    previous = now;
+    if (drag) {
+      // Keep the home anchored to its carousel slot even if the page scrolls.
+      const home = drag.item.getBoundingClientRect();
+      drag.ghost.style.left = `${home.left}px`;
+      drag.ghost.style.top = `${home.top}px`;
+      if (!drag.held) {
+        const steps = Math.max(1, Math.ceil(dt / 8));
+        const step = dt / steps / 1000;
+        for (let i = 0; i < steps; i++) {
+          drag.vx += (-240 * drag.x - 22 * drag.vx) * step;
+          drag.vy += (-240 * drag.y - 22 * drag.vy) * step;
+          drag.x += drag.vx * step; drag.y += drag.vy * step;
+        }
+        drag.ghost.style.transform = `translate3d(${drag.x}px, ${drag.y}px, 0)`;
+        if (Math.hypot(drag.x, drag.y) < 0.1 && Math.hypot(drag.vx, drag.vy) < 1) {
+          restore();
+          resumeAt = now + 1000;
+        }
+      }
+    }
+    if (!drag && visible && !document.hidden && !reducedMotion.matches && !hovering && !focused && !touching && now >= resumeAt) {
+      const length = group.getBoundingClientRect().width;
+      if (length > 0) {
+        position += dt * 0.024;
+        position %= length;
+        field.scrollLeft = position;
+      }
+    } else {
+      position = field.scrollLeft;
+    }
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
-  $$('.float-icon img', field).forEach((img) => img.addEventListener('error', () => img.closest('.float-icon').remove(), { once: true }));
 }

@@ -3,21 +3,10 @@
    ========================================================================== */
 import { $, $$, reducedMotion } from './util.js';
 
-const SOURCES = ['/api/contributions', 'https://github-contributions-api.jogruber.de/v4/Mclein31?y=last'];
+import { loadContributions } from './contributions.js';
+
 const day = (iso, opts) => new Date(iso + 'T00:00:00').toLocaleDateString('en-US', opts);
 const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
-
-async function load() {
-  for (const url of SOURCES) {
-    try {
-      const r = await fetch(url);
-      if (!r.ok) continue;
-      const data = await r.json();
-      if (data.contributions?.length) return data.contributions;
-    } catch {}
-  }
-  throw new Error('No contribution source reachable');
-}
 
 function summarize(days) {
   let run = 0, streak = { len: 0, start: 0 }, best = 0, total = 0, active = 0;
@@ -95,7 +84,7 @@ export function initActivity() {
     if (!e.isIntersecting) return;
     near.disconnect();
     try {
-      days = await load();
+      days = await loadContributions();
     } catch {
       cal.classList.remove('is-loading');
       cal.innerHTML = '<p class="activity__error">Couldn’t reach GitHub right now. <a href="https://github.com/Mclein31" target="_blank" rel="noopener noreferrer">See the graph on GitHub ↗</a></p>';

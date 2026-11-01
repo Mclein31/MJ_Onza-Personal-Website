@@ -28,8 +28,20 @@ export function initWork() {
     if (!pinned) {
       pin.style.height = '';
       track.style.removeProperty('--x');
+      track.style.removeProperty('--gallery-max-height');
       return;
     }
+    // Reserve the tallest description before sizing the shared gallery frame.
+    // A fixed viewport allowance misses text wrapping on shorter laptop screens.
+    const trackStyle = getComputedStyle(track);
+    const cardStyle = getComputedStyle(projects[0]);
+    const mediaStyle = getComputedStyle($('.project__media', projects[0]));
+    const infoHeight = Math.max(...projects.map(card => $('.project__info', card).getBoundingClientRect().height));
+    const galleryHeight = track.clientHeight
+      - parseFloat(trackStyle.paddingTop) - parseFloat(trackStyle.paddingBottom)
+      - infoHeight - parseFloat(cardStyle.rowGap)
+      - parseFloat(mediaStyle.paddingTop) - parseFloat(mediaStyle.paddingBottom);
+    track.style.setProperty('--gallery-max-height', `${Math.max(0, galleryHeight)}px`);
     const last = track.lastElementChild;
     const end = last.offsetLeft + last.offsetWidth + parseFloat(getComputedStyle(track).paddingRight);
     distance = Math.max(0, end - track.clientWidth);
@@ -57,5 +69,6 @@ export function initWork() {
   addEventListener('resize', measure);
   wide.addEventListener('change', measure);
   addEventListener('load', measure);
+  document.fonts.ready.then(measure);
   measure();
 }

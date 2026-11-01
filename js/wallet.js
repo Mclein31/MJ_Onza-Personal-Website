@@ -3,6 +3,7 @@
    ========================================================================== */
 import { $, $$, reducedMotion } from './util.js';
 import { play } from './sfx.js';
+import { loadContributions } from './contributions.js';
 
 function clock12() {
   const el = $('[data-clock-12]');
@@ -30,17 +31,29 @@ function typer(span) {
   };
 }
 
-// Eighteen weeks from the activity calendar, once activity.js has drawn it
-function fillGrid(grid, totalEl) {
-  const cells = $$('.activity__grid .cell:not(.pad)');
-  if (!grid || !cells.length || grid.childElementCount) return;
-  cells.slice(-126).forEach((c) => {
-    const i = document.createElement('i');
-    i.dataset.l = c.dataset.l || '0';
-    grid.append(i);
-  });
-  const total = $('[data-act="total"]')?.textContent.trim();
-  if (totalEl && total) totalEl.textContent = `${total} contributions this year`;
+// Load from the shared source, even when the full activity calendar was never visited.
+async function fillGrid(grid, totalEl) {
+  if (!grid || grid.dataset.state === 'ready' || grid.dataset.state === 'loading') return;
+  grid.dataset.state = 'loading';
+  grid.setAttribute('aria-busy', 'true');
+  if (totalEl) totalEl.textContent = 'Loading contributions…';
+  try {
+    const days = await loadContributions();
+    const cells = days.slice(-126).map(day => {
+      const cell = document.createElement('i');
+      cell.dataset.l = String(day.level);
+      return cell;
+    });
+    grid.replaceChildren(...cells);
+    grid.dataset.state = 'ready';
+    const total = days.reduce((sum, day) => sum + day.count, 0);
+    if (totalEl) totalEl.textContent = `${total.toLocaleString()} contributions this year`;
+  } catch {
+    grid.dataset.state = 'error';
+    if (totalEl) totalEl.textContent = 'Contributions unavailable · view on GitHub';
+  } finally {
+    grid.setAttribute('aria-busy', 'false');
+  }
 }
 
 export function initWallet() {
@@ -49,6 +62,7 @@ export function initWallet() {
   if (!wallet) return;
   wallet.classList.add('is-live');
   const passes = $$('.pass', wallet);
+  wallet.style.setProperty('--cards', passes.length);
   const order = passes.slice(); // back to front
   const typing = $('[data-typing]', wallet);
   const type = typing ? typer(typing) : () => {};
@@ -65,12 +79,12 @@ export function initWallet() {
   });
 
   const bring = (p) => {
+    if (p.classList.contains('pass--gh')) fillGrid(grid, total);
     if (order[order.length - 1] === p) return;
     order.splice(order.indexOf(p), 1);
     order.push(p);
     render();
     if (p.classList.contains('pass--mail')) type();
-    if (p.classList.contains('pass--gh')) fillGrid(grid, total);
   };
   passes.forEach((p) => $('.pass__head', p).addEventListener('click', () => bring(p)));
   render();
