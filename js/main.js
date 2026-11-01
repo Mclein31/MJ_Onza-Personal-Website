@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Entry — starts every module
-   ========================================================================== */
 import { initTheme } from './theme.js';
 import { initPreloader } from './preloader.js';
 import { initHero } from './hero.js';

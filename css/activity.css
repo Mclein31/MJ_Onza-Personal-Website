@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Activity — the GitHub year on one rounded card, figures as tiles beneath
-   ========================================================================== */
 .activity {
   --cell-gap: 3px;
   --lv0: var(--color-card-2);
@@ -67,7 +64,6 @@
 .activity__tip.is-on { opacity: 1; }
 .activity__tip b { font-weight: 500; }
 
-/* Figures: four tiles; pointing at one lights its days on the calendar */
 .activity__stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-md); margin-top: var(--space-md); }
 .stat {
   padding: var(--space-lg); border-radius: var(--radius-card); background: var(--color-card);

@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Reveal — headings read in with the scroll, highlight boxes wipe, blocks rise
-   ========================================================================== */
 import { $$, clamp } from './util.js';
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');

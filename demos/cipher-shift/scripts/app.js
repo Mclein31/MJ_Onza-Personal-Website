@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let extractedText = "";
 
   const wordLibrary = [
-    /* very long list removed for brevity; keeping original content */ "the",
+    "the",
     "be",
     "to",
     "of",

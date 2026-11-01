@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Custom cursor
-   ========================================================================== */
 import { $, $$, lerp, finePointer, reducedMotion } from './util.js';
 
 export function initCursor() {

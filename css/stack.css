@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Stack — five tables as rounded cards in one grid; hover a row to see what it joins
-   ========================================================================== */
 .schema { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-md); }
 .table {
   grid-column: span 2; container-type: inline-size;
@@ -10,7 +7,7 @@
   transition: transform var(--dur-long) var(--ease-quint);
 }
 .table:nth-child(1), .table:nth-child(2) { grid-column: span 3; }
-/* The first table is the dark one */
+
 .table:nth-child(1) { --t-ink: var(--color-paper); --t-mute: color-mix(in oklab, var(--color-paper) 58%, transparent); --t-line: color-mix(in oklab, var(--color-paper) 12%, transparent); background: var(--color-ink); }
 .table { --t-ink: var(--color-ink); --t-mute: var(--color-muted); --t-line: color-mix(in oklab, var(--color-ink) 8%, transparent); }
 .table__head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-sm); padding-bottom: var(--space-md); }

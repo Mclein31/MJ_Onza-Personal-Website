@@ -136,16 +136,16 @@ Owner wants only new visitors to move the number; the old sessionStorage flag co
 
 ---
 
-## 2026-10-27 — v4 Visual Redesign: Hallmark "Studio" Theme, Data Touches
+## 2026-10-27 — v4 Visual Redesign: Studio Theme, Data Touches
 
 ### Decision
-The draggable tech icons (eight data and backend tools, ink-toned with colour on hover or drag, in their own zone, never over the name) and the scroll-lit manifesto stay (owner asked to bring them back). Full redesign of the look and layout with the Hallmark skill (theme Studio, chosen by the owner over the dealt Almanac): cool proof paper with a dot grid, Hedvig Letters Serif heads over Geist, Geist Mono only for data (schema table names, column types, timestamps, figures), crop-marked "printed sheets" for galleries, tables and photos, one orange for the primary action. Light and dark both derived from the same tokens. Content, links, form fields, script hooks and tests unchanged; all Playwright specs pass.
+The draggable tech icons (eight data and backend tools, ink-toned with colour on hover or drag, in their own zone, never over the name) and the scroll-lit manifesto stay (owner asked to bring them back). Full redesign of the look and layout with the Studio theme chosen by the owner: cool proof paper with a dot grid, Hedvig Letters Serif heads over Geist, Geist Mono only for data (schema table names, column types, timestamps, figures), crop-marked "printed sheets" for galleries, tables and photos, one orange for the primary action. Light and dark both derived from the same tokens. Content, links, form fields, script hooks and tests unchanged; all Playwright specs pass.
 
 ### Dropped (owner reviewed live)
 Custom cursor and magnetic buttons, photo marquee (now a still rail), SQL-style eyebrows above headings (`.table-name` stays as a hook on each head block for the nav-landing test), hand-drawn macOS demo window chrome, hero font-metric guides (owner found them odd).
 
 ### Notes
-- `css/tokens.css` opens with the Hallmark stamp, waivers and dismissals; `.hallmark/` holds the before record and log.
+- Temporary design records and metadata were removed during the 2026-11-01 repository cleanup; the theme remains defined in `css/tokens.css`.
 - `theme.js` still sets `theme-color` to `#f2f3ef` / `#0b0c0d` (the theme test asserts it); the new paper is slightly cooler.
 
 ---
@@ -159,7 +159,7 @@ Restyle the whole page after the owner's reference (jeancreate.com): one heavy g
 Owner liked the reference's text animation, UI and UX ("premium, not vibecoded") and asked for something similar but not a copy. The data-engineering identity supplies the differences: typed SQL in the journey, schema tables, a GitHub pass from real activity.
 
 ### Alternatives
-- The design-taste skill's house rules (no pill nav, no eyebrows, no highlighted words, no index numbers) were set aside: the owner chose those devices from the reference.
+- The owner chose pill navigation, highlighted words and index numbers from the reference.
 - Inter as in the reference: rejected, Geist was already self-hosted with the full weight axis.
 
 

@@ -1,6 +1,3 @@
-/* ==========================================================================
-   UI — menu, what I do, schema, tilt, photo strip, copy buttons
-   ========================================================================== */
 import { $, $$, clamp, finePointer, reducedMotion, toast, copyText, arrowKeys } from './util.js';
 
 function menu() {

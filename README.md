@@ -1,4 +1,4 @@
-# McLein Jei Onza — Developer Portfolio (v3)
+# McLein Jei Onza — Developer Portfolio
 
 A hand-built portfolio for a Computer Science student on the data engineering path. No frameworks, no build step: semantic HTML, CSS custom properties and small ES modules, with a serverless stats proxy on Vercel.
 
@@ -9,7 +9,7 @@ Live Site: [onzamj.vercel.app](https://onzamj.vercel.app/)
 ## ⚡ Tech Stack
 
 - **Core**: Semantic HTML5, CSS3 (tokens, grid, `color-mix`, scroll-snap), vanilla ES modules.
-- **Typography**: Bricolage Grotesque (display), Geist (body), Geist Mono (code & labels).
+- **Typography**: Geist (display and body), Hedvig Letters Serif (footer wordmark), Geist Mono (code and labels).
 - **Theming**: Graphite dark + paper light, synced to the OS until the visitor picks one (`portfolio-theme` in `localStorage`).
 - **Contact**: FormSubmit AJAX form in a native `<dialog>`.
 - **Stats**: `api/stats.js` (Vercel function) proxies visit/like counts to Abacus, with a direct fallback.
@@ -19,13 +19,13 @@ Live Site: [onzamj.vercel.app](https://onzamj.vercel.app/)
 ## 🚀 Features
 
 1. **Preloader** — a once-per-session row counter that wipes away (with a timeout failsafe).
-2. **Kinetic hero** — the name's letters get heavier near the cursor; a live `psql` card types queries about me; draggable tech icons you can throw.
+2. **Kinetic hero** — the name's letters get heavier near the cursor; a swipeable tool carousel includes draggable icons that spring back into place.
 3. **Scroll-lit manifesto** — words light up as you scroll.
 4. **Pinned work gallery** — vertical scroll drives a horizontal track on desktop; every project has a swipeable screenshot gallery (stacked cards on mobile).
 5. **Stack as a schema** — skills shown as database tables; hovering a row "joins" related rows.
-6. **Journey timeline** — draws itself on scroll.
-7. **Stacked award cards** — newest first, with a photo lightbox and an auto-scrolling photo strip.
-8. **Details** — custom cursor with labels, magnetic buttons, trait card deck, draggable stats pill, film-grain overlay, full `prefers-reduced-motion` support.
+6. **Journey timeline** — pinned milestone slides with image cards and scroll transitions.
+7. **Stacked award cards** — newest first, with a photo lightbox and a scrollable photo strip.
+8. **Details** — contact cards, a GitHub contribution calendar, interface sounds, a draggable stats pill, an animated lighthouse footer and `prefers-reduced-motion` support.
 
 ---
 

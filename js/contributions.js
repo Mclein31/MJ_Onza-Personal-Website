@@ -1,4 +1,3 @@
-/* One shared request for the calendar and contact card; failed loads can be retried. */
 const SOURCES = ['/api/contributions', 'https://github-contributions-api.jogruber.de/v4/Mclein31?y=last'];
 let pending;
 

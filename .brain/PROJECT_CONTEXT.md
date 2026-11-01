@@ -31,7 +31,7 @@ last_updated: 2026-11-01
 - **Scripting**: Vanilla ES modules in `js/` (no build step; must be served over HTTP)
 - **Serverless**: `api/stats.js` (Vercel) → Abacus counter
 - **Services**: Abacus (`abacus.jasoncameron.dev`, namespace `mcleinonza`), FormSubmit AJAX
-- **Typography** (self-hosted, `css/fonts.css`): Hedvig Letters Serif (heads, name, wordmark), Geist (body), Geist Mono (data only: identifiers, timestamps, figures). v4 Studio look, see DECISIONS 2026-10-27.
+- **Typography** (self-hosted, `css/fonts.css`): Geist (display and body), Hedvig Letters Serif (footer wordmark), Geist Mono (data only: identifiers, timestamps, figures).
 
 ---
 
@@ -65,6 +65,10 @@ last_updated: 2026-11-01
 - 🐙 **Repository**: [github.com/Mclein31/MJ_Onza-Personal-Website](https://github.com/Mclein31/MJ_Onza-Personal-Website.git)
 
 ---
+
+## Repository Cleanup (2026-11-01)
+
+Temporary redesign captures, mockup working files, generated reports, old design metadata and unreferenced legacy display assets were removed. Published gallery assets, original personal photos, source code, tests, licenses and project documentation remain. Decorative file banners and repetitive styling comments were trimmed; compatibility and behavior explanations remain.
 
 ## ⚠️ Known Limitations
 - ES modules don't load from `file://`; use a local server.

@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Work — pinned horizontal scroll
-   ========================================================================== */
 import { $, $$, clamp, reducedMotion } from './util.js';
 
 export function initWork() {

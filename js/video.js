@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Video window — project promo videos
-   ========================================================================== */
 import { $, $$ } from './util.js';
 
 // Opens { src, poster, title } in the window; a gallery's video slide (AdvanCare, MedCore, SERVIO, MedRec) uses it to play larger

@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Activity — GitHub contribution calendar · stats
-   ========================================================================== */
 import { $, $$, reducedMotion } from './util.js';
 
 import { loadContributions } from './contributions.js';

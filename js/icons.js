@@ -1,4 +1,3 @@
-/* Hero tools: swipeable carousel with gentle automatic scrolling. */
 import { $, reducedMotion } from './util.js';
 
 const ICONS = [

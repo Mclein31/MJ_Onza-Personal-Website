@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Vista — Cape Engaño lighthouse at night, under the footer wordmark (static)
-   ========================================================================== */
 import { $, clamp } from './util.js';
 
 const hash = (n) => { const s = Math.sin(n * 127.1) * 43758.5453; return s - Math.floor(s); };

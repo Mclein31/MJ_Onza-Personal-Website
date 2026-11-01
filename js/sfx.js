@@ -1,7 +1,3 @@
-/* ==========================================================================
-   SFX — small interface sounds, synthesized with Web Audio (no files to load)
-   Quiet by design; a nav button mutes them and the choice is remembered
-   ========================================================================== */
 import { $ } from './util.js';
 
 const KEY = 'portfolio-sfx';

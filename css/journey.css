@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Journey — one year per screen, pinned
-   Static stacked list by default (no script, reduced motion); journey.js pins it
-   ========================================================================== */
 .journey { padding-top: var(--section-gap); scroll-margin-top: calc(var(--space-lg) - var(--section-gap)); }
 .journey__intro { margin-bottom: var(--space-2xl); }
 
@@ -9,7 +5,7 @@
 .yr { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); grid-template-rows: auto 1fr; gap: var(--space-md) var(--space-2xl); align-items: start; }
 .yr__words { grid-row: span 2; display: grid; gap: 0.06em; font-size: clamp(2rem, 3.6vw, 3.75rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.92; }
 .yr__year { color: var(--color-ink); }
-/* Each part stays on one line */
+
 .yr__words > p { white-space: nowrap; }
 .yr__place { color: color-mix(in oklab, var(--color-ink) 50%, var(--color-paper)); padding-left: 0.5em; }
 .yr__words > .yr__place { white-space: normal; }
@@ -21,7 +17,7 @@
 }
 .yr__media { margin: 0; aspect-ratio: 4 / 3; border-radius: var(--radius-card); overflow: hidden; background: var(--color-card); }
 .yr__media img { width: 100%; height: 100%; object-fit: cover; }
-/* Project slides show whole on the card; the portrait keeps the full head */
+
 .yr__media--fit img { object-fit: contain; padding: var(--space-md); }
 /* The portrait keeps the cards' 4:3 and shows whole: cut just above where the shirt meets the photo's edges,
    it fits the card with white to either side, the same white as its backdrop */
@@ -30,13 +26,12 @@
 .yr__note { grid-column: 2; }
 .yr__note h3 { font-size: 1.1875rem; font-weight: 650; }
 .yr__note p { margin-top: var(--space-2xs); color: var(--color-ink-2); max-width: 46ch; }
-/* No picture: the note sits level with the words, a little larger */
+
 .yr__note--solo { grid-row: 1 / span 2; align-self: center; display: grid; justify-items: start; gap: var(--space-sm); }
 .yr__note--solo h3 { font-size: var(--text-2xl); font-weight: 750; letter-spacing: -0.035em; }
 .yr__note--solo p { font-size: var(--text-lead); line-height: 1.5; }
 .years__foot { display: none; }
 
-/* Pinned: the section is tall, the stage sticks, one year shows at a time */
 .years.is-pinned { height: calc(var(--n) * 75svh + 100svh); }
 .years.is-pinned .years__sticky {
   position: sticky; top: 0; height: 100svh; display: grid; grid-template-rows: minmax(0, 1fr) auto;
@@ -46,7 +41,6 @@
 .years.is-pinned .yr { position: absolute; inset: 0; padding-inline: inherit; grid-template-rows: auto auto; align-content: center; pointer-events: none; }
 .years.is-pinned .yr.is-on { pointer-events: auto; }
 
-/* Each part rises in on its own beat; leaving, the year just fades */
 .years.is-pinned :is(.yr__year, .yr__place, .yr__line, .yr__note, .yr__media) {
   opacity: 0; transform: translateY(28px);
   transition: opacity 300ms var(--ease-out), transform 0s linear 300ms;
@@ -77,7 +71,6 @@
   .yr__note { grid-column: 1; }
     .yr__media { aspect-ratio: 16 / 10; max-height: 34svh; width: 100%; }
 }
-
 
 /* The same pinned year animation, with content-sized frames on small screens. */
 @media (max-width: 960px) {

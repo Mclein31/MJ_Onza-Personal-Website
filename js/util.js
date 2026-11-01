@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Shared helpers
-   ========================================================================== */
 export const $ = (sel, root = document) => root.querySelector(sel);
 export const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 export const clamp = (v, min, max) => Math.min(max, Math.max(min, v));

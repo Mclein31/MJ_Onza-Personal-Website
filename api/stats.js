@@ -1,6 +1,4 @@
-// Vercel Serverless Function: Unified Visits & Likes Counter
-// Migrated from CounterAPI v1 (deprecated Aug 2026) to Abacus (abacus.jasoncameron.dev)
-// Solves cross-device syncing, CORS, and Safari iOS ITP tracking blocks
+// Visits and likes proxy.
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Credentials', true);

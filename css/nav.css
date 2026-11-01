@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Nav — a floating bar: wordmark, links with a sliding pill, theme, one action
-   ========================================================================== */
 .nav {
   position: fixed; inset: var(--space-lg) 0 auto; z-index: var(--z-sticky-nav);
   padding-inline: var(--gutter); pointer-events: none;
@@ -13,7 +10,7 @@
   height: var(--nav-h); padding: 0 8px 0 22px; border-radius: var(--radius-pill);
   pointer-events: auto;
 }
-/* The bar's ground fades in once the page moves */
+
 .nav__inner::before {
   content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
   background: var(--color-paper-hi); box-shadow: var(--shadow-float);
@@ -33,7 +30,7 @@
 }
 @media (hover: hover) { .nav__links a:hover { color: var(--color-ink); } }
 .nav__links a.is-active { color: var(--color-ink); }
-/* One pill slides to the active link (scroll.js sets its place) */
+
 .nav__pill {
   position: absolute; top: 0; left: 0; height: 36px; width: var(--pw, 0px); border-radius: var(--radius-pill);
   background: var(--color-card); transform: translateX(var(--px, 0px)); opacity: var(--po, 0);
@@ -51,7 +48,6 @@
 .nav__hire { min-height: 44px; padding: 0 20px; font-size: 0.9375rem; }
 .nav__menu-btn { display: none; }
 
-/* Phone menu: a full sheet, links set large and heavy */
 .menu {
   position: fixed; inset: 0; z-index: var(--z-sticky);
   display: flex; flex-direction: column; justify-content: flex-end; gap: var(--space-2xs);

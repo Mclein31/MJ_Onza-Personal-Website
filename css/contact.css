@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Contact · message dialog
-   ========================================================================== */
-/* Contact follows the page theme; the card and passes carry it */
 .contact {
   --line: color-mix(in oklab, var(--color-ink) 12%, transparent);
   position: relative; display: grid; align-items: center; min-height: 100svh;
@@ -13,10 +9,8 @@
 .contact__lede p { color: var(--color-ink-2); max-width: 46ch; font-size: var(--text-lead); line-height: 1.5; }
 .contact .cta-link--soft { color: var(--color-muted); }
 
-/* Availability: a plain outlined tag */
 .avail { display: inline-flex; align-items: center; gap: var(--space-xs); padding: 7px 14px; border-radius: var(--radius-pill); border: var(--rule-hair) solid color-mix(in oklab, var(--color-ink) 16%, transparent); color: var(--color-ink-2); font-size: var(--text-sm); font-weight: 500; }
 
-/* Three projects as small cards: the slide whole on the card, the name under it */
 .contact__work { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-sm); width: 100%; max-width: 600px; margin-top: var(--space-xs); }
 .contact__tile { display: grid; gap: var(--space-xs); color: var(--color-ink); }
 .contact__tile span:first-child { display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: var(--radius-sm); background: var(--color-card); transition: background-color var(--dur-short) var(--ease-out); }
@@ -26,7 +20,6 @@
 @media (hover: hover) { .contact__tile:hover span:first-child { background: var(--color-card-2); } .contact__tile:hover img { transform: scale(1.05); } }
 .contact__tile:active img { transform: scale(0.98); }
 
-/* The card: who, local time, one message button, then the wallet of channels */
 .idcard { display: grid; gap: var(--space-md); padding: var(--space-lg); border-radius: 32px; background: var(--color-paper-2); outline: var(--rule-hair) solid var(--line); outline-offset: -1px; }
 .idcard__top { display: flex; align-items: center; gap: var(--space-md); padding: var(--space-2xs); }
 .idcard__face { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; background: #fff; }
@@ -44,7 +37,6 @@
 @media (hover: hover) { .idcard__msg:hover { background: var(--color-paper-3); outline-color: color-mix(in oklab, var(--color-ink) 30%, transparent); } .idcard__msg:hover svg { transform: translateX(3px); } }
 .idcard__msg:active { transform: scale(0.99); }
 
-/* Message dialog: one printed sheet */
 .msg { margin: auto; padding: 0; border: 0; background: transparent; width: 100%; max-width: 560px; color: var(--color-ink); }
 .msg::backdrop { background: var(--color-scrim); }
 .msg__panel {

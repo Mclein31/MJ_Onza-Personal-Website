@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Base / reset / layout primitives
-   ========================================================================== */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 
@@ -64,10 +61,8 @@ p { text-wrap: pretty; }
 
 .container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); }
 
-/* Redesigned sections sit in a narrower measure than the footer's container */
 main .container { max-width: calc(var(--wrap) + 2 * var(--gutter)); }
 
-/* Sections: big steps of space, no rules between them */
 .section { --pad-top: var(--section-gap); padding-block: var(--pad-top) 0; position: relative; }
 .section[id] { scroll-margin-top: calc(var(--space-lg) - var(--pad-top)); }
 
@@ -85,7 +80,6 @@ main .container { max-width: calc(var(--wrap) + 2 * var(--gutter)); }
 }
 .hl.is-dim { color: var(--color-ink); }
 
-/* Sparse recruiter-facing keywords use the hero's orange underline treatment. */
 .keyword {
   color: var(--color-ink); font-weight: 600;
   background: linear-gradient(color-mix(in oklab, var(--color-accent) 42%, transparent), color-mix(in oklab, var(--color-accent) 42%, transparent)) no-repeat 0 88% / 100% 0.32em;
@@ -94,14 +88,12 @@ main .container { max-width: calc(var(--wrap) + 2 * var(--gutter)); }
 
 .muted { color: var(--color-muted); }
 
-/* The proof ground: dot grid under grain, for hero, nav and footer */
 .proof {
   background-color: var(--color-paper);
   background-image: var(--grain), radial-gradient(circle at 1px 1px, var(--color-dot) 1px, transparent 1.4px);
   background-size: 160px 160px, 24px 24px;
 }
 
-/* Crop marks: eight ticks off the corners of a printed piece */
 .crop { position: relative; --l: 10px; --o: 10px; }
 .crop::before {
   content: ""; position: absolute; inset: calc(-1 * var(--o)); pointer-events: none; z-index: 2;
@@ -116,7 +108,6 @@ main .container { max-width: calc(var(--wrap) + 2 * var(--gutter)); }
     linear-gradient(var(--color-mark), var(--color-mark)) calc(100% - var(--o)) 100% / 1px var(--l) no-repeat;
 }
 
-/* Pills: outline, ink and orange; pressed they give a little */
 .btn {
   position: relative; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-xs);
   min-height: 48px; padding: 0 22px;
@@ -134,7 +125,6 @@ main .container { max-width: calc(var(--wrap) + 2 * var(--gutter)); }
 @media (hover: hover) { .btn--accent:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); } }
 .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
 
-/* Big text calls to action with a short bar under them that runs the width on hover */
 .cta-link {
   position: relative; display: inline-flex; align-items: center; gap: 0.35em; padding-bottom: 10px;
   font-size: clamp(1.25rem, 1vw + 0.9rem, 1.75rem); font-weight: 750; letter-spacing: -0.04em; color: var(--color-ink);
@@ -165,7 +155,6 @@ main .container { max-width: calc(var(--wrap) + 2 * var(--gutter)); }
 .text-link { text-decoration: underline; text-decoration-color: var(--color-rule); text-underline-offset: 0.18em; text-decoration-thickness: 1px; transition: text-decoration-color var(--dur-short) var(--ease-out); }
 @media (hover: hover) { .text-link:hover { text-decoration-color: var(--color-accent); } }
 
-
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
@@ -175,14 +164,12 @@ main .container { max-width: calc(var(--wrap) + 2 * var(--gutter)); }
   }
 }
 
-/* Data set as data: identifiers, column types, timestamps and figures in Geist Mono */
 .table__head b, .row em, .row::before, .project__stack li,
 .milestone time, .training__meta time, .award__by time,
 .work__foot [data-work-count] {
   font-family: var(--font-data); font-weight: 400; letter-spacing: 0; font-variant-numeric: tabular-nums;
 }
 
-/* Compact section rhythm only on phones and tablets. */
 @media (max-width: 960px) {
   .section { --pad-top: var(--space-lg); margin-top: var(--section-gap-s); }
   .section::before {

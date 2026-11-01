@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Wallet — brings a pass to the front, types the email, fills the GitHub weeks
-   ========================================================================== */
 import { $, $$, reducedMotion } from './util.js';
 import { play } from './sfx.js';
 import { loadContributions } from './contributions.js';

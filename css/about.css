@@ -1,6 +1,3 @@
-/* ==========================================================================
-   About — heading and story side by side, then "What I do" as an accordion
-   ========================================================================== */
 .about__intro {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-xl) var(--space-3xl);
   align-items: start;
@@ -11,13 +8,11 @@
 .about__body > p { color: var(--color-ink-2); max-width: 54ch; font-size: var(--text-lead); line-height: 1.55; }
 .about__body > .about__lede { color: var(--color-ink); }
 
-/* Three facts in a row */
 .facts { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.8fr) minmax(0, 1.2fr); gap: var(--space-md); margin-top: var(--space-md); }
 .facts div { padding: var(--space-md) var(--space-md) var(--space-md) 0; }
 .facts dt { font-size: var(--text-sm); color: var(--color-muted); }
 .facts dd { margin-top: var(--space-2xs); font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; font-variant-numeric: tabular-nums; }
 
-/* What I do */
 .does { margin-top: var(--space-4xl); }
 .does__head {
   display: flex; align-items: center; gap: var(--space-lg); padding-bottom: var(--space-lg);
@@ -55,7 +50,6 @@
 .does__row.is-open .does__icon .v { transform: scaleY(0); }
 .does__btn:active .does__icon { transform: scale(0.92); }
 
-/* The panel opens by animating its grid row from 0fr to 1fr */
 .does__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 520ms var(--ease-quint); }
 .does__row.is-open .does__panel { grid-template-rows: 1fr; }
 .does__inner {

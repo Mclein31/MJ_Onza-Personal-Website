@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Hero — split name, clock, typed queries
-   ========================================================================== */
 import { $, $$, clamp, finePointer, reducedMotion } from './util.js';
 
 function splitName() {

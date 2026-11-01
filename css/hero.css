@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Hero — a small name, the big one set heavy, pale words drifting behind
-   ========================================================================== */
 .hero { position: relative; isolation: isolate; overflow: clip; }
 .hero__inner {
   --hero-lift: clamp(24px, 6vh, 56px);
@@ -15,7 +12,7 @@
   font-size: clamp(4rem, 10.5vw, 10rem); font-weight: var(--display-weight); letter-spacing: var(--tracking-display);
   line-height: 0.95; text-wrap: nowrap;
 }
-/* Colour only the i's dot, preserving the original glyph and spacing. */
+
 .hero__name { --name-accent: #e8894d; }
 .hero__i {
   background: linear-gradient(to bottom, var(--name-accent) 34%, var(--color-ink) 34%);
@@ -28,18 +25,17 @@
 }
 .hero__details { display: flex; align-items: center; justify-content: space-between; gap: var(--space-xl); width: 100%; margin-top: var(--space-xl); }
 .hero__intro { font-size: clamp(1.125rem, 1.6vw, 1.5rem); line-height: 1.5; color: var(--color-ink-2); max-width: 34ch; }
-/* What I do, marked: an orange stroke sweeps under each phrase after the name lands */
+
 .mk { background: none; color: var(--color-ink); font-weight: 600; background-image: linear-gradient(color-mix(in oklab, var(--color-accent) 42%, transparent), color-mix(in oklab, var(--color-accent) 42%, transparent)); background-repeat: no-repeat; background-position: 0 88%; background-size: 100% 0.32em; }
 .reveal-ready .mk { background-size: 0% 0.32em; transition: background-size 900ms var(--ease-quint); transition-delay: calc(900ms + var(--i, 0) * 260ms); }
 .reveal-ready .hero.is-in .mk { background-size: 100% 0.32em; }
 .hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm) var(--space-lg); flex-shrink: 0; }
-/* The kicker, intro and actions follow the name in */
+
 .reveal-ready .hero:not(.is-in) :is(.hero__kicker, .hero__intro, .hero__cta) { opacity: 0; transform: translateY(16px); }
 .hero :is(.hero__kicker, .hero__intro, .hero__cta) { transition: opacity 800ms var(--ease-out), transform 1s var(--ease-quint); }
 .hero .hero__intro { transition-delay: 420ms; }
 .hero .hero__cta { transition-delay: 520ms; }
 
-/* Pale words drifting in rows behind everything, alternate rows the other way */
 .hero__marquee {
   position: absolute; inset: auto 0 -0.1em; z-index: -1;
   opacity: 0.65; mask-image: linear-gradient(transparent, #000 35%);
@@ -53,7 +49,7 @@
   animation-direction: var(--dir, normal);
 }
 .hero__row:nth-child(even) { --dir: reverse; }
-/* Words as generated text: pure decoration, kept out of the reading order and contrast checks */
+
 .hero__row span::before { content: attr(data-t); padding-right: 0.25em; }
 @keyframes hero-drift { to { transform: translateX(-50%); } }
 
@@ -65,8 +61,6 @@
 }
 @media (prefers-reduced-motion: reduce) { .hero__row { animation: none; } }
 
-
-/* A compact, swipeable tools carousel below the hero text at every screen size. */
 .hero__zone { min-width: 0; display: grid; align-content: center; padding-top: var(--space-sm); border-top: 1px solid var(--color-rule); }
 .icon-field {
   width: 100%; overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
@@ -93,7 +87,6 @@
   .icon-group { gap: 24px; padding-right: 24px; }
 }
 
-/* Hero actions share a quiet baseline with one clear primary action. */
 .hero__cta .cta-link { font-size: 0.9375rem; font-weight: 650; letter-spacing: -0.015em; }
 .hero__cta .cta-link:first-child { min-height: 48px; padding: 0 22px; gap: 12px; border-radius: var(--radius-pill); background: var(--color-ink); color: var(--color-paper); }
 .hero__cta .cta-link:first-child::after { display: none; }
@@ -103,5 +96,4 @@
 @media (hover: hover) { .hero__cta .cta-link:first-child:hover { background: var(--color-ink-2); } }
 @media (max-width: 420px) { .hero__cta { gap: 16px; } .hero__cta .cta-link:first-child { padding-inline: 18px; } }
 
-/* Keep navigation clearance when the screen is too short for a vertical offset. */
 @media (max-height: 600px) { .hero__inner { --hero-lift: 0px; } }

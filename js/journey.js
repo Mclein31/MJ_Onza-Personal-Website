@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Journey — pins the years, shows one per stretch of scroll
-   ========================================================================== */
 import { $, $$, clamp, reducedMotion } from './util.js';
 import { play } from './sfx.js';
 

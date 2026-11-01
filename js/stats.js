@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Stats — views and likes
-   ========================================================================== */
 import { $, clamp, store } from './util.js';
 
 const fmt = (n) => new Intl.NumberFormat('en-US').format(Math.max(0, n || 0));

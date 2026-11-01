@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Galleries — project screenshots
-   ========================================================================== */
 import { $, $$, clamp, arrowKeys } from './util.js';
 import { openViewer } from './lightbox.js';
 import { openVideo } from './video.js';

@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Preloader (in the redesign's type: a heavy count, a thick progress bar) · toast · stats pill
-   ========================================================================== */
 .preloader {
   position: fixed; inset: 0; z-index: var(--z-toast);
   display: grid; align-items: end;
@@ -19,7 +16,6 @@
   transform: scaleX(var(--p, 0)); transform-origin: left;
 }
 
-/* The custom cursor is off: the system pointer stays */
 .cursor { display: none; }
 
 .toast {
@@ -36,8 +32,6 @@
 .toast.is-show { opacity: 1; transform: translate(-50%, 0); }
 .toast svg { width: 16px; height: 16px; color: var(--color-success); }
 
-/* Stats: a small printed tab, floating on desktop, in the footer on phones and touch tablets
-   (where it can't be dragged clear and sits over content) */
 .stats {
   position: fixed; right: var(--space-lg); bottom: var(--space-lg); z-index: var(--z-raised);
   display: flex; align-items: center; gap: var(--space-2xs); padding: var(--space-2xs);

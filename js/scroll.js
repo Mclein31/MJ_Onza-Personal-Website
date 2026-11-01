@@ -1,6 +1,3 @@
-/* ==========================================================================
-   Scroll — lit words, count-ups, progress
-   ========================================================================== */
 import { $, $$, clamp, viewProgress } from './util.js';
 
 function splitWords(p) {
