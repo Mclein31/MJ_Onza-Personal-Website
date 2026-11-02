@@ -1,13 +1,13 @@
 import { $, reducedMotion } from './util.js';
 
 const ICONS = [
-  ['python-icon.png', 'Python'], ['postgres-icon.png', 'PostgreSQL'], ['sqlite.svg', 'SQLite'],
+  ['python-icon.webp', 'Python'], ['postgres-icon.webp', 'PostgreSQL'], ['sqlite.svg', 'SQLite'],
   ['neon.svg', 'Neon'], ['supabase.svg', 'Supabase'], ['drizzle.svg', 'Drizzle'],
-  ['typescript-icon.png', 'TypeScript'], ['javascript-icon.png', 'JavaScript'], ['react.svg', 'React'],
+  ['typescript-icon.webp', 'TypeScript'], ['javascript-icon.webp', 'JavaScript'], ['react.svg', 'React'],
   ['angular.svg', 'Angular'], ['ionic.svg', 'Ionic'], ['capacitor.svg', 'Capacitor'],
   ['expo.svg', 'Expo', true], ['nodejs.svg', 'Node.js'], ['hono.svg', 'Hono'],
-  ['cloudflare.svg', 'Cloudflare'], ['vercel.svg', 'Vercel', true], ['git-icon.png', 'Git'],
-  ['github-icon.png', 'GitHub'], ['vscode-icon.png', 'VS Code'], ['cursor.png', 'Cursor'],
+  ['cloudflare.svg', 'Cloudflare'], ['vercel.svg', 'Vercel', true], ['git-icon.webp', 'Git'],
+  ['github-icon.webp', 'GitHub'], ['vscode-icon.webp', 'VS Code'], ['cursor.webp', 'Cursor'],
   ['claude-ai-icon.svg', 'Claude'], ['gemini.svg', 'Gemini'], ['ollama.webp', 'Ollama'],
 ];
 

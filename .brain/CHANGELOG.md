@@ -5,10 +5,15 @@ project: Personal Website
 tags:
   - changelog
   - history
-last_updated: 2026-11-01
+last_updated: 2026-11-02
 ---
 
 # 📜 Personal Website — Changelog
+
+## Images converted to WebP (2026-11-02)
+- **Changed**: Owner asked for all site images in WebP. The 17 award and training photos (JPG) and the 9 PNG tool and contact icons were converted (recipe in NOTES.md, "Image Formats"); `index.html`, `js/lightbox.js` and `js/icons.js` point to the new files and the old JPG/PNG files were deleted. Total weight of these images: 9.4 MB → 4.0 MB (photos about 60% smaller at SSIM ≈ 0.98; icons lossless). Favicons and `og-image.jpg` intentionally unchanged.
+- **Checked**: all 44 WebP images on the page load and decode in Chrome and WebKit (script).
+- **Tests**: 137 pass, 19 skipped.
 
 ## MedCore promo video; promo buttons relabelled (2026-11-01)
 - **Added**: The MedCore promo (from `MedCore1/docs/media/production/medcore-promo.mp4`, 24 MB, 32s, 1080p60, owner's voiceover) as the last slide of the MedCore deck, plus a watch button under its description, as the other three have (owner asked). Encoded with the recipe in NOTES.md plus `-vf fps=30`: `assets/video/medcore-promo.mp4`, 4.7 MB, SSIM 0.994, peak 2.1 Mbps. Poster is the end card at 31.5s (logo, "MedCore", "Clear the way for care."), 1280×720 (`medcore-promo-poster.webp`). Aria-label says "with voiceover" (the production README lists the owner's VO).

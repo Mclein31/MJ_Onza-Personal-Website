@@ -9,7 +9,7 @@ tags:
   - web
   - showcase
   - serverless
-last_updated: 2026-11-01
+last_updated: 2026-11-02
 ---
 
 # 🌐 Personal Website — Project Context
@@ -21,7 +21,7 @@ last_updated: 2026-11-01
 
 ## 🎯 Current Objectives & Status
 - **Status**: v3 is on `main` (pushed) and live — confirmed on onzamj.vercel.app 2026-10-25. Design audit backlog cleared; Playwright suite green.
-- **Live Deployment (v3)**: [onzamj.vercel.app](https://onzamj.vercel.app/)
+- **Live Deployment (v3)**: [mcleinjeionza.vercel.app](https://mcleinjeionza.vercel.app/)
 - **Next**: commit + push the 2026-10-25 polish round (nav, fonts, motion, strip, Work alignment).
 
 ---
@@ -49,7 +49,7 @@ last_updated: 2026-11-01
 - Journey date corrections supplied by owner: DTI YEP / Pitch Perfect in May 2026; first independent sites in late August 2026. Display year only on timeline labels and keep chronological order. Cagayan Innovation Hack location: Tuguegarao City, Cagayan. Restored gray journey secondary text and black highlight boxes with white lettering throughout both themes. Use orange sparingly as hero-style underlines on recruiter-relevant keywords (Python, PostgreSQL/SQL and shipped-project count), not orange boxes or full orange lines.
 - Journey sizing (owner-requested desktop adjustment, 2026-11-01): 7:5 text/image columns make image cards about 25% wider; milestone text uses a smaller 3.6vw scale (60px cap) and card titles are 19px with the shared orange underline highlight. Phone/tablet milestone text uses a smaller 6.8vw scale (42px cap) and image height allowance increases to 34svh. Preserve the pinned transitions.
 - `api/stats.js` — visits/likes proxy.
-- `assets/images/projects/` — composed gallery slides (transparent WebP, see NOTES); `awards/` includes `cih-2026-*.jpg` (hackathon).
+- `assets/images/projects/` — composed gallery slides (transparent WebP, see NOTES); `awards/` includes `cih-2026-*.webp` (hackathon). All site images are WebP or SVG except the favicons and `og-image.jpg` (see NOTES, "Image Formats").
 
 ---
 
@@ -74,3 +74,7 @@ Temporary redesign captures, mockup working files, generated reports, old design
 - ES modules don't load from `file://`; use a local server.
 - AdvanCare staff console slides use intercepted demo data (no real staff login); MedRec has a single image.
 - Student Leader was awarded at graduation, June 2022, the same date as With High Honors; both sit at the end of the newest→oldest order. The Student Journalist card was removed at the owner's request (2026-10-31); its team photo stays in the photo strip.
+
+## Domain Change (2026-11-02)
+
+Production domain changed in Vercel to `mcleinjeionza.vercel.app`; `onzamj.vercel.app` remains configured as a 307 redirect to the new address. Vercel project name remains `onzamj`. Page canonical/Open Graph metadata in `index.html` still references the old domain and should be updated with the next source deployment.

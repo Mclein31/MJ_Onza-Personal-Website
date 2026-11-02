@@ -1,15 +1,15 @@
 import { $, $$ } from './util.js';
 
 export const PHOTOS = [
-  { src: 'award-bnhs-journalism-team.jpg', title: 'Student Leadership & Campus Journalism Team', desc: 'Campus journalist, radio broadcaster and student leader at Ballesteros National High School.' },
-  { src: 'cert-pitch-and-silent-billionaire.jpg', title: 'Pitch Perfect & Silent Billionaire Awards', desc: 'Certificates of Recognition from DTI Region 02 (YEP) for the MedCore pitch presentation and exceptional impact.' },
-  { src: 'cert-high-honors.jpg', title: 'With High Honors', desc: 'Certificate of Recognition for consistent academic excellence and high scholastic distinction.' },
-  { src: 'award-dti-yep-team.jpg', title: 'DTI Youth Entrepreneurship Program — Pitch Team', desc: 'The MedCore pitch team with regional mentors, youth innovators and DTI-SMEDD organizers.' },
-  { src: 'award-community-leadership.jpg', title: 'Student Leadership & Community Outreach', desc: 'Youth leadership representation, community volunteer work and collaborative outreach programs.' },
-  { src: 'award-deped-tree-project.jpg', title: 'DepEd 235K Christmas Trees Project', desc: 'Student leadership in the nationwide DepEd tree planting initiative.' },
-  { src: 'award-symposium-arena.jpg', title: 'Regional Academic & Pitch Symposium', desc: 'Presenting in the regional symposium arena before academic panels and enterprise evaluators.' },
-  { src: 'cih-2026-check.jpg', title: 'Cagayan Innovation Hack 2026 — 2nd Place', desc: 'Final Pitch, October 19, 2026. AdvanCare took second place and a ₱10,000 prize at the iHub Innovation Hub event.' },
-  { src: 'cih-2026-stage.jpg', title: 'AdvanCare on stage — Cagayan Innovation Hack 2026', desc: 'With the AdvanCare platform on screen after the Final Pitch. Theme: “From Local Challenges to Innovative Solutions.”' },
+  { src: 'award-bnhs-journalism-team.webp', title: 'Student Leadership & Campus Journalism Team', desc: 'Campus journalist, radio broadcaster and student leader at Ballesteros National High School.' },
+  { src: 'cert-pitch-and-silent-billionaire.webp', title: 'Pitch Perfect & Silent Billionaire Awards', desc: 'Certificates of Recognition from DTI Region 02 (YEP) for the MedCore pitch presentation and exceptional impact.' },
+  { src: 'cert-high-honors.webp', title: 'With High Honors', desc: 'Certificate of Recognition for consistent academic excellence and high scholastic distinction.' },
+  { src: 'award-dti-yep-team.webp', title: 'DTI Youth Entrepreneurship Program — Pitch Team', desc: 'The MedCore pitch team with regional mentors, youth innovators and DTI-SMEDD organizers.' },
+  { src: 'award-community-leadership.webp', title: 'Student Leadership & Community Outreach', desc: 'Youth leadership representation, community volunteer work and collaborative outreach programs.' },
+  { src: 'award-deped-tree-project.webp', title: 'DepEd 235K Christmas Trees Project', desc: 'Student leadership in the nationwide DepEd tree planting initiative.' },
+  { src: 'award-symposium-arena.webp', title: 'Regional Academic & Pitch Symposium', desc: 'Presenting in the regional symposium arena before academic panels and enterprise evaluators.' },
+  { src: 'cih-2026-check.webp', title: 'Cagayan Innovation Hack 2026 — 2nd Place', desc: 'Final Pitch, October 19, 2026. AdvanCare took second place and a ₱10,000 prize at the iHub Innovation Hub event.' },
+  { src: 'cih-2026-stage.webp', title: 'AdvanCare on stage — Cagayan Innovation Hack 2026', desc: 'With the AdvanCare platform on screen after the Final Pitch. Theme: “From Local Challenges to Innovative Solutions.”' },
 ].map((p) => ({ ...p, src: 'assets/images/awards/' + p.src }));
 
 // Opens any set of { src, title, desc } in the viewer; galleries use it for project screenshots

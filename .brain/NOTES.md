@@ -5,7 +5,7 @@ project: Personal Website
 tags:
   - notes
   - reference
-last_updated: 2026-11-01
+last_updated: 2026-11-02
 ---
 
 # 📝 Personal Website — Technical Notes
@@ -31,6 +31,9 @@ Slides use **MockUPhone** device frames ([oursky/mockuphone.com](https://github.
 - AdvanCare staff console: intercept `/api/v1/admin/*` with demo JSON (`me`, `overview`, `service-requests`).
 - MedRec: `CI=1 npx expo start --web --port 8082` in `apps/mobile`; seed `medrec.session.v2` + `medrec.onboarded.v2`; intercept `/api/*`. Demo user Juan Dela Cruz; 393×852 @3x; a 50px status band is added in the frame. Routes used: `/`, `/medical`, `/share`, `/share/s1`, `/profile`, `/remy` (+ click "Find my latest blood test"), `/summary` (+ click "Write my summary"). `/record/explain` renders empty with demo data. Fonts and Remy PNGs come from `apps/mobile/assets/`.
 - Mulat Media: live site pages (index, articles, about) at 1440×900 and 390×844.
+
+## 🖼️ Image Formats
+Every image the page loads is WebP or SVG (2026-11-02). Photos: `cwebp -q 82 -m 6 -sharp_yuv -metadata icc` at their original size (most award/training photos are Display P3, so the ICC profile must be kept; check `sips -g orientation` first, as cwebp ignores EXIF rotation). PNG icons: `cwebp -lossless -z 9 -metadata icc` (pixel-identical, smaller than lossy). Two exceptions stay as they are: the favicons (`assets/Logo/favicon-circle-*.png`, since PNG is the safe favicon format) and `og-image.jpg` (social preview crawlers handle WebP unevenly, and visitors never download it).
 
 ## 🎨 Theme Tokens (v3)
 - Dark: bg `#0b0c0d`, ink `#f2f3ef` · Light: bg `#f2f3ef`, ink `#0b0c0d`
