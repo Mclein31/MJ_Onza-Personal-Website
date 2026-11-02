@@ -35,3 +35,32 @@ test('phone and tablet keep journey animation with a compact content-sized frame
     expect(layout.overflow).toBe(false);
   }
 });
+
+test('desktop Journey uses the upper stage and keeps every caption above progress', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'desktop viewport matrix');
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  for (const [width, height] of [[1710, 984], [1440, 900], [1366, 650]]) {
+    await page.setViewportSize({ width, height });
+    await gotoReady(page);
+    for (let index = 0; index < 7; index++) {
+      await page.locator('[data-years]').evaluate((el, index) => {
+        scrollTo({ top: el.getBoundingClientRect().top + scrollY + (el.offsetHeight - innerHeight) * ((index + .3) / 7), behavior: 'instant' });
+      }, index);
+      await expect(page.locator('[data-yr-i]')).toHaveText(String(index + 1).padStart(2, '0'));
+      const slide = page.locator('.yr.is-on');
+      await expect.poll(() => slide.locator('.yr__note').evaluate(el => getComputedStyle(el).transform)).toBe('none');
+      const bounds = await slide.evaluate(el => {
+        const words = el.querySelector('.yr__words').getBoundingClientRect();
+        const note = el.querySelector('.yr__note').getBoundingClientRect();
+        const media = el.querySelector('.yr__media')?.getBoundingClientRect();
+        return { top: words.top, noteBottom: note.bottom, footTop: document.querySelector('.years__foot').getBoundingClientRect().top, wordsRight: words.right, mediaLeft: media?.left, overflow: document.documentElement.scrollWidth > innerWidth };
+      });
+      expect(bounds.top).toBeGreaterThanOrEqual(88);
+      expect(bounds.top).toBeLessThanOrEqual(120);
+      expect(bounds.noteBottom).toBeLessThanOrEqual(bounds.footTop - 16);
+      if (bounds.mediaLeft) expect(bounds.wordsRight).toBeLessThan(bounds.mediaLeft);
+      expect(bounds.overflow).toBe(false);
+      if (width === 1710 && index === 0) await page.screenshot({ path: '/tmp/journey-spacing-after.png' });
+    }
+  }
+});
