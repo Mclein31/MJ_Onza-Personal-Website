@@ -105,3 +105,5 @@ Laptop composition is the owner’s base reference. Hero height caps at 960px on
 Owner removed the speaker/mute control (2026-11-02). Interface sounds stay enabled after the browser permits audio; legacy portfolio-sfx preferences are ignored. Card shuffle remains at the softer volume.
 
 Hero follow-up (2026-11-02): desktop/laptop with a fine pointer and hover uses a full 100svh stage, with navigation clearance and padding included. Tablet/phone compact sizing remains as before (owner corrected the request to exclude tablets). The icon divider uses 6% ink for a very subtle separation. This supersedes the desktop hero height cap from the audit.
+
+CTA review (2026-11-02): “See the work” remains the hero primary. Main form openers and the dialog title use “Send a message”; the contact form opener is a filled primary button. Gmail’s external mail action says “Email”. Hero messaging uses an in-page action arrow rather than the external-link arrow.

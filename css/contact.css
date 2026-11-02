@@ -29,12 +29,12 @@
 .idcard__top .idcard__time { color: var(--color-muted); font-variant-numeric: tabular-nums; }
 .idcard__msg {
   display: flex; align-items: center; gap: var(--space-sm); width: 100%; padding: 16px 18px; border-radius: 18px;
-  outline: var(--rule-hair) solid var(--line); outline-offset: -1px; text-align: left;
+  outline: var(--rule-hair) solid var(--color-ink); outline-offset: -1px; text-align: left; background: var(--color-ink); color: var(--color-paper);
   transition: background-color var(--dur-short) var(--ease-out), outline-color var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-quint);
 }
 .idcard__msg b { font-size: var(--text-lg); font-weight: 650; letter-spacing: -0.02em; }
 .idcard__msg svg { width: 18px; height: 18px; margin-left: auto; transition: transform var(--dur-long) var(--ease-quint); }
-@media (hover: hover) { .idcard__msg:hover { background: var(--color-paper-3); outline-color: color-mix(in oklab, var(--color-ink) 30%, transparent); } .idcard__msg:hover svg { transform: translateX(3px); } }
+@media (hover: hover) { .idcard__msg:hover { background: color-mix(in oklab, var(--color-ink) 86%, var(--color-paper)); outline-color: transparent; } .idcard__msg:hover svg { transform: translateX(3px); } }
 .idcard__msg:active { transform: scale(0.99); }
 
 .msg { margin: auto; padding: 0; border: 0; background: transparent; width: 100%; max-width: 560px; color: var(--color-ink); }
