@@ -107,3 +107,9 @@ Owner removed the speaker/mute control (2026-11-02). Interface sounds stay enabl
 Hero follow-up (2026-11-02): desktop/laptop with a fine pointer and hover uses a full 100svh stage, with navigation clearance and padding included. Tablet/phone compact sizing remains as before (owner corrected the request to exclude tablets). The icon divider uses 6% ink for a very subtle separation. This supersedes the desktop hero height cap from the audit.
 
 CTA review (2026-11-02): “See the work” remains the hero primary. Main form openers and the dialog title use “Send a message”; the contact form opener is a filled primary button. Gmail’s external mail action says “Email”. Hero messaging uses an in-page action arrow rather than the external-link arrow.
+
+## Name-search SEO (2026-11-02)
+
+Canonical site remains https://mcleinjeionza.vercel.app/. Homepage metadata and accessible H1 identify McLein Jei Onza; WebSite/ProfilePage/Person JSON-LD connects McLein Onza and mcleinjeionza, with existing GitHub/LinkedIn profiles as sameAs. robots.txt advertises a one-URL sitemap.xml (section fragments are not separate pages). Google Search Console verification, sitemap submission and URL Inspection request still require account setup; local changes must be deployed first. Live audit found robots.txt and sitemap.xml returning 404 and old onzamj.vercel.app using a temporary 307 redirect. A permanent redirect should be configured in Vercel when the owner can access domain settings. No indexing or ranking is guaranteed.
+
+Search Console follow-up: added a pending canonical URL-prefix property in the owner’s signed-in Google account and placed Google’s exact HTML verification tag in index.html. Deployment must precede verification, sitemap submission and the URL Inspection indexing request; see .brain/SEO_SETUP.md.
