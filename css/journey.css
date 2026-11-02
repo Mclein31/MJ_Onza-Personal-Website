@@ -68,19 +68,19 @@
 .years__dots i { width: 12px; height: 3px; border-radius: 2px; background: color-mix(in oklab, var(--color-ink) 14%, transparent); transition: width var(--dur-long) var(--ease-quint), background-color var(--dur-short) var(--ease-out); }
 .years__dots i.is-on { width: 24px; background: var(--color-ink); }
 
-/* Use the desktop stage from the navigation down, with room for captions and progress. */
+/* Center desktop slides with breathing room below navigation and above progress. */
 @media (min-width: 961px) {
   .years.is-pinned :is(.years__list, .years__foot) { max-width: 1600px; }
-  .years.is-pinned .years__sticky { padding-top: calc(var(--nav-clear) + var(--space-sm)); }
+  .years.is-pinned .years__sticky { padding-top: calc(var(--nav-clear) + clamp(24px, 4svh, 48px)); }
   .years.is-pinned .yr {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     column-gap: clamp(32px, 4vw, 64px);
-    align-content: start;
+    align-content: center;
   }
   .years.is-pinned .yr__words { font-size: clamp(2rem, 3.3vw, 3.5rem); }
   .years.is-pinned .yr__words > p { white-space: normal; }
-  .years.is-pinned .yr__media { width: 100%; max-height: calc(100svh - var(--nav-clear) - 220px); }
-  .years.is-pinned .yr__media--workspace { max-height: calc(100svh - var(--nav-clear) - 280px); }
+  .years.is-pinned .yr__media { width: 100%; max-height: calc(100svh - var(--nav-clear) - 252px); }
+  .years.is-pinned .yr__media--workspace { max-height: calc(100svh - var(--nav-clear) - 312px); }
 }
 
 @media (max-width: 860px) {
@@ -97,7 +97,7 @@
   .journey__intro { margin-bottom: var(--space-lg); }
   .yr__words > p { white-space: normal; }
   .years.is-pinned .years__sticky {
-    height: auto; padding-top: calc(var(--nav-clear) + var(--space-xs)); padding-bottom: var(--space-lg);
+    height: auto; padding-top: calc(var(--nav-clear) + clamp(16px, 2.5svh, 32px)); padding-bottom: var(--space-lg);
     grid-template-rows: auto auto; gap: var(--space-md);
   }
   .years.is-pinned .years__list { height: var(--year-content, 560px); }
@@ -117,7 +117,7 @@
 
 /* Portrait tablets use the same content-led sequence as smaller tablets. */
 @media (min-width: 861px) and (max-width: 1100px) and (orientation: portrait) {
-  .years.is-pinned .years__sticky { height: auto; padding-top: calc(var(--nav-clear) + var(--space-xs)); padding-bottom: var(--space-lg); grid-template-rows: auto auto; gap: var(--space-md); }
+  .years.is-pinned .years__sticky { height: auto; padding-top: calc(var(--nav-clear) + clamp(16px, 2.5svh, 32px)); padding-bottom: var(--space-lg); grid-template-rows: auto auto; gap: var(--space-md); }
   .years.is-pinned .years__list { height: var(--year-content, 700px); }
   .years .yr, .years.is-pinned .yr { grid-template-columns: minmax(0, 1fr); grid-template-rows: max-content max-content max-content; align-content: start; }
   .years .yr__words, .years.is-pinned .yr__words { grid-row: 1; font-size: clamp(2rem, 4vw, 2.75rem); }

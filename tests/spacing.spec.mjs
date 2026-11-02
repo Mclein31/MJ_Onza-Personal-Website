@@ -36,7 +36,7 @@ test('phone and tablet keep journey animation with a compact content-sized frame
   }
 });
 
-test('desktop Journey uses the upper stage and keeps every caption above progress', async ({ page, isMobile }) => {
+test('desktop Journey centers slides and keeps every caption above progress', async ({ page, isMobile }) => {
   test.setTimeout(90000);
   test.skip(isMobile, 'desktop viewport matrix');
   await page.emulateMedia({ reducedMotion: 'no-preference' });
@@ -57,7 +57,9 @@ test('desktop Journey uses the upper stage and keeps every caption above progres
         return { top: words.top, noteBottom: note.bottom, footTop: document.querySelector('.years__foot').getBoundingClientRect().top, wordsRight: words.right, mediaLeft: media?.left, overflow: document.documentElement.scrollWidth > innerWidth };
       });
       expect(bounds.top).toBeGreaterThanOrEqual(88);
-      expect(bounds.top).toBeLessThanOrEqual(120);
+      const stage = await page.locator('.years__list').boundingBox();
+      expect(bounds.top).toBeGreaterThanOrEqual(stage.y);
+      expect(Math.abs((bounds.top - stage.y) - (stage.y + stage.height - bounds.noteBottom))).toBeLessThanOrEqual(2);
       expect(bounds.noteBottom).toBeLessThanOrEqual(bounds.footTop - 16);
       if (bounds.mediaLeft) expect(bounds.wordsRight).toBeLessThan(bounds.mediaLeft);
       expect(bounds.overflow).toBe(false);
