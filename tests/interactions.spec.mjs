@@ -257,13 +257,20 @@ test('the contact wallet brings a tapped pass to the front', async ({ page }) =>
   await expect(linkedin.locator('.pass__go')).toHaveAttribute('href', /linkedin\.com/);
 });
 
-test('the sound toggle mutes and remembers the choice', async ({ page }) => {
+test('contact sounds play after interaction without a site mute control', async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('portfolio-sfx', 'off');
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    const original = Audio.prototype.createBufferSource;
+    Audio.prototype.createBufferSource = function (...args) {
+      const source = original.apply(this, args);
+      const start = source.start.bind(source);
+      source.start = (...args) => { window.soundStarts = (window.soundStarts || 0) + 1; return start(...args); };
+      return source;
+    };
+  });
   await gotoReady(page);
-  const btn = page.locator('[data-sfx-toggle]').first();
-  if (!(await btn.isVisible())) test.skip(true, 'toggle sits in the desktop bar');
-  await expect(btn).toHaveAttribute('aria-pressed', 'true');
-  await btn.click();
-  await expect(btn).toHaveAttribute('aria-pressed', 'false');
-  await page.reload();
-  await expect(page.locator('[data-sfx-toggle]').first()).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.locator('[data-sfx-toggle]')).toHaveCount(0);
+  await page.locator('.pass--gh .pass__head').click();
+  await expect.poll(() => page.evaluate(() => window.soundStarts || 0)).toBeGreaterThan(0);
 });

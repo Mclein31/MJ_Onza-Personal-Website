@@ -29,7 +29,7 @@ test('phone and tablet keep journey animation with a compact content-sized frame
       return {hero:rect('.hero').height,gap:rect('.work__head').top-rect('.icon-field').bottom,frame:rect('.years__sticky').height,slide:rect('.years__list').height,overflow:document.documentElement.scrollWidth>innerWidth};
     });
     expect(layout.gap).toBeGreaterThan(24);
-    expect(layout.hero).toBeGreaterThanOrEqual(1024);
+    expect(layout.hero).toBeLessThan(850);
     expect(layout.frame).toBeLessThan(1024);
     expect(layout.slide).toBeGreaterThan(200);
     expect(layout.overflow).toBe(false);
@@ -37,6 +37,7 @@ test('phone and tablet keep journey animation with a compact content-sized frame
 });
 
 test('desktop Journey uses the upper stage and keeps every caption above progress', async ({ page, isMobile }) => {
+  test.setTimeout(90000);
   test.skip(isMobile, 'desktop viewport matrix');
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   for (const [width, height] of [[1710, 984], [1440, 900], [1366, 650]]) {
@@ -62,5 +63,61 @@ test('desktop Journey uses the upper stage and keeps every caption above progres
       expect(bounds.overflow).toBe(false);
       if (width === 1710 && index === 0) await page.screenshot({ path: '/tmp/journey-spacing-after.png' });
     }
+  }
+});
+
+test('mobile hero starts near navigation and projects have room between cards', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'viewport matrix runs in desktop Chrome');
+  for (const width of [375, 393, 768]) {
+    await page.setViewportSize({ width, height: 852 });
+    await gotoReady(page);
+    const layout = await page.evaluate(() => {
+      const rect = s => document.querySelector(s).getBoundingClientRect();
+      const projects = [...document.querySelectorAll('.project:not(.project--more)')];
+      return { kicker: rect('.hero__kicker').top, gap: projects[1].getBoundingClientRect().top - projects[0].getBoundingClientRect().bottom, introGap: rect('.project__info p').top - rect('.project__info h3').bottom };
+    });
+    expect(layout.kicker).toBeLessThanOrEqual(120);
+    expect(layout.kicker).toBeGreaterThanOrEqual(88);
+    expect(layout.gap).toBeGreaterThanOrEqual(72);
+    expect(layout.introGap).toBeGreaterThanOrEqual(15);
+    if (width === 393) {
+      await page.waitForTimeout(1600);
+      await page.screenshot({ path: '/tmp/mobile-hero-after.png' });
+      await page.locator('.project').first().screenshot({ path: '/tmp/mobile-project-after.png' });
+    }
+    await page.locator('[data-years]').evaluate(el => scrollTo({ top: el.getBoundingClientRect().top + scrollY + (el.offsetHeight - innerHeight) * (2.3 / 7), behavior: 'instant' }));
+    await expect(page.locator('[data-yr-i]')).toHaveText('03');
+    await expect.poll(() => page.locator('.yr.is-on .yr__note').evaluate(el => getComputedStyle(el).transform)).toBe('none');
+    const gap = await page.evaluate(() => {
+      const note = document.querySelector('.yr.is-on .yr__note').getBoundingClientRect();
+      return document.querySelector('.years__foot').getBoundingClientRect().top - note.bottom;
+    });
+    expect(gap).toBeGreaterThanOrEqual(15);
+    expect(gap).toBeLessThanOrEqual(20);
+    if (width === 393) {
+      await page.waitForTimeout(1600);
+      await page.screenshot({ path: '/tmp/mobile-journey-after.png' });
+    }
+  }
+});
+
+test('mobile About groups facts and keeps the service heading readable', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'viewport matrix runs in desktop Chrome');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  for (const width of [375, 393, 768]) {
+    await page.setViewportSize({ width, height: 852 });
+    await gotoReady(page, '/#about');
+    const layout = await page.evaluate(() => {
+      const facts = document.querySelector('.facts');
+      const label = facts.querySelector('dt').getBoundingClientRect();
+      const value = facts.querySelector('dd').getBoundingClientRect();
+      const heading = document.querySelector('.does__head span:last-child');
+      return { gap: document.querySelector('.does').getBoundingClientRect().top - document.querySelector('.about__intro').getBoundingClientRect().bottom, labelRight: label.right, valueLeft: value.left, headingHeight: heading.getBoundingClientRect().height, lineHeight: parseFloat(getComputedStyle(heading).lineHeight), overflow: document.documentElement.scrollWidth > innerWidth };
+    });
+    expect(layout.gap).toBe(32);
+    expect(layout.labelRight).toBeLessThan(layout.valueLeft);
+    expect(layout.headingHeight).toBeLessThanOrEqual(layout.lineHeight + 1);
+    expect(layout.overflow).toBe(false);
+    if (width === 393) await page.screenshot({ path: '/tmp/mobile-about-after.png' });
   }
 });

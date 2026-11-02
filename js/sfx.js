@@ -1,10 +1,6 @@
-import { $ } from './util.js';
-
-const KEY = 'portfolio-sfx';
 let ctx = null, master = null, noise = null;
 // Browsers only allow audio after the visitor has pressed something; until then stay silent
 let unlocked = !!navigator.userActivation?.hasBeenActive;
-let on = (() => { try { return localStorage.getItem(KEY) !== 'off'; } catch { return true; } })();
 
 function audio() {
   if (!ctx) {
@@ -80,31 +76,17 @@ const SOUNDS = {
 
 let lastType = 0;
 export function play(name) {
-  if (!on || !unlocked || !SOUNDS[name]) return;
+  if (!unlocked || !SOUNDS[name]) return;
   if (name === 'type') { const now = performance.now(); if (now - lastType < 45) return; lastType = now; }
   if (!audio()) return;
   try { SOUNDS[name](); } catch { /* audio is a nicety; never break the page */ }
 }
 
 export function initSfx() {
-  const btn = $('[data-sfx-toggle]');
-  const sync = () => {
-    document.documentElement.classList.toggle('sfx-off', !on);
-    btn?.setAttribute('aria-pressed', String(on));
-    btn?.setAttribute('aria-label', on ? 'Mute interface sounds' : 'Turn interface sounds on');
-  };
-  sync();
-  btn?.addEventListener('click', () => {
-    on = !on;
-    try { localStorage.setItem(KEY, on ? 'on' : 'off'); } catch { /* private mode */ }
-    sync();
-    if (on) play('toggle');
-  });
-
   // One delegated listener picks the sound from what was pressed
   document.addEventListener('click', (e) => {
     const el = e.target.closest('a, button, [role="button"], summary');
-    if (!el || el.matches('[data-sfx-toggle]')) return;
+    if (!el) return;
     // Capture phase: the accordion hasn't toggled yet, so an expanded row is about to close
     if (el.matches('.does__btn')) return play(el.getAttribute('aria-expanded') === 'true' ? 'close' : 'open');
     // The wallet itself plays the shuffle when its front card changes.
@@ -123,7 +105,7 @@ export function initSfx() {
   // Unlock audio on the first gesture so the first sound isn't lost
   const unlock = () => {
     unlocked = true;
-    if (on) audio();
+    audio();
     removeEventListener('pointerdown', unlock, true);
     removeEventListener('keydown', unlock, true);
   };

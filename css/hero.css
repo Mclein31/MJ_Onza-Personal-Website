@@ -2,7 +2,7 @@
 .hero__inner {
   --hero-lift: clamp(24px, 6vh, 56px);
   display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr auto; align-items: center; gap: var(--space-xl);
-  min-height: 100vh;
+  min-height: min(100svh, 960px);
   padding-top: calc(var(--nav-clear) + var(--space-xl) - var(--hero-lift));
   padding-bottom: calc(var(--space-xl) + var(--hero-lift));
 }
@@ -61,7 +61,7 @@
 }
 @media (prefers-reduced-motion: reduce) { .hero__row { animation: none; } }
 
-.hero__zone { min-width: 0; display: grid; align-content: center; padding-top: var(--space-sm); border-top: 1px solid var(--color-rule); }
+.hero__zone { min-width: 0; display: grid; align-content: center; padding-top: var(--space-sm); border-top: 1px solid color-mix(in oklab, var(--color-ink) 6%, transparent); }
 .icon-field {
   width: 100%; overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
   overscroll-behavior-x: contain; border-radius: 12px;
@@ -82,7 +82,7 @@
 .tech-icon:hover img { filter: none; opacity: 1; }
 :root:not([data-theme="light"]) .tech-icon--mono:hover img { filter: invert(1); }
 @media (max-width: 960px) {
-  .hero__inner { grid-template-columns: minmax(0, 1fr); }
+  .hero__inner { --hero-lift: 0px; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; align-items: start; align-content: start; min-height: auto; padding-top: calc(var(--nav-clear) + var(--space-sm)); padding-bottom: var(--space-xl); gap: 32px; }
   .tech-icon { flex-basis: 48px; width: 48px; height: 48px; }
   .icon-group { gap: 24px; padding-right: 24px; }
 }
@@ -97,3 +97,13 @@
 @media (max-width: 420px) { .hero__cta { gap: 16px; } .hero__cta .cta-link:not(.cta-link--soft) { padding-inline: 18px; } }
 
 @media (max-height: 600px) { .hero__inner { --hero-lift: 0px; } }
+
+/* The fixed header’s clearance and breathing room are included in this full-screen stage. */
+@media (min-width: 961px) and (hover: hover) and (pointer: fine) {
+  .hero__inner { min-height: 100svh; }
+}
+
+/* Tall portrait tablets retain the laptop composition without a screen-sized void. */
+@media (min-width: 961px) and (max-width: 1100px) and (orientation: portrait) {
+  .hero__inner { min-height: 760px; }
+}

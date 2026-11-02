@@ -20,7 +20,7 @@
 @media (hover: hover) { .contact__tile:hover span:first-child { background: var(--color-card-2); } .contact__tile:hover img { transform: scale(1.05); } }
 .contact__tile:active img { transform: scale(0.98); }
 
-.idcard { display: grid; gap: var(--space-md); padding: var(--space-lg); border-radius: 32px; background: var(--color-paper-2); outline: var(--rule-hair) solid var(--line); outline-offset: -1px; }
+.idcard { container-type: inline-size; display: grid; gap: var(--space-md); padding: var(--space-lg); border-radius: 32px; background: var(--color-paper-2); outline: var(--rule-hair) solid var(--line); outline-offset: -1px; }
 .idcard__top { display: flex; align-items: center; gap: var(--space-md); padding: var(--space-2xs); }
 .idcard__face { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; background: #fff; }
 .idcard__top div { display: grid; gap: 2px; }
@@ -75,3 +75,10 @@
   .contact__lede h2 { max-width: 12ch; }
 }
 @media (prefers-reduced-motion: reduce) { .msg__panel { animation: none; } }
+
+@media (min-width: 861px) and (max-width: 1100px) {
+  .contact__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-xl) 32px; }
+}
+@media (min-width: 861px) and (max-width: 1100px) and (orientation: portrait) {
+  .contact { min-height: auto; }
+}

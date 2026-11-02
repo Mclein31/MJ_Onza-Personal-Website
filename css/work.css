@@ -182,5 +182,16 @@
   .work:not(.is-pinned) { scroll-margin-top: 0; }
   .work:not(.is-pinned) .work__sticky { padding-block: var(--space-lg) 0; gap: var(--space-xs); }
   .work__head .section-head { margin-bottom: var(--space-lg); }
-  .work:not(.is-pinned) .work__track { gap: var(--space-xl); }
+  .work:not(.is-pinned) .work__track { gap: 80px; }
+  .work:not(.is-pinned) .project { gap: var(--space-lg); }
+  .work:not(.is-pinned) .project__info { row-gap: var(--space-md); }
+  .work:not(.is-pinned) .project__stack { gap: var(--space-xs) var(--space-md); }
+}
+
+@media (min-width: 961px) and (max-width: 1100px) and (orientation: portrait) {
+  .work:not(.is-pinned) .work__sticky { padding-block: var(--space-xl) 0; gap: var(--space-md); }
+  .work__head .section-head { margin-bottom: var(--space-lg); }
+  .work:not(.is-pinned) .work__track { gap: 80px; }
+  .work:not(.is-pinned) .project { gap: var(--space-lg); }
+  .work:not(.is-pinned) .project__info { row-gap: var(--space-md); }
 }

@@ -100,3 +100,13 @@
 @keyframes wallet-connect { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes wallet-message { from { opacity: 0; transform: translateY(6px) scale(.97); } to { opacity: 1; transform: none; } }
 @keyframes wallet-dot { to { transform: translateY(-3px); opacity: .5; } }
+
+/* Cards adapt to their available width, including tablet side columns. */
+@container (max-width: 360px) {
+  .wallet { --front: 300px; }
+  .compose { width: 100%; }
+  .pass__acts { display: flex; flex-direction: row; }
+}
+@container (max-width: 260px) {
+  .pass--gh .pass__grid { grid-template-rows: repeat(7, 7px); grid-auto-columns: 7px; gap: 2px; }
+}
