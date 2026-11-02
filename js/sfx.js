@@ -63,6 +63,8 @@ const SOUNDS = {
   close: () => { tone(620, { type: 'triangle', peak: 0.09, decay: 0.06 }); tone(410, { type: 'triangle', peak: 0.08, decay: 0.08, at: 0.045 }); },
   // A card sliding in the wallet
   whoosh: () => { hiss({ freq: 600, q: 0.7, peak: 0.14, attack: 0.04, decay: 0.2, sweep: 2600 }); tone(140, { peak: 0.05, attack: 0.02, decay: 0.12, at: 0.12 }); },
+  // A brief paper shuffle with a soft landing for the contact wallet.
+  card: () => { hiss({ freq: 1600, q: 0.7, peak: 0.11, attack: 0.012, decay: 0.08, sweep: 3000 }); hiss({ freq: 2400, q: 0.8, peak: 0.06, decay: 0.05, at: 0.065 }); tone(180, { peak: 0.045, decay: 0.065, to: 95, at: 0.11 }); },
   // Theme switch: a light switch
   toggle: () => { hiss({ freq: 1800, q: 2, peak: 0.18, decay: 0.012 }); tone(1200, { type: 'square', peak: 0.03, decay: 0.03 }); },
   // Copied: two bright notes
@@ -105,7 +107,11 @@ export function initSfx() {
     if (!el || el.matches('[data-sfx-toggle]')) return;
     // Capture phase: the accordion hasn't toggled yet, so an expanded row is about to close
     if (el.matches('.does__btn')) return play(el.getAttribute('aria-expanded') === 'true' ? 'close' : 'open');
-    if (el.matches('.pass__head')) return play(el.closest('.pass')?.classList.contains('is-front') ? 'tap' : 'whoosh');
+    // The wallet itself plays the shuffle when its front card changes.
+    if (el.matches('.pass__head')) {
+      if (el.closest('.pass')?.classList.contains('is-front')) play('tap');
+      return;
+    }
     if (el.matches('[data-theme-toggle]')) return play('toggle');
     if (el.matches('[data-copy]')) return play('success');
     if (el.matches('[data-message-open], [data-video-open], [data-demo-open], [data-gallery-zoom]')) return play('pop');

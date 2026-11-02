@@ -45,3 +45,19 @@ test('WhatsApp card opens the supplied number with an editable prefilled message
   const cardBounds = await card.boundingBox();
   expect(cardBounds.y + cardBounds.height).toBeLessThanOrEqual(bounds.y + bounds.height + 1);
 });
+
+test('Card details leave actions visible and respect reduced motion', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await gotoReady(page, '/#contact');
+  for (const [kind, detail] of [['gh', '.pass__grid'], ['wa', '.pass__chat'], ['in', '.pass__connection']]) {
+    const card = page.locator(`.pass--${kind}`);
+    await card.locator('.pass__head').click();
+    await expect(card.locator('.pass__go')).toBeVisible();
+    const content = await card.locator(detail).boundingBox();
+    const action = await card.locator('.pass__go').boundingBox();
+    expect(content.y + content.height).toBeLessThanOrEqual(action.y);
+    await expect.poll(() => card.evaluate(el => el.getAnimations({ subtree: true }).filter(a => a.playState === 'running').length)).toBe(0);
+  }
+  await expect(page.locator('.pass--in .pass__connection img')).toHaveAttribute('src', 'assets/images/avatar.webp');
+  await expect(page.locator('.pass--wa')).toHaveCSS('background-color', 'rgb(37, 211, 102)');
+});

@@ -1,4 +1,4 @@
-.wallet { --peek: 56px; --front: 228px; position: relative; height: calc((var(--cards, 4) - 1) * var(--peek) + var(--front)); }
+.wallet { --peek: 56px; --front: 260px; position: relative; height: calc((var(--cards, 4) - 1) * var(--peek) + var(--front)); }
 .pass {
   --pos: 0;
   position: absolute; inset: 0 0 auto; height: var(--front); z-index: var(--pos);
@@ -67,3 +67,36 @@
 @media (prefers-reduced-motion: reduce) { .pass, .pass__body { transition: none; } .compose .caret { animation: none; } }
 @media (max-width: 420px) { .compose { width: 100%; } .pass__acts { flex-direction: row; display: flex; } .wallet { --front: 268px; } .pass__body { display: grid; align-content: start; gap: var(--space-sm); } }
 .wallet:not(.is-live) .pass:last-child .pass__body { opacity: 1; }
+
+/* Short entrance details leave each action in a clear, reserved footer. */
+.pass__terminal { margin: 4px 0 10px; font-family: var(--font-data, monospace); font-size: 13px; line-height: 1.5; }
+.pass__terminal > span { color: #39d353; }
+.pass__terminal [data-gh-typing], .pass__cursor { color: #f0f6fc; }
+.pass__cursor { font-style: normal; }
+.pass--gh .pass__grid { grid-template-rows: repeat(7, 9px); grid-auto-columns: 9px; gap: 3px; }
+.pass--gh .pass__activity { position: absolute; bottom: 18px; left: 18px; margin: 0; max-width: calc(100% - 145px); font-size: 11px; line-height: 1.4; }
+.pass--in .pass__name { font-size: clamp(20px, 2vw, 26px); }
+.pass__connection { display: flex; align-items: center; gap: 12px; margin-top: 20px; max-width: 280px; }
+.pass__connection img, .pass__visitor { width: 36px; height: 36px; flex-shrink: 0; border: 1.5px solid #fff; border-radius: 50%; }
+.pass__connection img { object-fit: cover; }
+.pass__visitor { display: grid; place-items: center; }
+.pass__visitor svg { width: 26px; height: 26px; }
+.pass__connection-line { flex: 1; border-top: 3px dotted rgb(255 255 255 / .8); transform-origin: left; }
+.pass__chat { padding-top: 12px; }
+.pass__bubble { position: relative; width: fit-content; max-width: 100%; padding: 12px 15px; border-radius: 16px 16px 16px 3px; background: #fff; color: #073b20; font-size: 15px; line-height: 1.4; }
+.pass__dots { display: flex; gap: 5px; width: fit-content; padding: 10px 12px; margin-top: 10px; border-radius: 14px; background: rgb(255 255 255 / .35); }
+.pass__dots i { width: 5px; height: 5px; border-radius: 50%; background: #073b20; }
+@media (prefers-reduced-motion: no-preference) {
+  .pass.is-front .pass__cursor { animation: wallet-cursor 700ms steps(1) 4; }
+  .pass.is-front .pass__grid { animation: wallet-grid 1.8s ease-out 400ms; }
+  .pass.is-front .pass__connection-line { animation: wallet-connect 900ms ease-out 300ms both; }
+  .pass.is-front .pass__bubble { animation: wallet-message 400ms ease-out 900ms both; }
+  .pass.is-front .pass__dots i { animation: wallet-dot 450ms ease-in-out 2 alternate; }
+  .pass.is-front .pass__dots i:nth-child(2) { animation-delay: 100ms; }
+  .pass.is-front .pass__dots i:nth-child(3) { animation-delay: 200ms; }
+}
+@keyframes wallet-cursor { 50% { opacity: 0; } }
+@keyframes wallet-grid { 45% { filter: brightness(1.6); } }
+@keyframes wallet-connect { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes wallet-message { from { opacity: 0; transform: translateY(6px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes wallet-dot { to { transform: translateY(-3px); opacity: .5; } }

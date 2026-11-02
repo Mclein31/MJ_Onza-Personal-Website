@@ -15,7 +15,7 @@ function clock12() {
 function typer(span) {
   const text = span.textContent;
   let timer = 0;
-  return () => {
+  const start = () => {
     clearInterval(timer);
     if (reducedMotion.matches) { span.textContent = text; return; }
     let i = 0;
@@ -26,6 +26,8 @@ function typer(span) {
       if (i >= text.length) clearInterval(timer);
     }, 38);
   };
+  start.cancel = () => { clearInterval(timer); span.textContent = text; };
+  return start;
 }
 
 // Load from the shared source, even when the full activity calendar was never visited.
@@ -63,6 +65,9 @@ export function initWallet() {
   const order = passes.slice(); // back to front
   const typing = $('[data-typing]', wallet);
   const type = typing ? typer(typing) : () => {};
+  const ghTyping = $('[data-gh-typing]', wallet);
+  const typeGitHub = ghTyping ? typer(ghTyping) : () => {};
+  let detailSound = 0;
   const grid = $('[data-pass-grid]', wallet);
   const total = $('[data-pass-total]', wallet);
   let seen = false;
@@ -78,10 +83,20 @@ export function initWallet() {
   const bring = (p) => {
     if (p.classList.contains('pass--gh')) fillGrid(grid, total);
     if (order[order.length - 1] === p) return;
+    play('card');
+    clearTimeout(detailSound);
+    type.cancel?.();
+    typeGitHub.cancel?.();
     order.splice(order.indexOf(p), 1);
     order.push(p);
     render();
     if (p.classList.contains('pass--mail')) type();
+    if (p.classList.contains('pass--gh')) typeGitHub();
+    if (!reducedMotion.matches && (p.classList.contains('pass--wa') || p.classList.contains('pass--in'))) {
+      detailSound = setTimeout(() => {
+        if (p.classList.contains('is-front') && !document.hidden) play(p.classList.contains('pass--wa') ? 'pop' : 'step');
+      }, 900);
+    }
   };
   passes.forEach((p) => $('.pass__head', p).addEventListener('click', () => bring(p)));
   render();
