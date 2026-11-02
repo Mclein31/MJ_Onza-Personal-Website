@@ -77,4 +77,4 @@ Temporary redesign captures, mockup working files, generated reports, old design
 
 ## Domain Change (2026-11-02)
 
-Production domain changed in Vercel to `mcleinjeionza.vercel.app`; `onzamj.vercel.app` remains configured as a 307 redirect to the new address. Vercel project name remains `onzamj`. Page canonical/Open Graph metadata in `index.html` still references the old domain and should be updated with the next source deployment.
+Production domain changed in Vercel to `mcleinjeionza.vercel.app`; `onzamj.vercel.app` remains configured as a 307 redirect to the new address. Vercel project name remains `onzamj`. The canonical link, `og:url` and `og:image` in `index.html` and the README's live link now use the new domain (uncommitted as of 2026-11-02; goes live with the next push).

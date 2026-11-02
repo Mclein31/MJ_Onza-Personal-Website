@@ -16,7 +16,7 @@ related:
 # 📈 PersonalPortfolio Current State
 
 - **Status**: `Active / Production Deployed`
-- **Live URL**: [onzamj.vercel.app](https://onzamj.vercel.app/)
+- **Live URL**: [mcleinjeionza.vercel.app](https://mcleinjeionza.vercel.app/) (the old onzamj.vercel.app redirects here)
 - **Hosting Platform**: Vercel Edge Hosting & Serverless Functions
 - **Repository**: [github.com/Mclein31/MJ_Onza-Personal-Website](https://github.com/Mclein31/MJ_Onza-Personal-Website.git) (`main`)
 - **Key Metrics**:

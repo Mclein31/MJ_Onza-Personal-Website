@@ -2,7 +2,7 @@
 
 A hand-built portfolio for a Computer Science student on the data engineering path. No frameworks, no build step: semantic HTML, CSS custom properties and small ES modules, with a serverless stats proxy on Vercel.
 
-Live Site: [onzamj.vercel.app](https://onzamj.vercel.app/)
+Live Site: [mcleinjeionza.vercel.app](https://mcleinjeionza.vercel.app/)
 
 ---
 

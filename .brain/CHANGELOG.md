@@ -10,6 +10,10 @@ last_updated: 2026-11-02
 
 # 📜 Personal Website — Changelog
 
+## Metadata moved to the new domain (2026-11-02)
+- **Changed**: The production domain is now `mcleinjeionza.vercel.app` (`onzamj.vercel.app` 307-redirects to it). The canonical link, `og:url` and `og:image` in `index.html`, the README's live link and the vault's Current State note now use the new domain. Both checked with curl: the new domain returns 200 for the page and `og-image.jpg`.
+- **Tests**: `health.spec` 18 pass.
+
 ## Images converted to WebP (2026-11-02)
 - **Changed**: Owner asked for all site images in WebP. The 17 award and training photos (JPG) and the 9 PNG tool and contact icons were converted (recipe in NOTES.md, "Image Formats"); `index.html`, `js/lightbox.js` and `js/icons.js` point to the new files and the old JPG/PNG files were deleted. Total weight of these images: 9.4 MB → 4.0 MB (photos about 60% smaller at SSIM ≈ 0.98; icons lossless). Favicons and `og-image.jpg` intentionally unchanged.
 - **Checked**: all 44 WebP images on the page load and decode in Chrome and WebKit (script).
