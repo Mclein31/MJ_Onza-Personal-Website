@@ -1,20 +1,12 @@
 /* Soft directional light and close contact shadows give surfaces depth. */
 :root {
   --paper-fibers: url('../assets/textures/paper-pulp.svg');
-  --color-paper: oklch(96% 0.018 85);
-  --color-paper-2: oklch(92.5% 0.022 85);
-  --color-paper-3: oklch(87.5% 0.025 85);
-  --color-paper-hi: oklch(98% 0.012 85);
   --material-light: rgb(255 255 255 / 0.48);
   --material-edge: rgb(255 255 255 / 0.65);
   --material-contact: rgb(20 28 35 / 0.12);
   --material-shadow: rgb(20 28 35 / 0.09);
 }
 :root:not([data-theme="light"]) {
-  --color-paper: oklch(18% 0.008 70);
-  --color-paper-2: oklch(22% 0.01 70);
-  --color-paper-3: oklch(26% 0.012 70);
-  --color-paper-hi: oklch(24% 0.01 70);
   --material-light: rgb(255 255 255 / 0.025);
   --material-edge: rgb(255 255 255 / 0.085);
   --material-contact: rgb(0 0 0 / 0.35);
@@ -47,10 +39,10 @@ body, .work {
   box-shadow: inset 0 1px 0 var(--material-edge),
     0 1px 2px var(--material-contact), 0 12px 28px -16px var(--material-shadow);
 }
-/* Dark panels catch a restrained warm light. */
+/* Dark panels catch a restrained neutral light. */
 .award.award--lead, .table:nth-child(1) {
   background-image: var(--paper-fibers), radial-gradient(ellipse at 0 0,
-    rgb(232 137 77 / 0.13), transparent 72%);
+    rgb(255 255 255 / 0.035), transparent 72%);
   background-size: 960px 960px, 100% 100%;
 }
 /* Photographs sit on a thin mount with a close edge and a softer cast shadow.

@@ -171,24 +171,38 @@ test('activity calendar keeps readable square cells on phone and tablet', async 
 });
 
 
-test('desktop Work keeps a large centered project on shorter screens', async ({ page, isMobile }) => {
+test('desktop Work retains the compact deck proportions from the reference', async ({ page, isMobile }) => {
   test.skip(isMobile, 'desktop pinned composition');
-  for (const [width, height] of [[1366, 768], [1440, 900], [1710, 982]]) {
-    await page.setViewportSize({ width, height });
-    await gotoReady(page);
-    await expect(page.locator('#work')).toHaveClass(/is-pinned/);
-    await page.locator('[data-work-pin]').evaluate(el => scrollTo({ top: el.getBoundingClientRect().top + scrollY, behavior: 'instant' }));
-    await expect.poll(() => page.locator('.project').first().evaluate(el => {
-      const r = el.getBoundingClientRect(); return Math.abs(r.left + r.width / 2 - innerWidth / 2);
-    })).toBeLessThan(2);
-    const bounds = await page.locator('.project').first().evaluate(el => {
-      const r = el.getBoundingClientRect();
-      const image = el.querySelector('.gallery__track').getBoundingClientRect();
-      return { width: r.width, bottom: r.bottom, imageHeight: image.height, footTop: document.querySelector('.work__foot').getBoundingClientRect().top };
+  await page.setViewportSize({ width: 1710, height: 982 });
+  await gotoReady(page);
+  await page.locator('[data-work-pin]').evaluate(el => scrollTo({ top: el.getBoundingClientRect().top + scrollY, behavior: 'instant' }));
+  const cards = await page.locator('.project').evaluateAll(items => items.slice(0, 2).map(el => {
+    const r = el.getBoundingClientRect(); return { left: r.left, width: r.width };
+  }));
+  expect(cards[0].width).toBeGreaterThan(500);
+  expect(cards[0].width).toBeLessThan(700);
+  expect(cards[0].left).toBeGreaterThan(200);
+  expect(cards[0].left).toBeLessThan(300);
+  expect(cards[1].left + cards[1].width).toBeLessThan(1710);
+});
+
+test('capped project galleries fill their cards and center screenshots and video', async ({ page }) => {
+  await page.setViewportSize({ width: 1710, height: 982 });
+  await gotoReady(page);
+  await page.locator('[data-work-pin]').evaluate(el => scrollTo({ top: el.getBoundingClientRect().top + scrollY, behavior: 'instant' }));
+  for (const gallery of await page.locator('.project__media[data-gallery]').all()) {
+    const bounds = await gallery.evaluate(el => {
+      const outer = el.getBoundingClientRect();
+      const style = getComputedStyle(el);
+      const track = el.querySelector('.gallery__track').getBoundingClientRect();
+      const slide = el.querySelector('.gallery__slide').getBoundingClientRect();
+      const image = el.querySelector('.gallery__slide img').getBoundingClientRect();
+      return { height: track.height, slideHeight: slide.height, imageHeight: image.height, width: track.width, available: outer.width - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight), center: Math.abs((track.left + track.right) / 2 - (outer.left + outer.right) / 2) };
     });
-    expect(bounds.width).toBeGreaterThanOrEqual(Math.min(width * 0.8, 1180));
-    expect(bounds.imageHeight).toBeGreaterThan(200);
-    expect(bounds.bottom).toBeLessThanOrEqual(bounds.footTop + 1);
-    if (width === 1710) await page.screenshot({ path: '/tmp/work-scale-restored.png' });
+    expect(Math.abs(bounds.width - bounds.available)).toBeLessThan(2);
+    expect(bounds.center).toBeLessThan(1);
+    expect(Math.abs(bounds.slideHeight - bounds.height)).toBeLessThan(1);
+    expect(Math.abs(bounds.imageHeight - bounds.height)).toBeLessThan(1);
   }
+  await page.locator('.project').first().screenshot({ path: '/tmp/work-card-white-centered.png' });
 });

@@ -118,7 +118,7 @@ Journey spacing follow-up (2026-11-02): pinned desktop slides center vertically 
 
 ## Material finish (2026-11-03)
 
-`css/texture.css` provides warm ivory/charcoal surfaces, soft directional lighting, contact/cast shadows, slightly varied photo mounts and uneven orange highlights. Owner rejected fuzzy grain and halftone. Current paper treatment uses `assets/textures/paper-pulp.svg`: denser short curved fibers with varied 0.3–1.9px thickness at fixed 960px tile scale, painted behind content on page/card surfaces. No turbulence/noise filter, full-screen overlay, or texture over photographs. Original footer treatment stays intact.
+`css/texture.css` preserves the original cool white/gray and dark surfaces, soft directional lighting, contact/cast shadows, slightly varied photo mounts and uneven orange highlights. Owner rejected fuzzy grain and halftone. Current paper treatment uses `assets/textures/paper-pulp.svg`: denser short curved fibers with varied 0.3–1.9px thickness at fixed 960px tile scale, painted behind content on page/card surfaces. No turbulence/noise filter, full-screen overlay, or texture over photographs. Original footer treatment stays intact.
 
 Project mockup shadow correction (2026-11-03): transparent gallery WebPs retain nonzero shadow alpha at the canvas boundary. `css/work.css` feathers image edges with intersected CSS masks in galleries and project lightbox views, blending the clipped shadow tails without changing gallery borders or source assets.
 
@@ -129,3 +129,7 @@ Activity calendar scale (2026-11-03): main contribution grid uses a 16px minimum
 Desktop Work scale correction (2026-11-03): removed the card-width cap derived from `100svh - 600px`, which shrank desktop projects into multiple small cards on shorter screens. Pinned cards now use `min(82vw, 1180px)` with centered track edge padding; existing measured gallery-height allowance reserves actual caption/control space. Horizontal scroll and stacked phone/tablet layouts remain.
 
 Paper texture adjustment (2026-11-03): fiber contrast reduced by 30%. Pinned Work/Journey stages paint their own opaque paper/fiber background, so the backdrop stays stationary during scroll-driven sequences rather than revealing the scrolling parent texture. Normal document flow retains the page texture.
+
+Gallery/palette correction (2026-11-03): owner explicitly restored the original cool white/gray palette from `tokens.css`, including original dark colors; texture.css no longer overrides paper colors, and fibers/light are neutral. Gallery tracks have explicit 100% width so Safari cannot shrink the aspect-ratio box when gallery height is capped, leaving content left aligned within a wider card.
+
+Work card reference correction (2026-11-03): owner explicitly selected the original compact multi-card deck screenshot. Restored original `min(74vw, 1180px, (100svh - 600px) * 1.7778)` card sizing (340px minimum) and original wrap-aligned track inset, superseding the 82vw full-card centering change. Keep the explicit gallery dimensions for centered, uncropped images within cards and the original white/gray palette.
