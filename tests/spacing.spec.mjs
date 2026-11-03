@@ -169,3 +169,26 @@ test('activity calendar keeps readable square cells on phone and tablet', async 
     if (width === 820) await page.locator('.activity').screenshot({ path: '/tmp/calendar-scale-after.png' });
   }
 });
+
+
+test('desktop Work keeps a large centered project on shorter screens', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'desktop pinned composition');
+  for (const [width, height] of [[1366, 768], [1440, 900], [1710, 982]]) {
+    await page.setViewportSize({ width, height });
+    await gotoReady(page);
+    await expect(page.locator('#work')).toHaveClass(/is-pinned/);
+    await page.locator('[data-work-pin]').evaluate(el => scrollTo({ top: el.getBoundingClientRect().top + scrollY, behavior: 'instant' }));
+    await expect.poll(() => page.locator('.project').first().evaluate(el => {
+      const r = el.getBoundingClientRect(); return Math.abs(r.left + r.width / 2 - innerWidth / 2);
+    })).toBeLessThan(2);
+    const bounds = await page.locator('.project').first().evaluate(el => {
+      const r = el.getBoundingClientRect();
+      const image = el.querySelector('.gallery__track').getBoundingClientRect();
+      return { width: r.width, bottom: r.bottom, imageHeight: image.height, footTop: document.querySelector('.work__foot').getBoundingClientRect().top };
+    });
+    expect(bounds.width).toBeGreaterThanOrEqual(Math.min(width * 0.8, 1180));
+    expect(bounds.imageHeight).toBeGreaterThan(200);
+    expect(bounds.bottom).toBeLessThanOrEqual(bounds.footTop + 1);
+    if (width === 1710) await page.screenshot({ path: '/tmp/work-scale-restored.png' });
+  }
+});

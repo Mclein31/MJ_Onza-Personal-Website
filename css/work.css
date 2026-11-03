@@ -10,14 +10,15 @@
 .work__head .section-head { margin-bottom: var(--space-xl); }
 .work.is-pinned .work__head .section-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--space-xs) var(--space-lg); margin-bottom: var(--space-xs); }
 .work__track {
+  --work-card-width: min(82vw, 1180px);
   display: flex; gap: var(--space-2xl); align-items: flex-start;
   padding-block: var(--space-md);
-  padding-inline: max(var(--gutter), (100% - var(--wrap)) / 2);
+  padding-inline: max(var(--gutter), (100% - var(--work-card-width)) / 2);
   transform: translate3d(var(--x, 0px), 0, 0);
 }
 .project {
-  /* As large as the pinned frame allows: 600px is the head, controls, text and progress row */
-  flex: none; width: min(74vw, 1180px, calc((100svh - 600px) * 1.7778));
+  /* Width sets the composition; work.js fits gallery height around real text. */
+  flex: none; width: var(--work-card-width);
   container-type: inline-size;
   min-width: 340px;
   display: grid; grid-template-rows: auto auto; gap: var(--space-md);

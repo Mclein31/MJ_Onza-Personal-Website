@@ -27,6 +27,15 @@ body, .work {
   background-image: var(--paper-fibers);
   background-size: 960px 960px;
 }
+
+/* Paint the paper on the stationary stage while its parent scrolls through
+   the pinned sequence. Avoid background-attachment: fixed on mobile Safari. */
+.work.is-pinned .work__sticky, .years.is-pinned .years__sticky {
+  background-color: var(--color-paper);
+  background-image: var(--paper-fibers);
+  background-size: 960px 960px;
+}
+
 .hero {
   background-image: radial-gradient(ellipse at 12% 16%, var(--material-light), transparent 68%);
 }
@@ -71,5 +80,5 @@ body, .work {
   .strip__item { border-width: 4px; }
 }
 @media (forced-colors: active) {
-  body, .work, .hero, .award.award--lead, .award, .film, .does__row.is-open, .table:nth-child(n), .idcard { background-image: none; }
+  body, .work, .work.is-pinned .work__sticky, .years.is-pinned .years__sticky, .hero, .award.award--lead, .award, .film, .does__row.is-open, .table:nth-child(n), .idcard { background-image: none; }
 }

@@ -125,3 +125,7 @@ Project mockup shadow correction (2026-11-03): transparent gallery WebPs retain 
 Journey centering (2026-11-03, owner request): pinned phone/tablet stages now use a 100svh minimum with centered content alignment. The measured active slide and its adjacent progress row move together into the middle of the area below navigation, instead of leaving all spare space below them. Long content can still grow; short landscape and reduced-motion flow remain unchanged.
 
 Activity calendar scale (2026-11-03): main contribution grid uses a 16px minimum square cell with 4px gaps and horizontal scrolling when a full year will not fit. Day-label line height no longer stretches grid rows; inset scroll margins and an opaque sticky label gutter keep scrolled cells clear of weekday labels. Wallet calendar styling remains separate.
+
+Desktop Work scale correction (2026-11-03): removed the card-width cap derived from `100svh - 600px`, which shrank desktop projects into multiple small cards on shorter screens. Pinned cards now use `min(82vw, 1180px)` with centered track edge padding; existing measured gallery-height allowance reserves actual caption/control space. Horizontal scroll and stacked phone/tablet layouts remain.
+
+Paper texture adjustment (2026-11-03): fiber contrast reduced by 30%. Pinned Work/Journey stages paint their own opaque paper/fiber background, so the backdrop stays stationary during scroll-driven sequences rather than revealing the scrolling parent texture. Normal document flow retains the page texture.
