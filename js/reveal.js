@@ -31,16 +31,20 @@ function splitWords(el) {
 }
 
 function scrubHeadings() {
-  const heads = $$('[data-scrub]').map((el) => ({ el, words: splitWords(el), boxes: $$('.hl', el) }));
+  const heads = $$('[data-scrub]').map((el) => ({ el, progress: -1, words: splitWords(el), boxes: $$('.hl', el) }));
   if (!heads.length) return;
   let ticking = false;
   const update = () => {
     ticking = false;
-    heads.forEach(({ el, words, boxes }) => {
-      const r = el.getBoundingClientRect();
+    // Read geometry together before any reveal styles are changed.
+    const positions = heads.map(({ el }) => el.getBoundingClientRect().top);
+    heads.forEach((head, index) => {
+      const { words, boxes } = head;
       // Starts as the heading clears the bottom tenth of the screen, done by the upper half
       const start = innerHeight * 0.92, end = innerHeight * 0.45;
-      const p = clamp((start - r.top) / (start - end), 0, 1);
+      const p = clamp((start - positions[index]) / (start - end), 0, 1);
+      if (p === head.progress) return;
+      head.progress = p;
       const lit = p * words.length;
       words.forEach((w, i) => w.style.setProperty('--o', (0.14 + 0.86 * clamp(lit - i, 0, 1)).toFixed(3)));
       boxes.forEach((b) => {

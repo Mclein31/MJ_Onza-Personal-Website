@@ -13,9 +13,12 @@ export function initWork() {
   // Pin only where a card, its text and the progress row fit one screen; portrait screens
   // (tablets) stack the cards full width instead of leaving the frame half empty
   const wide = matchMedia('(min-width: 861px) and (min-height: 760px) and (orientation: landscape)');
-  let distance = 0, ticking = false;
+  let distance = 0, ticking = false, lastProgress = -1, current = -1;
+  let centers = [];
 
   const setCount = (i) => {
+    if (i === current) return;
+    current = i;
     if (countEl) countEl.textContent = `${String(i + 1).padStart(2, '0')} / ${total}`;
   };
 
@@ -24,7 +27,8 @@ export function initWork() {
     section.classList.toggle('is-pinned', pinned);
     if (!pinned) {
       pin.style.height = '';
-      track.style.removeProperty('--x');
+      track.style.removeProperty('transform');
+      lastProgress = -1;
       track.style.removeProperty('--gallery-max-height');
       return;
     }
@@ -43,6 +47,8 @@ export function initWork() {
     const end = last.offsetLeft + last.offsetWidth + parseFloat(getComputedStyle(track).paddingRight);
     distance = Math.max(0, end - track.clientWidth);
     pin.style.height = `${innerHeight + distance}px`;
+    centers = projects.map(card => card.offsetLeft + card.offsetWidth / 2);
+    lastProgress = -1;
     update();
   };
 
@@ -50,13 +56,14 @@ export function initWork() {
     ticking = false;
     if (!section.classList.contains('is-pinned')) return;
     const p = clamp(-pin.getBoundingClientRect().top / Math.max(1, distance), 0, 1);
-    track.style.setProperty('--x', `${-p * distance}px`);
+    if (p === lastProgress) return;
+    lastProgress = p;
+    track.style.transform = `translate3d(${-p * distance}px, 0, 0)`;
     bar?.style.setProperty('--wp', p);
 
     let nearest = 0, best = Infinity;
-    projects.forEach((card, i) => {
-      const r = card.getBoundingClientRect();
-      const off = Math.abs(r.left + r.width / 2 - innerWidth / 2);
+    centers.forEach((center, i) => {
+      const off = Math.abs(center - p * distance - innerWidth / 2);
       if (off < best) { best = off; nearest = i; }
     });
     setCount(nearest);
