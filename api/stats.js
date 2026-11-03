@@ -19,7 +19,9 @@ export default async function handler(req, res) {
   // GET  → https://abacus.jasoncameron.dev/get/mcleinonza/<key>
   // HIT  → https://abacus.jasoncameron.dev/hit/mcleinonza/<key>
   const NAMESPACE = 'mcleinonza';
-  const endpoint = type === 'increment'
+  const seen = /(?:^|;\s*)portfolio_visited=1(?:;|$)/.test(req.headers.cookie || '');
+  const increment = type === 'increment' && (metric !== 'visits' || !seen);
+  const endpoint = increment
     ? `https://abacus.jasoncameron.dev/hit/${NAMESPACE}/${key}`
     : `https://abacus.jasoncameron.dev/get/${NAMESPACE}/${key}`;
 
@@ -31,12 +33,19 @@ export default async function handler(req, res) {
     if (response.ok) {
       const data = await response.json();
       // Abacus returns { value: <number> }
-      const count = typeof data.value === 'number' ? data.value : 0;
+      if (typeof data.value !== 'number' || !Number.isFinite(data.value)) {
+        return res.status(502).json({ metric, error: 'Invalid counter response' });
+      }
+      const count = data.value;
+      if (metric === 'visits' && type === 'increment') {
+        const secure = req.headers['x-forwarded-proto'] === 'https' || process.env.VERCEL === '1';
+        res.setHeader('Set-Cookie', `portfolio_visited=1; Path=/; Max-Age=31536000; HttpOnly; SameSite=Lax${secure ? '; Secure' : ''}`);
+      }
       return res.status(200).json({ metric, count });
     } else {
-      return res.status(200).json({ metric, count: 0 });
+      return res.status(502).json({ metric, error: 'Counter unavailable' });
     }
   } catch (err) {
-    return res.status(200).json({ metric, count: 0, error: err.message });
+    return res.status(502).json({ metric, error: 'Counter unavailable' });
   }
 }

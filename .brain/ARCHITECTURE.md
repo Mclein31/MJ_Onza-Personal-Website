@@ -64,7 +64,7 @@ last_updated: 2026-11-01
 - `sfx.js` — interface sounds synthesized with Web Audio (no files): one capture-phase click listener picks click / open / close / whoosh / toggle / success / pop / drop / step; typing ticks from `wallet.js` and `journey.js`. Silent until the first pointer or key press (autoplay rules). Sounds then stay enabled; the owner removed the mute control and legacy preference on 2026-11-02. Wallet front-card changes trigger a separate soft card-shuffle sound.
 - `lightbox.js` — `PHOTOS` data (awards + hackathon), `<dialog>` viewer, photo strip render. `openViewer(items, i, from)` reuses the dialog for project screenshots (`.is-wide` sheet, "Screenshot viewer" label, arrows hidden for a single slide).
 - `vista.js` — footer ASCII scene (Cape Engaño lighthouse at night): drawn each frame into a char grid, split into three `<pre>` colour layers (ink, muted, accent). Grid from the footer's free width/height; objects scale with it. ~12fps while on screen, still under reduced motion.
-- `stats.js` — same keys/endpoints as v2 (`site_total_*`, `site_user_has_liked`); pointer capture only after a real drag so taps still like.
+- `stats.js` — cached totals (`site_total_*`), once-per-browser first visits (`site_user_has_visited`, serialized with browser locks), and independent once-per-browser likes (`site_user_has_liked`). Visits increment through the API only; `api/stats.js` also deduplicates using a one-year HttpOnly cookie. Pointer capture starts after an actual drag.
 - `contact.js` — `<dialog>` FormSubmit form; exports `openMessage()`.
 
 ## 🎨 Styles (`css/`)

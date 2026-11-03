@@ -10,6 +10,8 @@ async function request(type, metric) {
       if (typeof data.count === 'number') return data.count;
     }
   } catch {}
+  // A failed increment must not bypass the server cookie through Abacus.
+  if (type === 'increment' && metric === 'visits') return null;
   try {
     const key = metric === 'likes' ? 'portfolio_likes' : 'portfolio_views';
     const res = await fetch(`https://abacus.jasoncameron.dev/${type === 'increment' ? 'hit' : 'get'}/mcleinonza/${key}`, { cache: 'no-store' });
@@ -88,10 +90,20 @@ export function initStats() {
   });
 
   (async () => {
-    // Every visit counts (no once-per-browser lock since 2026-11-01)
+    // Persist across sessions: only the first successful real visit counts.
     // Local copies and automated browsers (tests, screenshots) only read the total; they inflated it before
     const real = !navigator.webdriver && !/^(localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\])$/.test(location.hostname);
-    const [v, l] = await Promise.all([request(real ? 'increment' : 'get', 'visits'), request('get', 'likes')]);
+    const loadVisits = async () => {
+      const first = real && store.get('site_user_has_visited') !== 'true';
+      const count = await request(first ? 'increment' : 'get', 'visits');
+      if (first && typeof count === 'number') store.set('site_user_has_visited', 'true');
+      return count;
+    };
+    // Serialize first visits from multiple tabs when the browser supports locks.
+    const [v, l] = await Promise.all([
+      navigator.locks ? navigator.locks.request('portfolio-first-visit', loadVisits) : loadVisits(),
+      request('get', 'likes'),
+    ]);
     if (typeof v === 'number') { visits = v; visitsEl.textContent = fmt(v); store.set('site_total_visits', v); }
     if (typeof l === 'number') { likes = l; likesEl.textContent = fmt(l); store.set('site_total_likes', l); }
   })();
