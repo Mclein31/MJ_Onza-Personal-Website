@@ -12,7 +12,7 @@ export function initWork() {
   const total = String(projects.length).padStart(2, '0');
   // Pin only where a card, its text and the progress row fit one screen; portrait screens
   // (tablets) stack the cards full width instead of leaving the frame half empty
-  const wide = matchMedia('(min-width: 861px) and (min-height: 760px) and (orientation: landscape)');
+  const wide = matchMedia('(min-width: 861px) and (min-height: 600px) and (orientation: landscape)');
   let distance = 0, ticking = false, lastProgress = -1, current = -1;
   let centers = [];
 

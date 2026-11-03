@@ -206,3 +206,25 @@ test('capped project galleries fill their cards and center screenshots and video
   }
   await page.locator('.project').first().screenshot({ path: '/tmp/work-card-white-centered.png' });
 });
+
+
+test('short laptop windows retain a horizontal Work deck with visible captions', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'laptop viewport matrix');
+  for (const [width, height] of [[1366, 650], [1280, 600], [1536, 680], [1093, 614], [1366, 768]]) {
+    await page.setViewportSize({ width, height });
+    await gotoReady(page);
+    await expect(page.locator('#work')).toHaveClass(/is-pinned/);
+    await page.locator('[data-work-pin]').evaluate(el => scrollTo({ top: el.getBoundingClientRect().top + scrollY, behavior: 'instant' }));
+    const bounds = await page.locator('.project:not(.project--more)').evaluateAll(cards => cards.map(el => {
+      const r = el.getBoundingClientRect();
+      const gallery = el.querySelector('.gallery__track').getBoundingClientRect();
+      return { width: r.width, bottom: r.bottom, imageHeight: gallery.height, foot: document.querySelector('.work__foot').getBoundingClientRect().top };
+    }));
+    for (const card of bounds) {
+      expect(card.width).toBeLessThanOrEqual(640);
+      expect(card.imageHeight).toBeGreaterThan(100);
+      expect(card.bottom).toBeLessThanOrEqual(card.foot + 1);
+    }
+    if (width === 1366 && height === 650) await page.screenshot({ path: '/tmp/work-small-laptop.png' });
+  }
+});
