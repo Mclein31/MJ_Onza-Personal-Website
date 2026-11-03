@@ -131,3 +131,12 @@
 @media (max-width: 960px) and (max-height: 600px) and (orientation: landscape) {
   .years:not(.is-pinned) .years__list { gap: var(--space-2xl); }
 }
+
+/* Keep the measured slide and its progress together, centered below navigation.
+   A minimum (rather than fixed) height still lets long captions grow safely. */
+@media (max-width: 960px), (min-width: 961px) and (max-width: 1100px) and (orientation: portrait) {
+  .years.is-pinned .years__sticky {
+    min-height: 100svh;
+    align-content: center;
+  }
+}

@@ -16,7 +16,7 @@ test('desktop retains horizontal Work scrolling and pinned Journey slides', asyn
   await expect(page.locator('.yr.is-on')).toHaveCount(1);
 });
 
-test('phone and tablet keep journey animation with a compact content-sized frame', async ({ page, isMobile }) => {
+test('phone and tablet keep journey animation within a screen-height frame', async ({ page, isMobile }) => {
   test.skip(isMobile, 'viewport matrix runs in desktop Chrome');
   for (const width of [390,768]) {
     await page.setViewportSize({width,height:1024});
@@ -30,7 +30,7 @@ test('phone and tablet keep journey animation with a compact content-sized frame
     });
     expect(layout.gap).toBeGreaterThan(24);
     expect(layout.hero).toBeLessThan(850);
-    expect(layout.frame).toBeLessThan(1024);
+    expect(layout.frame).toBe(1024);
     expect(layout.slide).toBeGreaterThan(200);
     expect(layout.overflow).toBe(false);
   }
@@ -121,5 +121,51 @@ test('mobile About groups facts and keeps the service heading readable', async (
     expect(layout.headingHeight).toBeLessThanOrEqual(layout.lineHeight + 1);
     expect(layout.overflow).toBe(false);
     if (width === 393) await page.screenshot({ path: '/tmp/mobile-about-after.png' });
+  }
+});
+
+
+test('portrait Journey centers the active slide and progress below navigation', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'viewport matrix runs in desktop Chrome');
+  for (const [width, height] of [[393, 852], [768, 1024], [820, 1700], [1032, 1376]]) {
+    await page.setViewportSize({ width, height });
+    await gotoReady(page);
+    for (const index of [4, 6]) {
+      await page.locator('[data-years]').evaluate((el, index) => {
+        scrollTo({ top: el.getBoundingClientRect().top + scrollY + (el.offsetHeight - innerHeight) * ((index + 0.3) / 7), behavior: 'instant' });
+      }, index);
+      await expect(page.locator('[data-yr-i]')).toHaveText(String(index + 1).padStart(2, '0'));
+      await expect.poll(() => page.locator('.yr.is-on .yr__note').evaluate(el => getComputedStyle(el).transform)).toBe('none');
+      const space = await page.evaluate(() => {
+        const stage = document.querySelector('.years__sticky');
+        const rect = stage.getBoundingClientRect();
+        const style = getComputedStyle(stage);
+        const list = document.querySelector('.years__list').getBoundingClientRect();
+        const foot = document.querySelector('.years__foot').getBoundingClientRect();
+        return { above: list.top - rect.top - parseFloat(style.paddingTop), below: rect.bottom - parseFloat(style.paddingBottom) - foot.bottom, bottom: foot.bottom };
+      });
+      expect(Math.abs(space.above - space.below)).toBeLessThanOrEqual(2);
+      expect(space.bottom).toBeLessThanOrEqual(height);
+    }
+  }
+});
+
+test('activity calendar keeps readable square cells on phone and tablet', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'viewport matrix runs in desktop Chrome');
+  for (const width of [393, 820, 1440]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await gotoReady(page);
+    await page.locator('[data-activity]').scrollIntoViewIfNeeded();
+    await expect(page.locator('.activity')).toHaveClass(/is-live/);
+    const grid = await page.evaluate(() => {
+      const cell = document.querySelector('.activity .cell:not(.pad)').getBoundingClientRect();
+      const scroll = document.querySelector('.activity__scroll');
+      return { width: cell.width, height: cell.height, scroll: scroll.scrollWidth > scroll.clientWidth, overflow: document.documentElement.scrollWidth > innerWidth };
+    });
+    expect(grid.width).toBeGreaterThanOrEqual(16);
+    expect(Math.abs(grid.width - grid.height)).toBeLessThan(1);
+    expect(grid.overflow).toBe(false);
+    if (width < 1000) expect(grid.scroll).toBe(true);
+    if (width === 820) await page.locator('.activity').screenshot({ path: '/tmp/calendar-scale-after.png' });
   }
 });

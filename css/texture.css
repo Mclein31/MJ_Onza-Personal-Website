@@ -1,0 +1,75 @@
+/* Soft directional light and close contact shadows give surfaces depth. */
+:root {
+  --paper-fibers: url('../assets/textures/paper-pulp.svg');
+  --color-paper: oklch(96% 0.018 85);
+  --color-paper-2: oklch(92.5% 0.022 85);
+  --color-paper-3: oklch(87.5% 0.025 85);
+  --color-paper-hi: oklch(98% 0.012 85);
+  --material-light: rgb(255 255 255 / 0.48);
+  --material-edge: rgb(255 255 255 / 0.65);
+  --material-contact: rgb(20 28 35 / 0.12);
+  --material-shadow: rgb(20 28 35 / 0.09);
+}
+:root:not([data-theme="light"]) {
+  --color-paper: oklch(18% 0.008 70);
+  --color-paper-2: oklch(22% 0.01 70);
+  --color-paper-3: oklch(26% 0.012 70);
+  --color-paper-hi: oklch(24% 0.01 70);
+  --material-light: rgb(255 255 255 / 0.025);
+  --material-edge: rgb(255 255 255 / 0.085);
+  --material-contact: rgb(0 0 0 / 0.35);
+  --material-shadow: rgb(0 0 0 / 0.24);
+}
+
+/* Short, varied pulp fibers are drawn at physical CSS-pixel scale. The large
+   tile avoids a visible repeat; texture is behind content, never over images. */
+body, .work {
+  background-image: var(--paper-fibers);
+  background-size: 960px 960px;
+}
+.hero {
+  background-image: radial-gradient(ellipse at 12% 16%, var(--material-light), transparent 68%);
+}
+
+/* Raised surfaces catch the light along their upper edge. */
+:is(.award, .film, .does__row.is-open, .table, .idcard) {
+  background-image: var(--paper-fibers), linear-gradient(145deg, var(--material-light), transparent 65%);
+  background-size: 960px 960px, 100% 100%;
+  box-shadow: inset 0 1px 0 var(--material-edge),
+    0 1px 2px var(--material-contact), 0 12px 28px -16px var(--material-shadow);
+}
+/* Dark panels catch a restrained warm light. */
+.award.award--lead, .table:nth-child(1) {
+  background-image: var(--paper-fibers), radial-gradient(ellipse at 0 0,
+    rgb(232 137 77 / 0.13), transparent 72%);
+  background-size: 960px 960px, 100% 100%;
+}
+/* Photographs sit on a thin mount with a close edge and a softer cast shadow.
+   Individual rotations use the separate rotate property so reveal transforms survive. */
+:is(.yr__media, .strip__item, .film) {
+  border: 1px solid color-mix(in oklab, var(--color-ink) 12%, transparent);
+  box-shadow: 0 2px 3px -1px var(--material-contact),
+    3px 12px 24px -14px var(--material-shadow);
+}
+.strip { padding-top: 8px; padding-bottom: 20px; }
+.strip__item { border: 5px solid var(--color-paper-hi); border-radius: 5px; rotate: -0.7deg; }
+.strip__item:nth-child(3n + 2) { rotate: 0.9deg; }
+.strip__item:nth-child(3n) { rotate: -0.3deg; }
+.film { rotate: 0.35deg; }
+
+/* Uneven marker coverage: a small edge variation at the scale of a real stroke. */
+.keyword, .mk {
+  background-image: linear-gradient(178deg,
+    color-mix(in oklab, var(--color-accent) 28%, transparent),
+    color-mix(in oklab, var(--color-accent) 47%, transparent) 43%,
+    color-mix(in oklab, var(--color-accent) 32%, transparent));
+  border-radius: 2px 4px 1px 3px;
+}
+
+@media (max-width: 600px) {
+  .film { rotate: 0.2deg; }
+  .strip__item { border-width: 4px; }
+}
+@media (forced-colors: active) {
+  body, .work, .hero, .award.award--lead, .award, .film, .does__row.is-open, .table:nth-child(n), .idcard { background-image: none; }
+}
