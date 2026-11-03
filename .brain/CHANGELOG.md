@@ -5,10 +5,17 @@ project: Personal Website
 tags:
   - changelog
   - history
-last_updated: 2026-11-02
+last_updated: 2026-11-04
 ---
 
 # 📜 Personal Website — Changelog
+
+## Sparser layered paper fibers; liquid-glass cards (2026-11-04)
+- **Changed**: The single 960px `paper-pulp.svg` tile (its repeat was visible) is replaced by three stacked layers: `paper-fibers-top.svg` (1543px), `paper-fibers-mid.svg` (1297px) and `paper-fibers-deep.svg` (1031px). Each is its own prime-sized tile with its own seed, so the combined pattern only repeats every ~2×10⁹ px. Density is about 560 fibers/Mpx, roughly 2.2× the interim version (the original had ~2,900 strokes per 960px tile). Poisson-disk spacing keeps fibers apart. A seamless density drift thins some zones. Lengths are mostly 3–9px, with some 10–22px and rare 26–52px strands, and thickness runs about 0.2–1.8px. Small near-parallel bundles, pulp flecks and shives add variety. Deep is faint and wide, mid has the most variety, surface is crisp with a light edge. 138 KB total (original 312 KB). No filters and no full-page overlay.
+- **Changed**: Cards no longer carry fibers. They are liquid glass at the owner's 25% level (75% tinted body), styled after the owner's reference of frosted cards with a bright glowing rim: a cool tinted body, a luminous inner rim, a crisp edge and corner highlight, and caustics that vary per card. The owner then set intensity to about 20% of the reference on Work (`.project__media`, `.project--more`) and about 10% elsewhere (Stack, Contact, Recognition, About). Work cards are pre-blended with no live blur because they move during the pinned scroll. The other cards use `backdrop-filter: blur(20px) saturate(160%)`. Inverted panels use tinted glass that stays dark (light theme) or light (dark theme). The contact card's hairline outline and the photo card's frame line give way to the glass edge. Opaque fallback when backdrop-filter is unsupported or `prefers-reduced-transparency: reduce`.
+- **Unchanged**: Photos, gallery images, image mounts and shadows, and `work.css` (another agent is redoing project screenshots).
+- **Tests (final)**: health (axe), project-polish, spacing and interactions: 99 pass, 24 skipped across desktop Chrome, Pixel 7 and iPhone 14. `responsive.spec` desktop: 42/42 at `--workers=2`.
+- **Tests**: 203 pass, 113 skipped. 5 `responsive.spec` desktop cases time out waiting for the Gmail typing animation under parallel load. The same failure occurs on untouched `HEAD` (4 at `--workers=4`), and the suite passes 42/42 at `--workers=2`.
 
 ## Metadata moved to the new domain (2026-11-02)
 - **Changed**: The production domain is now `mcleinjeionza.vercel.app` (`onzamj.vercel.app` 307-redirects to it). The canonical link, `og:url` and `og:image` in `index.html`, the README's live link and the vault's Current State note now use the new domain. Both checked with curl: the new domain returns 200 for the page and `og-image.jpg`.

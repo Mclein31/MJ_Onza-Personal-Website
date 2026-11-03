@@ -1,23 +1,110 @@
 /* Soft directional light and close contact shadows give surfaces depth. */
 :root {
-  --paper-fibers: url('../assets/textures/paper-pulp.svg');
+  --paper-fibers: url('../assets/textures/paper-fibers-top.svg'),
+    url('../assets/textures/paper-fibers-mid.svg'), url('../assets/textures/paper-fibers-deep.svg');
+  --paper-fibers-size: 1543px 1543px, 1297px 1297px, 1031px 1031px;
   --material-light: rgb(255 255 255 / 0.48);
-  --material-edge: rgb(255 255 255 / 0.65);
   --material-contact: rgb(20 28 35 / 0.12);
   --material-shadow: rgb(20 28 35 / 0.09);
+  /* Glass: a cool tinted body, a luminous rim, a crisp edge and soft caustics
+     where frosted light gathers. Caustic positions vary per card. This base
+     level is a light touch; the Work section raises it (see .work below). */
+  --glass-tint: oklch(93.5% 0.011 220);
+  --glass-caustic: rgb(255 255 255 / 0.18);
+  --glass-caustic-2: rgb(255 255 255 / 0.08);
+  --glass-sheen: rgb(255 255 255 / 0.14);
+  --glass-edge: rgb(255 255 255 / 0.6);
+  --glass-spec: rgb(255 255 255 / 0.7);
+  --glass-glow: rgb(255 255 255 / 0.3);
+  --glass-glow-blur: 12px; --glass-glow-spread: 0px;
+  --glass-outline: rgb(30 50 70 / 0.05);
+  --glass-lift: rgb(25 45 65 / 0.07);
+  --glass-shadow: rgb(25 45 65 / 0.14);
+  --glass-c1: 16% 10%; --glass-c2: 88% 92%;
+  /* Inverted panels (lead award, first schema table, Work's "more" tile). */
+  --glass-ink-tint: var(--color-ink);
+  --glass-ink-caustic: rgb(255 255 255 / 0.05);
+  --glass-ink-caustic-2: rgb(255 255 255 / 0.02);
+  --glass-ink-sheen: rgb(255 255 255 / 0.03);
+  --glass-ink-edge: rgb(255 255 255 / 0.12);
+  --glass-ink-spec: rgb(255 255 255 / 0.25);
+  --glass-ink-glow: rgb(255 255 255 / 0.07);
+  --glass-ink-light: 0.3;
+  --glass-ink-under: color-mix(in srgb, var(--color-paper) 30%, #000);
 }
 :root:not([data-theme="light"]) {
   --material-light: rgb(255 255 255 / 0.025);
-  --material-edge: rgb(255 255 255 / 0.085);
   --material-contact: rgb(0 0 0 / 0.35);
   --material-shadow: rgb(0 0 0 / 0.24);
+  --glass-tint: var(--color-paper-3);
+  --glass-caustic: rgb(255 255 255 / 0.035);
+  --glass-caustic-2: rgb(255 255 255 / 0.015);
+  --glass-sheen: rgb(255 255 255 / 0.03);
+  --glass-edge: rgb(255 255 255 / 0.07);
+  --glass-spec: rgb(255 255 255 / 0.14);
+  --glass-glow: rgb(255 255 255 / 0.045);
+  --glass-outline: rgb(0 0 0 / 0.25);
+  --glass-lift: rgb(0 0 0 / 0.2);
+  --glass-shadow: rgb(0 0 0 / 0.35);
+  --glass-ink-tint: oklch(90% 0.016 225);
+  --glass-ink-caustic: rgb(255 255 255 / 0.2);
+  --glass-ink-caustic-2: rgb(255 255 255 / 0.08);
+  --glass-ink-sheen: rgb(255 255 255 / 0.14);
+  --glass-ink-edge: rgb(255 255 255 / 0.6);
+  --glass-ink-spec: rgb(255 255 255 / 0.7);
+  --glass-ink-glow: rgb(255 255 255 / 0.3);
+  --glass-ink-light: 2.6;
+  --glass-ink-under: color-mix(in srgb, var(--color-paper), #fff 14%);
+}
+/* Work carries a little more glass than the other cards (owner: about 20% of
+   the reference look there, about 10% elsewhere): slightly deeper tint,
+   wider rim glow, brighter caustics. */
+.work {
+  --glass-tint: oklch(92.5% 0.015 225);
+  --glass-caustic: rgb(255 255 255 / 0.28);
+  --glass-caustic-2: rgb(255 255 255 / 0.12);
+  --glass-sheen: rgb(255 255 255 / 0.18);
+  --glass-edge: rgb(255 255 255 / 0.7);
+  --glass-spec: rgb(255 255 255 / 0.8);
+  --glass-glow: rgb(255 255 255 / 0.42);
+  --glass-glow-blur: 16px; --glass-glow-spread: 1px;
+  --glass-outline: rgb(30 50 70 / 0.06);
+  --glass-lift: rgb(25 45 65 / 0.08);
+  --glass-shadow: rgb(25 45 65 / 0.18);
+  --glass-ink-caustic: rgb(255 255 255 / 0.08);
+  --glass-ink-caustic-2: rgb(255 255 255 / 0.035);
+  --glass-ink-sheen: rgb(255 255 255 / 0.045);
+  --glass-ink-edge: rgb(255 255 255 / 0.16);
+  --glass-ink-spec: rgb(255 255 255 / 0.32);
+  --glass-ink-glow: rgb(255 255 255 / 0.1);
+}
+:root:not([data-theme="light"]) .work {
+  --glass-tint: oklch(25% 0.018 238);
+  --glass-caustic: rgb(255 255 255 / 0.06);
+  --glass-caustic-2: rgb(255 255 255 / 0.025);
+  --glass-sheen: rgb(255 255 255 / 0.04);
+  --glass-edge: rgb(255 255 255 / 0.1);
+  --glass-spec: rgb(255 255 255 / 0.2);
+  --glass-glow: rgb(255 255 255 / 0.07);
+  --glass-outline: rgb(0 0 0 / 0.3);
+  --glass-lift: rgb(0 0 0 / 0.22);
+  --glass-shadow: rgb(0 0 0 / 0.4);
+  --glass-ink-caustic: rgb(255 255 255 / 0.3);
+  --glass-ink-caustic-2: rgb(255 255 255 / 0.12);
+  --glass-ink-sheen: rgb(255 255 255 / 0.18);
+  --glass-ink-edge: rgb(255 255 255 / 0.7);
+  --glass-ink-spec: rgb(255 255 255 / 0.8);
+  --glass-ink-glow: rgb(255 255 255 / 0.42);
 }
 
-/* Short, varied pulp fibers are drawn at physical CSS-pixel scale. The large
-   tile avoids a visible repeat; texture is behind content, never over images. */
+/* Paper fibers in three stacked layers (surface, mid, deep), each its own
+   tile at a prime size with its own seed, so the combined pattern never visibly
+   repeats. Poisson-disk spacing, varied length and thickness, small bundles, a
+   gentle density drift, pulp flecks and shives. Behind content, never over
+   images or cards. */
 body, .work {
   background-image: var(--paper-fibers);
-  background-size: 960px 960px;
+  background-size: var(--paper-fibers-size);
 }
 
 /* Paint the paper on the stationary stage while its parent scrolls through
@@ -25,25 +112,71 @@ body, .work {
 .work.is-pinned .work__sticky, .years.is-pinned .years__sticky {
   background-color: var(--color-paper);
   background-image: var(--paper-fibers);
-  background-size: 960px 960px;
+  background-size: var(--paper-fibers-size);
 }
 
 .hero {
   background-image: radial-gradient(ellipse at 12% 16%, var(--material-light), transparent 68%);
 }
 
-/* Raised surfaces catch the light along their upper edge. */
-:is(.award, .film, .does__row.is-open, .table, .idcard) {
-  background-image: var(--paper-fibers), linear-gradient(145deg, var(--material-light), transparent 65%);
-  background-size: 960px 960px, 100% 100%;
-  box-shadow: inset 0 1px 0 var(--material-edge),
-    0 1px 2px var(--material-contact), 0 12px 28px -16px var(--material-shadow);
+/* Cards are liquid glass at a 25% liquid level: 75% tinted body, a quarter of
+   the page shows through, blurred enough that no fibers survive. A thick
+   luminous rim, crisp edge and corner highlight give the glass its thickness.
+   Only the card surface changes; photos inside keep their own styling. */
+:is(.award, .film, .does__row.is-open, .table, .idcard, .project__media, .project--more) {
+  background-color: color-mix(in oklab, var(--glass-tint) 75%, transparent);
+  background-image:
+    radial-gradient(55% 45% at var(--glass-c1), var(--glass-caustic), transparent 72%),
+    radial-gradient(45% 40% at var(--glass-c2), var(--glass-caustic-2), transparent 72%),
+    linear-gradient(160deg, var(--glass-sheen), transparent 45%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  border-color: transparent;
+  box-shadow:
+    inset 0 0 0 1px var(--glass-edge),
+    inset 2px 3px 2px -1px var(--glass-spec),
+    inset 0 0 var(--glass-glow-blur) var(--glass-glow-spread) var(--glass-glow),
+    0 0 0 1px var(--glass-outline),
+    0 2px 4px -1px var(--glass-lift),
+    0 22px 44px -22px var(--glass-shadow);
 }
-/* Dark panels catch a restrained neutral light. */
-.award.award--lead, .table:nth-child(1) {
-  background-image: var(--paper-fibers), radial-gradient(ellipse at 0 0,
-    rgb(255 255 255 / 0.035), transparent 72%);
-  background-size: 960px 960px, 100% 100%;
+/* Light gathers in slightly different places on each card. */
+.table:nth-child(2) { --glass-c1: 72% 6%; --glass-c2: 10% 96%; }
+.table:nth-child(3) { --glass-c1: 24% 4%; --glass-c2: 94% 70%; }
+.table:nth-child(4) { --glass-c1: 60% 12%; --glass-c2: 6% 84%; }
+.table:nth-child(5) { --glass-c1: 10% 30%; --glass-c2: 80% 98%; }
+.award:nth-child(2n) { --glass-c1: 80% 8%; --glass-c2: 14% 94%; }
+.award:nth-child(2n + 3) { --glass-c1: 30% 14%; --glass-c2: 92% 80%; }
+.idcard { --glass-c1: 70% 4%; --glass-c2: 8% 76%; }
+/* The glass edge replaces the contact card's hairline outline. */
+.idcard { outline-color: transparent; }
+/* Inverted panels are tinted glass of the same strength. Tinted glass absorbs
+   light, so the quarter that shows through is dimmed (or lifted in dark theme)
+   and the panel keeps its contrast with the page. */
+.award.award--lead, .table:nth-child(1), .project.project--more {
+  --glass-tint: var(--glass-ink-tint); --glass-under: var(--glass-ink-under);
+  --glass-caustic: var(--glass-ink-caustic); --glass-caustic-2: var(--glass-ink-caustic-2);
+  --glass-sheen: var(--glass-ink-sheen); --glass-edge: var(--glass-ink-edge);
+  --glass-spec: var(--glass-ink-spec); --glass-glow: var(--glass-ink-glow);
+  -webkit-backdrop-filter: blur(20px) saturate(160%) brightness(var(--glass-ink-light));
+  backdrop-filter: blur(20px) saturate(160%) brightness(var(--glass-ink-light));
+}
+/* Work cards travel every frame of the pinned scroll over flat paper, so the
+   same 25% mix is pre-blended over the paper (dimmed or lifted for the tinted
+   tile, as its backdrop filter would) instead of re-blurring every frame:
+   identical look, no fibers, no per-frame blur cost. */
+.work :is(.project__media, .project--more) {
+  background-color: color-mix(in oklab, var(--glass-tint) 75%, var(--glass-under, var(--color-paper)));
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+/* Opaque cards where glass is unavailable or the visitor asks for less transparency. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :is(.award, .film, .does__row.is-open, .table, .idcard) { background-color: var(--color-card); }
+  .award.award--lead, .table:nth-child(1) { background-color: var(--color-ink); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  :is(.award, .film, .does__row.is-open, .table, .idcard) { background-color: var(--color-card); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .award.award--lead, .table:nth-child(1) { background-color: var(--color-ink); }
 }
 /* Photographs sit on a thin mount with a close edge and a softer cast shadow.
    Individual rotations use the separate rotate property so reveal transforms survive. */
@@ -72,5 +205,5 @@ body, .work {
   .strip__item { border-width: 4px; }
 }
 @media (forced-colors: active) {
-  body, .work, .work.is-pinned .work__sticky, .years.is-pinned .years__sticky, .hero, .award.award--lead, .award, .film, .does__row.is-open, .table:nth-child(n), .idcard { background-image: none; }
+  body, .work, .work.is-pinned .work__sticky, .years.is-pinned .years__sticky, .hero, .award.award--lead, .award, .film, .does__row.is-open, .table:nth-child(n), .idcard, .project__media, .project--more { background-image: none; }
 }

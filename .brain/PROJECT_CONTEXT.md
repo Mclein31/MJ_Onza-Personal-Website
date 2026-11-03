@@ -9,7 +9,7 @@ tags:
   - web
   - showcase
   - serverless
-last_updated: 2026-11-02
+last_updated: 2026-11-04
 ---
 
 # 🌐 Personal Website — Project Context
@@ -118,7 +118,7 @@ Journey spacing follow-up (2026-11-02): pinned desktop slides center vertically 
 
 ## Material finish (2026-11-03)
 
-`css/texture.css` preserves the original cool white/gray and dark surfaces, soft directional lighting, contact/cast shadows, slightly varied photo mounts and uneven orange highlights. Owner rejected fuzzy grain and halftone. Current paper treatment uses `assets/textures/paper-pulp.svg`: denser short curved fibers with varied 0.3–1.9px thickness at fixed 960px tile scale, painted behind content on page/card surfaces. No turbulence/noise filter, full-screen overlay, or texture over photographs. Original footer treatment stays intact.
+`css/texture.css` preserves the original cool white/gray and dark surfaces, soft directional lighting, contact/cast shadows, slightly varied photo mounts and uneven orange highlights. Owner rejected fuzzy grain and halftone. Current paper treatment (superseded 2026-11-04, see "Paper and glass" below) uses three stacked fiber layers in `assets/textures/` (see below), painted behind content on page surfaces only. No turbulence/noise filter, full-screen overlay, or texture over photographs. Original footer treatment stays intact.
 
 Project mockup shadow correction (2026-11-03): transparent gallery WebPs retain nonzero shadow alpha at the canvas boundary. `css/work.css` feathers image edges with intersected CSS masks in galleries and project lightbox views, blending the clipped shadow tails without changing gallery borders or source assets.
 
@@ -139,3 +139,9 @@ Scroll performance correction (2026-11-03): Work now caches card centers during 
 Short laptop Work layout (2026-11-03): landscape viewports ≥861px wide now retain horizontal pinning down to 600px usable height (previously 760px). At 600–759px, cards cap at 640px/56vw with compact two-column details and normal 44px controls, letting the measured gallery fit with captions/progress. Taller desktop/Mac and portrait/tablet compositions remain unchanged.
 
 Unique visit counting (2026-11-03): owner changed visits from every visit to first visit per browser. `site_user_has_visited` persists after a successful API increment; a browser lock serializes first visits across tabs. The API uses a one-year HttpOnly/SameSite=Lax `portfolio_visited` cookie to turn repeated increment requests into reads. Failed visit increments never bypass the API with a direct Abacus hit and remain retryable. Existing totals and like behavior remain. This is browser-level deduplication, not IP/account identity; another browser or clearing both storage and cookies can count again.
+
+## Paper and glass (2026-11-04)
+
+Owner asked for deliberately spread fibers with layering, imperfections and varied length/thickness, then for more fibers and no visible repeat. Paper is now three stacked layers: `paper-fibers-top.svg` (1543px), `paper-fibers-mid.svg` (1297px) and `paper-fibers-deep.svg` (1031px). Each is a distinct prime-sized tile, so the combined pattern never visibly repeats; do not go back to a single tile. Density is about 560 fibers/Mpx with Poisson-disk spacing, density drift, bundles, flecks and shives. `--paper-fibers` and `--paper-fibers-size` in `css/texture.css` hold the layer list. Fibers appear only on the page and pinned stage backgrounds, never on cards or images.
+
+Cards are Apple-style liquid glass at the owner's chosen 25% liquid level (75% tinted body). Owner's reference: frosted cards with a thick, bright, glowing white rim. On near-white paper, the glass reads through a cool tint (hue 228–232), a luminous inner rim, a crisp edge and corner highlight, and soft caustics whose positions vary per card. Levels (owner, 2026-11-04): about **20%** of the reference look on Work (`.project__media`, `.project--more`) and about **10%** on Stack, Contact, Recognition and About (`.table`, `.idcard`, `.award`, `.film`, open `.does__row`). A stronger version was tried first and rejected as too prominent. Work cards move every frame of the pinned scroll, so the same mix is pre-blended over paper with no live backdrop-filter; other cards use `backdrop-filter: blur(20px) saturate(160%)`. Inverted panels (lead award, first schema table, "More on GitHub") use tinted glass with dimmed or lifted backdrop (pre-blended in Work) to keep contrast. Glass tokens live in `css/texture.css` (`--glass-*`, Work overrides scoped on `.work`); opaque fallback for no backdrop-filter support and reduced transparency. Images, image mounts and gallery masks belong to a separate agent's screenshot-quality pass; glass rules change only card surfaces, and `work.css` was not edited.
