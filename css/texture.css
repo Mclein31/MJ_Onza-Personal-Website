@@ -1,8 +1,9 @@
 /* Soft directional light and close contact shadows give surfaces depth. */
 :root {
   --paper-fibers: url('../assets/textures/paper-fibers-top.svg'),
-    url('../assets/textures/paper-fibers-mid.svg'), url('../assets/textures/paper-fibers-deep.svg');
-  --paper-fibers-size: 1543px 1543px, 1297px 1297px, 1031px 1031px;
+    url('../assets/textures/paper-fibers-mid.svg'), url('../assets/textures/paper-fibers-deep.svg'),
+    url('../assets/textures/paper-tooth.webp'), url('../assets/textures/paper-formation.webp');
+  --paper-fibers-size: 1543px 1543px, 1297px 1297px, 1031px 1031px, 619px 619px, 1109px 1109px;
   --material-light: rgb(255 255 255 / 0.48);
   --material-contact: rgb(20 28 35 / 0.12);
   --material-shadow: rgb(20 28 35 / 0.09);
@@ -97,11 +98,11 @@
   --glass-ink-glow: rgb(255 255 255 / 0.42);
 }
 
-/* Paper fibers in three stacked layers (surface, mid, deep), each its own
-   tile at a prime size with its own seed, so the combined pattern never visibly
-   repeats. Poisson-disk spacing, varied length and thickness, small bundles, a
-   gentle density drift, pulp flecks and shives. Behind content, never over
-   images or cards. */
+/* Paper in five stacked layers, each its own prime-sized tile so the whole
+   never visibly repeats. The sheet: faint formation (cloudy pulp flocs) and a
+   matted tooth of felted micro-fibers. On top, three fiber layers (deep, mid,
+   surface) with Poisson-disk spacing, varied length and thickness, bundles,
+   flecks and shives. Behind content, never over images or cards. */
 body, .work {
   background-image: var(--paper-fibers);
   background-size: var(--paper-fibers-size);
