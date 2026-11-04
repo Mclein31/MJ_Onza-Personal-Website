@@ -1,4 +1,3 @@
-import { devices } from '@playwright/test';
 import { test, expect, gotoReady, scrollSettled } from './fixtures.mjs';
 
 test.describe('phones', () => {
@@ -29,7 +28,6 @@ test.describe('phones', () => {
     await expect(page.locator('#work')).not.toHaveClass(/is-pinned/);
     const [a, b] = await page.locator('.project').evaluateAll((els) => els.slice(0, 2).map((e) => e.getBoundingClientRect().top));
     expect(b).toBeGreaterThan(a);
-    await expect(page.locator('[data-demo-open]')).toBeHidden();
   });
 
   test('the floating stats pill never covers a button or link', async ({ page }) => {
@@ -69,16 +67,5 @@ test.describe('phones', () => {
     await gotoReady(page);
     const hoverCopy = await page.locator('main p:visible').evaluateAll((ps) => ps.map((p) => p.innerText).filter((t) => /\bhover\b/i.test(t)));
     expect(hoverCopy).toEqual([]);
-  });
-});
-
-test.describe('tablets', () => {
-  const { defaultBrowserType, ...ipad } = devices['iPad Pro 11 landscape'];
-  test.use(ipad);
-
-  test('the desktop-only demo button stays hidden on a wide touch screen', async ({ page }, testInfo) => {
-    test.skip(testInfo.project.name !== 'desktop-chrome', 'one browser is enough');
-    await gotoReady(page);
-    await expect(page.locator('[data-demo-open]')).toBeHidden();
   });
 });

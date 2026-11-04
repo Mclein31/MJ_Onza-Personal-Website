@@ -147,18 +147,6 @@
   .work.is-pinned .work__head .section-head { margin-bottom: var(--space-md); }
 }
 
-.project__try {
-  position: absolute; left: 50%; top: calc(50% - 22px); z-index: 3; translate: -50% -50%;
-  display: inline-flex; align-items: center; min-height: 48px; padding: 0 var(--space-lg);
-  border-radius: var(--radius-pill);
-  background: var(--color-ink); color: var(--color-paper);
-  font-weight: 600; box-shadow: var(--shadow-float);
-  transition: background-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
-}
-@media (hover: hover) { .project__try:hover { transform: scale(1.04); } }
-.project__try:active { transform: scale(0.97); }
-@media (max-width: 1024px), (hover: none), (any-pointer: coarse) { .project__try { display: none; } }
-
 .appwin { padding: 0; border: 0; background: transparent; width: 100%; height: 100%; max-width: none; max-height: none; }
 .appwin::backdrop { background: var(--color-scrim); }
 .appwin__frame {

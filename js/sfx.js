@@ -96,8 +96,8 @@ export function initSfx() {
     }
     if (el.matches('[data-theme-toggle]')) return play('toggle');
     if (el.matches('[data-copy]')) return play('success');
-    if (el.matches('[data-message-open], [data-video-open], [data-demo-open], [data-gallery-zoom]')) return play('pop');
-    if (el.matches('[data-message-close], [data-video-close], [data-demo-close], [data-lb-close]')) return play('drop');
+    if (el.matches('[data-message-open], [data-video-open], [data-gallery-zoom]')) return play('pop');
+    if (el.matches('[data-message-close], [data-video-close], [data-lb-close]')) return play('drop');
     if (el.matches('[data-gallery-prev], [data-gallery-next], [data-film-prev], [data-film-next], [data-lb-prev], [data-lb-next], .gallery__dots button')) return play('step');
     play('click');
   }, true);

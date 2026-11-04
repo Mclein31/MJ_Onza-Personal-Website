@@ -40,19 +40,6 @@ test.describe('desktop interactions', () => {
     await gallery.locator('[data-gallery-next]').click(); // wraps to the first
     await expect(dots.nth(0)).toHaveAttribute('aria-current', 'true');
   });
-
-  test('Cipher Shift opens as a live demo window and closes', async ({ page }) => {
-    await gotoReady(page);
-    const opener = page.locator('[data-demo-open]');
-    await opener.scrollIntoViewIfNeeded();
-    await opener.click({ force: true }); // it sits on the moving work track
-    const win = page.locator('[data-demo]');
-    await expect(win).toBeVisible();
-    await expect(page.frameLocator('[data-demo-frame]').locator('body')).toBeVisible();
-    await page.keyboard.press('Escape');
-    await expect(win).toBeHidden();
-    await expect(page.locator('body')).not.toHaveClass(/is-locked/);
-  });
 });
 
 for (const [name, slug] of [['AdvanCare', 'advancare'], ['MedCore', 'medcore'], ['SERVIO', 'servio'], ['MedRec', 'medrec']]) {
