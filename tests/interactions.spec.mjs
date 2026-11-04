@@ -32,11 +32,13 @@ test.describe('desktop interactions', () => {
     const gallery = page.locator('[data-gallery]').first();
     await gallery.scrollIntoViewIfNeeded();
     const dots = gallery.locator('[data-gallery-dots] button');
-    await expect(dots).toHaveCount(4); // 3 screenshots + the promo
+    const total = await gallery.locator('.gallery__slide').count(); // screenshots + the promo
+    expect(total).toBeGreaterThan(2);
+    await expect(dots).toHaveCount(total);
     await gallery.locator('[data-gallery-next]').click();
     await expect(dots.nth(1)).toHaveAttribute('aria-current', 'true');
-    await dots.nth(3).click();
-    await expect(dots.nth(3)).toHaveAttribute('aria-current', 'true');
+    await dots.nth(total - 1).click();
+    await expect(dots.nth(total - 1)).toHaveAttribute('aria-current', 'true');
     await gallery.locator('[data-gallery-next]').click(); // wraps to the first
     await expect(dots.nth(0)).toHaveAttribute('aria-current', 'true');
   });
@@ -135,7 +137,8 @@ test('a project slide opens the screenshot viewer at that slide, with its note',
   await expect(box).toBeVisible();
   await expect(box).toHaveClass(/is-wide/);
   await expect(box).toHaveAttribute('aria-label', 'Screenshot viewer');
-  await expect(page.locator('[data-lb-count]')).toHaveText('2 / 3');
+  const shots = await gallery.locator('.gallery__slide:not(.gallery__slide--video)').count();
+  await expect(page.locator('[data-lb-count]')).toHaveText(`2 / ${shots}`);
   await expect(page.locator('[data-lb-title]')).toHaveText(await slides.nth(1).getAttribute('data-title'));
   await expect(page.locator('[data-lb-img]')).toHaveJSProperty('complete', true);
   await page.keyboard.press('ArrowRight');

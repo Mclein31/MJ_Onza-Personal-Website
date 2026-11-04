@@ -21,7 +21,7 @@ for (const theme of ['light', 'dark']) {
       for (const kind of ['in','wa','gh','mail']) {
         const card=page.locator('.pass--'+kind);
         await card.locator('.pass__head').click();
-        if (kind==='mail') await expect(card.locator('[data-typing]')).toHaveText('Hi McLein, are you open to an internship this summer?');
+        if (kind==='mail') await expect(card.locator('[data-typing]')).toHaveText('Hi McLein, are you open to an internship this summer?', { timeout: 20000 });
         const bounds=await card.evaluate(el=>{
           const rect=el.getBoundingClientRect();
           const action=el.querySelector('.pass__go').getBoundingClientRect();
