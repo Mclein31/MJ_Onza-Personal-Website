@@ -3,9 +3,13 @@
 Canonical portfolio: https://mcleinjeionza.vercel.app/
 Name searches: McLein Jei Onza, McLein Onza, mcleinjeionza.
 
-## Current status (2026-11-02)
+## Current status (2026-11-03)
 
-The owner’s signed-in Google account now has a pending URL-prefix property for the canonical portfolio. Its exact HTML verification tag is in index.html. Deployment is pending; the Search Console tab is open at HTML tag verification. After deployment, click that method’s Verify button, then submit the sitemap and request homepage indexing. Keep the verification tag in place.
+SEO changes are deployed. The public homepage contains the exact Google verification tag, and robots.txt and sitemap.xml are reachable. Search Console Settings confirms the owner is verified for the canonical URL-prefix property. Keep the verification tag in index.html.
+
+Sitemap submission succeeded on November 2, 2026: Google read /sitemap.xml successfully and discovered one page. URL Inspection initially reported the homepage as unknown to Google. The live test at 7:53 PM Asia/Manila confirmed “URL is available to Google” and “Page can be indexed”, with one valid Profile page item.
+
+The November 2 manual Request indexing attempt hit the daily quota. On November 3, the owner supplied a Search Console screenshot confirming “Indexing requested”: the homepage was added to Google's priority crawl queue. Submission is complete; repeated requests do not improve queue position. Indexing and search ranking are still unconfirmed. Reinspect the homepage later for “URL is on Google”; Performance may still be processing data.
 
 ## Publish and verify
 
