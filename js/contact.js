@@ -36,7 +36,7 @@ export function initContact() {
       setTimeout(() => { dialog.close(); status.textContent = ''; }, 2400);
     } catch {
       status.classList.add('err');
-      status.textContent = 'That didn\'t go through. Email me directly at mcleinonza0531@gmail.com.';
+      status.textContent = 'That didn\'t go through. Email me directly at mcleinjeionza06@gmail.com.';
     } finally {
       submit.disabled = false;
       submit.textContent = label;
