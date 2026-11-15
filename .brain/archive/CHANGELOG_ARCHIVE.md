@@ -1,0 +1,89 @@
+---
+type: changelog-archive
+title: Personal Website Changelog Archive
+project: Personal Website
+tags:
+  - changelog
+  - archive
+last_updated: 2026-11-15
+---
+
+# 📜 Personal Website — Changelog Archive
+
+> Moved verbatim from [CHANGELOG.md](../CHANGELOG.md) on 2026-11-15 (headings normalized to `YYYY-MM-DD — Title`). Newest first.
+
+## 2026-10-31 — MedRec promo video
+- **Added**: The MedRec promo (from `MedRecord_App/promo_video/medrec-promo.mp4`) as the last slide of the MedRec deck, plus the same "Watch the 30-second promo" button under its description, as SERVIO has (owner asked for the same treatment). Re-encoded with the SERVIO recipe to `assets/video/medrec-promo.mp4` (7.8 MB, was 54 MB; peak 4.2 Mbps in the flying-papers scene). Overall SSIM 0.964: 0–17s ≈0.995; the aubergine scenes from 18s drop to 0.89–0.95 because the source's film grain is smoothed out, while text and UI stay sharp. Poster is the 28s end card ("MedRec — Medical records, together."), 1280×720 (`medrec-promo-poster.webp`). Label omits "with voiceover": not confirmed whether it has narration or only music.
+- **Code**: none needed in `gallery.js` / `video.js`; both were already per-deck. Plays in Chrome and WebKit (checked by script).
+- **Tests**: 87 pass, 15 skipped. The promo-window and deck tests now run for SERVIO and MedRec (picked by `data-video-title`), plus one that opens both in turn and checks the window swaps film, poster and title.
+
+## 2026-10-31 — SERVIO promo video
+- **Added**: The SERVIO promo with voiceover (from `SERVIO/promo-video/servio-promo-vo.mp4`) as the last slide of the SERVIO deck, plus a "Watch the 30-second promo" button under the title that opens it in a video window (owner asked for both). Re-encoded for the web to `assets/video/servio-promo.mp4` (H.264 CRF 26, faststart, 7.1 MB, was 28 MB; SSIM 0.993); poster is the end card (`servio-promo-poster.webp`). `preload="none"`, so nothing loads until play.
+- **Fixed** (same day, after deploy): Safari sat on a loading spinner after play. The slide now switches to `preload="auto"` when it becomes the current slide, so the film is buffered before play. Re-encoded with a 3 Mbps cap and 2s keyframes (peak 5.9 → 3.8 Mbps in the town scene, 6.4 MB). `tests/serve.mjs` answers byte ranges, which WebKit needs to play MP4 locally. The video-window test now opens it by keyboard (a forced click could miss the moving work track).
+- **Checked**: view/like counts are not locked. Abacus keys are live and the proxy increments; 232 holds because only new browsers count, once each (owner's own browser, localhost and automated browsers never do).
+- **Tests**: 78 pass (new: video window opens, pauses on close, returns focus; deck's last slide is the video and expand opens the video window). `health.spec` ignores Playwright WebKit's "Button failed to load, iconName" errors, which its own `<video controls>` icons raise. `tests/serve.mjs` serves `.mp4` as `video/mp4`.
+
+## 2026-10-31 — Footer vista
+- **Added**: Muted colour: island in three greens, brick-and-off-white lighthouse with a red roof. Light theme is daytime: lamp off (no beam or water glint), the moon becomes a sun with turning rays and a shimmer on the sea, clouds drift, no stars, dock lamp off; heavier glyphs and deeper tones for contrast. Toggling the theme redraws at once.
+- **Fixed**: View count inflated by non-visitors: on localhost (no `/api`) the client fell back to Abacus `hit`, so every local load and every automated browser (tests, screenshots) counted. Now only real browsers on a non-local host count (`navigator.webdriver` and hostname check). Visits moved to a fresh Abacus key `portfolio_views`, created at 232 (old `portfolio_visits` stopped at 526). Likes unchanged (72).
+- **Fixed**: On Android Chrome with the phone in dark mode and the site's light theme chosen, Chrome auto-darkened the page and the trait deck's card edges faded out. Light theme now declares `color-scheme: only light`; `<meta name="color-scheme" content="light dark">` added. Regression test in `health.spec.mjs`.
+- **Added**: Full-width ASCII scene under the footer wordmark (owner's request: a scenic reward for reaching the end): Cape Engaño lighthouse on Palaui Island, Cagayan, at night. Starry sky spans the whole footer behind the text. A shaded full moon (left) with maria and craters, a dock with a lamp and a footpath up to the lighthouse, an island shore that slopes in smoothly, land and tower heights scaled to the grid's proportions so phones and tablets get a broad hill and a stone foundation (no needle-thin peak), trees, a sailboat crossing, waves drifting, and a beam that sweeps down onto the sea without retracting. Runs on its own clock (not tied to scroll); still under reduced motion. Small type (~4px per column) for detail.
+- **Changed**: The nav slides away once the footer's top edge reaches it (`.nav.is-away`, `scroll.js`) and returns above it, so the scene shows unobstructed.
+- **Changed**: The footer is exactly one screen tall (100svh); the scene fills whatever space the rows leave. Tests: 66 pass.
+- Rejected along the way: a mountain-lake scene, a 0/1 decode reveal, a static-only version.
+
+## 2026-10-31 — Project-first, clear slides
+- **Fixed**: iMac screenshots (AdvanCare, MedCore) and the Mulat Media iPad/MacBook screens didn't fill their device screens (16:10 captures letterboxed in 16:9 frames). All 15 slides rebuilt on MockUPhone device frames (iMac, MacBook Pro 14, iPad Air, iPhone 14 Pro) with every screenshot filling its screen; Mulat Media and MedRec recaptured at the exact device sizes. (A CSS-frame version from earlier the same day was rejected as fake.)
+- **Changed**: Slides have transparent backgrounds (WebP with alpha, 2000×1125, 1.2 MB total, was ~1.9 MB of JPEG); brand gradients, logos and taglines dropped. Gallery sheet has no fill or shadow.
+- **Changed**: Work moved directly under the hero; Work is first in the nav and phone menu.
+- **Added**: Screenshot viewer: tap a slide (or Enter, or the new expand button) to open the project's set in a wide lightbox, with a short note per slide. Project cards are larger (up to 74vw / 1180px).
+- **Fixed**: On narrow cards (≤560px) the AdvanCare award line wrapped to four lines beside the controls; it now takes its own line under the slide.
+- **Tests**: 60 pass (new: screenshot viewer opens at the current slide, returns focus, and award photos still open in the narrow viewer). WebKit had to be reinstalled for Playwright 1.64.1 (`npx playwright install webkit`).
+- **Removed**: Student Journalist, Radio Broadcaster award card.
+
+## 2026-10-29 — Less copy, quieter hovers
+- **Changed**: Owner felt the layout still read as AI-made (labels and subtext around every heading). Section heads are now the heading alone (dropped the side paragraphs on Work, Activity, Stack, Recognition). Removed: hero meta line (kept as a bare rule; `icons.js` measures it), portrait caption, deck hint, 5 of 8 About record rows, project subtitles, "Scroll" label, activity card header, table descriptions and row counts, journey subtext and the hackathon milestone (covered in Recognition), lead-award theme line, training subtitle and outcomes list, contact h3 and link keys, footer tagline, menu numbers.
+- **Changed**: Hover is a tint: `--color-hover` (paper-2 at 55%) and `--color-accent-hover` (accent with 6% ink) in `tokens.css`, used by every button; lifts cut to 1px.
+- **Added**: Mulat Media card links to its live site, mulat-media.vercel.app (`.project__link`), at the owner's request; the other cards still have no live links.
+- **Changed**: MedRec gallery recaptured from the warm folio redesign (DD-45 in MedRecord_App) and recomposed in its own palette with Remy: 3 slides (was 2, old mint look).
+
+## 2026-10-29 — Tablet hero
+- **Fixed**: Portrait tablets (iPad Mini/Air/Pro 13) — the hero name was 16vw (about half the width) and the iPad Pro got the full-height desktop hero with the top half empty. Phones and portrait screens up to 80rem now share one rule: hero sized to content, name sized to fill the column (`(100vw − 2·gutter) / 3.45`), icon row above. Landscape tablets keep the desktop layout.
+- **Fixed**: Work section on portrait tablets (iPad Pro 13) pinned sideways with 60vw cards and ~400px of empty frame. The pin now also requires `orientation: landscape` (`js/work.js`); portrait screens get the stacked full-width cards.
+- **Fixed** (24-device sweep, 320px phones → 2560px desktop; no horizontal overflow anywhere): contact email split mid-word at 320/390/912/1032/1024 — key column fixed at 4.5rem, value shrinks with its container (floor `--text-lg`), `<wbr>` after the @ for the smallest phones. Stack table names ("python_scripting") broke mid-word at 320 — name size follows the card width. Stats pill floated over content on touch tablets — now in the footer on `(hover: none) and (pointer: coarse)` too.
+
+## 2026-10-25 — [Unreleased] — Testing & Audit
+- **Changed**: View counter counts each browser once, ever (`site_user_has_visited` in localStorage), instead of once per session.
+- **Added**: Playwright + axe test suite (`tests/`, `playwright.config.mjs`, dev-only `package.json`); 39 pass, 15 fail on known audit findings (see TODO.md "Design Audit Backlog").
+- **Fixed**: All 15 audit failures — suite now 54/54. Muted-ink contrast, 24px gallery dot targets, keyboard-reachable galleries/film/calendar, inert trait-deck back cards, like-button name, phone stats pill moved into the footer, "Hover"/"Tap" copy, schema tap-to-join, faster clock-timed preloader (~2.1s to a readable name), absolute `og:image` (`assets/images/og-image.jpg`) + canonical.
+- **Removed**: ⌘K command palette (nav "Jump to" button, footer hint, `/` and Ctrl/⌘+K shortcuts, `js/palette.js`) at the owner's request.
+- **Fixed**: Nav jumps landed ~250px low (88px nav clearance + section padding stacked). Sections now land 50px under the nav (`scroll-margin-top`); Work lands at its pinned start. Activity placeholder reserves the calendar's real height so Safari (no scroll anchoring) doesn't shift after a jump.
+- **Fixed**: Nav bar no longer hides after a nav link / ⌘K jump (hides only on visitor-driven scrolls). Work section track now sits on the content column instead of starting at the screen gutter (was ~300px off on 1920px screens).
+- **Changed**: Self-hosted fonts; hover effects gated to hover-capable devices; UI transitions cut to 240ms; nav dot / calendar cells no longer grow from near-zero; photo strip pauses off screen; preloader overlaps page load (done 750ms after navigation, min 350ms of counting).
+- **Changed**: Hero name now Lora (`--font-hero`, weight effect clamps to 400–700), hero intro Open Sans (`--font-hero-body`), About body Nunito (`--font-about`); section headings keep Bricolage. Preloads swapped Bricolage → Lora + Open Sans. Owner felt the old type looked AI-generated.
+- **Tests**: First-visit timing measured from the page's animation timeline and run as a separate stage after the suite (`*-timing` projects); nav tests assert the bar stays visible after jumps and still hides on wheel scroll.
+- **Fixed**: Reduced-motion users saw the footer wordmark collapse to ~1px on phones (blanket 0.01ms transitions made `font-size` transition); reduced motion now limits `transition-property` to opacity/colour. Regression check added to `tests/motion.spec.mjs`.
+
+## [3.0.0] — Full Rebuild (branch `portfolio-rebuild-v2`)
+- **Changed**: New visual system — graphite + signal lime, paper-white light mode; Bricolage Grotesque / Geist / Geist Mono.
+- **Changed**: `style.css` + `main.js` replaced by `css/*.css` and ES modules in `js/` (no build step).
+- **Added**: Preloader, kinetic hero name, live SQL query card, scroll-lit manifesto, pinned horizontal work section, skills-as-schema tables with row "joins", self-drawing timeline, stacked award cards, ⌘K command palette, custom cursor, magnetic buttons.
+- **Added**: Projects AdvanCare, MedCore and SERVIO; MedRec described as v2. Each card is a swipeable screenshot gallery (no status tags or links, per owner).
+- **Added**: Cagayan Innovation Hack 2026 — 2nd place (₱10,000) with AdvanCare; awards ordered newest → oldest.
+- **Removed**: 3D coverflow, the 25-byte stub stylesheets, hero scroll cue, pulsing nav/status dots.
+- **Changed (later, same day)**: MedRec v2 screens; 3 more Mulat Media slides; Hanguk Grill card removed; Cipher Shift playable in a demo window; phone-frame island inset.
+- **Performance**: award/training photos resized (~46MB → ~9MB); 64px favicon.
+
+## [2.2.0] — Coverflow & Image Optimization
+- **Changed**: Updated Hanguk Grill project cover image and enhanced 3D coverflow carousel navigation buttons.
+- **Added**: DTI YEP training photo slider and awards lightbox modal.
+- **Added**: Vercel serverless stats proxy (`api/stats.js`) for visit and like counting.
+
+## [2.0.0] — Bento Grid & 3D Coverflow Redesign
+- **Added**: Modern Bento grid layout for About Me, Education, and Tech Stack.
+- **Added**: 3D Coverflow carousel with responsive touch and mouse swipe support.
+- **Added**: Interactive terminal emulator with multi-tab viewing.
+- **Added**: Obsidian Dark and Alabaster Light theme toggling with system sync.
+
+## [1.0.0] — Initial Portfolio Release
+- **Added**: Semantic HTML5 portfolio and contact form.

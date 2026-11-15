@@ -11,6 +11,16 @@ Sitemap submission succeeded on November 2, 2026: Google read /sitemap.xml succe
 
 The November 2 manual Request indexing attempt hit the daily quota. On November 3, the owner supplied a Search Console screenshot confirming “Indexing requested”: the homepage was added to Google's priority crawl queue. Submission is complete; repeated requests do not improve queue position. Indexing and search ranking are still unconfirmed. Reinspect the homepage later for “URL is on Google”; Performance may still be processing data.
 
+## On-page implementation (2026-11-02)
+
+_Moved verbatim from PROJECT_CONTEXT.md on 2026-11-15._
+
+Canonical site remains https://mcleinjeionza.vercel.app/. Homepage metadata and accessible H1 identify McLein Jei Onza; WebSite/ProfilePage/Person JSON-LD connects McLein Onza and mcleinjeionza, with existing GitHub/LinkedIn profiles as sameAs. Deployed robots.txt advertises a one-URL sitemap.xml (section fragments are not separate pages). The initial live audit found old onzamj.vercel.app using a temporary 307 redirect. A permanent redirect should be configured in Vercel when the owner can access domain settings. No indexing or ranking is guaranteed.
+
+Search Console follow-up: canonical URL-prefix property ownership is verified, and Google's exact HTML verification tag is deployed in index.html. Sitemap submission succeeded with one discovered page. The November 2 live URL test confirms the homepage can be indexed and has one valid Profile page item. After the initial daily quota limit, the owner supplied a November 3 screenshot confirming “Indexing requested” and placement in Google's priority crawl queue. Submission is complete; indexing/ranking remain unconfirmed. See .brain/SEO_SETUP.md.
+
+Check 2026-11-15: the old domain still returns a temporary 307 (see TODO).
+
 ## Publish and verify
 
 1. Deploy the SEO changes. Check the homepage, /robots.txt and /sitemap.xml return 200 on the public domain.
