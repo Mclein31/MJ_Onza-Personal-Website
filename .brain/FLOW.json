@@ -108,6 +108,70 @@
    "file": "js/vista.js"
   },
   {
+   "id": "ui.ui",
+   "label": "Menu, schema and film",
+   "kind": "component",
+   "layer": "frontend",
+   "detail": "Mobile menu, hover/tap schema-table joins and the draggable film strip.",
+   "file": "js/ui.js"
+  },
+  {
+   "id": "ui.gallery",
+   "label": "Project galleries",
+   "kind": "component",
+   "layer": "frontend",
+   "detail": "Per-project screenshot galleries inside the Work track.",
+   "file": "js/gallery.js"
+  },
+  {
+   "id": "ui.video",
+   "label": "Promo videos",
+   "kind": "component",
+   "layer": "frontend",
+   "detail": "Project promo video playback.",
+   "file": "js/video.js"
+  },
+  {
+   "id": "ui.reveal",
+   "label": "Reveal on scroll",
+   "kind": "component",
+   "layer": "frontend",
+   "detail": "Fades sections in as they enter the viewport.",
+   "file": "js/reveal.js"
+  },
+  {
+   "id": "ui.journey",
+   "label": "Pinned journey",
+   "kind": "component",
+   "layer": "frontend",
+   "detail": "Year-by-year journey slides pinned while scrolling.",
+   "file": "js/journey.js"
+  },
+  {
+   "id": "ui.sfx",
+   "label": "Interface sounds",
+   "kind": "component",
+   "layer": "frontend",
+   "detail": "Web Audio interface sounds.",
+   "file": "js/sfx.js"
+  },
+  {
+   "id": "ui.icons",
+   "label": "Icons",
+   "kind": "component",
+   "layer": "frontend",
+   "detail": "Initialises the tool and channel icons.",
+   "file": "js/icons.js"
+  },
+  {
+   "id": "ui.preloader",
+   "label": "Preloader",
+   "kind": "component",
+   "layer": "frontend",
+   "detail": "Intro loader; when done it marks the hero as in.",
+   "file": "js/preloader.js"
+  },
+  {
    "id": "store.local",
    "label": "Browser storage",
    "kind": "store",
@@ -272,6 +336,66 @@
    "from": "ui.main",
    "to": "ui.vista",
    "label": "inits"
+  },
+  {
+   "from": "ui.main",
+   "to": "ui.ui",
+   "label": "inits"
+  },
+  {
+   "from": "ui.main",
+   "to": "ui.gallery",
+   "label": "inits"
+  },
+  {
+   "from": "ui.main",
+   "to": "ui.video",
+   "label": "inits"
+  },
+  {
+   "from": "ui.main",
+   "to": "ui.reveal",
+   "label": "inits"
+  },
+  {
+   "from": "ui.main",
+   "to": "ui.journey",
+   "label": "inits"
+  },
+  {
+   "from": "ui.main",
+   "to": "ui.sfx",
+   "label": "inits"
+  },
+  {
+   "from": "ui.main",
+   "to": "ui.icons",
+   "label": "inits"
+  },
+  {
+   "from": "ui.main",
+   "to": "ui.preloader",
+   "label": "runs last"
+  },
+  {
+   "from": "visitor",
+   "to": "ui.journey",
+   "label": "scrolls timeline"
+  },
+  {
+   "from": "visitor",
+   "to": "ui.ui",
+   "label": "opens menu"
+  },
+  {
+   "from": "ui.work",
+   "to": "ui.gallery",
+   "label": "hosts slides"
+  },
+  {
+   "from": "ui.gallery",
+   "to": "ui.viewer",
+   "label": "opens media"
   },
   {
    "from": "visitor",
@@ -450,6 +574,13 @@
     "dec.stats",
     "api.stats",
     "ext.abacus"
+   ]
+  },
+  {
+   "name": "Read the journey",
+   "steps": [
+    "visitor",
+    "ui.journey"
    ]
   },
   {
