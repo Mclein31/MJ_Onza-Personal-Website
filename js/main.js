@@ -1,7 +1,6 @@
 import { initTheme } from './theme.js';
 import { initPreloader } from './preloader.js';
 import { initHero } from './hero.js';
-import { initCursor } from './cursor.js';
 import { initScroll } from './scroll.js';
 import { initWork } from './work.js';
 import { initUI } from './ui.js';
@@ -21,7 +20,6 @@ import { initIcons } from './icons.js';
 const run = (name, fn) => { try { fn(); } catch (err) { console.error(`[${name}]`, err); } };
 
 run('theme', initTheme);
-run('cursor', initCursor);
 run('scroll', initScroll);
 run('work', initWork);
 run('galleries', initGalleries);

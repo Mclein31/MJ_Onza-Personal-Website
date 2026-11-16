@@ -5,12 +5,17 @@ project: Personal Website
 tags:
   - changelog
   - history
-last_updated: 2026-11-15
+last_updated: 2026-11-16
 ---
 
 # 📜 Personal Website — Changelog
 
 Newest first. Entries dated 2026-10-31 and older (including the versioned 1.0.0–3.0.0 releases) are archived verbatim in [archive/CHANGELOG_ARCHIVE.md](archive/CHANGELOG_ARCHIVE.md).
+
+## 2026-11-16 — Dead JS hooks and cursor script removed
+- **Removed**: `js/cursor.js` and its `initCursor` import/call in `js/main.js` (`.cursor` is `display: none` in `css/fx.css` and `[data-magnetic]` has no markup).
+- **Removed**: Dead hooks in `js/scroll.js` for removed v3 features: `splitWords` / `[data-words]` manifesto, `[data-timeline]` (`--tp`), `[data-award]` overlap scaling (`--s`), `[data-reveal]` / `.milestone` observer + `countUp`, and `.progress` bar (`--progress`).
+- **Removed**: Dead `deck()` (`[data-deck]`) and `tilt()` (`[data-tilt]`) hooks in `js/ui.js`.
 
 ## 2026-11-15 — Brain cleanup
 - Verified the brain against code, git log and the live site (latest commit `d36e90f` is live; old domain still 307).

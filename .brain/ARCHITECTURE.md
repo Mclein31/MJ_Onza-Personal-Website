@@ -7,7 +7,7 @@ tags:
   - portfolio
   - web
   - serverless
-last_updated: 2026-11-15
+last_updated: 2026-11-16
 ---
 
 # 🏛️ Personal Website — Architecture
@@ -48,18 +48,17 @@ Contact form: FormSubmit AJAX (direct from the browser).
 
 ---
 
-## 🧩 Module Map (`js/`, verified 2026-11-15)
+## 🧩 Module Map (`js/`, verified 2026-11-16)
 - `main.js` — entry; runs each `init*` inside a try/catch, then the preloader → adds `.hero.is-in`.
 - `util.js` — `$`/`$$`, `clamp`, `lerp`, safe `store` (localStorage/sessionStorage), `viewProgress`, `toast`, `copyText`, `arrowKeys`.
 - `theme.js` — `portfolio-theme` key, OS sync until explicit choice; flash-free bootstrap is inline in `<head>`.
 - `preloader.js` — once per session (`pf-loaded` in sessionStorage), timeout failsafe.
 - `hero.js` — splits the name into `.char` spans; pointer distance drives `font-weight` (fine pointers only); Asia/Manila clock (`[data-clock]`). (The typed SQL query card was removed in the 2026-11-01 redesign.)
-- `cursor.js` — lerped ring + `data-cursor` labels. Still initialized from `main.js`, but `.cursor` is `display: none` in `css/fx.css` (custom cursor dropped in the 2026-10-27 redesign); effectively dead code.
-- `scroll.js` — reveals (`data-reveal`, `--i` stagger), progress bar, nav hide/scroll-spy, nav steps aside at the footer (`.nav.is-away`), footer fill. Still contains hooks for the removed manifesto/timeline/award scaling; they no-op without markup.
+- `scroll.js` — nav hide/scroll-spy and active pill (`--po`/`--px`/`--pw`), nav steps aside at the footer (`.nav.is-away`), footer wordmark fit and scroll fill (`--fill`).
 - `work.js` — pins `#work` when `(min-width: 861px) and (min-height: 600px) and (orientation: landscape)`; caches card centers and writes transforms directly. Otherwise cards stack vertically.
 - `gallery.js` — per-card screenshot galleries (scroll-snap + dots + prev/next + mouse drag). A tap, Enter or the expand button opens the set in the lightbox (`openViewer`), using each slide's `data-title` / `data-desc` as the caption. A slide holding a `<video>` (the last of AdvanCare's, MedCore's, SERVIO's and MedRec's) is left out of the lightbox set: its own controls take clicks, mouse drags on it don't scroll the deck, it pauses when another slide shows or it leaves the screen, and expand opens it in the video window at the same time.
 - `video.js` — `<dialog data-video>` player on the demo window's sheet (`.appwin--video`, 16:9). Opened by `[data-video-open]` buttons (src, poster, title in data attributes) or `openVideo(clip, from, at)`; plays with sound on open, pauses on close.
-- `ui.js` — mobile menu, "What I do" accordion (`[data-does]`, one row open), schema row "joins" (`data-join` tags), DTI film strip, copy email. (The trait deck and portrait tilt code stay but have no markup since the 2026-11-01 redesign.)
+- `ui.js` — mobile menu, "What I do" accordion (`[data-does]`, one row open), schema row "joins" (`data-join` tags), DTI film strip, copy email, footer `[data-year]`.
 - `reveal.js` — sets `.reveal-ready` (skipped under reduced motion, so nothing hides without it): `[data-scrub]` headings split into words whose opacity follows the scroll (0.14 → 1) and whose `.hl` boxes wipe ink left to right (`--wipe`); `[data-rise]` blocks rise once (`="kids"` staggers children); hero `.ln` lines rise out of a mask on `.hero.is-in`.
 - `journey.js` — pins `[data-years]` (adds `.is-pinned`, height = n × 75svh + 100svh), shows one `.yr` per stretch of scroll. Reduced motion and short landscape phones: normal flow. Small screens measure the active slide so the stage fits its content while preserving the pin/transitions. (Typed SQL lines were removed 2026-11-01.)
 - `activity.js` — GitHub activity section: contribution calendar, totals and streak summary from `contributions.js`.

@@ -1,4 +1,4 @@
-import { $, $$, clamp, finePointer, reducedMotion, toast, copyText, arrowKeys } from './util.js';
+import { $, $$, clamp, toast, copyText, arrowKeys } from './util.js';
 
 function menu() {
   const btn = $('[data-menu-toggle]');
@@ -14,31 +14,6 @@ function menu() {
   btn.addEventListener('click', () => set(!panel.classList.contains('is-open')));
   $$('a', panel).forEach((a) => a.addEventListener('click', () => set(false)));
   addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
-}
-
-function deck() {
-  const el = $('[data-deck]');
-  if (!el) return;
-  const order = () => $$('.deck__card', el).forEach((c, i) => {
-    c.style.setProperty('--d', Math.min(i, 4));
-    c.inert = i > 0;
-  });
-  order();
-  let busy = false;
-  el.addEventListener('click', () => {
-    if (busy) return;
-    busy = true;
-    const top = el.firstElementChild;
-    const hadFocus = document.activeElement === top;
-    top.classList.add('is-leaving');
-    setTimeout(() => {
-      top.classList.remove('is-leaving');
-      el.append(top);
-      order();
-      if (hadFocus) el.firstElementChild.focus({ preventScroll: true });
-      busy = false;
-    }, reducedMotion.matches ? 0 : 240);
-  });
 }
 
 function schema() {
@@ -59,22 +34,6 @@ function schema() {
     row.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') join(row); });
     row.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') join(null); });
     row.addEventListener('click', (e) => { if (e.pointerType !== 'mouse') join(source === row ? null : row); });
-  });
-}
-
-function tilt() {
-  if (!finePointer.matches || reducedMotion.matches) return;
-  $$('[data-tilt]').forEach((el) => {
-    const frame = el.firstElementChild;
-    el.addEventListener('pointermove', (e) => {
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-      frame.style.setProperty('--rx', `${(x - 0.5) * 10}deg`);
-      frame.style.setProperty('--ry', `${(0.5 - y) * 10}deg`);
-      frame.style.setProperty('--gx', `${x * 100}%`);
-      frame.style.setProperty('--gy', `${y * 100}%`);
-    });
-    el.addEventListener('pointerleave', () => ['--rx', '--ry'].forEach((p) => frame.style.removeProperty(p)));
   });
 }
 
@@ -124,10 +83,8 @@ function copyButtons() {
 
 export function initUI() {
   menu();
-  deck();
   does();
   schema();
-  tilt();
   film();
   copyButtons();
   $$('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });

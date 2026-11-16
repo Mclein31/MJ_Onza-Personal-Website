@@ -38,7 +38,7 @@ cool white/gray palette with felt paper texture and subtle liquid-glass cards.
 
 ## 💻 Tech Stack & Dependencies
 - **Markup & UI**: one `index.html`; CSS split into `css/*.css` (17 files, `tokens.css` first).
-- **Scripting**: vanilla ES modules in `js/` (22 modules, `main.js` entry); **no build step**; must be served over HTTP.
+- **Scripting**: vanilla ES modules in `js/` (21 modules, `main.js` entry); **no build step**; must be served over HTTP.
 - **Serverless (Vercel)**: `api/stats.js` (visits/likes proxy → Abacus) and `api/contributions.js` (GitHub
   contribution calendar for user `Mclein31`, with a jogruber API fallback in the client).
 - **Services**: Abacus (`abacus.jasoncameron.dev`, namespace `mcleinonza`), FormSubmit AJAX, GitHub.

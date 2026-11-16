@@ -5,7 +5,7 @@ project: Personal Website
 tags:
   - todo
   - backlog
-last_updated: 2026-11-15
+last_updated: 2026-11-16
 ---
 
 # 📋 Personal Website — TODO & Task Tracker
@@ -19,7 +19,7 @@ last_updated: 2026-11-15
 - [ ] Set the canonical site URL on the owner's GitHub and LinkedIn profiles (SEO identity reinforcement).
 - [ ] Keep featured project links and demo screenshots synchronized with recent code releases.
 - [ ] Optional: real AdvanCare staff-console screenshot; recapture MedRec at native resolution like the other decks.
-- [ ] Optional cleanup: `js/cursor.js` still runs although `.cursor` is hidden, and `scroll.js`/`ui.js` keep hooks for
+- [x] Optional cleanup: `js/cursor.js` still runs although `.cursor` is hidden, and `scroll.js`/`ui.js` keep hooks for
   removed manifesto, timeline, award-scaling, trait-deck and tilt markup.
 
 ## 🟡 Medium Priority
