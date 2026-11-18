@@ -25,7 +25,8 @@ Restyle the whole page from four screen recordings the owner saved in `website_i
 - **No scroll-drawn path.** A red "data pipeline" line drawn through every section on scroll (with a hero cursor ink trail) was built twice and then removed at the owner's request ("looks fake", "remove the pathing completely"). Do not reintroduce a page-spanning line.
 - Highlight boxes (`.hl`) must never cover neighbouring lines of text.
 - **No duplicate stack band.** A black word ticker (Python ✦ SQL ✦ PostgreSQL…) under the hero repeated the tool-icon carousel and was removed; the owner's icon carousel stays.
-- **No file-drawer.** The folder/drawer layout for Recognition and Training was rejected; it is being replaced by an editorial index (numbered rows + featured photo).
+- **No file-drawer.** The folder/drawer layout for Recognition and Training was rejected and replaced by an editorial index (numbered rows + sticky featured photo on desktop, accordion on phones).
+- **Wallet cards keep their brand colours** (owner: "keep the old app colors"): LinkedIn blue, WhatsApp green, Gmail white/red, GitHub dark. The redesign's cream/red recolour of those cards was reverted.
 - **"With High Honors" is no longer listed** in Recognition (owner request).
 
 ### Tokens

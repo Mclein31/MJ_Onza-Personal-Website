@@ -10,9 +10,9 @@
 }
 .pass:nth-child(1) { --pos: 0; } .pass:nth-child(2) { --pos: 1; } .pass:nth-child(3) { --pos: 2; } .pass:nth-child(4) { --pos: 3; }
 /* Signal palette: cream, signal red and ink. GitHub keeps its own dark palette on purpose. */
-.pass--mail { --p-bg: #F2EFE9; --p-ink: #0D0D0D; --p-mute: #5C5953; --p-go: var(--color-signal, #FF2D1F); --p-go-ink: #0D0D0D; --p-tint: rgb(13 13 13 / 0.08); border-top: 4px solid var(--color-signal, #FF2D1F); }
-.pass--in { --p-bg: #DCD6CB; --p-ink: #0D0D0D; --p-mute: #4A4742; --p-go: #0D0D0D; --p-go-ink: #F2EFE9; --p-tint: rgb(13 13 13 / 0.1); }
-.pass--wa { --p-bg: var(--color-signal, #FF2D1F); --p-ink: #0D0D0D; --p-mute: #1A1A1A; --p-go: #0D0D0D; --p-go-ink: #F2EFE9; --p-tint: rgb(13 13 13 / 0.14); }
+.pass--mail { --p-bg: #fff; --p-ink: #202124; --p-mute: #5f6368; --p-go: #c5221f; --p-go-ink: #fff; --p-tint: #fce8e6; border-top: 3px solid #ea4335; }
+.pass--in { --p-bg: #0a66c2; --p-ink: #fff; --p-mute: #fff; --p-go: #fff; --p-go-ink: #0a58a8; --p-tint: rgb(255 255 255 / 0.16); }
+.pass--wa { --p-bg: #25d366; --p-ink: #073b20; --p-mute: #084329; --p-go: #fff; --p-go-ink: #075e54; --p-tint: rgb(7 59 32 / 0.12); }
 .pass--gh { --p-bg: #0d1117; --p-ink: #f0f6fc; --p-mute: #9198a1; --p-go: #212830; --p-go-ink: #f0f6fc; border: 1px solid #3d444d; }
 .pass--gh .pass__icon { background: #151b23; color: #f0f6fc; }
 .pass--gh .pass__go { border: 1px solid #3d444d; }
@@ -29,7 +29,7 @@
 .pass__icon svg { width: 18px; height: 18px; }
 .pass__icon img { width: 24px; height: 24px; object-fit: contain; }
 .pass--in .pass__icon, .pass--mail .pass__icon, .pass--wa .pass__icon { background: #fff; }
-.pass--mail .pass__copy { background: var(--p-tint); color: var(--p-ink); }
+.pass--mail .pass__copy { background: #fce8e6; color: #a50e0e; }
 
 .pass__body { position: relative; height: calc(var(--front) - var(--peek)); padding: 0 18px 18px; opacity: 0; transition: opacity 250ms var(--ease-out); }
 .pass.is-front .pass__body { opacity: 1; transition: opacity 500ms var(--ease-out) 180ms; }

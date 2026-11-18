@@ -3,7 +3,6 @@ import { $, $$ } from './util.js';
 export const PHOTOS = [
   { src: 'award-bnhs-journalism-team.webp', title: 'Student Leadership & Campus Journalism Team', desc: 'Campus journalist, radio broadcaster and student leader at Ballesteros National High School.' },
   { src: 'cert-pitch-and-silent-billionaire.webp', title: 'Pitch Perfect & Silent Billionaire Awards', desc: 'Certificates of Recognition from DTI Region 02 (YEP) for the MedCore pitch presentation and exceptional impact.' },
-  { src: 'cert-high-honors.webp', title: 'With High Honors', desc: 'Certificate of Recognition for consistent academic excellence and high scholastic distinction.' },
   { src: 'award-dti-yep-team.webp', title: 'DTI Youth Entrepreneurship Program — Pitch Team', desc: 'The MedCore pitch team with regional mentors, youth innovators and DTI-SMEDD organizers.' },
   { src: 'award-community-leadership.webp', title: 'Student Leadership & Community Outreach', desc: 'Youth leadership representation, community volunteer work and collaborative outreach programs.' },
   { src: 'award-deped-tree-project.webp', title: 'DepEd 235K Christmas Trees Project', desc: 'Student leadership in the nationwide DepEd tree planting initiative.' },

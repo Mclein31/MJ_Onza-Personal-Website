@@ -7,7 +7,7 @@ tags:
   - portfolio
   - web
   - serverless
-last_updated: 2026-11-16
+last_updated: 2026-11-18
 ---
 
 # 🏛️ Personal Website — Architecture
@@ -53,7 +53,7 @@ Contact form: FormSubmit AJAX (direct from the browser).
 - `util.js` — `$`/`$$`, `clamp`, `lerp`, safe `store` (localStorage/sessionStorage), `viewProgress`, `toast`, `copyText`, `arrowKeys`.
 - `theme.js` — `portfolio-theme` key, OS sync until explicit choice; flash-free bootstrap is inline in `<head>`.
 - `preloader.js` — once per session (`pf-loaded` in sessionStorage), timeout failsafe.
-- `hero.js` — splits the name into `.char` spans; pointer distance drives `font-weight` (fine pointers only); Asia/Manila clock (`[data-clock]`). (The typed SQL query card was removed in the 2026-11-01 redesign.)
+- `hero.js` — the Asia/Manila live clock (`[data-clock]`) only. Since the 2026-11-18 Signal redesign the name is plain Geist 900 with CSS-drawn round red i-dot and full stop (`::after`); the old weight-following `.char` split, the word ticker and the signal line are gone.
 - `scroll.js` — nav hide/scroll-spy and active pill (`--po`/`--px`/`--pw`), nav steps aside at the footer (`.nav.is-away`), footer wordmark fit and scroll fill (`--fill`).
 - `work.js` — pins `#work` when `(min-width: 861px) and (min-height: 600px) and (orientation: landscape)`; caches card centers and writes transforms directly. Otherwise cards stack vertically.
 - `gallery.js` — per-card screenshot galleries (scroll-snap + dots + prev/next + mouse drag). A tap, Enter or the expand button opens the set in the lightbox (`openViewer`), using each slide's `data-title` / `data-desc` as the caption. A slide holding a `<video>` (the last of AdvanCare's, MedCore's, SERVIO's and MedRec's) is left out of the lightbox set: its own controls take clicks, mouse drags on it don't scroll the deck, it pauses when another slide shows or it leaves the screen, and expand opens it in the video window at the same time.
@@ -70,13 +70,17 @@ Contact form: FormSubmit AJAX (direct from the browser).
 - `vista.js` — footer ASCII scene (Cape Engaño lighthouse at night): drawn each frame into a char grid, split into three `<pre>` colour layers (ink, muted, accent). Grid from the footer's free width/height; objects scale with it. ~12fps while on screen, still under reduced motion.
 - `stats.js` — cached totals (`site_total_*`), once-per-browser first visits (`site_user_has_visited`, serialized with browser locks), and independent once-per-browser likes (`site_user_has_liked`). Visits increment through the API only; `api/stats.js` also deduplicates using a one-year HttpOnly cookie. Pointer capture starts after an actual drag.
 - `contact.js` — `<dialog>` FormSubmit form (`formsubmit.co/ajax/<owner email>`); exports `openMessage()`.
+- `drawer.js` — Recognition and Training **editorial index** (2026-11-18): numbered row buttons (`[data-idx-row]`, `aria-current`, arrow keys) feature one panel at a time on desktop (sticky photo + caption, crossfade) and work as a one-open accordion on narrow screens; certificate photos open in the lightbox (`data-lb`, `data-training-lb`, `TRAINING_PHOTOS`).
+- `copier.js` — Contact copier (2026-11-18): any `[data-copy]` click prints a slip with the address and lights a COPIED LED; `aria-live` announcement; `print` sound in `sfx.js`; instant under reduced motion.
 
 ## 🎨 Styles (`css/`)
 `tokens.css` (all colors/type/motion; `[data-theme]` light/dark overrides) → `base.css` → one file per area:
 `nav`, `hero`, `work`, `about`, `journey`, `activity`, `stack`, `recognition`, `contact`, `wallet`, plus `fonts.css`,
-`reveal.css`, `fx.css` (preloader and effects), `texture.css` (paper layers and `--glass-*` tokens) and `footer.css`
-(footer + vista, kept apart so redesigns leave it alone; its wordmark uses `--font-mark`, Hedvig). All motion
-respects `prefers-reduced-motion`.
+`reveal.css`, `fx.css` (preloader, stats pill, toast), `texture.css` (zero-specificity flat fallbacks only since
+the 2026-11-18 redesign; the paper layers and glass tokens are gone), `drawer.css` (editorial index), `copier.css`
+and `footer.css` (footer + vista, kept apart so redesigns leave it alone; its wordmark uses `--font-mark`, Hedvig).
+Shared components live in `base.css`: `.label`, `em.serif` (upright, red emphasis — no serif font), `.numeral`,
+`.btn-pill`, `.band--night/--signal/--paper` (local token re-maps). All motion respects `prefers-reduced-motion`.
 
 ## 📁 Other files
 - `assets/` — `fonts/` (self-hosted WOFF2), `icons/` (tool and contact logos, `brand-sources.md`), `images/`

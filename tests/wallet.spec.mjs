@@ -59,5 +59,5 @@ test('Card details leave actions visible and respect reduced motion', async ({ p
     await expect.poll(() => card.evaluate(el => el.getAnimations({ subtree: true }).filter(a => a.playState === 'running').length)).toBe(0);
   }
   await expect(page.locator('.pass--in .pass__connection img')).toHaveAttribute('src', 'assets/images/avatar.webp');
-  await expect(page.locator('.pass--wa')).toHaveCSS('background-color', 'rgb(255, 45, 31)');
+  await expect(page.locator('.pass--wa')).toHaveCSS('background-color', 'rgb(37, 211, 102)');
 });
