@@ -153,11 +153,19 @@ for (const theme of ['light', 'dark']) {
 
   test(`full-page screenshot (${theme})`, async ({ page }, testInfo) => {
     mkdirSync(SHOT_DIR, { recursive: true });
-    await page.emulateMedia({ colorScheme: theme });
+    await page.emulateMedia({ colorScheme: theme, reducedMotion: 'reduce' });
     await page.addInitScript((t) => localStorage.setItem('portfolio-theme', t), theme);
     await gotoReady(page);
-    await page.evaluate(() => document.fonts.ready);
-    await page.waitForTimeout(200);
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+      for (let y = 0; y <= document.body.scrollHeight; y += Math.max(300, innerHeight)) {
+        window.scrollTo(0, y);
+        await new Promise((r) => setTimeout(r, 40));
+      }
+      window.scrollTo(0, 0);
+    });
+    await page.waitForSelector('.activity__cal:not(.is-loading)', { timeout: 5000 }).catch(() => {});
+    await page.waitForTimeout(250);
     await page.screenshot({
       path: join(SHOT_DIR, `${testInfo.project.name}-${theme}.png`),
       fullPage: true,
