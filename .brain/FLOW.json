@@ -93,10 +93,10 @@
   },
   {
    "id": "ui.theme",
-   "label": "Theme and sfx",
+   "label": "Theme",
    "kind": "component",
    "layer": "frontend",
-   "detail": "Dark/light theme manager and Web Audio interface sounds.",
+   "detail": "Dark/light theme manager that persists the choice.",
    "file": "js/theme.js"
   },
   {
@@ -274,6 +274,22 @@
    "layer": "frontend",
    "detail": "Shows a success note when FormSubmit responds ok, otherwise an error with the email address.",
    "file": "js/contact.js"
+  },
+  {
+   "id": "ui.drawer",
+   "label": "Recognition index",
+   "kind": "component",
+   "layer": "frontend",
+   "detail": "Editorial index of recognition and training rows with a featured panel, opening training photos in the viewer.",
+   "file": "js/drawer.js"
+  },
+  {
+   "id": "ui.copier",
+   "label": "Contact copier",
+   "kind": "component",
+   "layer": "frontend",
+   "detail": "Prints a paper slip and lights the COPIED LED when an address is copied.",
+   "file": "js/copier.js"
   }
  ],
  "edges": [
@@ -561,6 +577,36 @@
    "from": "dec.sent",
    "to": "ui.contact",
    "label": "no: shows error"
+  },
+  {
+   "from": "ui.main",
+   "to": "ui.drawer",
+   "label": "inits"
+  },
+  {
+   "from": "ui.main",
+   "to": "ui.copier",
+   "label": "inits"
+  },
+  {
+   "from": "visitor",
+   "to": "ui.drawer",
+   "label": "browses rows"
+  },
+  {
+   "from": "ui.drawer",
+   "to": "ui.viewer",
+   "label": "opens photos"
+  },
+  {
+   "from": "visitor",
+   "to": "ui.copier",
+   "label": "copies email"
+  },
+  {
+   "from": "ui.ui",
+   "to": "ui.copier",
+   "label": "copy click"
   }
  ],
  "flows": [
@@ -621,6 +667,21 @@
     "dec.stats",
     "api.stats",
     "ext.abacus"
+   ]
+  },
+  {
+   "name": "Browse recognition",
+   "steps": [
+    "visitor",
+    "ui.drawer",
+    "ui.viewer"
+   ]
+  },
+  {
+   "name": "Copy the email",
+   "steps": [
+    "visitor",
+    "ui.copier"
    ]
   }
  ]
