@@ -1,109 +1,173 @@
+/* Signal-line markers in the hero and ticker: zero-size, out of flow */
+:is(.hero, .ticker) [data-signal-anchor] { position: absolute; width: 0; height: 0; pointer-events: none; }
+
+/* Hero: the page's own paper and ink. Red is only an accent: the round i-dot and full stop,
+   the live dot, the underline, the signal line (which starts at the full stop) and the cursor ink. */
 .hero { position: relative; isolation: isolate; overflow: clip; }
+.hero__ink { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+
 .hero__inner {
-  --hero-lift: clamp(24px, 6vh, 56px);
-  display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr auto; align-items: center; gap: var(--space-xl);
+  display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: clamp(20px, 3.5svh, 44px);
   min-height: min(100svh, 960px);
-  padding-top: calc(var(--nav-clear) + var(--space-xl) - var(--hero-lift));
-  padding-bottom: calc(var(--space-xl) + var(--hero-lift));
+  padding-top: calc(var(--nav-clear) + var(--space-xl));
+  padding-bottom: max(var(--space-lg), env(safe-area-inset-bottom));
+  padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right));
 }
-.hero__mark { position: relative; z-index: 1; display: grid; justify-items: start; }
-.hero__kicker { font-size: 0.875rem; font-weight: 550; letter-spacing: 0; color: var(--color-ink-2); margin-bottom: var(--space-lg); }
+/* Desktops get exactly one full screen */
+@media (min-width: 1101px) { .hero__inner { min-height: 100svh; } }
+
+/* Mono label row: who, where, what time it is there */
+.hero__labels {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px var(--space-lg);
+  padding-bottom: var(--space-sm); border-bottom: 1px solid var(--color-rule);
+}
+.hero__kicker { color: var(--color-ink); }
+.hero__time { display: inline-flex; align-items: center; gap: 0.6em; }
+.hero__time::before {
+  content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--color-signal);
+  animation: hero-live 2.4s var(--ease-in-out) infinite;
+}
+@keyframes hero-live { 50% { opacity: 0.3; } }
+
+.hero__mark { align-self: end; display: grid; justify-items: start; gap: clamp(20px, 3.5svh, 44px); min-width: 0; }
+
+/* Two giant lines. 25svh keeps both lines and the CTA row inside short laptop screens. */
 .hero__name {
-  font-size: clamp(4rem, 10.5vw, 10rem); font-weight: var(--display-weight); letter-spacing: var(--tracking-display);
-  line-height: 0.95; text-wrap: nowrap;
+  font-size: min(var(--text-giant), 25svh); font-weight: var(--display-weight); letter-spacing: var(--tracking-display);
+  line-height: 0.84; color: var(--color-ink); text-wrap: nowrap; margin-left: -0.055em;
 }
+.hero__name .ln { padding-bottom: 0.06em; margin-bottom: -0.06em; }
+/* Geist's dot and stop are square; the name uses a dotless ı and draws round red ones in their
+   place. Offsets are Geist 900 metrics in em: i stem centre .153, its dot centre .665 above the
+   baseline; stop centre .13 across, .095 up; the content box top is the ascent, 1.005 above. */
+.hero__i, .hero__period { position: relative; }
+.hero__i::after, .hero__period::after {
+  content: ""; position: absolute; border-radius: 50%; background: var(--color-signal);
+}
+.hero__i::after { width: 0.17em; height: 0.17em; left: calc(0.153em - 0.085em); top: calc(0.34em - 0.085em); }
+.hero__period { color: transparent; margin-left: 0.02em; }
+.hero__period::after { width: 0.19em; height: 0.19em; left: calc(0.13em - 0.095em); top: calc(0.91em - 0.095em); }
+.hero__period [data-signal-anchor] { left: 0.13em; top: 0.91em; }
 
-.hero__name { --name-accent: #e8894d; }
-.hero__i {
-  background: linear-gradient(to bottom, var(--name-accent) 34%, var(--color-ink) 34%);
-  background-clip: text; -webkit-background-clip: text;
-  color: transparent;
+.hero__details {
+  position: relative; display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap;
+  gap: var(--space-lg) var(--space-2xl); width: 100%;
 }
-.hero__period { color: var(--name-accent); margin-left: 0.06em; }
-@media (min-width: 961px) {
-  .hero__name { display: flex; gap: 0.18em; }
+.hero__intro {
+  font-size: clamp(1.5rem, 0.85rem + 1.8vw, 2.625rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.08;
+  color: var(--color-ink); max-width: 24ch;
 }
-.hero__details { display: flex; align-items: center; justify-content: space-between; gap: var(--space-xl); width: 100%; margin-top: var(--space-xl); }
-.hero__intro { font-size: clamp(1.125rem, 1.6vw, 1.5rem); line-height: 1.5; color: var(--color-ink-2); max-width: 34ch; }
-
-.mk { background: none; color: var(--color-ink); font-weight: 600; background-image: linear-gradient(color-mix(in oklab, var(--color-accent) 42%, transparent), color-mix(in oklab, var(--color-accent) 42%, transparent)); background-repeat: no-repeat; background-position: 0 88%; background-size: 100% 0.32em; }
-.reveal-ready .mk { background-size: 0% 0.32em; transition: background-size 900ms var(--ease-quint); transition-delay: calc(900ms + var(--i, 0) * 260ms); }
-.reveal-ready .hero.is-in .mk { background-size: 100% 0.32em; }
+.hero__then { display: block; }
+.hero__em {
+  text-decoration: underline var(--color-signal); text-decoration-thickness: 0.12em;
+  text-underline-offset: 0.1em; text-decoration-skip-ink: none;
+}
 .hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm) var(--space-lg); flex-shrink: 0; }
 
-.reveal-ready .hero:not(.is-in) :is(.hero__kicker, .hero__intro, .hero__cta) { opacity: 0; transform: translateY(16px); }
-.hero :is(.hero__kicker, .hero__intro, .hero__cta) { transition: opacity 800ms var(--ease-out), transform 1s var(--ease-quint); }
-.hero .hero__intro { transition-delay: 420ms; }
-.hero .hero__cta { transition-delay: 520ms; }
-
-.hero__marquee {
-  position: absolute; inset: auto 0 -0.1em; z-index: -1;
-  opacity: 0.65; mask-image: linear-gradient(transparent, #000 35%);
-  display: grid; gap: 0; pointer-events: none; user-select: none; -webkit-user-select: none;
+.hero__cta .cta-link--soft {
+  min-height: 48px; padding: 0; gap: 10px; color: var(--color-ink);
+  font-size: var(--text-md); font-weight: 600; letter-spacing: -0.015em;
 }
-.hero__row {
-  display: flex; width: max-content;
-  font-size: clamp(5rem, 10.5vw, 9.5rem); font-weight: 800; letter-spacing: -0.05em; line-height: 1;
-  color: color-mix(in oklab, var(--color-ink) 4.5%, var(--color-paper)); white-space: pre;
-  animation: hero-drift calc(140s + var(--r) * 18s) linear infinite;
-  animation-direction: var(--dir, normal);
+.hero__cta .cta-link--soft::after { height: 2px; transform: scaleX(1); opacity: 0.3; bottom: 10px; transition: opacity var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out); }
+.hero__cta .cta-link--soft svg { width: 16px; height: 16px; }
+@media (hover: hover) {
+  .hero__cta .cta-link--soft:hover { color: var(--color-ink); }
+  .hero__cta .cta-link--soft:hover::after { opacity: 1; background: var(--color-signal); }
+  .hero__cta .cta-link--soft:hover svg { transform: translateX(3px); }
 }
-.hero__row:nth-child(even) { --dir: reverse; }
 
-.hero__row span::before { content: attr(data-t); padding-right: 0.25em; }
-@keyframes hero-drift { to { transform: translateX(-50%); } }
+/* Entrance: the name rides the shared .ln mask; the rest settles after it */
+.reveal-ready .hero:not(.is-in) :is(.hero__labels, .hero__details, .hero__zone) { opacity: 0; transform: translateY(16px); }
+.hero :is(.hero__labels, .hero__details, .hero__zone) { transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-snap, var(--ease-quint)); }
+.hero .hero__details { transition-delay: 380ms; }
+.hero .hero__zone { transition-delay: 480ms; }
 
-@media (max-width: 60rem) {
-  .hero__inner { padding-top: calc(var(--nav-clear) + var(--space-lg) - var(--hero-lift)); padding-bottom: calc(var(--space-lg) + var(--hero-lift)); gap: var(--space-lg); }
-  .hero__name { font-size: clamp(3.75rem, 20vw, 7rem); }
-  .hero__details { flex-direction: column; align-items: flex-start; gap: var(--space-lg); margin-top: var(--space-lg); }
-  .hero__intro { max-width: 32ch; font-size: 1.25rem; }
+/* Tool carousel: ink-grey at rest, brand colour on hover and while dragged */
+.hero__zone { position: relative; min-width: 0; display: grid; border-top: 1px solid var(--color-rule); }
+/* Line route: full stop → down between the intro and the CTA → into the ticker.
+   On one-column layouts it bends to the right margin first, so it never crosses the intro. */
+.hero__anchor { top: 0; left: 64%; }
+.hero__bend { display: none; }
+.hero__trace { display: none; justify-self: end; margin-bottom: auto; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hero__trace { display: block; }
 }
-@media (prefers-reduced-motion: reduce) { .hero__row { animation: none; } }
-
-.hero__zone { min-width: 0; display: grid; align-content: center; padding-top: var(--space-sm); border-top: 1px solid color-mix(in oklab, var(--color-ink) 6%, transparent); }
 .icon-field {
   width: 100%; overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
   overscroll-behavior-x: contain; border-radius: 12px;
   mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
 }
 .icon-field::-webkit-scrollbar { display: none; }
-.icon-track { display: flex; width: max-content; padding-block: 16px; }
+.icon-field:focus-visible { outline-offset: -2px; }
+.icon-track { display: flex; width: max-content; padding-block: 14px; }
 .icon-group { display: flex; align-items: center; gap: 28px; padding: 0 28px 0 0; margin: 0; list-style: none; }
-.tech-icon { flex: 0 0 56px; width: 56px; height: 56px; display: grid; place-items: center; cursor: grab; touch-action: none; user-select: none; }
+.tech-icon { flex: 0 0 52px; width: 52px; height: 52px; display: grid; place-items: center; cursor: grab; touch-action: none; user-select: none; }
 .tech-icon.is-lifted img { visibility: hidden; }
 .tech-icon--drag { position: fixed; z-index: var(--z-toast); will-change: transform; }
 .tech-icon--drag img { filter: none; opacity: 1; pointer-events: none; }
 .tech-icon img {
   width: 82%; height: 82%; object-fit: contain; user-select: none; -webkit-user-drag: none;
-  filter: grayscale(1); opacity: 0.65; transition: filter 220ms, opacity 220ms;
+  filter: grayscale(1); opacity: 0.65; transition: filter var(--dur-short) var(--ease-out), opacity var(--dur-short) var(--ease-out);
 }
 :root:not([data-theme="light"]) .tech-icon--mono img { filter: grayscale(1) invert(1); }
 .tech-icon:hover img { filter: none; opacity: 1; }
 :root:not([data-theme="light"]) .tech-icon--mono:hover img { filter: invert(1); }
-@media (max-width: 960px) {
-  .hero__inner { --hero-lift: 0px; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; align-items: start; align-content: start; min-height: auto; padding-top: calc(var(--nav-clear) + var(--space-sm)); padding-bottom: var(--space-xl); gap: 32px; }
-  .tech-icon { flex-basis: 48px; width: 48px; height: 48px; }
-  .icon-group { gap: 24px; padding-right: 24px; }
+
+@media (max-width: 60rem) {
+  .hero__inner {
+    min-height: auto;
+    gap: clamp(16px, 2.5svh, 28px);
+    padding-top: calc(var(--nav-clear) + var(--space-md));
+  }
+  .hero__mark { gap: clamp(16px, 2.5svh, 28px); }
+  .hero__bend { display: block; top: calc(-0.5 * clamp(16px, 2.5svh, 28px)); right: 0; }
+  .hero__anchor { left: auto; right: 0; }
+  .hero__name { font-size: min(21vw, 9.5rem); }
+  .hero__details { flex-direction: column; align-items: flex-start; }
+  .hero__labels { justify-content: flex-start; }
+  .hero__kicker { flex-basis: 100%; }
+  .tech-icon { flex-basis: 46px; width: 46px; height: 46px; }
+  .icon-group { gap: 22px; padding-right: 22px; }
+}
+/* Wider one-column screens (tablets, the Duo) have room right of the intro: bend in less */
+@media (min-width: 40.0625rem) and (max-width: 60rem) {
+  .hero__bend, .hero__anchor { right: 16%; }
+}
+/* Laptops with short screens: give the label row less air so everything fits one screen */
+@media (min-width: 60.0625rem) and (max-height: 820px) {
+  .hero__inner { padding-top: calc(var(--nav-clear) + var(--space-md)); gap: var(--space-md); }
+  .hero__mark { gap: var(--space-md); }
+  .hero__name { font-size: min(var(--text-giant), 22svh); }
+  .hero__trace { display: none; }
+}
+@media (max-width: 420px) { .hero__cta { gap: var(--space-sm) var(--space-md); } }
+
+/* Short landscape screens (phones on their side, the Duo unfolded on its side) */
+@media (max-height: 640px) and (orientation: landscape) {
+  .hero__name { font-size: min(var(--text-giant), 22svh); }
+  .hero__inner { gap: var(--space-md); }
+  .hero__intro { font-size: clamp(1.375rem, 0.8rem + 1.6vw, 2.25rem); }
 }
 
-.hero__cta .cta-link { font-size: 0.9375rem; font-weight: 650; letter-spacing: -0.015em; }
-.hero__cta .cta-link:not(.cta-link--soft) { min-height: 48px; padding: 0 22px; gap: 12px; border-radius: var(--radius-pill); background: var(--color-ink); color: var(--color-paper); }
-.hero__cta .cta-link:not(.cta-link--soft)::after { display: none; }
-.hero__cta .cta-link:not(.cta-link--soft) svg { width: 16px; height: 16px; }
-.hero__cta .cta-link--soft { padding-block: 12px; }
-.hero__cta .cta-link--soft::after { display: none; }
-@media (hover: hover) { .hero__cta .cta-link:not(.cta-link--soft):hover { background: var(--color-ink-2); } }
-@media (max-width: 420px) { .hero__cta { gap: 16px; } .hero__cta .cta-link:not(.cta-link--soft) { padding-inline: 18px; } }
-
-@media (max-height: 600px) { .hero__inner { --hero-lift: 0px; } }
-
-/* The fixed header’s clearance and breathing room are included in this full-screen stage. */
-@media (min-width: 961px) and (hover: hover) and (pointer: fine) {
-  .hero__inner { min-height: 100svh; }
+/* A fold down the middle: keep the words in the first panel instead of across the hinge */
+@media (horizontal-viewport-segments: 2) {
+  .hero__name { font-size: min(var(--text-giant), calc(env(viewport-segment-width 0 0, 50vw) * 0.27)); }
+  .hero__details { max-width: calc(env(viewport-segment-width 0 0, 50vw) - 2 * var(--gutter)); flex-direction: column; align-items: flex-start; }
 }
 
-/* Tall portrait tablets retain the laptop composition without a screen-sized void. */
-@media (min-width: 961px) and (max-width: 1100px) and (orientation: portrait) {
-  .hero__inner { min-height: 760px; }
+/* Ticker: one black row of huge words, red stars between them */
+.ticker { position: relative; overflow: clip; padding-block: clamp(14px, 2vw, 32px); }
+.ticker__anchor { left: 68%; top: 50%; }
+.ticker__track { display: flex; width: max-content; }
+.ticker__group {
+  display: flex; flex: none; align-items: center; gap: 0.3em; padding-right: 0.3em;
+  font-family: var(--font-display); font-weight: var(--display-weight); font-size: clamp(3.25rem, 9vw, 9.5rem);
+  letter-spacing: var(--tracking-display); line-height: 0.95; white-space: nowrap; color: var(--color-ink);
 }
+.ticker__star {
+  flex: none; width: 0.4em; height: 0.4em; background: var(--color-signal);
+  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+}
+
+@media (prefers-reduced-motion: reduce) { .hero__time::before { animation: none; } }

@@ -101,7 +101,9 @@ test('theme toggle switches and survives a reload', async ({ page }) => {
   await expect(html).not.toHaveAttribute('data-theme', 'light');
   await page.click('[data-theme-toggle]');
   await expect(html).toHaveAttribute('data-theme', 'light');
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#f2f3ef');
+  for (const meta of await page.locator('meta[name="theme-color"]').all()) {
+    await expect(meta).toHaveAttribute('content', '#F2EFE9');
+  }
   await page.reload();
   await expect(html).toHaveAttribute('data-theme', 'light');
 });

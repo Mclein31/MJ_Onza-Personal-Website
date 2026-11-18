@@ -65,6 +65,12 @@ const SOUNDS = {
   toggle: () => { hiss({ freq: 1800, q: 2, peak: 0.18, decay: 0.012 }); tone(1200, { type: 'square', peak: 0.03, decay: 0.03 }); },
   // Copied: two bright notes
   success: () => { tone(880, { peak: 0.12, decay: 0.12 }); tone(1320, { peak: 0.1, decay: 0.18, at: 0.08 }); },
+  // The contact copier: a stepped thermal-printer chatter (12 rows over 0.9s, matching the slip), then a bright ding
+  print: () => {
+    tone(130, { peak: 0.08, decay: 0.07, to: 70 });
+    for (let i = 0; i < 12; i++) hiss({ freq: 3400 + (i % 3) * 700, q: 2.2, peak: 0.07, attack: 0.002, decay: 0.03, at: 0.05 + i * 0.075 });
+    tone(1320, { peak: 0.08, decay: 0.2, at: 1.0 });
+  },
   // Dialog in and out
   pop: () => tone(300, { peak: 0.16, decay: 0.09, to: 720 }),
   drop: () => tone(520, { peak: 0.1, decay: 0.08, to: 240 }),
@@ -95,7 +101,7 @@ export function initSfx() {
       return;
     }
     if (el.matches('[data-theme-toggle]')) return play('toggle');
-    if (el.matches('[data-copy]')) return play('success');
+    if (el.matches('[data-copy]')) return play(document.querySelector('[data-copier]') ? 'print' : 'success');
     if (el.matches('[data-message-open], [data-video-open], [data-gallery-zoom]')) return play('pop');
     if (el.matches('[data-message-close], [data-video-close], [data-lb-close]')) return play('drop');
     if (el.matches('[data-gallery-prev], [data-gallery-next], [data-film-prev], [data-film-next], [data-lb-prev], [data-lb-next], .gallery__dots button')) return play('step');

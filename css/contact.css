@@ -1,84 +1,130 @@
-.contact {
-  --line: color-mix(in oklab, var(--color-ink) 12%, transparent);
-  position: relative; display: grid; align-items: center; min-height: 100svh;
-  padding-block: calc(var(--nav-clear) + var(--space-2xl)) var(--space-3xl);
+/* Contact: a night band. The local re-map below matches .band--night from base.css (W1), so it works either way. */
+.contact, .msg__panel {
+  --color-paper: var(--color-night, #0D0D0D);
+  --color-ink: var(--color-night-ink, #F2EFE9);
+  --color-ink-2: color-mix(in oklab, var(--color-night-ink, #F2EFE9) 82%, var(--color-night, #0D0D0D));
+  --color-muted: var(--color-night-muted, #A39E95);
+  --color-paper-2: color-mix(in oklab, var(--color-night-ink, #F2EFE9) 7%, var(--color-night, #0D0D0D));
+  --color-paper-3: color-mix(in oklab, var(--color-night-ink, #F2EFE9) 12%, var(--color-night, #0D0D0D));
+  --color-paper-hi: color-mix(in oklab, var(--color-night-ink, #F2EFE9) 5%, var(--color-night, #0D0D0D));
+  --color-rule: color-mix(in oklab, var(--color-night-ink, #F2EFE9) 18%, var(--color-night, #0D0D0D));
+  --color-card: var(--color-paper-2); --color-card-2: var(--color-paper-3);
+  --color-focus: var(--color-signal, #FF2D1F);
+  --red: var(--color-signal, #FF2D1F);
+  --red-ink: var(--color-signal-ink, #0D0D0D);
+  color: var(--color-ink);
 }
-.contact__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-2xl) var(--space-3xl); align-items: center; }
-.contact__lede { display: grid; justify-items: start; gap: var(--space-lg); }
-.contact__lede h2 { font-size: clamp(2.25rem, 2.6vw + 1.2rem, 3.75rem); font-weight: 700; letter-spacing: -0.035em; max-width: 14ch; line-height: 1.08; }
+.contact {
+  --line: var(--color-rule);
+  position: relative; background: var(--color-night, #0D0D0D); color: var(--color-ink);
+  padding-block: calc(var(--nav-clear) + var(--space-xl)) var(--space-3xl);
+}
+:root:not([data-theme="light"]) .contact { border-block: var(--rule-hair) solid var(--color-rule); }
+
+.contact__head { position: relative; margin-bottom: var(--space-2xl); }
+.contact__title {
+  font-family: var(--font-display); font-weight: var(--display-weight, 900); letter-spacing: var(--tracking-display, -0.055em);
+  font-size: clamp(2.75rem, 10.4vw, 10rem); line-height: 0.9; max-width: 11ch; text-wrap: balance; color: var(--color-ink);
+}
+.contact__title em, .msg__bar em {
+  font-style: normal; color: var(--color-signal-text, var(--red));
+}
+.contact__title em { display: block; line-height: 0.95; }
+.contact [data-signal-anchor] { position: absolute; width: 0; height: 0; pointer-events: none; }
+.contact__head [data-signal-anchor] { left: 0; top: 0.5em; }
+.idcard__msg [data-signal-anchor] { right: 22px; top: 50%; }
+
+.contact__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: var(--space-2xl) var(--space-3xl); align-items: end; }
+.contact__lede { display: grid; justify-items: start; gap: var(--space-lg); align-self: center; }
 .contact__lede p { color: var(--color-ink-2); max-width: 46ch; font-size: var(--text-lead); line-height: 1.5; }
 .contact .cta-link--soft { color: var(--color-muted); }
+@media (hover: hover) { .contact .cta-link--soft:hover { color: var(--color-ink); } }
 
-.avail { display: inline-flex; align-items: center; gap: var(--space-xs); padding: 7px 14px; border-radius: var(--radius-pill); border: var(--rule-hair) solid color-mix(in oklab, var(--color-ink) 16%, transparent); color: var(--color-ink-2); font-size: var(--text-sm); font-weight: 500; }
+.avail { display: inline-flex; align-items: center; gap: var(--space-xs); padding: 7px 14px; border-radius: var(--radius-pill); border: var(--rule-hair) solid var(--color-rule); color: var(--color-ink-2); font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+.avail::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--red); flex: none; }
+@media (prefers-reduced-motion: no-preference) { .avail::before { animation: avail-ping 2.4s var(--ease-out) infinite; } }
+@keyframes avail-ping { 0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--red) 55%, transparent); } 70%, 100% { box-shadow: 0 0 0 8px transparent; } }
 
 .contact__work { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-sm); width: 100%; max-width: 600px; margin-top: var(--space-xs); }
 .contact__tile { display: grid; gap: var(--space-xs); color: var(--color-ink); }
-.contact__tile span:first-child { display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: var(--radius-sm); background: var(--color-card); transition: background-color var(--dur-short) var(--ease-out); }
+.contact__tile span:first-child { display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 12px; background: var(--color-card); outline: var(--rule-hair) solid var(--color-rule); outline-offset: -1px; transition: background-color var(--dur-short) var(--ease-out), outline-color var(--dur-short) var(--ease-out); }
 .contact__tile img { width: 100%; height: 100%; object-fit: contain; padding: 8px; transition: transform var(--dur-long) var(--ease-quint); }
-.contact__tile b { font-size: var(--text-sm); font-weight: 600; letter-spacing: -0.01em; padding-inline: 2px; }
-.contact__tile small { display: block; font-size: var(--text-xs); color: var(--color-muted); font-weight: 400; }
-@media (hover: hover) { .contact__tile:hover span:first-child { background: var(--color-card-2); } .contact__tile:hover img { transform: scale(1.05); } }
+.contact__tile b { font-size: var(--text-sm); font-weight: 700; letter-spacing: -0.02em; padding-inline: 2px; }
+.contact__tile small { display: block; margin-top: 2px; font-family: var(--font-data); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-muted); font-weight: 400; }
+@media (hover: hover) { .contact__tile:hover span:first-child { background: var(--color-card-2); outline-color: var(--red); } .contact__tile:hover img { transform: scale(1.05); } }
 .contact__tile:active img { transform: scale(0.98); }
 
-.idcard { container-type: inline-size; display: grid; gap: var(--space-md); padding: var(--space-lg); border-radius: 32px; background: var(--color-paper-2); outline: var(--rule-hair) solid var(--line); outline-offset: -1px; }
+/* Right column: the contact card with the copier standing beside it */
+.contact__side { display: grid; grid-template-columns: minmax(0, 1fr) 204px; gap: var(--space-lg); align-items: end; min-width: 0; }
+
+.idcard { container-type: inline-size; display: grid; gap: var(--space-md); padding: var(--space-lg); border-radius: 28px; background: var(--color-paper-2); outline: var(--rule-hair) solid var(--color-rule); outline-offset: -1px; }
 .idcard__top { display: flex; align-items: center; gap: var(--space-md); padding: var(--space-2xs); }
-.idcard__face { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; background: #fff; }
+.idcard__face { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; background: var(--color-paper-3); outline: 2px solid var(--red); outline-offset: 2px; }
 .idcard__top div { display: grid; gap: 2px; }
-.idcard__top b { font-size: var(--text-lg); font-weight: 600; letter-spacing: -0.02em; }
+.idcard__top b { font-size: var(--text-lg); font-weight: 800; letter-spacing: -0.035em; }
 .idcard__top span { font-size: var(--text-sm); color: var(--color-ink-2); }
-.idcard__top .idcard__time { color: var(--color-muted); font-variant-numeric: tabular-nums; }
+.idcard__top .idcard__time { font-family: var(--font-data); font-size: 12px; color: var(--color-muted); font-variant-numeric: tabular-nums; }
 .idcard__msg {
-  display: flex; align-items: center; gap: var(--space-sm); width: 100%; padding: 16px 18px; border-radius: 18px;
-  outline: var(--rule-hair) solid var(--color-ink); outline-offset: -1px; text-align: left; background: var(--color-ink); color: var(--color-paper);
-  transition: background-color var(--dur-short) var(--ease-out), outline-color var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-quint);
+  position: relative; display: flex; align-items: center; gap: var(--space-sm); width: 100%; min-height: 56px; padding: 6px 6px 6px 22px; border-radius: var(--radius-pill);
+  text-align: left; background: var(--color-ink); color: var(--color-paper);
+  transition: background-color var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-quint);
 }
-.idcard__msg b { font-size: var(--text-lg); font-weight: 650; letter-spacing: -0.02em; }
-.idcard__msg svg { width: 18px; height: 18px; margin-left: auto; transition: transform var(--dur-long) var(--ease-quint); }
-@media (hover: hover) { .idcard__msg:hover { background: color-mix(in oklab, var(--color-ink) 86%, var(--color-paper)); outline-color: transparent; } .idcard__msg:hover svg { transform: translateX(3px); } }
+.idcard__msg b { font-size: var(--text-lg); font-weight: 800; letter-spacing: -0.03em; }
+.idcard__msg svg { box-sizing: content-box; width: 20px; height: 20px; padding: 10px; margin-left: auto; border-radius: 50%; background: var(--red); color: var(--red-ink); transition: transform var(--dur-long) var(--ease-quint); }
+@media (hover: hover) { .idcard__msg:hover { background: color-mix(in oklab, var(--color-ink) 90%, var(--red)); } .idcard__msg:hover svg { transform: rotate(-45deg); } }
 .idcard__msg:active { transform: scale(0.99); }
 
-.msg { margin: auto; padding: 0; border: 0; background: transparent; width: 100%; max-width: 560px; color: var(--color-ink); }
-.msg::backdrop { background: var(--color-scrim); }
+/* Message dialog: a night panel with a red send pill */
+.msg { margin: auto; padding: 0; border: 0; background: transparent; width: 100%; max-width: 560px; color: var(--color-ink, #F2EFE9); }
+.msg::backdrop { background: color-mix(in oklab, #0D0D0D 78%, transparent); }
 .msg__panel {
-  margin: var(--space-md); border-radius: var(--radius-card); overflow: hidden;
-  background: var(--color-paper-hi); color: var(--color-ink); box-shadow: var(--shadow-float);
+  margin: var(--space-md); border-radius: 28px; overflow: hidden;
+  background: var(--color-night, #0D0D0D); color: var(--color-ink); outline: var(--rule-hair) solid var(--color-rule); outline-offset: -1px; box-shadow: 0 24px 60px -24px rgb(0 0 0 / 0.8);
+  border-top: 4px solid var(--red);
   animation: sheet-in var(--dur-long) var(--ease-out);
 }
 .msg__bar {
   display: flex; justify-content: space-between; align-items: center;
-  padding: var(--space-2xs) var(--space-2xs) var(--space-2xs) var(--space-lg); border-bottom: var(--rule-hair) solid var(--color-rule);
-  font-family: var(--font-data); font-size: var(--text-sm); color: var(--color-muted);
+  padding: var(--space-sm) var(--space-sm) var(--space-sm) var(--space-lg); border-bottom: var(--rule-hair) solid var(--color-rule);
+  font-family: var(--font-display); font-size: var(--text-xl); font-weight: 800; letter-spacing: -0.04em; color: var(--color-ink);
 }
+.msg__bar .icon-btn { color: var(--color-ink); }
+@media (hover: hover) { .msg__bar .icon-btn:hover { background: var(--color-paper-3); } }
 .msg form { display: grid; gap: var(--space-md); padding: var(--space-lg); }
 .field { display: grid; gap: var(--space-2xs); }
-.field label { font-size: var(--text-sm); font-weight: 500; color: var(--color-ink-2); }
+.field label { font-family: var(--font-data); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted); }
 .field input, .field textarea {
   width: 100%; min-height: 48px; padding: var(--space-sm) var(--space-md);
-  border: var(--rule-hair) solid color-mix(in oklab, var(--color-ink) 18%, transparent); border-radius: 14px;
-  background: var(--color-paper); color: var(--color-ink); font-size: var(--text-md);
-  outline: 2px solid transparent; outline-offset: -1px;
+  border: var(--rule-hair) solid var(--color-rule); border-radius: 14px;
+  background: var(--color-paper-2); color: var(--color-ink); font-size: var(--text-md);
+  outline: 2px solid transparent; outline-offset: -1px; transition: border-color var(--dur-short) var(--ease-out);
 }
 .field textarea { resize: vertical; min-height: 128px; }
-.field input:focus-visible, .field textarea:focus-visible { outline-color: var(--color-focus); }
+.field input:focus-visible, .field textarea:focus-visible { outline-color: var(--red); border-color: var(--red); }
 .field input:disabled, .field textarea:disabled { opacity: 0.55; cursor: not-allowed; }
 .field input::placeholder, .field textarea::placeholder { color: var(--color-muted); }
 .hp { position: absolute; left: -9999px; }
-.msg .btn { justify-content: center; width: 100%; }
+.msg .btn {
+  justify-content: center; width: 100%; min-height: 52px; border-radius: var(--radius-pill); border: 0;
+  background: var(--red); color: var(--red-ink); font-size: var(--text-md); font-weight: 800; letter-spacing: -0.02em;
+}
+@media (hover: hover) { .msg .btn:hover { background: var(--color-ink); color: var(--color-paper); border: 0; } }
+.msg .btn:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
 .msg__status { font-size: var(--text-sm); min-height: 1lh; color: var(--color-ink-2); }
-.msg__status.ok { color: var(--color-success); }
-.msg__status.err { color: var(--color-error); }
+.msg__status.ok { color: oklch(80% 0.16 150); }
+.msg__status.err { color: #FF8A80; }
 @keyframes sheet-in { from { opacity: 0; transform: translateY(12px); } }
 
+@media (max-width: 1100px) {
+  .contact__side { grid-template-columns: minmax(0, 1fr); gap: 0; }
+}
 @media (max-width: 860px) {
-  .contact__grid { grid-template-columns: minmax(0, 1fr); }
-  .contact { min-height: auto; padding-block: var(--section-gap) var(--space-3xl); }
-  .contact__lede h2 { max-width: 12ch; }
+  .contact__grid { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .contact { padding-block: var(--section-gap) var(--space-3xl); }
+  .contact__head { margin-bottom: var(--space-xl); }
 }
 @media (prefers-reduced-motion: reduce) { .msg__panel { animation: none; } }
 
 @media (min-width: 861px) and (max-width: 1100px) {
-  .contact__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-xl) 32px; }
-}
-@media (min-width: 861px) and (max-width: 1100px) and (orientation: portrait) {
-  .contact { min-height: auto; }
+  .contact__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-xl) 32px; align-items: start; }
 }

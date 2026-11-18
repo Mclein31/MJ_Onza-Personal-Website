@@ -64,14 +64,29 @@ function film() {
 // What I do: one row open at a time; the open row's button closes it
 function does() {
   const rows = $$('[data-does] .does__row');
+  const btns = rows.map((row) => $('.does__btn', row));
   const set = (row, open) => {
     row.classList.toggle('is-open', open);
     $('.does__btn', row).setAttribute('aria-expanded', String(open));
   };
-  rows.forEach((row) => $('.does__btn', row).addEventListener('click', () => {
-    const open = !row.classList.contains('is-open');
-    rows.forEach((r) => set(r, r === row && open));
-  }));
+  rows.forEach((row, idx) => {
+    const btn = btns[idx];
+    btn.addEventListener('click', () => {
+      const open = !row.classList.contains('is-open');
+      rows.forEach((r) => set(r, r === row && open));
+    });
+    btn.addEventListener('keydown', (e) => {
+      const last = btns.length - 1;
+      const next = e.key === 'ArrowDown' ? (idx + 1) % btns.length
+        : e.key === 'ArrowUp' ? (idx - 1 + btns.length) % btns.length
+        : e.key === 'Home' ? 0
+        : e.key === 'End' ? last
+        : -1;
+      if (next === -1) return;
+      e.preventDefault();
+      btns[next].focus();
+    });
+  });
 }
 
 function copyButtons() {

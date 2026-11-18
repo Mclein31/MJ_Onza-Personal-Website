@@ -38,6 +38,7 @@ function render(cal, days) {
 }
 
 function countUp(el, to) {
+  if (!el) return;
   if (reducedMotion.matches) { el.textContent = to.toLocaleString(); return; }
   const t0 = performance.now();
   const tick = (t) => {
@@ -114,18 +115,35 @@ export function initActivity() {
   });
   cal.addEventListener('pointerleave', () => tip.classList.remove('is-on'));
 
-  const highlight = (kind) => {
+  const statEls = $$('.stat[data-hl]', stats);
+  let lockedStat = null;
+  const highlight = (kind, activeEl = null) => {
     if (!sum) return;
     const pick = kind === 'best' ? (i) => i === sum.best
       : kind === 'streak' ? (i) => i >= sum.streak.start && i < sum.streak.start + sum.streak.len
       : (i) => days[i].count > 0;
     $$('.cell[data-i]', cal).forEach((c) => c.classList.toggle('is-hl', pick(Number(c.dataset.i))));
     root.dataset.hl = kind;
+    statEls.forEach((s) => {
+      const on = activeEl ? s === activeEl : s.dataset.hl === kind;
+      s.classList.toggle('is-active', on);
+      if (s.hasAttribute('aria-pressed')) s.setAttribute('aria-pressed', String(s === lockedStat));
+    });
   };
-  const clear = () => { delete root.dataset.hl; };
-  $$('.stat[data-hl]', stats).forEach((el) => {
-    el.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') highlight(el.dataset.hl); });
-    el.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') clear(); });
-    el.addEventListener('click', () => (root.dataset.hl === el.dataset.hl ? clear() : highlight(el.dataset.hl)));
+  const clear = () => {
+    lockedStat = null;
+    delete root.dataset.hl;
+    statEls.forEach((s) => {
+      s.classList.remove('is-active');
+      if (s.hasAttribute('aria-pressed')) s.setAttribute('aria-pressed', 'false');
+    });
+  };
+  statEls.forEach((el) => {
+    el.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse' && !lockedStat) highlight(el.dataset.hl, el); });
+    el.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse' && !lockedStat) clear(); });
+    el.addEventListener('click', () => {
+      if (lockedStat === el) { clear(); }
+      else { lockedStat = el; highlight(el.dataset.hl, el); }
+    });
   });
 }

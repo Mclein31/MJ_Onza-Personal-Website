@@ -1,72 +1,100 @@
+/* Floating pill nav: an ink pill (cream on the dark theme) that stays legible over cream, night and red bands.
+   js/scroll.js sets .is-active on the link in view and feeds --px/--pw/--po to .nav__pill, which here is the red dot. */
 .nav {
   position: fixed; inset: var(--space-lg) 0 auto; z-index: var(--z-sticky-nav);
   padding-inline: var(--gutter); pointer-events: none;
-  transition: transform var(--dur-long) var(--ease-quint);
+  transition: transform var(--dur-long) var(--ease-snap);
 }
 .nav.is-hidden, .nav.is-away { transform: translateY(calc(-100% - var(--space-lg) - 8px)); }
 .nav > .container { max-width: 1056px; padding: 0; }
 .nav__inner {
+  --nav-bg: var(--color-ink); --nav-fg: var(--color-paper);
+  --nav-dim: color-mix(in oklab, var(--nav-fg) 66%, var(--nav-bg));
   position: relative; display: flex; align-items: center; gap: var(--space-md);
-  height: var(--nav-h); padding: 0 8px 0 22px; border-radius: var(--radius-pill);
+  height: var(--nav-h); padding: 0 8px 0 24px; border-radius: var(--radius-pill);
+  background: var(--nav-bg); color: var(--nav-fg);
   pointer-events: auto;
+  transition: box-shadow var(--dur-long) var(--ease-out);
 }
+.nav.is-scrolled .nav__inner { box-shadow: var(--shadow-float); }
+.nav :focus-visible { outline-color: var(--nav-fg); }
+.nav__inner :focus-visible { outline-color: var(--nav-fg); outline-offset: 2px; }
 
-.nav__inner::before {
-  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
-  background: var(--color-paper-hi); box-shadow: var(--shadow-float);
-  outline: var(--rule-hair) solid color-mix(in oklab, var(--color-ink) 7%, transparent);
-  opacity: 0; transition: opacity var(--dur-long) var(--ease-out);
-}
-.nav.is-scrolled .nav__inner::before { opacity: 1; }
-
-.nav__brand { font-size: var(--text-md); font-weight: 650; letter-spacing: -0.03em; color: var(--color-ink); white-space: nowrap; }
+.nav__brand { font-size: var(--text-md); font-weight: 800; letter-spacing: -0.04em; color: var(--nav-fg); white-space: nowrap; }
+.nav__brand::after { content: "."; color: var(--color-signal); }
 
 .nav__links { position: relative; display: flex; gap: 2px; margin-inline: auto; }
 .nav__links a {
-  position: relative; z-index: 1; display: inline-flex; align-items: center; height: 36px; padding: 0 14px;
+  position: relative; z-index: 1; display: inline-flex; align-items: center; height: 36px; padding: 0 14px 0 22px;
   border-radius: var(--radius-pill);
-  font-size: 0.9375rem; font-weight: 500; letter-spacing: -0.01em; color: var(--color-muted); white-space: nowrap;
+  font-size: 0.9375rem; font-weight: 500; letter-spacing: -0.01em; color: var(--nav-dim); white-space: nowrap;
   transition: color var(--dur-short) var(--ease-out);
 }
-@media (hover: hover) { .nav__links a:hover { color: var(--color-ink); } }
-.nav__links a.is-active { color: var(--color-ink); }
+@media (hover: hover) { .nav__links a:hover { color: var(--nav-fg); } }
+.nav__links a.is-active { color: var(--nav-fg); }
 
+/* the red dot that marks the active section: it rides the same --px/--pw geometry the old sliding pill used */
 .nav__pill {
-  position: absolute; top: 0; left: 0; height: 36px; width: var(--pw, 0px); border-radius: var(--radius-pill);
-  background: var(--color-card); transform: translateX(var(--px, 0px)); opacity: var(--po, 0);
-  transition: transform var(--dur-long) var(--ease-quint), width var(--dur-long) var(--ease-quint), opacity var(--dur-short) var(--ease-out);
+  position: absolute; top: 0; left: 0; height: 36px; width: var(--pw, 0px);
+  transform: translateX(var(--px, 0px)); opacity: var(--po, 0); pointer-events: none;
+  transition: transform var(--dur-long) var(--ease-snap), width var(--dur-long) var(--ease-snap), opacity var(--dur-short) var(--ease-out);
+}
+.nav__pill::before {
+  content: ""; position: absolute; left: 10px; top: 50%; width: 6px; height: 6px; margin-top: -3px;
+  border-radius: 50%; background: var(--color-signal);
 }
 
 .nav__actions { display: flex; align-items: center; gap: var(--space-2xs); }
+.nav .icon-btn { color: var(--nav-fg); }
+@media (hover: hover) { .nav .icon-btn:hover { background: color-mix(in oklab, var(--nav-fg) 16%, transparent); } }
+.nav .icon-btn:active { background: color-mix(in oklab, var(--nav-fg) 26%, transparent); }
 .theme-toggle .sun { display: none; }
 :root[data-theme="light"] .theme-toggle .sun { display: block; }
 :root[data-theme="light"] .theme-toggle .moon { display: none; }
 .theme-toggle svg { width: 18px; height: 18px; }
-.nav__hire { min-height: 44px; padding: 0 20px; font-size: 0.9375rem; }
+
+/* "Let’s talk": inverted against the ink bar, so it reads as the one bright thing in it */
+.nav__hire { --pill-bg: var(--nav-fg); --pill-fg: var(--nav-bg); min-height: 44px; padding: 4px 4px 4px 20px; font-size: 0.9375rem; }
+.nav__hire .btn-pill__chip { width: 36px; height: 36px; }
 .nav__menu-btn { display: none; }
 
 .menu {
   position: fixed; inset: 0; z-index: var(--z-sticky);
   display: flex; flex-direction: column; justify-content: flex-end; gap: var(--space-2xs);
   padding: var(--space-4xl) var(--gutter) var(--space-xl);
-  background: var(--color-paper);
+  background: var(--color-paper); counter-reset: menu;
   visibility: hidden; opacity: 0;
   transition: opacity var(--dur-short) var(--ease-out), visibility 0s linear var(--dur-short);
 }
 .menu.is-open { visibility: visible; opacity: 1; transition: opacity var(--dur-short) var(--ease-out); }
 .menu a.menu__link {
   display: block; padding-block: var(--space-2xs);
-  font-size: clamp(2.5rem, 12vw, 3.75rem); font-weight: 800; letter-spacing: -0.05em; line-height: 1.05;
+  font-size: clamp(2.5rem, 12vw, 3.75rem); font-weight: var(--display-weight); letter-spacing: var(--tracking-display); line-height: 1;
   color: var(--color-ink);
   transform: translateY(16px); opacity: 0;
-  transition: transform var(--dur-long) var(--ease-quint), opacity var(--dur-long) var(--ease-out);
+  transition: transform var(--dur-long) var(--ease-snap), opacity var(--dur-long) var(--ease-out), color var(--dur-short) var(--ease-out);
   transition-delay: calc(var(--i) * 45ms);
 }
+.menu a.menu__link::before {
+  counter-increment: menu; content: "0" counter(menu);
+  display: inline-block; margin-right: 0.6em; vertical-align: 0.9em;
+  font-family: var(--font-data); font-size: 0.75rem; font-weight: 400; letter-spacing: 0.08em; color: var(--color-signal-text);
+}
 .menu.is-open a.menu__link { transform: none; opacity: 1; }
+@media (hover: hover) { .menu a.menu__link:hover { color: var(--color-signal-text); } }
 
-@media (max-width: 960px) {
-  .nav { inset-block-start: var(--space-md); }
+@media (max-width: 1120px) {
+  .nav__inner { gap: var(--space-sm); padding-left: 20px; }
+  .nav__links a { padding: 0 11px 0 20px; }
+  .nav__pill::before { left: 9px; }
+}
+
+@media (max-width: 1024px) {
   .nav__links, .nav__hire { display: none; }
   .nav__menu-btn { display: grid; }
   .nav__actions { margin-left: auto; }
+}
+
+@media (max-width: 960px) {
+  .nav { inset-block-start: var(--space-md); }
 }

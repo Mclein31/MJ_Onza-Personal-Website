@@ -19,6 +19,7 @@ export function initWork() {
   const setCount = (i) => {
     if (i === current) return;
     current = i;
+    projects.forEach((card, n) => card.classList.toggle('is-current', n === i));
     if (countEl) countEl.textContent = `${String(i + 1).padStart(2, '0')} / ${total}`;
   };
 

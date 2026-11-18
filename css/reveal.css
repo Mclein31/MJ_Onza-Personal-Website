@@ -1,14 +1,16 @@
 .reveal-ready [data-scrub] .sw { opacity: var(--o, 0.14); transition: opacity 140ms linear; }
 
+/* Rise: a short, confident snap. Opacity settles fast; the travel carries the weight. */
 .reveal-ready [data-rise]:not([data-rise="kids"]),
 .reveal-ready [data-rise="kids"] > * {
-  transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-quint);
-  transition-delay: calc(var(--i, 0) * 70ms);
+  transition: opacity 600ms var(--ease-out), transform 800ms var(--ease-snap);
+  transition-delay: calc(var(--i, 0) * 60ms);
 }
 .reveal-ready [data-rise]:not([data-rise="kids"]):not(.is-in),
-.reveal-ready [data-rise="kids"]:not(.is-in) > * { opacity: 0; transform: translateY(24px); }
+.reveal-ready [data-rise="kids"]:not(.is-in) > * { opacity: 0; transform: translateY(32px); }
 
-.ln { display: block; overflow: clip; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+/* Line mask: headline lines slide up out of a clip. The inline padding keeps italic serif overhangs from being cut. */
+.ln { display: block; overflow: clip; padding: 0 0.14em 0.1em; margin: 0 -0.14em -0.1em; }
 .ln > span { display: block; }
-.reveal-ready .ln > span { transform: translateY(108%); transition: transform 1.1s var(--ease-quint); transition-delay: calc(120ms + var(--i, 0) * 110ms); }
+.reveal-ready .ln > span { transform: translateY(108%); transition: transform 1s var(--ease-snap); transition-delay: calc(100ms + var(--i, 0) * 90ms); }
 .reveal-ready .is-in .ln > span { transform: none; }

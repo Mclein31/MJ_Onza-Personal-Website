@@ -34,10 +34,11 @@ h1, h2, h3, h4 {
   letter-spacing: var(--tracking-head); line-height: 1.12; color: var(--color-ink);
   overflow-wrap: break-word; min-width: 0; text-wrap: balance;
 }
-h3, h4 { font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+h1, h2 { font-weight: var(--display-weight); letter-spacing: var(--tracking-display); line-height: 0.95; }
+h3, h4 { font-weight: 650; letter-spacing: -0.025em; line-height: 1.15; }
 p { text-wrap: pretty; }
 
-::selection { background: color-mix(in oklab, var(--color-accent) 26%, transparent); color: var(--color-ink); }
+::selection { background: var(--color-signal); color: var(--color-signal-ink); }
 :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
 
 .skip-link {
@@ -67,13 +68,13 @@ main .container { max-width: calc(var(--wrap) + 2 * var(--gutter)); }
 .section[id] { scroll-margin-top: calc(var(--space-lg) - var(--pad-top)); }
 
 .section-head { margin-bottom: var(--space-2xl); }
-.section-head h2 { font-size: var(--text-section); max-width: 24ch; }
+.section-head h2 { font-size: var(--text-section); max-width: 18ch; }
 .section-head p { margin-top: var(--space-md); max-width: 52ch; color: var(--color-muted); font-size: var(--text-lead); }
 
 /* Highlight box: black fills behind the words left to right, the words turn white (reveal.js drives --wipe) */
 .hl {
   -webkit-box-decoration-break: clone; box-decoration-break: clone;
-  padding: 0 0.12em; margin: 0 -0.02em; border-radius: 0.12em;
+  padding: 0 0.12em; margin: 0 -0.02em; border-radius: 0.1em;
   background: linear-gradient(var(--color-highlight), var(--color-highlight)) no-repeat 0 0 / var(--wipe, 100%) 100%;
   color: var(--color-highlight-ink);
   transition: color var(--dur-short) var(--ease-out);
@@ -82,7 +83,8 @@ main .container { max-width: calc(var(--wrap) + 2 * var(--gutter)); }
 
 .keyword {
   color: var(--color-ink); font-weight: 600;
-  background: linear-gradient(color-mix(in oklab, var(--color-accent) 42%, transparent), color-mix(in oklab, var(--color-accent) 42%, transparent)) no-repeat 0 88% / 100% 0.32em;
+  background: linear-gradient(var(--color-signal), var(--color-signal)) no-repeat 0 100% / 100% 0.14em;
+  padding-bottom: 0.04em;
   -webkit-box-decoration-break: clone; box-decoration-break: clone;
 }
 
@@ -90,8 +92,8 @@ main .container { max-width: calc(var(--wrap) + 2 * var(--gutter)); }
 
 .proof {
   background-color: var(--color-paper);
-  background-image: var(--grain), radial-gradient(circle at 1px 1px, var(--color-dot) 1px, transparent 1.4px);
-  background-size: 160px 160px, 24px 24px;
+  background-image: radial-gradient(circle at 1px 1px, var(--color-dot) 1px, transparent 1.4px);
+  background-size: 24px 24px;
 }
 
 .crop { position: relative; --l: 10px; --o: 10px; }
@@ -121,7 +123,7 @@ main .container { max-width: calc(var(--wrap) + 2 * var(--gutter)); }
 .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 .btn--ink { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-paper); }
 @media (hover: hover) { .btn--ink:hover { background: color-mix(in oklab, var(--color-ink) 86%, var(--color-paper)); border-color: transparent; } }
-.btn--accent { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
+.btn--accent { background: var(--color-signal); border-color: var(--color-signal); color: var(--color-signal-ink); }
 @media (hover: hover) { .btn--accent:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); } }
 .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
 
@@ -153,7 +155,124 @@ main .container { max-width: calc(var(--wrap) + 2 * var(--gutter)); }
 .icon-btn:disabled { opacity: 0.55; cursor: not-allowed; }
 
 .text-link { text-decoration: underline; text-decoration-color: var(--color-rule); text-underline-offset: 0.18em; text-decoration-thickness: 1px; transition: text-decoration-color var(--dur-short) var(--ease-out); }
-@media (hover: hover) { .text-link:hover { text-decoration-color: var(--color-accent); } }
+@media (hover: hover) { .text-link:hover { text-decoration-color: var(--color-signal); } }
+
+/* ==========================================================================
+   Signal components (shared; section owners only use them)
+   ========================================================================== */
+
+/* Mono micro-caption: "02 / WORK", "FIG. 03 / SERVIO", "17.61°N 121.73°E · TUGUEGARAO" */
+.label {
+  font-family: var(--font-data); font-size: 0.8125rem; font-weight: 500; line-height: 1.4;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 40rem) { .label { font-size: 0.75rem; letter-spacing: 0.06em; } }
+
+/* Colour accent (upright, heading weight) inside a grotesk heading: <h2>Things I’ve <em class="serif">built.</em></h2> */
+em.serif {
+  font-family: inherit; font-style: normal; font-weight: inherit; font-synthesis: none;
+  letter-spacing: inherit; font-size: inherit; text-transform: none; color: var(--color-signal-text);
+}
+
+/* Giant index numeral; aria-hidden in the markup */
+.numeral {
+  display: block; font-family: var(--font-display); font-weight: var(--display-weight);
+  font-size: var(--text-giant); line-height: 0.8; letter-spacing: var(--tracking-display);
+  color: var(--color-signal); font-synthesis: none; -webkit-user-select: none; user-select: none; pointer-events: none;
+}
+
+/* Colour bands: re-map the tokens locally so everything inside inverts without extra rules.
+   Derived tokens are re-declared too, because a var() resolves where it is declared. */
+.band--night, .band--signal, .band--paper { background: var(--color-paper); color: var(--color-ink); }
+
+.band--night {
+  --color-paper: var(--color-night); --color-paper-2: #181818; --color-paper-3: #232323; --color-paper-hi: #141414;
+  --color-ink: var(--color-night-ink); --color-ink-2: #D6D1C7; --color-muted: var(--color-night-muted);
+  --color-rule: #2E2C29;
+  --color-accent: var(--color-signal); --color-accent-2: var(--color-signal);
+  --color-accent-text: #FF6A5E; --color-signal-text: #FF6A5E; --color-focus: #FF6A5E; --color-accent-ink: var(--color-signal-ink);
+  --color-highlight: var(--color-signal); --color-highlight-ink: var(--color-signal-ink);
+  --color-error: #FF8A80; --color-success: #6FD08C;
+  --color-card: var(--color-paper-2); --color-card-2: var(--color-paper-3);
+  --color-hover: color-mix(in oklab, var(--color-paper-2) 70%, transparent);
+  --color-dot: color-mix(in oklab, var(--color-ink) 16%, transparent);
+  --color-mark: color-mix(in oklab, var(--color-ink) 72%, transparent);
+  --color-scrim: rgb(0 0 0 / 0.78);
+}
+:root:not([data-theme="light"]) .band--night { box-shadow: inset 0 1px 0 #151515, inset 0 -1px 0 #151515; }
+
+.band--signal {
+  --color-paper: var(--color-signal);
+  --color-paper-2: color-mix(in srgb, var(--color-signal) 90%, #000); --color-paper-3: color-mix(in srgb, var(--color-signal) 80%, #000);
+  --color-paper-hi: color-mix(in srgb, var(--color-signal) 92%, #fff);
+  --color-ink: var(--color-signal-ink); --color-ink-2: color-mix(in srgb, var(--color-signal-ink) 88%, var(--color-signal));
+  --color-muted: color-mix(in srgb, var(--color-signal-ink) 86%, var(--color-signal));
+  --color-rule: color-mix(in srgb, var(--color-signal-ink) 38%, var(--color-signal));
+  --color-accent: var(--color-signal-ink); --color-accent-2: var(--color-signal-ink);
+  --color-accent-text: var(--color-signal-ink); --color-signal-text: var(--color-signal-ink); --color-focus: var(--color-signal-ink); --color-accent-ink: var(--color-night-ink);
+  --color-highlight: var(--color-signal-ink); --color-highlight-ink: var(--color-night-ink);
+  --color-error: var(--color-signal-ink); --color-success: var(--color-signal-ink);
+  --color-card: var(--color-paper-2); --color-card-2: var(--color-paper-3);
+  --color-hover: color-mix(in srgb, var(--color-signal-ink) 10%, transparent);
+  --color-dot: color-mix(in srgb, var(--color-signal-ink) 22%, transparent);
+  --color-mark: color-mix(in srgb, var(--color-signal-ink) 72%, transparent);
+}
+
+/* The theme's own paper scheme, for a cream/paper block nested in a night or signal band. */
+.band--paper {
+  --color-paper: #F2EFE9; --color-paper-2: #E8E4DC; --color-paper-3: #DCD6CB; --color-paper-hi: #FAF8F4;
+  --color-ink: #0D0D0D; --color-ink-2: #2A2A2A; --color-muted: #5C5953; --color-rule: #CFC8BC;
+  --color-accent: var(--color-signal); --color-accent-2: var(--color-signal);
+  --color-accent-text: #C41D10; --color-focus: #C41D10; --color-accent-ink: #0D0D0D;
+  --color-highlight: #0D0D0D; --color-highlight-ink: #F2EFE9;
+  --color-error: #B3261E; --color-success: #1F6B3A;
+  --color-card: var(--color-paper-2); --color-card-2: var(--color-paper-3);
+  --color-hover: color-mix(in oklab, var(--color-paper-2) 55%, transparent);
+  --color-dot: color-mix(in oklab, var(--color-ink) 20%, transparent);
+  --color-mark: color-mix(in oklab, var(--color-ink) 72%, transparent);
+  --color-scrim: rgb(13 13 13 / 0.72);
+}
+:root:not([data-theme="light"]) .band--paper {
+  --color-paper: #0B0B0B; --color-paper-2: #151515; --color-paper-3: #1F1F1F; --color-paper-hi: #121212;
+  --color-ink: #F2EFE9; --color-ink-2: #D6D1C7; --color-muted: #A39E95; --color-rule: #2E2C29;
+  --color-accent-text: #FF6A5E; --color-focus: #FF6A5E; --color-accent-ink: #0B0B0B;
+  --color-highlight: #F2EFE9; --color-highlight-ink: #0B0B0B;
+  --color-error: #FF8A80; --color-success: #6FD08C;
+  --color-scrim: rgb(0 0 0 / 0.78);
+}
+
+/* Pill button with a round red chip: <a class="btn-pill">See the work <span class="btn-pill__chip" aria-hidden="true"></span></a>
+   An empty chip draws its own ↗; a chip that holds an <svg> uses that instead. */
+.btn-pill {
+  --pill-bg: var(--color-ink); --pill-fg: var(--color-paper);
+  position: relative; display: inline-flex; align-items: center; justify-content: space-between; gap: var(--space-md);
+  min-height: 48px; padding: 6px 6px 6px 24px;
+  border: 0; border-radius: var(--radius-pill);
+  background: var(--pill-bg); color: var(--pill-fg);
+  font: 600 var(--text-md)/1 var(--font-body); letter-spacing: -0.015em; white-space: nowrap;
+  transition: transform var(--dur-short) var(--ease-snap), background-color var(--dur-short) var(--ease-out);
+}
+/* ink and paper are re-mapped by every band, so the pill inverts by itself; on red, ink stays black and the text turns cream */
+.band--signal .btn-pill { --pill-fg: var(--color-night-ink); }
+.btn-pill__chip {
+  flex: none; display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 50%;
+  background: var(--color-signal); color: var(--color-signal-ink);
+  transition: transform var(--dur-long) var(--ease-snap);
+}
+.btn-pill__chip svg { width: 16px; height: 16px; }
+.btn-pill__chip:empty::after {
+  content: ""; width: 16px; height: 16px; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M8 7h9v9'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M8 7h9v9'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+@media (hover: hover) {
+  .btn-pill:hover .btn-pill__chip, .btn-pill:focus-visible .btn-pill__chip { transform: rotate(45deg); }
+}
+.btn-pill:active { transform: scale(0.97); }
+.btn-pill:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+.btn-pill--lg { min-height: 60px; padding-left: 30px; font-size: var(--text-lg); }
+.btn-pill--lg .btn-pill__chip { width: 48px; height: 48px; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
