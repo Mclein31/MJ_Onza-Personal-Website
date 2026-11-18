@@ -16,6 +16,9 @@ import { initJourney } from './journey.js';
 import { initWallet } from './wallet.js';
 import { initSfx } from './sfx.js';
 import { initIcons } from './icons.js';
+import { initSignal } from './signal.js';
+import { initDrawer } from './drawer.js';
+import { initCopier } from './copier.js';
 
 const run = (name, fn) => { try { fn(); } catch (err) { console.error(`[${name}]`, err); } };
 
@@ -36,4 +39,7 @@ run('journey', initJourney);
 run('wallet', initWallet);
 run('sfx', initSfx);
 run('icons', initIcons);
+run('signal', initSignal);
+run('drawer', initDrawer);
+run('copier', initCopier);
 initPreloader().then(() => document.querySelector('.hero')?.classList.add('is-in'));
