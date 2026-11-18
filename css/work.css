@@ -3,7 +3,6 @@
   --w-red: var(--color-signal, #FF2D1F); --w-red-text: var(--color-signal-text, #C41D10);
   position: relative; background: var(--color-paper); scroll-margin-top: calc(-1 * var(--nav-clear));
 }
-.work > [data-signal-anchor] { display: block; height: 0; }
 .work .label, .work__count {
   font-family: var(--font-data); font-size: 0.8125rem; font-weight: 500; line-height: 1.2;
   letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted); font-variant-numeric: tabular-nums;

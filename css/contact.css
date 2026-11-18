@@ -30,9 +30,6 @@
   font-style: normal; color: var(--color-signal-text, var(--red));
 }
 .contact__title em { display: block; line-height: 0.95; }
-.contact [data-signal-anchor] { position: absolute; width: 0; height: 0; pointer-events: none; }
-.contact__head [data-signal-anchor] { left: 0; top: 0.5em; }
-.idcard__msg [data-signal-anchor] { right: 22px; top: 50%; }
 
 .contact__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: var(--space-2xl) var(--space-3xl); align-items: end; }
 .contact__lede { display: grid; justify-items: start; gap: var(--space-lg); align-self: center; }

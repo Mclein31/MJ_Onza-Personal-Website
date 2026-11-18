@@ -22,7 +22,7 @@ function attachErrorListeners(page) {
   return errors;
 }
 
-test('structure, SEO metadata, JSON-LD, signal anchors and no console errors', async ({ page }) => {
+test('structure, SEO metadata, JSON-LD and no console errors', async ({ page }) => {
   const errors = attachErrorListeners(page);
   await gotoReady(page);
 
@@ -74,8 +74,6 @@ test('structure, SEO metadata, JSON-LD, signal anchors and no console errors', a
   }
 
   // Signal anchors present
-  const anchorCount = await page.locator('[data-signal-anchor]').count();
-  expect(anchorCount, 'expected [data-signal-anchor] markers in sections').toBeGreaterThan(0);
 
   // Scroll full page and ensure zero console/network errors
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
