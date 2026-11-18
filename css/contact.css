@@ -31,8 +31,15 @@
 }
 .contact__title em { display: block; line-height: 0.95; }
 
-.contact__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: var(--space-2xl) var(--space-3xl); align-items: end; }
-.contact__lede { display: grid; justify-items: start; gap: var(--space-lg); align-self: center; }
+/* Left column: pitch, then the copier right under it. Right column: the card at full width. No dead corners. */
+.contact__grid {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-areas: "lede card" "copier card"; grid-template-rows: auto 1fr;
+  gap: var(--space-xl) var(--space-2xl); align-items: start;
+}
+.contact__side { display: contents; }
+.contact__lede { grid-area: lede; display: grid; justify-items: start; gap: var(--space-lg); }
+.idcard { grid-area: card; }
 .contact__lede p { color: var(--color-ink-2); max-width: 46ch; font-size: var(--text-lead); line-height: 1.5; }
 .contact .cta-link--soft { color: var(--color-muted); }
 @media (hover: hover) { .contact .cta-link--soft:hover { color: var(--color-ink); } }
@@ -51,8 +58,6 @@
 @media (hover: hover) { .contact__tile:hover span:first-child { background: var(--color-card-2); outline-color: var(--red); } .contact__tile:hover img { transform: scale(1.05); } }
 .contact__tile:active img { transform: scale(0.98); }
 
-/* Right column: the contact card with the copier standing beside it */
-.contact__side { display: grid; grid-template-columns: minmax(0, 1fr) 204px; gap: var(--space-lg); align-items: end; min-width: 0; }
 
 .idcard { container-type: inline-size; display: grid; gap: var(--space-md); padding: var(--space-lg); border-radius: 28px; background: var(--color-paper-2); outline: var(--rule-hair) solid var(--color-rule); outline-offset: -1px; }
 .idcard__top { display: flex; align-items: center; gap: var(--space-md); padding: var(--space-2xs); }
@@ -112,16 +117,13 @@
 .msg__status.err { color: #FF8A80; }
 @keyframes sheet-in { from { opacity: 0; transform: translateY(12px); } }
 
-@media (max-width: 1100px) {
-  .contact__side { grid-template-columns: minmax(0, 1fr); gap: 0; }
-}
 @media (max-width: 860px) {
-  .contact__grid { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .contact__grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "lede" "card" "copier"; grid-template-rows: none; }
   .contact { padding-block: var(--section-gap) var(--space-3xl); }
   .contact__head { margin-bottom: var(--space-xl); }
 }
 @media (prefers-reduced-motion: reduce) { .msg__panel { animation: none; } }
 
 @media (min-width: 861px) and (max-width: 1100px) {
-  .contact__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-xl) 32px; align-items: start; }
+  .contact__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-xl) 32px; }
 }

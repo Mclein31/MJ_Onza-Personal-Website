@@ -3,14 +3,14 @@
 .copier {
   --c-body: #2A2A2A; --c-body-2: #3A3936; --c-edge: #0D0D0D; --c-paper: #F2EFE9; --c-paper-ink: #0D0D0D;
   --c-red: var(--color-signal, #FF2D1F);
-  --slip-h: 84px; --print: 900ms;
-  position: relative; display: grid; width: 204px; justify-self: end; user-select: none;
+  --slip-h: 92px; --print: 900ms;
+  grid-area: copier; position: relative; display: grid; width: min(100%, 272px); justify-self: start; user-select: none;
 }
 
 /* The window above the slot clips the slip, so it rises out of the machine */
 .copier__window { position: relative; height: calc(var(--slip-h) + 8px); margin-inline: 8px; overflow: hidden; z-index: 1; }
 .copier__slip {
-  position: absolute; inset: auto 0 0; height: var(--slip-h); display: grid; align-content: start; gap: 5px; padding: 14px 12px 8px;
+  position: absolute; inset: auto 0 0; height: var(--slip-h); display: grid; align-content: start; gap: 5px; padding: 16px 14px 8px;
   background: var(--c-paper); color: var(--c-paper-ink);
   /* torn leading edge */
   clip-path: polygon(0 6px, 6% 0, 12% 6px, 18% 0, 24% 6px, 30% 0, 36% 6px, 42% 0, 48% 6px, 54% 0, 60% 6px, 66% 0, 72% 6px, 78% 0, 84% 6px, 90% 0, 96% 6px, 100% 0, 100% 100%, 0 100%);
@@ -20,8 +20,9 @@
 .copier[data-state="printing"] .copier__slip { transform: translateY(0); transition: transform var(--print) steps(12, end); }
 .copier[data-state="done"] .copier__slip { transform: translateY(0); }
 .copier[data-state="retract"] .copier__slip { visibility: visible; transform: translateY(105%); transition: transform 420ms var(--ease-in, ease-in); }
-.copier__slip-tag { font-family: var(--font-data); font-size: 9px; letter-spacing: 0.1em; color: #5C5953; }
-.copier__slip-addr { font-family: var(--font-data); font-size: 11px; font-weight: 600; letter-spacing: -0.03em; overflow-wrap: anywhere; line-height: 1.25; }
+.copier__slip-tag { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.1em; color: #5C5953; }
+/* One line, always: the slip is wide enough for the full address, so it is never cut or wrapped */
+.copier__slip-addr { font-family: var(--font-data); font-size: 12.5px; font-weight: 600; letter-spacing: -0.04em; white-space: nowrap; line-height: 1.25; }
 .copier__slip-bars { display: block; height: 12px; margin-top: 2px; background: repeating-linear-gradient(90deg, var(--c-paper-ink) 0 2px, transparent 2px 4px, var(--c-paper-ink) 4px 5px, transparent 5px 8px, var(--c-paper-ink) 8px 11px, transparent 11px 13px); }
 
 .copier__body { position: relative; z-index: 2; display: grid; gap: 0; border-radius: 16px 16px 12px 12px; background: var(--c-body); outline: var(--rule-hair) solid color-mix(in oklab, #fff 14%, transparent); outline-offset: -1px; box-shadow: 0 6px 0 var(--c-edge); }
@@ -43,7 +44,6 @@
 .copier__btn:active { transform: translateY(3px); box-shadow: 0 1px 0 color-mix(in oklab, var(--c-red) 55%, #0D0D0D); }
 .copier__btn:focus-visible { outline: 2px solid #F2EFE9; outline-offset: 3px; }
 
-@media (max-width: 1100px) { .copier { margin-top: var(--space-sm); } }
 @media (prefers-reduced-motion: reduce) {
   .copier[data-state] .copier__slip { transition: none; }
   .copier__btn { transition: none; }

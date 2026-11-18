@@ -12,82 +12,70 @@ const TRAINING_PHOTOS = [
   { src: 'dti-yep-certificates.webp', title: 'Program Certificates', desc: 'Certificates from the program.' },
 ].map((p) => ({ ...p, src: 'assets/images/trainings/' + p.src }));
 
-function setupDrawer(root) {
-  const tabs = $$('[data-folder-tab]', root);
-  const cards = $$('[data-folder-card]', root);
-  if (!tabs.length || tabs.length !== cards.length) return;
+// Matches the 64rem switch in css/drawer.css: two columns with a sticky panel from here up, an accordion below
+const wide = matchMedia('(min-width: 64rem)');
 
-  let pinned = tabs.findIndex((t) => t.getAttribute('aria-expanded') === 'true');
-  let hovered = -1;
-  let focused = -1;
+// Editorial index: rows are buttons, panels hold the photo and text.
+// Wide: hover, focus or click on a row features it. Narrow: tap opens that row and closes the other.
+function setupIndex(root) {
+  const rows = $$('[data-idx-row]', root);
+  const panels = $$('[data-idx-panel]', root);
+  if (!rows.length || rows.length !== panels.length) return;
 
-  const currentShown = () => (hovered !== -1 ? hovered : focused !== -1 ? focused : pinned);
+  let active = Math.max(0, rows.findIndex((r) => r.getAttribute('aria-current') === 'true'));
 
-  const sync = (shown = currentShown()) => {
-    tabs.forEach((tab, i) => {
-      const isOpen = i === pinned;
-      const isLifted = i === shown || isOpen;
-      tab.setAttribute('aria-expanded', String(isOpen));
-      tab.classList.toggle('is-open', isOpen);
-      tab.classList.toggle('is-lifted', isLifted);
+  const sync = () => {
+    rows.forEach((row, i) => {
+      const on = i === active;
+      if (on) row.setAttribute('aria-current', 'true');
+      else row.removeAttribute('aria-current');
+      row.setAttribute('aria-expanded', String(on));
     });
-    cards.forEach((card, i) => {
-      const isShown = i === shown;
-      card.classList.toggle('is-shown', isShown);
-      card.setAttribute('aria-hidden', String(!isShown));
-    });
-    root.classList.toggle('is-resting', shown === -1);
+    panels.forEach((panel, i) => panel.classList.toggle('is-active', i === active));
   };
 
-  tabs.forEach((tab, i) => {
-    tab.addEventListener('click', () => {
-      if (pinned === i) {
-        pinned = -1;
-        hovered = -1;
-        focused = -1;
-        sync(-1);
-      } else {
-        pinned = i;
-        sync(i);
-      }
-    });
-
-    tab.addEventListener('pointerenter', (e) => {
-      if (e.pointerType !== 'mouse') return;
-      hovered = i;
-      sync(i);
-    });
-
-    tab.addEventListener('focusin', () => {
-      focused = i;
-      sync(i);
-    });
-
-    tab.addEventListener('keydown', (e) => {
-      const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
-      if (!step) return;
-      e.preventDefault();
-      const next = (i + step + tabs.length) % tabs.length;
-      tabs[next].focus();
-    });
-  });
-
-  cards.forEach((card, i) => {
-    card.addEventListener('focusin', () => {
-      focused = i;
-      sync(i);
-    });
-  });
-
-  root.addEventListener('pointerleave', (e) => {
-    if (e.pointerType !== 'mouse') return;
-    hovered = -1;
+  const show = (i) => {
+    if (i === active) return;
+    active = i;
+    root.classList.add('is-touched');
     sync();
+  };
+
+  // Accordion: keep the tapped row where the finger is while the row above it collapses
+  const toggleAccordion = (i) => {
+    const before = rows[i].getBoundingClientRect().top;
+    root.classList.add('is-touched');
+    active = i === active ? -1 : i;
+    sync();
+    const drift = rows[i].getBoundingClientRect().top - before;
+    if (drift) window.scrollBy(0, drift);
+  };
+
+  rows.forEach((row, i) => {
+    row.addEventListener('click', () => (wide.matches ? show(i) : toggleAccordion(i)));
+
+    // Real movement only: rows scrolling under a resting cursor must not swap the featured panel
+    row.addEventListener('pointermove', (e) => {
+      if (e.pointerType === 'mouse' && wide.matches && (e.movementX || e.movementY)) show(i);
+    });
+
+    row.addEventListener('focus', () => {
+      if (wide.matches) show(i);
+    });
+
+    row.addEventListener('keydown', (e) => {
+      const last = rows.length - 1;
+      const next = { ArrowDown: i + 1, ArrowRight: i + 1, ArrowUp: i - 1, ArrowLeft: i - 1, Home: 0, End: last }[e.key];
+      if (next === undefined) return;
+      e.preventDefault();
+      rows[Math.min(last, Math.max(0, next))].focus();
+    });
   });
 
-  root.addEventListener('focusout', (e) => {
-    if (!root.contains(e.relatedTarget)) {
-      focused = -1;
+  // Growing past the breakpoint with everything collapsed: feature the first row again
+  wide.addEventListener('change', () => {
+    if (wide.matches && active < 0) {
+      active = 0;
       sync();
     }
   });
@@ -96,7 +84,7 @@ function setupDrawer(root) {
 }
 
 export function initDrawer() {
-  $$('[data-drawer]').forEach(setupDrawer);
+  $$('[data-index]').forEach(setupIndex);
 
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-training-lb]');
