@@ -20,8 +20,10 @@ Class of 2028; aiming for data engineering). It is a single animated page: hero 
 carousel, pinned horizontal Work section with per-project screenshot galleries and promo videos, About with a
 "What I do" accordion, a pinned year-by-year Journey, GitHub Activity, Stack schema tables, Recognition and
 Training cards, a Contact wallet of channel cards, and a footer ASCII lighthouse scene. Visit/like stats sit in
-a floating pill. The current look (since 2026-11-01) follows the owner's jeancreate.com-inspired redesign on a
-cool white/gray palette with felt paper texture and subtle liquid-glass cards.
+a floating pill. The current look (since 2026-11-18) is the "Signal" redesign from the owner's `website_inspo`
+recordings: flat cream / ink / signal-red bands, Geist 900 display type, Geist Mono labels, giant red numerals,
+and a contact copier. No red hero, no serif, no scroll-drawn line, no duplicate stack ticker (owner rules;
+see [DECISIONS.md](DECISIONS.md)).
 
 ---
 

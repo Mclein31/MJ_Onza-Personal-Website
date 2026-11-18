@@ -21,15 +21,6 @@
   font-weight: var(--display-weight, 900);
   letter-spacing: var(--tracking-display, -0.055em);
 }
-.journey__intro > [data-signal-anchor],
-.journey__outro > [data-signal-anchor] {
-  display: block;
-  width: 1px;
-  height: 1px;
-  pointer-events: none;
-}
-.journey__intro > [data-signal-anchor] { margin-top: var(--space-md); }
-.journey__outro { margin-top: var(--space-xl); }
 
 .years__list { display: grid; gap: var(--space-4xl); }
 .yr {

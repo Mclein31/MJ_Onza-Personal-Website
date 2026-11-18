@@ -1,8 +1,6 @@
-/* Signal-line markers in the hero and ticker: zero-size, out of flow */
-:is(.hero, .ticker) [data-signal-anchor] { position: absolute; width: 0; height: 0; pointer-events: none; }
 
 /* Hero: the page's own paper and ink. Red is only an accent: the round i-dot and full stop,
-   the live dot, the underline, the signal line (which starts at the full stop) and the cursor ink. */
+   the live dot and the underline. */
 .hero { position: relative; isolation: isolate; overflow: clip; }
 .hero__ink { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
 
@@ -48,7 +46,6 @@
 .hero__i::after { width: 0.17em; height: 0.17em; left: calc(0.153em - 0.085em); top: calc(0.34em - 0.085em); }
 .hero__period { color: transparent; margin-left: 0.02em; }
 .hero__period::after { width: 0.19em; height: 0.19em; left: calc(0.13em - 0.095em); top: calc(0.91em - 0.095em); }
-.hero__period [data-signal-anchor] { left: 0.13em; top: 0.91em; }
 
 .hero__details {
   position: relative; display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap;
@@ -85,14 +82,6 @@
 
 /* Tool carousel: ink-grey at rest, brand colour on hover and while dragged */
 .hero__zone { position: relative; min-width: 0; display: grid; border-top: 1px solid var(--color-rule); }
-/* Line route: full stop → down between the intro and the CTA → into the ticker.
-   On one-column layouts it bends to the right margin first, so it never crosses the intro. */
-.hero__anchor { top: 0; left: 64%; }
-.hero__bend { display: none; }
-.hero__trace { display: none; justify-self: end; margin-bottom: auto; }
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .hero__trace { display: block; }
-}
 .icon-field {
   width: 100%; overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
   overscroll-behavior-x: contain; border-radius: 12px;
@@ -121,8 +110,6 @@
     padding-top: calc(var(--nav-clear) + var(--space-md));
   }
   .hero__mark { gap: clamp(16px, 2.5svh, 28px); }
-  .hero__bend { display: block; top: calc(-0.5 * clamp(16px, 2.5svh, 28px)); right: 0; }
-  .hero__anchor { left: auto; right: 0; }
   .hero__name { font-size: min(21vw, 9.5rem); }
   .hero__details { flex-direction: column; align-items: flex-start; }
   .hero__labels { justify-content: flex-start; }
@@ -130,16 +117,11 @@
   .tech-icon { flex-basis: 46px; width: 46px; height: 46px; }
   .icon-group { gap: 22px; padding-right: 22px; }
 }
-/* Wider one-column screens (tablets, the Duo) have room right of the intro: bend in less */
-@media (min-width: 40.0625rem) and (max-width: 60rem) {
-  .hero__bend, .hero__anchor { right: 16%; }
-}
 /* Laptops with short screens: give the label row less air so everything fits one screen */
 @media (min-width: 60.0625rem) and (max-height: 820px) {
   .hero__inner { padding-top: calc(var(--nav-clear) + var(--space-md)); gap: var(--space-md); }
   .hero__mark { gap: var(--space-md); }
   .hero__name { font-size: min(var(--text-giant), 22svh); }
-  .hero__trace { display: none; }
 }
 @media (max-width: 420px) { .hero__cta { gap: var(--space-sm) var(--space-md); } }
 
@@ -156,18 +138,5 @@
   .hero__details { max-width: calc(env(viewport-segment-width 0 0, 50vw) - 2 * var(--gutter)); flex-direction: column; align-items: flex-start; }
 }
 
-/* Ticker: one black row of huge words, red stars between them */
-.ticker { position: relative; overflow: clip; padding-block: clamp(14px, 2vw, 32px); }
-.ticker__anchor { left: 68%; top: 50%; }
-.ticker__track { display: flex; width: max-content; }
-.ticker__group {
-  display: flex; flex: none; align-items: center; gap: 0.3em; padding-right: 0.3em;
-  font-family: var(--font-display); font-weight: var(--display-weight); font-size: clamp(3.25rem, 9vw, 9.5rem);
-  letter-spacing: var(--tracking-display); line-height: 0.95; white-space: nowrap; color: var(--color-ink);
-}
-.ticker__star {
-  flex: none; width: 0.4em; height: 0.4em; background: var(--color-signal);
-  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
-}
 
 @media (prefers-reduced-motion: reduce) { .hero__time::before { animation: none; } }

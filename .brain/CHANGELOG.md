@@ -5,12 +5,19 @@ project: Personal Website
 tags:
   - changelog
   - history
-last_updated: 2026-11-16
+last_updated: 2026-11-18
 ---
 
 # 📜 Personal Website — Changelog
 
 Newest first. Entries dated 2026-10-31 and older (including the versioned 1.0.0–3.0.0 releases) are archived verbatim in [archive/CHANGELOG_ARCHIVE.md](archive/CHANGELOG_ARCHIVE.md).
+
+## 2026-11-18 — "Signal" redesign (built by parallel Jarviee workers)
+- **Changed**: whole-site restyle to cream / ink / signal red (tokens rewritten, names kept), Geist 900 display, Geist Mono 500 labels, `.band--*` section schemes, `.btn-pill`, `.numeral`, `.label`. Paper fibre layers and liquid glass removed (`assets/textures/` deleted).
+- **Changed**: hero on the page background with round red i-dot and full stop; Work deck with red numerals and FIG labels; About as a night band with numbered "What I do" rows; Journey with outlined year numerals; Activity calendar in red steps; Stack schema tables with ink headers; Contact night band with a copier that prints the email (`js/copier.js`, `css/copier.css`, new `print` sound in `js/sfx.js`).
+- **Removed** (owner requests during the build): the red hero band, Instrument Serif, the scroll-drawn signal line plus cursor ink trail (`js/signal.js`, `css/signal.css` deleted), the black word ticker under the hero (duplicated the icon carousel), the Recognition/Training file-drawer (being replaced by an editorial index) and the "With High Honors" award.
+- **SEO**: projects as a JSON-LD `ItemList`, wider `knowsAbout`, `dateModified`, light/dark `theme-color` metas, `og:locale`, sitemap `lastmod`, `viewport-fit=cover`; image `width`/`height` and lazy loading in Journey, Recognition, Training and Contact.
+- **Tests**: redesign device matrix incl. iPhone Duo folded/unfolded in `playwright.config.mjs` + `tests/redesign.spec.mjs`; legacy theme-color and WhatsApp-pass assertions updated to the new palette.
 
 ## 2026-11-16 — Dead JS hooks and cursor script removed
 - **Removed**: `js/cursor.js` and its `initCursor` import/call in `js/main.js` (`.cursor` is `display: none` in `css/fx.css` and `[data-magnetic]` has no markup).

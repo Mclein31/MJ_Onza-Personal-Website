@@ -6,14 +6,38 @@ tags:
   - decisions
   - portfolio
   - web
-last_updated: 2026-11-15
+last_updated: 2026-11-18
 ---
 
 # ⚖️ Personal Website — Technical Decisions
 
 Newest first. Superseded decisions are kept and marked; the newer, code-verified decision wins.
 
+## 2026-11-18 — "Signal" redesign from the owner's website_inspo recordings
+> **Supersedes** the visual parts of "2026-11-04 — Paper and glass" (paper fibre stack, liquid-glass cards), the cool white/gray palette and orange accent of 2026-11-01/11-03, and the Hedvig/serif display notes. Structure, content and interaction rules from earlier entries stay in force (pinned Work and Journey, draggable icon carousel, contact wallet, footer vista, sounds, Work first after the hero).
+
+### Decision
+Restyle the whole page from four screen recordings the owner saved in `website_inspo/` (frames in `.brain/research/redesign-inspo/`, brief in `research/2026-11-18-redesign-brief.md`): flat cream / ink / signal-red colour bands, Geist 900 giant display type, Geist Mono 500 micro-labels (`02 / ABOUT`, `FIG. 03 / SERVIO`, coordinates), giant red index numerals behind project mockups, and a **copier** in Contact that prints the email on a slip when it is copied.
+
+### Owner rules set during the build (2026-11-18)
+- **No red hero.** The full signal-red hero band was rejected ("looks shit with bright red"). The hero uses the page background (cream light / near-black dark) with ink type; red is an accent only: round red i-dot and full stop, a red underline on "data engineering".
+- **No thin fonts.** Instrument Serif Italic (thin italic accents) was removed site-wide, files included. Emphasis inside headings is the heading's own Geist weight in `--color-signal-text`.
+- **No scroll-drawn path.** A red "data pipeline" line drawn through every section on scroll (with a hero cursor ink trail) was built twice and then removed at the owner's request ("looks fake", "remove the pathing completely"). Do not reintroduce a page-spanning line.
+- Highlight boxes (`.hl`) must never cover neighbouring lines of text.
+- **No duplicate stack band.** A black word ticker (Python ✦ SQL ✦ PostgreSQL…) under the hero repeated the tool-icon carousel and was removed; the owner's icon carousel stays.
+- **No file-drawer.** The folder/drawer layout for Recognition and Training was rejected; it is being replaced by an editorial index (numbered rows + featured photo).
+- **"With High Honors" is no longer listed** in Recognition (owner request).
+
+### Tokens
+Light: paper `#F2EFE9`, ink `#0D0D0D`, muted `#5C5953`, signal `#FF2D1F`, signal text `#C41D10`. Dark: paper `#0B0B0B`, ink `#F2EFE9`, signal `#FF3B2E`, signal text `#FF6A5E`. `theme-color` metas `#F2EFE9` / `#0B0B0B`. Section schemes via `.band--night` / `.band--signal` / `.band--paper`, which re-map the paper/ink tokens locally.
+
+### Testing
+Playwright gained a redesign matrix (`tests/redesign.spec.mjs`): iPhone SE, 16 Pro Max, **iPhone Duo** folded 466×678 and unfolded 626×890 / 890×626 (derived 3× viewports; Apple has not published CSS sizes), iPad mini, iPad Pro 13, 1280, 1920 and 2560, with overflow, structure/SEO/JSON-LD, reduced-motion and axe checks.
+
+---
+
 ## 2026-11-04 — Paper and glass
+> **Superseded (visuals)** by "2026-11-18 — Signal redesign": the paper layers and glass cards are gone.
 _Moved verbatim from PROJECT_CONTEXT.md on 2026-11-15._
 
 Owner asked for deliberately spread fibers with layering, imperfections and varied length/thickness, then more fibers, no visible repeat, and a felt paper surface rather than fibers floating on flat colour (2026-11-04). Paper is now five stacked layers in `assets/textures/`, each a distinct prime-sized tile so the whole never visibly repeats; do not go back to a single tile. The sheet has two layers. `paper-formation.webp` (509px raster shown at 1109px) holds faint cloudy pulp flocs. `paper-tooth.webp` (619px at 1×) holds a matted tooth of ~4,900 felted micro-fibers. Both are single ink colour with alpha and stay subtle: a stronger version read as granite. They are physical paper structure, not the isotropic noise grain the owner rejected earlier. On top sit `paper-fibers-deep.svg` (1031px), `paper-fibers-mid.svg` (1297px) and `paper-fibers-top.svg` (1543px), made more visible on 2026-11-04. They use Poisson-disk spacing, density drift, bundles, flecks and shives. `--paper-fibers` and `--paper-fibers-size` in `css/texture.css` hold the layer list (~285 KB total). Paper appears only on the page and pinned stage backgrounds, never on cards or images. Dark theme shows the paper only faintly.
