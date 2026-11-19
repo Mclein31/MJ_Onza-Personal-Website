@@ -32,7 +32,7 @@
    "label": "Hero and icons",
    "kind": "component",
    "layer": "frontend",
-   "detail": "Kinetic name, typed SQL query, Manila clock and draggable tool-logo carousel.",
+   "detail": "Hero section with draggable tool-logo carousel; initHero is now a no-op (clock and typed query removed).",
    "file": "js/hero.js"
   },
   {
@@ -72,7 +72,7 @@
    "label": "Contact wallet",
    "kind": "component",
    "layer": "frontend",
-   "detail": "Stacked contact passes for GitHub, LinkedIn, WhatsApp and email.",
+   "detail": "Stacked contact passes for GitHub, LinkedIn, WhatsApp and email, with a fluid GitHub contribution grid that resizes to the card width.",
    "file": "js/wallet.js"
   },
   {
