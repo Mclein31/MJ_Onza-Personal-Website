@@ -43,17 +43,32 @@
 }
 
 .project__media {
+  /* The numeral gets its own clear space (F-N, 2026-11-19): a column left of the gallery while the deck is
+     pinned, a band above it when cards stack. Sizes use cqi, so they are set here (a child of .project). */
+  --media-pad: var(--space-md);
+  --num-size: clamp(4.5rem, 16cqi, 9rem);
+  /* the mockup canvases carry ~7% empty margin, so the column may reach 3cqi into it */
+  --num-col: calc(var(--num-size) * 1.12 + var(--space-sm) - var(--media-pad) - 3cqi);
   position: relative; display: block;
-  padding: var(--space-md) var(--space-md) 64px;
+  padding: var(--media-pad) var(--media-pad) 64px;
   background: transparent;
 }
 .project__num {
-  position: absolute; z-index: 0; left: -0.03em; top: calc(var(--space-md) - 0.06em);
-  font-size: clamp(5rem, 30cqi, 15rem); pointer-events: none; -webkit-user-select: none; user-select: none;
-  opacity: 0.55;
+  position: absolute; z-index: 0; left: -0.03em; top: calc(var(--media-pad) - 0.06em);
+  font-size: var(--num-size); pointer-events: none; -webkit-user-select: none; user-select: none;
+  opacity: 0.5;
 }
-.project.is-current .project__num { opacity: 1; }
+.project.is-current .project__num, .work:not(.is-pinned) .project__num { opacity: 1; }
 .work.is-pinned .project__num { transition: opacity var(--dur-long) var(--ease-out); }
+/* Pinned deck: slides keep clear space on the left for the numeral, so no screenshot sits over it. The
+   gallery box and its controls stay full width; contained images simply centre in what is left. */
+.work.is-pinned .gallery__slide { padding-left: var(--num-col); }
+/* Stacked cards (tablet portrait, narrow laptops): vertical room is free, so the numeral gets a band above. */
+@media (min-width: 701px) {
+  .work:not(.is-pinned) .project__media { padding-top: calc(var(--num-size) * 0.8 + var(--space-xs)); }
+  .work:not(.is-pinned) .project__num { top: 0; }
+  .work:not(.is-pinned) .project__fig { top: calc(var(--num-size) * 0.8 - 1.2em); }
+}
 .project__fig { position: absolute; z-index: 2; right: var(--space-md); top: var(--space-xs); pointer-events: none; }
 .gallery__track {
   /* Explicit width prevents Safari from shrinking the track to its capped height. */
@@ -138,17 +153,31 @@
   font-family: var(--font-data); font-size: 0.6875rem; font-weight: 500; line-height: 1.2; letter-spacing: 0.04em; text-transform: uppercase;
 }
 
-.project--more {
+/* End-of-list link: a solid ink card again (black in the light theme, the inverse cream in the dark theme, so it
+   always stands apart from the page; the old red bottom edge and 900 slab stay gone). texture.css re-colours
+   .project--more, so the selectors below are one class heavier. Arrow nudges on hover; hover lifts the fill a step. */
+.work .project.project--more {
+  --more-muted: color-mix(in oklab, var(--color-paper) 68%, var(--color-ink));
   width: min(32vw, 420px); align-self: stretch; margin-bottom: 140px;
-  display: grid; place-content: center; gap: var(--space-xs); text-align: center;
-  border-radius: var(--radius-card); background: var(--color-ink); color: var(--color-paper);
-  border-bottom: 6px solid var(--w-red);
-  transition: transform var(--dur-long) var(--ease-quint);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "title arrow" "url arrow";
+  align-content: end; align-items: end; column-gap: var(--space-md); row-gap: var(--space-2xs); text-align: left;
+  padding: var(--space-lg);
+  background-color: var(--color-ink); color: var(--color-paper);
+  border: 1px solid var(--color-ink); border-radius: var(--radius-card);
+  transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
 }
-@media (hover: hover) { .project--more:hover { transform: translateY(-4px); } }
-.project--more:active { transform: scale(0.98); }
-.project--more b { font-size: var(--text-2xl); font-weight: 900; letter-spacing: var(--tracking-display, -0.055em); line-height: 0.95; }
-.project--more span { font-family: var(--font-data); letter-spacing: 0.04em; font-size: var(--text-sm); color: color-mix(in oklab, var(--color-paper) 64%, transparent); }
+.work .project.project--more b { grid-area: title; font-size: var(--text-xl, 1.5rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+.work .project.project--more span { grid-area: url; font-family: var(--font-data); letter-spacing: 0.02em; font-size: var(--text-sm); color: var(--more-muted); overflow-wrap: anywhere; }
+.work .project.project--more::after {
+  content: "\2192"; grid-area: arrow; align-self: end; font-family: var(--font-data); font-size: var(--text-lg, 1.25rem); line-height: 1; color: var(--color-paper);
+  transition: transform var(--dur-short) var(--ease-out);
+}
+@media (hover: hover) {
+  .work .project.project--more:hover { background-color: var(--color-ink-2); border-color: var(--color-ink-2); }
+  .work .project.project--more:hover::after { transform: translateX(4px); }
+}
+.work .project.project--more:active { background-color: var(--color-ink-2); border-color: var(--color-ink-2); }
+.work .project.project--more:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
 
 .work__foot { position: relative; z-index: 1; padding-top: var(--space-sm); background: var(--color-paper); display: flex; align-items: center; gap: var(--space-md); font-size: var(--text-sm); font-weight: 500; color: var(--color-muted); font-variant-numeric: tabular-nums; }
 .work.is-pinned .work__foot { padding-right: max(var(--gutter), calc(var(--space-4xl) + var(--space-2xl) - max(0px, (100% - var(--wrap)) / 2 - var(--gutter)))); }
@@ -159,7 +188,8 @@
 .work:not(.is-pinned) .work__sticky { position: relative; height: auto; overflow: visible; padding-block: var(--section-gap); gap: var(--space-md); }
 .work:not(.is-pinned) .work__track { transform: none; flex-direction: column; align-items: stretch; gap: var(--space-3xl); }
 .work:not(.is-pinned) .project, .work:not(.is-pinned) .project--more { width: 100%; min-width: 0; margin-bottom: 0; }
-.work:not(.is-pinned) .project--more { padding: var(--space-xl) var(--space-lg); }
+.work:not(.is-pinned) .project.project--more { padding: var(--space-md) var(--space-lg); min-height: 44px; align-items: center; align-content: center; }
+.work:not(.is-pinned) .project.project--more::after { align-self: center; }
 .work:not(.is-pinned) .work__foot { display: none; }
 
 @container (max-width: 640px) {
@@ -167,6 +197,10 @@
   .project__stack { grid-column: 1; }
 }
 
+/* Mid-width pinned cards: the award line used to run under the gallery controls (they are ~324px wide). */
+@container (min-width: 561px) {
+  .work.is-pinned .project__award { right: 340px; line-height: 1.25; }
+}
 @container (max-width: 560px) {
   .project__fig { right: var(--space-sm); top: var(--space-2xs); }
   .project__award {
@@ -175,6 +209,13 @@
     padding: 6px 10px; border-radius: 12px; font-size: 0.6875rem; line-height: 1.3;
     background: var(--color-paper-hi); z-index: 3; border: 1px solid var(--color-rule); pointer-events: none;
   }
+  /* Pinned deck: the badge starts after the numeral column (it used to sit on top of the "01") and wraps;
+     the FIG label gives way on that card because badge, numeral and label no longer fit one row. */
+  .work.is-pinned .project__award {
+    left: calc(var(--num-size) * 1.12 + var(--space-sm)); top: calc(var(--media-pad) - 8px); padding: 3px 8px;
+    max-width: calc(100% - var(--num-size) * 1.12 - 2 * var(--space-sm));
+  }
+  .work.is-pinned .project__media:has(.project__award) .project__fig { display: none; }
 }
 @media (max-width: 860px) {
   .project__info { grid-template-columns: minmax(0, 1fr); }
@@ -265,8 +306,46 @@
   .work.is-pinned .project__stack { margin-top: 0; gap: 4px; }
   .work.is-pinned .project__stack li { padding: 2px 7px; font-size: 0.625rem; }
   .work.is-pinned .project__promo { margin-top: 4px; font-size: 0.75rem; padding-inline: 4px 10px; }
-  .work.is-pinned .project__num { font-size: clamp(4rem, 24cqi, 9rem); }
-  .work.is-pinned .project__media { padding: 4px 8px 52px; }
+  .work.is-pinned .project__media { --media-pad: 8px; --num-size: clamp(4rem, 15cqi, 8rem); padding: 4px 8px 52px; }
+  .work.is-pinned .project__num { top: -0.04em; }
   .work.is-pinned .project__fig { top: 4px; }
   .work.is-pinned .project__promo-time { font-size: 0.6875rem; }
+}
+
+/* Phone simplification (2026-11-19, M3): one rhythm per project, image, title, description, tags, video.
+   No decorative numerals or FIG. labels, plain mono tags, quiet video link, controls in their own row. */
+@media (max-width: 700px) {
+  .work:not(.is-pinned) .work__track { gap: var(--space-2xl); }
+  .work:not(.is-pinned) .project { gap: var(--space-sm); }
+  .project__num, .project__fig { display: none; }
+  .project__media { display: flex; flex-direction: column; padding: 0; gap: var(--space-xs); }
+  .gallery__track { height: auto; max-height: none; aspect-ratio: 16 / 9; }
+  .project__award {
+    position: static; order: 1; align-self: flex-start; width: auto; max-width: 100%; height: auto;
+    padding: 0; border: 0; border-radius: 0; background: none; pointer-events: auto;
+    font-size: 0.75rem; color: var(--w-red-text);
+  }
+  .gallery__ui { position: static; order: 2; width: 100%; justify-content: space-between; gap: var(--space-2xs); }
+  .gallery__dots { flex: 1; justify-content: center; min-width: 0; }
+  .gallery__btn { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-rule); }
+  .gallery__btn:active { box-shadow: none; }
+
+  .work:not(.is-pinned) .project__info { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-xs); padding: 0; }
+  .project__info h3 { order: 1; font-size: 1.75rem; }
+  .project__info p {
+    order: 2; margin-top: 8px; font-size: 0.9375rem; line-height: 1.5;
+    display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .project__stack { order: 3; margin-top: 0; gap: var(--space-3xs, 2px) var(--space-md); color: var(--color-muted); }
+  .project__stack li {
+    padding: 0; border: 0; border-radius: 0; font-size: 0.75rem; letter-spacing: 0.04em; text-transform: none;
+  }
+  .project__promo, .project__link { order: 4; margin-top: var(--space-2xs); }
+  .project__promo {
+    min-height: 44px; padding: 0; gap: var(--space-2xs); background: none; color: var(--color-ink); border: 0;
+    border-radius: 0; font-size: 0.875rem; font-weight: 500; text-decoration: underline;
+    text-decoration-color: var(--color-rule); text-underline-offset: 4px;
+  }
+  .project__promo svg { width: 10px; height: 10px; padding: 5px; }
+  .project__promo-time { border-left: 0; margin-left: 0; padding-left: 0; color: var(--color-muted); }
 }

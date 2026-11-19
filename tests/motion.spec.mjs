@@ -59,7 +59,12 @@ test('footer is one screen tall and the vista spans it, animating on its own', a
   expect(span).toBeGreaterThan(0.97);
   expect(span).toBeLessThan(1.01);
   const footerH = await page.locator('footer').evaluate((f) => f.getBoundingClientRect().height);
-  expect(Math.abs(footerH - page.viewportSize().height)).toBeLessThan(2);
+  if (page.viewportSize().width <= 700) {
+    // Phones (2026-11-19, owner: less going on): the footer is shorter than one screen.
+    expect(footerH).toBeLessThan(page.viewportSize().height);
+  } else {
+    expect(Math.abs(footerH - page.viewportSize().height)).toBeLessThan(2);
+  }
   const a = await vistaText(page);
   await page.waitForTimeout(700);
   expect(await vistaText(page), 'the scene moves without any scrolling').not.toBe(a);
@@ -78,6 +83,12 @@ test('reduced motion: the footer vista is drawn and holds still', async ({ page 
 test('the header steps aside at the footer and returns above it', async ({ page }) => {
   await gotoReady(page);
   await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
+  if (page.viewportSize().width <= 700) {
+    // Phones: the footer is shorter than a screen, so the bar never reaches it; it must just not cover the footer.
+    const overlap = await page.evaluate(() => document.querySelector('.nav').getBoundingClientRect().bottom - document.querySelector('footer').getBoundingClientRect().top);
+    expect(overlap).toBeLessThanOrEqual(0);
+    return;
+  }
   await expect(page.locator('.nav')).toHaveClass(/is-away/);
   await expect.poll(() => page.locator('.nav').evaluate((n) => n.getBoundingClientRect().bottom), { message: 'the bar is off screen' }).toBeLessThanOrEqual(1);
   await page.evaluate(() => scrollTo(0, document.querySelector('footer').offsetTop - innerHeight));

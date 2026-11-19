@@ -50,3 +50,12 @@
   .footer__top, .footer__bottom { flex-direction: column; align-items: center; text-align: center; }
   .footer__top nav { justify-content: center; }
 }
+
+/* Phone: a shorter lighthouse scene (vista reads the footer height), and the stats pill stays in flow */
+@media (max-width: 700px) {
+  .footer { height: auto; min-height: 0; padding-top: var(--space-lg); }
+  .footer__mark { margin-top: var(--space-lg); }
+  .vista { flex: none; height: 230px; margin-top: var(--space-md); }
+  .footer__bottom { margin-top: var(--space-md); }
+  .footer__top a { display: inline-flex; align-items: center; min-height: 44px; }
+}

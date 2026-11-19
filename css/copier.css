@@ -1,14 +1,16 @@
 /* Copier: a small machine drawn in flat CSS shapes. "Copy" prints a paper slip out of its top slot and lights the COPIED LED.
-   Lives on the night contact band, so it reads the re-mapped tokens from contact.css with safe fallbacks. */
+   Lives on the normal page scheme (light and dark); the machine itself keeps its own fixed dark body so it reads on both. */
 .copier {
-  --c-body: #2A2A2A; --c-body-2: #3A3936; --c-edge: #0D0D0D; --c-paper: #F2EFE9; --c-paper-ink: #0D0D0D;
+  --c-body: #2A2A2A; --c-body-2: #3A3936; --c-edge: #0D0D0D; --c-paper: #FFFFFF; --c-paper-ink: #0D0D0D;
   --c-red: var(--color-signal, #FF2D1F);
   --slip-h: 92px; --print: 900ms;
   grid-area: copier; position: relative; display: grid; width: min(100%, 272px); justify-self: start; user-select: none;
 }
 
 /* The window above the slot clips the slip, so it rises out of the machine */
-.copier__window { position: relative; height: calc(var(--slip-h) + 8px); margin-inline: 8px; overflow: hidden; z-index: 1; }
+/* The drop-shadow filter sits on the window, not the slip: the slip's clip-path would cut its own edge and shadow.
+   A hairline plus a soft shadow keep the white sheet visible on cream paper and on the dark page alike. */
+.copier__window { position: relative; height: calc(var(--slip-h) + 8px); margin-inline: 8px; overflow: hidden; z-index: 1; filter: drop-shadow(0 0 0.6px rgb(13 13 13 / 0.7)) drop-shadow(0 5px 8px rgb(13 13 13 / 0.2)); }
 .copier__slip {
   position: absolute; inset: auto 0 0; height: var(--slip-h); display: grid; align-content: start; gap: 5px; padding: 16px 14px 8px;
   background: var(--c-paper); color: var(--c-paper-ink);
@@ -47,4 +49,12 @@
 @media (prefers-reduced-motion: reduce) {
   .copier[data-state] .copier__slip { transition: none; }
   .copier__btn { transition: none; }
+}
+
+/* Phone: the machine and its slip span the full content width, centred; the email never clips */
+@media (max-width: 700px) {
+  .copier { width: 100%; justify-self: stretch; margin-inline: auto; }
+  .copier__slip { text-align: center; justify-items: center; padding-inline: 10px; }
+  .copier__slip-addr { font-size: clamp(11px, 3.9vw, 14px); letter-spacing: -0.03em; }
+  .copier__slip-bars { width: 100%; }
 }

@@ -295,6 +295,79 @@
   }
 }
 
+/* Phones: one slide at a time. Year and place share a row, the photo gets a real 4:3 frame, and the swap between
+   years is a clean fade (old slide fully gone, then the new one arrives) instead of a staggered cross-fade. */
+@media (max-width: 700px) {
+  .journey { padding-top: var(--space-xl); }
+  .journey__intro { margin-bottom: var(--space-md); }
+  .yr { gap: 12px; }
+  .yr::before { display: none; content: none; }
+  .yr__words {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    gap: 8px 10px;
+    font-size: clamp(1.5rem, 6.4vw, 2rem);
+    line-height: 1.05;
+  }
+  .yr__place { padding-left: 0; font-size: 0.9375rem; line-height: 1.35; }
+  .yr__words > .yr__line { grid-column: 1 / -1; line-height: 1.38; }
+  .yr .yr__media {
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    max-height: 42svh;
+    border-radius: var(--radius-sm);
+  }
+  .yr .yr__media img { object-position: 50% 40%; }
+  .yr .yr__media--fit img { padding: var(--space-xs); }
+  .yr .yr__media--workspace { aspect-ratio: 4 / 3; }
+  .yr .yr__media--workspace img { object-fit: cover; object-position: 50% 50%; }
+  /* faces stay inside the crop */
+  .yr .yr__media--face img { object-fit: cover; object-position: 62% 50%; }
+  .yr[style*="--k:2"] .yr__media img { object-position: 65% 50%; }
+  .yr[style*="--k:4"] .yr__media img { object-position: 45% 40%; }
+  @media (max-height: 620px) {
+    .yr .yr__media, .yr .yr__media--workspace { aspect-ratio: 16 / 10; }
+    .yr { gap: 8px; }
+    .years.is-pinned .years__sticky { padding-top: var(--nav-clear); padding-bottom: var(--space-md); gap: var(--space-md); }
+  }
+  @media (min-height: 760px) { .yr .yr__media, .yr .yr__media--workspace { aspect-ratio: 5 / 4; } }
+  .yr__note h3 { font-size: 1.125rem; line-height: 1.28; }
+  .yr__note p { margin-top: 6px; font-size: 0.9375rem; line-height: 1.5; }
+  .yr__note--next .cta-link { font-size: 1.0625rem; min-height: 44px; padding-bottom: 6px; margin-top: 6px; }
+
+  .years.is-pinned .years__sticky {
+    padding-top: calc(var(--nav-clear) + var(--space-xs));
+    padding-bottom: var(--space-lg);
+    gap: var(--space-lg);
+  }
+  .years:not(.is-pinned) .years__list { gap: var(--space-xl); }
+
+  /* Clean swap: the outgoing slide fades out and turns hidden before the incoming one fades in. */
+  .years.is-pinned .yr {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 120ms linear, transform 0s linear 120ms, visibility 0s linear 120ms;
+  }
+  .years.is-pinned .yr.is-on {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition: opacity 240ms var(--ease-out) 130ms, transform 320ms var(--ease-out) 130ms, visibility 0s;
+  }
+  /* The slide moves as a whole; no per-part stagger or reveals inside it. */
+  .years.is-pinned .yr :is(.yr__year, .yr__place, .yr__line, .yr__note, .yr__media),
+  .years.is-pinned .yr.is-on :is(.yr__year, .yr__place, .yr__line, .yr__note, .yr__media) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .years.is-pinned .yr .yr__line span,
+  .years.is-pinned .yr.is-on .yr__line span { clip-path: none; transition: none; }
+  .years.is-pinned .yr .yr__media img,
+  .years.is-pinned .yr.is-on .yr__media img { transform: none; transition: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .yr::before,
   .yr__media img,

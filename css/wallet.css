@@ -1,4 +1,4 @@
-.wallet { --peek: 56px; --front: 260px; position: relative; height: calc((var(--cards, 4) - 1) * var(--peek) + var(--front)); }
+.wallet { --peek: 56px; --front: 276px; position: relative; height: calc((var(--cards, 4) - 1) * var(--peek) + var(--front)); }
 .pass {
   --pos: 0;
   position: absolute; inset: 0 0 auto; height: var(--front); z-index: var(--pos);
@@ -29,44 +29,45 @@
 .pass__icon svg { width: 18px; height: 18px; }
 .pass__icon img { width: 24px; height: 24px; object-fit: contain; }
 .pass--in .pass__icon, .pass--mail .pass__icon, .pass--wa .pass__icon { background: #fff; }
-.pass--mail .pass__copy { background: #fce8e6; color: #a50e0e; }
 
 .pass__body { position: relative; height: calc(var(--front) - var(--peek)); padding: 0 18px 18px; opacity: 0; transition: opacity 250ms var(--ease-out); }
 .pass.is-front .pass__body { opacity: 1; transition: opacity 500ms var(--ease-out) 180ms; }
 .pass__name { display: block; margin-top: var(--space-sm); font-size: var(--text-xl); font-weight: 800; letter-spacing: -0.045em; }
 .pass__note { margin-top: var(--space-2xs); font-size: var(--text-sm); color: var(--p-mute); }
-.pass__go, .pass__copy {
+.pass__go {
   display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 16px; border-radius: var(--radius-pill);
   font-size: var(--text-sm); font-weight: 800; letter-spacing: -0.01em; transition: transform var(--dur-short) var(--ease-quint), background-color var(--dur-short) var(--ease-out);
 }
 .pass__go { position: absolute; right: 18px; bottom: 18px; background: var(--p-go); color: var(--p-go-ink); }
 .pass__go svg { width: 14px; height: 14px; }
-@media (hover: hover) { .pass__go:hover, .pass__copy:hover { transform: scale(1.04); } }
-.pass__go:active, .pass__copy:active { transform: scale(0.96); }
+@media (hover: hover) { .pass__go:hover { transform: scale(1.04); } }
+.pass__go:active { transform: scale(0.96); }
 
-.compose { width: calc(100% - 110px); display: grid; border-radius: 14px; background: #FAF8F4; color: #0D0D0D; outline: var(--rule-hair) solid rgb(13 13 13 / 0.14); outline-offset: -1px; font-size: var(--text-sm); }
-.compose > div { padding: 8px 12px; }
-.compose > div + div { border-top: var(--rule-hair) solid rgb(13 13 13 / 0.1); }
-.compose__to { display: flex; align-items: center; gap: var(--space-xs); color: #5C5953; font-family: var(--font-data); font-size: 12px; }
-.compose__to span { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px 2px 2px; border-radius: var(--radius-pill); background: #E8E4DC; color: #0D0D0D; font-family: var(--font-body); font-size: var(--text-sm); font-weight: 700; }
-.compose__to img { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; }
-.compose__msg { min-height: 3.6em; line-height: 1.45; }
+/* Gmail: a compose window. To / Subject share one label column so the three lines align; Email sits in its own row underneath. */
+.pass--mail .pass__body { display: flex; flex-direction: column; gap: var(--space-sm); }
+.compose { flex: 1 1 auto; min-height: 0; width: 100%; display: grid; grid-template-rows: auto auto 1fr; border-radius: 14px; background: #FAF8F4; color: #0D0D0D; outline: var(--rule-hair) solid rgb(13 13 13 / 0.14); outline-offset: -1px; font-size: var(--text-sm); overflow: hidden; }
+.compose__row { display: grid; grid-template-columns: 64px minmax(0, 1fr); align-items: center; min-height: 40px; padding: 5px 12px; border-bottom: var(--rule-hair) solid rgb(13 13 13 / 0.1); }
+.compose__k { font-family: var(--font-data); font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #5C5953; }
+.compose__chip { justify-self: start; display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px 2px 2px; border-radius: var(--radius-pill); background: #E8E4DC; font-size: var(--text-sm); font-weight: 700; }
+.compose__chip img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; }
+.compose__subj span { font-weight: 600; }
+.compose__msg { padding: 10px 12px; line-height: 1.45; }
 .compose .caret { display: inline-block; width: 1.5px; height: 1.05em; margin-left: 1px; vertical-align: -0.15em; background: var(--color-signal, #FF2D1F); animation: caret 1s steps(1) infinite; }
 @keyframes caret { 50% { opacity: 0; } }
-.pass__acts { position: absolute; right: 18px; bottom: 18px; display: grid; gap: var(--space-xs); justify-items: end; }
+.pass__acts { display: flex; justify-content: flex-end; }
 .pass__acts .pass__go { position: static; }
-.pass__copy { background: var(--p-tint, rgb(13 13 13 / 0.08)); color: var(--p-ink); }
 
-.pass__grid { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 9px); grid-auto-columns: 9px; gap: 3px; margin-top: var(--space-xs); }
+/* Contribution grid: 7 rows, as many week columns as fit (js/wallet.js sets --cols so cells land near 13px), square fluid cells that fill the card width */
+.pass__grid { display: grid; grid-auto-flow: column; grid-template-columns: repeat(var(--cols, 18), minmax(0, 1fr)); grid-template-rows: repeat(7, auto); gap: 3px; width: 100%; min-height: calc(7 * 13px + 6 * 3px); }
+.pass__grid i { aspect-ratio: 1; }
 .pass__grid i { border-radius: 2px; background: #161b22; }
 .pass__grid i[data-l="1"] { background: #0e4429; }
 .pass__grid i[data-l="2"] { background: #006d32; }
 .pass__grid i[data-l="3"] { background: #26a641; }
 .pass__grid i[data-l="4"] { background: #39d353; }
-.pass--gh .pass__note { margin-top: var(--space-sm); }
 
 @media (prefers-reduced-motion: reduce) { .pass, .pass__body { transition: none; } .compose .caret { animation: none; } }
-@media (max-width: 420px) { .compose { width: 100%; } .pass__acts { flex-direction: row; display: flex; } .wallet { --front: 268px; } .pass__body { display: grid; align-content: start; gap: var(--space-sm); } }
+@media (max-width: 420px) { .wallet { --front: 284px; } .pass__body { display: grid; align-content: start; gap: var(--space-sm); } }
 .wallet:not(.is-live) .pass:last-child .pass__body { opacity: 1; }
 
 /* Short entrance details leave each action in a clear, reserved footer. */
@@ -74,8 +75,12 @@
 .pass__terminal > span { color: #39d353; }
 .pass__terminal [data-gh-typing], .pass__cursor { color: #f0f6fc; }
 .pass__cursor { font-style: normal; }
-.pass--gh .pass__grid { grid-template-rows: repeat(7, 9px); grid-auto-columns: 9px; gap: 3px; }
-.pass--gh .pass__activity { position: absolute; bottom: 18px; left: 18px; margin: 0; max-width: calc(100% - 145px); font-size: 11px; line-height: 1.4; }
+/* GitHub card: typed line, grid and footer row spread evenly down the card; Follow shares a centre line with the footer text */
+.pass--gh .pass__body { display: flex; flex-direction: column; justify-content: space-between; }
+.pass--gh .pass__terminal { margin: 0; }
+.pass__foot { display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm); }
+.pass--gh .pass__activity { margin: 0; font-size: 12px; line-height: 1.4; }
+.pass--gh .pass__go { position: static; flex: none; }
 .pass--in .pass__name { font-size: clamp(20px, 2vw, 26px); }
 .pass__connection { display: flex; align-items: center; gap: 12px; margin-top: 20px; max-width: 280px; }
 .pass__connection img, .pass__visitor { width: 36px; height: 36px; flex-shrink: 0; border: 1.5px solid var(--p-ink); border-radius: 50%; }
@@ -105,9 +110,5 @@
 /* Cards adapt to their available width, including tablet side columns. */
 @container (max-width: 360px) {
   .wallet { --front: 300px; }
-  .compose { width: 100%; }
-  .pass__acts { display: flex; flex-direction: row; }
-}
-@container (max-width: 260px) {
-  .pass--gh .pass__grid { grid-template-rows: repeat(7, 7px); grid-auto-columns: 7px; gap: 2px; }
+  .pass--mail .pass__acts .pass__go { flex: 1; justify-content: center; height: 44px; }
 }

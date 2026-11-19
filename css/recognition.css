@@ -151,6 +151,22 @@
 .lightbox.is-wide .lightbox__cap p { font-size: var(--text-md); }
 
 @media (max-width: 700px) {
+  #recognition,
+  #training {
+    scroll-margin-top: calc(var(--nav-clear) - var(--pad-top));
+  }
+  .strip { display: none; }
+  .training { gap: var(--space-md); }
+  .training__text {
+    gap: var(--space-xs);
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+  .training__head { gap: var(--space-2xs); }
+  .training__head h3 { font-size: 1.25rem; line-height: 1.15; }
+  .training__meta { font-size: 0.6875rem; gap: 2px var(--space-sm); }
+  .training__body p:first-child { display: none; }
+  .training__body p { font-size: 0.9375rem; line-height: 1.5; }
   .lightbox.is-wide .lightbox__stage { padding-inline: var(--space-xs); }
   .lightbox.is-wide .lightbox__nav { top: auto; bottom: var(--space-xs); translate: none; }
 }

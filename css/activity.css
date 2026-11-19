@@ -141,10 +141,35 @@
 @media (max-width: 860px) {
   .activity__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-@media (max-width: 40rem) {
+@media (max-width: 700px) {
   .activity__scroll { margin-inline: var(--space-md); padding-block: var(--space-md); }
   .activity__foot { padding: var(--space-sm) var(--space-md); }
+  .activity__cal.is-loading,
+  .activity__cal.is-error {
+    display: block;
+    min-width: 0;
+    min-height: 0;
+    background: transparent;
+  }
+  .activity__cal.is-loading::before {
+    content: "Loading GitHub activity…";
+    position: static;
+    display: block;
+    background: transparent;
+    box-shadow: none;
+    font-family: var(--font-data);
+    font-size: 0.75rem;
+    line-height: 1.45;
+    color: var(--color-muted);
+  }
+  .activity__cal.is-error::before { display: none; }
+  .activity__error { padding: 0; font-size: 0.8125rem; line-height: 1.45; color: var(--color-muted); }
+  .activity:has(.is-error) .activity__legend { display: none; }
+  .activity__stats { gap: var(--space-sm); margin-top: var(--space-sm); }
+  .activity__stats .stat:nth-child(2),
+  .activity__stats .stat:nth-child(4) { display: none; }
   .stat { padding: var(--space-md); }
+  .stat__val { margin-top: var(--space-sm); gap: var(--space-2xs); }
 }
 @media (prefers-reduced-motion: reduce) {
   .stat:hover, .stat:active { transform: none; }

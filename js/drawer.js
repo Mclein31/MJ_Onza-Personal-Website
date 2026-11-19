@@ -48,7 +48,7 @@ function setupIndex(root) {
     active = i === active ? -1 : i;
     sync();
     const drift = rows[i].getBoundingClientRect().top - before;
-    if (drift) window.scrollBy(0, drift);
+    if (drift) window.scrollBy({ top: drift, behavior: 'instant' });
   };
 
   rows.forEach((row, i) => {

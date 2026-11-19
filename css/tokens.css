@@ -67,3 +67,12 @@
 
 @media (max-width: 60rem) { :root { --gutter: 24px; --section-gap-s: 80px; --section-gap: 96px; --section-gap-l: 120px; } }
 @media (max-width: 40rem) { :root { --gutter: 16px; --section-gap-s: 56px; --section-gap: 72px; --section-gap-l: 96px; --gap-columns: 16px; } }
+
+/* Phone rhythm (M2): tighter, calmer sections and a quieter heading scale. Desktop untouched. */
+@media (max-width: 700px) {
+  :root {
+    --section-gap-s: 48px; --section-gap: 56px; --section-gap-l: 72px;
+    --text-section: clamp(1.75rem, 7.6vw, 2.125rem);
+    --text-lead: 1rem;
+  }
+}

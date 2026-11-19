@@ -186,7 +186,7 @@ test('message form validates, then sends (mocked) and confirms', async ({ page }
 test('copy email shows a confirmation toast', async ({ page, context }, testInfo) => {
   if (testInfo.project.name !== 'iphone-14') await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await gotoReady(page);
-  const btn = page.locator('.pass__copy[data-copy]');
+  const btn = page.locator('.copier__btn[data-copy]');
   await btn.scrollIntoViewIfNeeded();
   await btn.click();
   await expect(page.locator('[data-toast]')).toHaveClass(/is-show/);

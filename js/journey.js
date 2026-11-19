@@ -18,8 +18,10 @@ export function initJourney() {
     const portraitTablet = matchMedia('(max-width: 1100px) and (orientation: portrait)').matches;
     if (innerWidth > 960 && !portraitTablet) { list.style.removeProperty('--year-content'); return; }
     // Fit the active slide; shorter captions should not reserve the tallest slide’s space.
-    const item = items[Math.max(0, current)];
-    const height = Math.max(...[...item.children].map(child => child.offsetTop + child.offsetHeight));
+    // On phones the frame keeps the tallest slide's height so the photo and progress row never jump between years.
+    const phone = innerWidth <= 700;
+    const frame = phone ? items : [items[Math.max(0, current)]];
+    const height = Math.max(...frame.flatMap(item => [...item.children].map(child => child.offsetTop + child.offsetHeight)));
     list.style.setProperty('--year-content', `${Math.ceil(height)}px`);
   };
   let current = -1;

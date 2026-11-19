@@ -5,12 +5,20 @@ project: Personal Website
 tags:
   - changelog
   - history
-last_updated: 2026-11-18
+last_updated: 2026-11-19
 ---
 
 # 📜 Personal Website — Changelog
 
 Newest first. Entries dated 2026-10-31 and older (including the versioned 1.0.0–3.0.0 releases) are archived verbatim in [archive/CHANGELOG_ARCHIVE.md](archive/CHANGELOG_ARCHIVE.md).
+
+## 2026-11-19 — Phone layout pass (9 Jarviee workers, agy + claude)
+- **Removed (all sizes)**: hero coordinates line and Manila clock (`js/hero.js` is now an empty stub), the contact id card's "Tuguegarao City · local time" clock (`js/wallet.js`), the Gmail card's Copy button (the copier's COPY prints the slip), the contact project thumbnails strip.
+- **Changed (all sizes)**: Contact moved off the night band onto the normal page scheme, `min-height: 100svh`, two columns on desktop. Copier slip prints on white paper with a hairline, shadow and torn edge. GitHub wallet grid is fluid (week count computed from width in `js/wallet.js`). Gmail card re-laid out as a compose window. "More on GitHub" is a quiet outlined card (red slab border removed).
+- **Changed (phones, ≤700px only)**: slim 52px frosted nav and `--nav-clear: 72px`; calmer heading scale and section spacing; one-line hero meta, smaller name, tagline and CTAs, quieter icons; Work without giant numerals or FIG labels, plain mono tags, controls under the gallery; About keeps two facts; Journey image 4:3 at full width with a one-slide-at-a-time swap and a frame sized by the tallest year; Activity shows two stats and a one-line fallback; Stack tables as wrapped mono lists; Recognition/Training compact rows, no photo strip; footer vista 230px.
+- **Changed (follow-ups)**: About moved off the night band onto the page scheme (`.section.about` keeps its jump offset); Work numerals 01–05 get their own clear space beside (pinned deck) or above (stacked tablet) the mockups instead of sitting behind them; "More on GitHub" back to a solid ink card (no red border, 600 title); `js/work.js` makes card 01 current at the start of the deck.
+- **Tests**: phone-specific assertions updated in `motion`, `spacing`, `project-polish`, `interactions` and `wallet` specs (footer shorter than a screen, nav clearance 72px, 64px between Work projects, fixed Journey progress row, copier-only copy, width-dependent GitHub grid). Full suite 227 passed on desktop Chrome, Pixel 7, iPhone 14; redesign matrix 91 passed.
+- Reports: `.brain/research/mobile-reports/`, brief: `.brain/research/2026-11-19-mobile-brief.md`.
 
 ## 2026-11-18 — "Signal" redesign (built by parallel Jarviee workers)
 - **Changed**: whole-site restyle to cream / ink / signal red (tokens rewritten, names kept), Geist 900 display, Geist Mono 500 labels, `.band--*` section schemes, `.btn-pill`, `.numeral`, `.label`. Paper fibre layers and liquid glass removed (`assets/textures/` deleted).

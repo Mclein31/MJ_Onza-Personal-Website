@@ -85,7 +85,10 @@ export function initActivity() {
       days = await loadContributions();
     } catch {
       cal.classList.remove('is-loading');
-      cal.innerHTML = '<p class="activity__error">Couldn’t reach GitHub right now. <a href="https://github.com/Mclein31" target="_blank" rel="noopener noreferrer">See the graph on GitHub ↗</a></p>';
+      cal.classList.add('is-error');
+      cal.removeAttribute('role');
+      cal.removeAttribute('aria-label');
+      cal.innerHTML = '<p class="activity__error">Couldn’t reach GitHub. <a href="https://github.com/Mclein31" target="_blank" rel="noopener noreferrer">Open on GitHub ↗</a></p>';
       return;
     }
     sum = summarize(days);
@@ -100,7 +103,7 @@ export function initActivity() {
     field('bestNote').textContent = `${days[sum.best].count === 1 ? 'contribution' : 'contributions'} on ${day(days[sum.best].date, { ...span, year: 'numeric' })}`;
     drawn = true;
     go();
-  }, { rootMargin: '600px 0px' });
+  }, { rootMargin: '1000px 0px' });
   near.observe(section);
 
   cal.addEventListener('pointerover', (e) => {

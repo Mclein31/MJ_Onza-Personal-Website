@@ -2,15 +2,6 @@ import { $, $$, reducedMotion } from './util.js';
 import { play } from './sfx.js';
 import { loadContributions } from './contributions.js';
 
-function clock12() {
-  const el = $('[data-clock-12]');
-  if (!el) return;
-  const fmt = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'Asia/Manila' });
-  const tick = () => { el.textContent = fmt.format(new Date()); };
-  tick();
-  setInterval(tick, 15000);
-}
-
 // The email's first line types itself once the pass is in front and on screen
 function typer(span) {
   const text = span.textContent;
@@ -30,6 +21,22 @@ function typer(span) {
   return start;
 }
 
+// Week columns that fit the grid's width, so the squares (about 13px, 3px apart) fill the card edge to edge
+const CELL = 13, GAP = 3;
+function paintGrid(grid) {
+  const days = grid._days;
+  if (!days || !grid.clientWidth) return;
+  const cols = Math.max(12, Math.min(52, Math.floor((grid.clientWidth + GAP) / (CELL + GAP))));
+  if (grid._cols === cols) return;
+  grid._cols = cols;
+  grid.style.setProperty('--cols', String(cols));
+  grid.replaceChildren(...days.slice(-cols * 7).map((day) => {
+    const cell = document.createElement('i');
+    cell.dataset.l = String(day.level);
+    return cell;
+  }));
+}
+
 // Load from the shared source, even when the full activity calendar was never visited.
 async function fillGrid(grid, totalEl) {
   if (!grid || grid.dataset.state === 'ready' || grid.dataset.state === 'loading') return;
@@ -38,12 +45,9 @@ async function fillGrid(grid, totalEl) {
   if (totalEl) totalEl.textContent = 'Loading contributions…';
   try {
     const days = await loadContributions();
-    const cells = days.slice(-126).map(day => {
-      const cell = document.createElement('i');
-      cell.dataset.l = String(day.level);
-      return cell;
-    });
-    grid.replaceChildren(...cells);
+    grid._days = days;
+    grid._cols = 0;
+    paintGrid(grid);
     grid.dataset.state = 'ready';
     const total = days.reduce((sum, day) => sum + day.count, 0);
     if (totalEl) totalEl.textContent = `${total.toLocaleString()} contributions this year`;
@@ -56,7 +60,6 @@ async function fillGrid(grid, totalEl) {
 }
 
 export function initWallet() {
-  clock12();
   const wallet = $('[data-wallet]');
   if (!wallet) return;
   wallet.classList.add('is-live');
@@ -71,6 +74,7 @@ export function initWallet() {
   const grid = $('[data-pass-grid]', wallet);
   const total = $('[data-pass-total]', wallet);
   let seen = false;
+  if (grid) new ResizeObserver(() => paintGrid(grid)).observe(grid);
 
   const render = () => order.forEach((p, pos) => {
     const front = pos === order.length - 1;

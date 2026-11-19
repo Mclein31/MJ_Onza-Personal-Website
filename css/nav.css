@@ -98,3 +98,20 @@
 @media (max-width: 960px) {
   .nav { inset-block-start: var(--space-md); }
 }
+
+/* Phone: a slim, calm frosted pill (the old site's light bar) instead of the heavy ink pill. Tokens and the red dot stay. */
+@media (max-width: 700px) {
+  :root { --nav-h: 52px; --nav-clear: 72px; }
+  .nav { inset-block-start: 8px; padding-inline: 10px; }
+  .nav__inner {
+    --nav-bg: color-mix(in srgb, var(--color-paper-hi) 84%, transparent); --nav-fg: var(--color-ink);
+    padding: 0 4px 0 18px; gap: var(--space-xs);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-ink) 9%, transparent);
+  }
+  .nav.is-scrolled .nav__inner { box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-ink) 9%, transparent), var(--shadow-sheet); }
+  .nav__brand { font-size: 1.0625rem; }
+  .nav__actions { gap: 0; }
+  .menu { padding: 96px var(--gutter) calc(var(--space-xl) + env(safe-area-inset-bottom, 0px)); }
+  .menu a.menu__link { min-height: 48px; padding-block: 2px; font-size: clamp(2rem, 10.5vw, 2.75rem); }
+}

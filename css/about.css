@@ -1,20 +1,15 @@
-.about.band--night {
-  background: var(--color-night, #0D0D0D);
-  color: var(--color-night-ink, #F2EFE9);
+/* About: the normal page scheme (cream paper and ink in light, the dark page tokens in dark). No local colour re-map, so
+   every token below follows the theme. A hairline rule separates it from Work, which is also on page paper. */
+.section.about {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  width: 100%;
   padding-block: var(--pad-top) var(--section-gap);
   scroll-margin-top: calc(-1 * var(--pad-top));
-  border-top: 1px solid color-mix(in oklab, var(--color-night-ink, #F2EFE9) 10%, transparent);
-  border-bottom: 1px solid color-mix(in oklab, var(--color-night-ink, #F2EFE9) 10%, transparent);
-  --color-paper: var(--color-night, #0D0D0D);
-  --color-ink: var(--color-night-ink, #F2EFE9);
-  --color-ink-2: color-mix(in oklab, var(--color-night-ink, #F2EFE9) 82%, transparent);
-  --color-muted: var(--color-night-muted, #A39E95);
-  --color-rule: color-mix(in oklab, var(--color-night-ink, #F2EFE9) 14%, transparent);
-  --color-card: var(--color-paper-2, #151515);
-  --color-card-2: color-mix(in oklab, var(--color-night-ink, #F2EFE9) 10%, transparent);
-  --color-highlight: var(--color-signal, #FF2D1F);
-  --color-highlight-ink: var(--color-signal-ink, #0D0D0D);
+  border-top: var(--rule-hair) solid var(--color-rule);
 }
+/* the shared phone hairline would sit right under the border; the border above already draws the rule */
+.about::before { display: none; }
 
 .about__eyebrow {
   margin-bottom: var(--space-sm);
@@ -44,8 +39,8 @@
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   padding: 0 0.12em;
-  background: linear-gradient(var(--color-signal, #FF2D1F), var(--color-signal, #FF2D1F)) no-repeat 0 0 / var(--wipe, 100%) 100%;
-  color: var(--color-signal-ink, #0D0D0D);
+  background: linear-gradient(var(--color-highlight), var(--color-highlight)) no-repeat 0 0 / var(--wipe, 100%) 100%;
+  color: var(--color-highlight-ink);
 }
 .about__intro .hl.is-dim { color: var(--color-ink); }
 
@@ -77,7 +72,7 @@
   text-decoration-thickness: 2px;
 }
 @media (hover: hover) {
-  .about__body .text-link:hover { color: var(--color-signal, #FF2D1F); }
+  .about__body .text-link:hover { color: var(--color-signal-text); }
 }
 
 .facts {
@@ -169,7 +164,7 @@
   color: var(--color-ink-2);
 }
 .does__disciplines li span {
-  color: var(--color-signal, #FF2D1F);
+  color: var(--color-signal-text);
   font-variant-numeric: tabular-nums;
 }
 
@@ -207,7 +202,7 @@
   font-variant-numeric: tabular-nums;
   transition: color var(--dur-short) var(--ease-out);
 }
-.does__row.is-open .does__n { color: var(--color-signal, #FF2D1F); }
+.does__row.is-open .does__n { color: var(--color-signal-text); }
 
 .does__word {
   font-family: var(--font-display);
@@ -215,7 +210,7 @@
   font-weight: var(--display-weight, 900);
   letter-spacing: var(--tracking-display, -0.055em);
   line-height: 0.95;
-  color: color-mix(in oklab, var(--color-ink) 56%, var(--color-paper));
+  color: color-mix(in oklab, var(--color-ink) 62%, var(--color-paper));
   transition: color var(--dur-long) var(--ease-out);
 }
 .does__row.is-open .does__word { color: var(--color-ink); }
@@ -293,7 +288,7 @@
   font-size: clamp(4.25rem, 11vw, 9.5rem);
   line-height: 0.78;
   letter-spacing: -0.06em;
-  color: var(--color-signal, #FF2D1F);
+  color: var(--color-signal-text);
   padding-bottom: var(--space-md);
   user-select: none;
   opacity: 0;
@@ -326,6 +321,30 @@
     font-size: clamp(3.5rem, 16vw, 5.5rem);
     padding-bottom: var(--space-md);
   }
+}
+
+@media (max-width: 700px) {
+  .section.about { padding-block: var(--space-xl) var(--section-gap); scroll-margin-top: 0; }
+  .about__intro { row-gap: var(--space-md); }
+  .about__intro h2 { line-height: 1.28; }
+  .about__body > p:not(.about__lede) { display: none; }
+  .about__body > .about__lede { font-size: 1rem; line-height: 1.5; }
+  .facts { margin-top: var(--space-xs); }
+  .facts > div:nth-child(n+3) { display: none; }
+
+  .does__disciplines { display: none; }
+  .does__bar { padding-bottom: var(--space-sm); }
+  .does__head span:first-child { font-size: clamp(1.375rem, 6vw, 1.75rem); letter-spacing: -0.03em; }
+  .does__row.is-open { border-radius: var(--radius-sm); }
+  .does__btn { grid-template-columns: 1.75rem minmax(0, 1fr) 36px; gap: var(--space-sm); min-height: 52px; padding: 12px 14px; }
+  .does__n { font-size: 0.75rem; }
+  .does__word { font-size: clamp(1.5rem, 6.5vw, 2rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; }
+  .does__icon { width: 36px; height: 36px; }
+  .does__icon svg { width: 14px; height: 14px; }
+  .does__inner { padding-inline: calc(14px + 1.75rem + var(--space-sm)) 14px; gap: 0; }
+  .does__list { gap: 6px; padding-bottom: var(--space-md); }
+  .does__list li { font-size: 0.9375rem; line-height: 1.45; color: var(--color-ink-2); }
+  .does__numeral { display: none; }
 }
 
 @media (max-width: 480px), (container-type: inline-size) and (max-width: 480px) {

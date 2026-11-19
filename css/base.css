@@ -298,3 +298,12 @@ em.serif {
   .section-head { margin-bottom: var(--space-lg); }
   .does { margin-top: var(--space-xl); }
 }
+
+/* Phone rhythm (M2) */
+@media (max-width: 700px) {
+  html { scroll-padding-top: var(--nav-clear); }
+  .section-head { margin-bottom: var(--space-md); }
+  .section-head h2 { max-width: 20ch; line-height: 1.02; }
+  .section-head p { margin-top: var(--space-sm); font-size: 1rem; }
+  .label { font-size: 0.6875rem; letter-spacing: 0.1em; font-weight: 500; }
+}

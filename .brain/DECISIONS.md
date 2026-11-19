@@ -6,12 +6,29 @@ tags:
   - decisions
   - portfolio
   - web
-last_updated: 2026-11-18
+last_updated: 2026-11-19
 ---
 
 # ⚖️ Personal Website — Technical Decisions
 
 Newest first. Superseded decisions are kept and marked; the newer, code-verified decision wins.
+
+## 2026-11-19 — Phone layout: minimal, like the old site
+### Decision
+Phones (≤700px) get a simplified layout modelled on the pre-redesign site (commit `0bc6ecc`): one short meta line, plain mono tags instead of chips, no giant numerals, fewer labels and less secondary copy. Desktop (≥861px) stays as designed.
+
+### Owner rules set 2026-11-19
+- **No pinpoint location or live clock** anywhere (hero coordinates, Manila clock, id-card local time removed).
+- **Contact is a light section** (normal page scheme, not a night band) and fills one viewport where it fits.
+- **No red slab borders** (e.g. the 6px red bottom edge on "More on GitHub": "looks AI generated").
+- **No duplicate copy actions**: the copier's COPY is the only copy control; the Gmail card has none.
+- The copier slip must read as paper (whiter than the page).
+- **About is a light section** too (no night bands remain; `.band--night` in base.css is unused).
+- Work numerals must read as whole numbers: never hidden behind mockups (desktop/tablet); hidden on phones.
+- "More on GitHub" stays a solid black (ink) card, without the red border.
+- Journey on phones: a real-height photo (not a thin strip) and only one year visible at a time during the swap.
+
+---
 
 ## 2026-11-18 — "Signal" redesign from the owner's website_inspo recordings
 > **Supersedes** the visual parts of "2026-11-04 — Paper and glass" (paper fibre stack, liquid-glass cards), the cool white/gray palette and orange accent of 2026-11-01/11-03, and the Hedvig/serif display notes. Structure, content and interaction rules from earlier entries stay in force (pinned Work and Journey, draggable icon carousel, contact wallet, footer vista, sounds, Work first after the hero).

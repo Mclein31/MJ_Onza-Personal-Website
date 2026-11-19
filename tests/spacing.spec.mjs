@@ -79,8 +79,10 @@ test('mobile hero starts near navigation and projects have room between cards', 
       return { kicker: rect('.hero__kicker').top, gap: projects[1].getBoundingClientRect().top - projects[0].getBoundingClientRect().bottom, introGap: rect('.project__info p').top - rect('.project__info h3').bottom };
     });
     expect(layout.kicker).toBeLessThanOrEqual(120);
-    expect(layout.kicker).toBeGreaterThanOrEqual(88);
-    expect(layout.gap).toBeGreaterThanOrEqual(72);
+    // Phones use the slim 52px nav (2026-11-19): the kicker only has to clear --nav-clear (72px).
+    expect(layout.kicker).toBeGreaterThanOrEqual(width <= 700 ? 72 : 88);
+    // Phone pass (2026-11-19): projects sit 64px apart on phones (tighter rhythm); 72px+ from 701px up.
+    expect(layout.gap).toBeGreaterThanOrEqual(width <= 700 ? 56 : 72);
     expect(layout.introGap).toBeGreaterThanOrEqual(15);
     if (width === 393) {
       await page.waitForTimeout(1600);
@@ -95,7 +97,14 @@ test('mobile hero starts near navigation and projects have room between cards', 
       return document.querySelector('.years__foot').getBoundingClientRect().top - note.bottom;
     });
     expect(gap).toBeGreaterThanOrEqual(15);
-    expect(gap).toBeLessThanOrEqual(20);
+    if (width <= 700) {
+      // Phones (2026-11-19, F-J): the frame is sized by the tallest year so the progress row never moves between
+      // years; shorter years leave more room above it, but the row must stay on screen.
+      const footBottom = await page.locator('.years__foot').evaluate(el => el.getBoundingClientRect().bottom);
+      expect(footBottom).toBeLessThanOrEqual(852);
+    } else {
+      expect(gap).toBeLessThanOrEqual(20);
+    }
     if (width === 393) {
       await page.waitForTimeout(1600);
       await page.screenshot({ path: '/tmp/mobile-journey-after.png' });

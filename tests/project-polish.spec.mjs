@@ -3,8 +3,18 @@ import { test, expect, gotoReady } from './fixtures.mjs';
 test('AdvanCare achievement does not change gallery height', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await gotoReady(page);
-  const heights = await page.locator('.project__media').evaluateAll(els => els.slice(0, 3).map(el => el.getBoundingClientRect().height));
-  expect(Math.max(...heights) - Math.min(...heights)).toBeLessThan(1);
+  const phone = await page.evaluate(() => innerWidth <= 700);
+  if (phone) {
+    // Phones (2026-11-19): the award is a plain line under the image, so it must never overlap the screenshots.
+    const gap = await page.evaluate(() => {
+      const card = document.querySelector('.project__award').closest('.project');
+      return card.querySelector('.project__award').getBoundingClientRect().top - card.querySelector('.gallery__track').getBoundingClientRect().bottom;
+    });
+    expect(gap).toBeGreaterThanOrEqual(0);
+  } else {
+    const heights = await page.locator('.project__media').evaluateAll(els => els.slice(0, 3).map(el => el.getBoundingClientRect().height));
+    expect(Math.max(...heights) - Math.min(...heights)).toBeLessThan(1);
+  }
   await expect(page.locator('.project__award')).toContainText('2nd place');
   if (await page.locator('#work').evaluate(el => el.classList.contains('is-pinned'))) {
     const clearance = await page.evaluate(() => {

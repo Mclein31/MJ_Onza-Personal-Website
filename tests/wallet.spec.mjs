@@ -10,7 +10,8 @@ test('GitHub squares load when contact is opened before the activity section', a
   await gotoReady(page, '/#contact');
   const card = page.locator('.pass--gh');
   await card.locator('.pass__head').click();
-  await expect(card.locator('[data-pass-grid] i')).toHaveCount(126);
+  await expect(card.locator('[data-pass-grid] i')).not.toHaveCount(0);
+  expect((await card.locator('[data-pass-grid] i').count()) % 7).toBe(0);
   await expect(card.locator('[data-pass-total]')).toHaveText(`${contributionFixture().contributions.reduce((sum, day) => sum + day.count, 0)} contributions this year`);
   await page.locator('#activity').scrollIntoViewIfNeeded();
   await expect(page.locator('.activity__grid .cell:not(.pad)')).toHaveCount(365);
@@ -28,7 +29,8 @@ test('GitHub card shows an error and retries when contributions become available
   await expect(card.locator('[data-pass-total]')).toContainText('unavailable');
   available = true;
   await card.locator('.pass__head').click();
-  await expect(card.locator('[data-pass-grid] i')).toHaveCount(126);
+  await expect(card.locator('[data-pass-grid] i')).not.toHaveCount(0);
+  expect((await card.locator('[data-pass-grid] i').count()) % 7).toBe(0);
   await expect(card.locator('[data-pass-total]')).toHaveText(`${contributionFixture().contributions.reduce((sum, day) => sum + day.count, 0)} contributions this year`);
 });
 

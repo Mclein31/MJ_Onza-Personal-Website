@@ -62,9 +62,12 @@ export function initWork() {
     track.style.transform = `translate3d(${-p * distance}px, 0, 0)`;
     bar?.style.setProperty('--wp', p);
 
+    // The reading point sweeps from the first card's centre (p = 0) to the last card's centre (p = 1), so
+    // "01" is current at the start of the deck even when card 02 sits nearer the viewport centre.
+    const target = centers.length ? centers[0] + p * (centers[centers.length - 1] - centers[0]) : 0;
     let nearest = 0, best = Infinity;
     centers.forEach((center, i) => {
-      const off = Math.abs(center - p * distance - innerWidth / 2);
+      const off = Math.abs(center - target);
       if (off < best) { best = off; nearest = i; }
     });
     setCount(nearest);
