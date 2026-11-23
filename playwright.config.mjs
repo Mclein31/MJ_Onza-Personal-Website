@@ -10,51 +10,59 @@ const targets = {
   'iphone-14': { ...devices['iPhone 14'] },
 };
 
-// Redesign QA matrix (scoped to tests/redesign.spec.mjs so legacy specs keep running only on the 3 base targets).
-const redesignTargets = {
-  'iphone-se': { ...devices['iPhone SE (3rd gen)'] },
-  'iphone-16-pro-max': { ...devices['iPhone 16 Pro Max'], viewport: { width: 440, height: 956 } },
-  'iphone-duo-folded': {
-    ...devices['iPhone 16 Pro Max'],
-    viewport: { width: 466, height: 678 },
-    screen: { width: 466, height: 678 },
-    deviceScaleFactor: 3,
-    isMobile: true,
-    hasTouch: true,
-    defaultBrowserType: 'webkit',
+// Redesign v5 layout audit (tests/v5-audit.spec.mjs): one project per viewport, matched only to that spec.
+// Phones/tablet (<= 768px wide) are touch contexts, the rest are desktop Chrome. Own outputDir, so a v5 run only cleans
+// test-results/v5-audit/_pw and never wipes the default test-results output (or earlier audits of other pages).
+const v5Viewports = [[320, 568], [390, 844], [430, 932], [768, 1024], [1024, 768], [1280, 800], [1440, 900], [1920, 1080], [2560, 1440]];
+const v5Projects = [
+  ...v5Viewports.map(([width, height]) => {
+    const touch = width <= 768;
+    const viewport = { width, height };
+    const use = touch
+      ? { ...devices['Pixel 7'], channel: 'chrome', viewport, screen: viewport, deviceScaleFactor: 1 }
+      : { ...devices['Desktop Chrome'], channel: 'chrome', viewport, deviceScaleFactor: 1 };
+    return { name: `v5-${width}x${height}`, use, testMatch: /v5-audit\.spec/, outputDir: 'test-results/v5-audit/_pw', metadata: { viewportName: `${width}x${height}`, touch } };
+  }),
+  { name: 'v5-webkit-iphone14', use: { ...devices['iPhone 14'] }, testMatch: /v5-audit\.spec/, outputDir: 'test-results/v5-audit/_pw', metadata: { viewportName: 'webkit-iphone14-390x844', touch: true } },
+  // Owner's foldable iPhone Duo (WebKit, touch, DPR 3): folded, unfolded portrait, unfolded landscape.
+  ...[['folded', 466, 678], ['portrait', 626, 890], ['landscape', 890, 626]].map(([posture, width, height]) => ({
+    name: `v5-duo-${posture}`,
+    use: { ...devices['iPhone 16 Pro Max'], viewport: { width, height }, screen: { width, height }, deviceScaleFactor: 3, isMobile: true, hasTouch: true },
+    testMatch: /v5-audit\.spec/,
+    outputDir: 'test-results/v5-audit/_pw',
+    metadata: { viewportName: `duo-${posture}-${width}x${height}`, touch: true },
+  })),
+];
+
+// Redesign v5 behaviour suite (tests/v5-behaviour.spec.mjs): desktop Chrome, WebKit iPhone 14, WebKit iPhone Duo folded.
+const v5BehaviourProjects = [
+  {
+    name: 'v5b-desktop',
+    use: { ...devices['Desktop Chrome'], channel: 'chrome', viewport: { width: 1440, height: 900 } },
+    testMatch: /v5-behaviour\.spec/,
+    outputDir: 'test-results/v5-behaviour',
   },
-  'iphone-duo-portrait': {
-    ...devices['iPhone 16 Pro Max'],
-    viewport: { width: 626, height: 890 },
-    screen: { width: 626, height: 890 },
-    deviceScaleFactor: 3,
-    isMobile: true,
-    hasTouch: true,
-    defaultBrowserType: 'webkit',
+  {
+    name: 'v5b-iphone14',
+    use: { ...devices['iPhone 14'] },
+    testMatch: /v5-behaviour\.spec/,
+    outputDir: 'test-results/v5-behaviour',
   },
-  'iphone-duo-landscape': {
-    ...devices['iPhone 16 Pro Max'],
-    viewport: { width: 890, height: 626 },
-    screen: { width: 890, height: 626 },
-    deviceScaleFactor: 3,
-    isMobile: true,
-    hasTouch: true,
-    defaultBrowserType: 'webkit',
+  {
+    name: 'v5b-duo-folded',
+    use: {
+      ...devices['iPhone 16 Pro Max'],
+      viewport: { width: 466, height: 678 },
+      screen: { width: 466, height: 678 },
+      deviceScaleFactor: 3,
+      isMobile: true,
+      hasTouch: true,
+      defaultBrowserType: 'webkit',
+    },
+    testMatch: /v5-behaviour\.spec/,
+    outputDir: 'test-results/v5-behaviour',
   },
-  'ipad-mini': {
-    ...devices['iPad Mini'],
-    viewport: { width: 744, height: 1133 },
-    screen: { width: 744, height: 1133 },
-  },
-  'ipad-pro-13': {
-    ...devices['iPad Pro 11'],
-    viewport: { width: 1032, height: 1376 },
-    screen: { width: 1032, height: 1376 },
-  },
-  'desktop-1280': { ...devices['Desktop Chrome'], channel: 'chrome', viewport: { width: 1280, height: 800 } },
-  'desktop-1920': { ...devices['Desktop Chrome'], channel: 'chrome', viewport: { width: 1920, height: 1080 } },
-  'desktop-2560': { ...devices['Desktop Chrome'], channel: 'chrome', viewport: { width: 2560, height: 1440 } },
-};
+];
 
 export default defineConfig({
   testDir: 'tests',
@@ -76,8 +84,8 @@ export default defineConfig({
     stderr: 'ignore',
   },
   projects: [
-    ...Object.entries(targets).map(([name, use]) => ({ name, use, testIgnore: /timing\.spec/ })),
-    ...Object.entries(targets).map(([name, use]) => ({ name: `${name}-timing`, use, testMatch: /timing\.spec/, dependencies: Object.keys(targets) })),
-    ...Object.entries(redesignTargets).map(([name, use]) => ({ name, use, testMatch: /redesign\.spec/ })),
+    ...Object.entries(targets).map(([name, use]) => ({ name, use, testIgnore: [/v5-audit\.spec/, /v5-behaviour\.spec/] })),
+    ...v5Projects,
+    ...v5BehaviourProjects,
   ],
 });

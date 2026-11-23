@@ -6,14 +6,88 @@ tags:
   - decisions
   - portfolio
   - web
-last_updated: 2026-11-19
+last_updated: 2026-11-23
 ---
 
 # ⚖️ Personal Website — Technical Decisions
 
 Newest first. Superseded decisions are kept and marked; the newer, code-verified decision wins.
 
+## 2026-11-23 — Redesign v5: "Instrument"
+> **Supersedes (visuals and layout)** "2026-11-19 — Phone layout: minimal, like the old site" and "2026-11-18 — 'Signal' redesign" (cream/signal-red bands, Geist 900 display, giant red numerals, pinned horizontal Work, pinned Journey, draggable hero icon carousel, Contact wallet and receipt copier, floating stats pill, ASCII lighthouse footer, Web Audio interface sounds, Hedvig serif footer wordmark, and light-only About). All portfolio content, `/api/stats`, `/api/contributions`, FormSubmit AJAX, promo videos, lightbox, and SEO/JSON-LD survive.
+
+### Owner interview (2026-11-22)
+From `.brain/research/2026-11-22-redesign-v5-brief.md`:
+- **Overall & corners**: clean, minimal, aesthetic ("hard to minimal rounded corners"). **2px hairline radius** (`--r: 2px`) on everything (cards, buttons, images, inputs, chips; no pills, no 8px+ cards; circles only for true dots/avatars).
+- **Palette**: cool light grey base (`#E9EAEC`), white/near-white surfaces, near-black ink, **international orange** (`#FF4F00`) sparingly as the main accent, and **cobalt** (`#2448D8`) as a rare second accent (focus ring, cursor probe).
+- **Typography**: Geist (self-hosted variable 100–900, never below weight 400; display 500–650) + Geist Mono for dates, numbers, and metadata.
+- **Theme**: light by default, dark mode supported with a toggle; follows OS `prefers-color-scheme` until the visitor picks.
+- **Motion & WebGL**: "Quiet luxury + 2–3 big moments" (once-per-session intro loader, hero data field, one scroll-driven showpiece) plus one tasteful WebGL piece with a static fallback for weak devices, missing WebGL, and `prefers-reduced-motion`.
+- **Phones**: lighter but still special — same identity and loader, simpler scroll effects, no pinned sideways scrolling, nothing fighting thumb scrolling.
+
+### Three directions & owner pick (2026-11-23)
+Three interactive prototypes were built (`prototypes/direction-a/`, `direction-b/`, `direction-c/`) and reviewed from multi-viewport screenshots:
+- **Direction A — "Instrument" (picked by owner, `.brain/research/redesign-v5/reports/D-A.md`)**: precision cool-grey spec-sheet layout with 12-column hairlines and mono labels, column-scan intro loader, raw WebGL Extract → Transform → Load particle stream settling onto hairlines, Work index table + spec-sheet project blocks with orange scan-line wipes, rising dark ink field for About (theme-aware: raised panel `#17191C` in dark mode), and circular View Transition theme toggle.
+- **Direction B — "Exhibition" (not picked, `reports/D-B.md`)**: framed prints with white mats and museum labels, screenshot-flip + FLIP loader, desktop-only WebGL arch/lens shader, sticky MedCore zoom, sliding rooms and dark curtain into About.
+- **Direction C — "Kinetic" (not picked, `reports/D-C.md`)**: oversized cursor-reactive variable-weight name over frosted orange/cobalt WebGL light field, glyph-scramble loader, velocity marquee, sticky shrinking Work title, stacking cards, and scroll-scrubbed About words.
+
+### Owner feedback on Direction A (2026-11-23)
+From `.brain/research/2026-11-23-v5-build-brief.md`:
+- **Work scrolling**: "I like A better, but minimize the scrolling per project in Work. One scroll per project is enough. Just add a next and prev button for viewing the different slides." No pinned multi-screen figure sequence anywhere; each project is one block (~1 viewport on desktop), and slides change only via prev/next buttons, ticks, touch swipe, or arrow keys (never by page scroll).
+- **Button hierarchy**: "Improve the button hierarchy throughout the website." Standardized globally in `styles/base.css`.
+- **iPhone Duo**: layout must work intentionally across all three foldable postures: folded `466×678`, unfolded portrait `626×890`, and unfolded landscape `890×626` (WebKit, touch, DPR 3).
+
+### Tokens (`styles/tokens.css`)
+| Token | Light (default) | Dark (`[data-theme='dark']` / OS dark) | Notes |
+|---|---|---|---|
+| `--bg` | `#E9EAEC` | `#0F1012` | Page ground (`--theme-color-light` / `--theme-color-dark`) |
+| `--bg-2` | `#F3F4F5` | `#17191C` | Raised surface (also About field in dark mode) |
+| `--plate` | `#FFFFFF` | `#1C1E22` | Screenshot plate mount |
+| `--ink` | `#111214` | `#E8E9EB` | Primary ink, primary button fill |
+| `--ink-2` | `#45484D` | `#B3B7BD` | Secondary text (`7.1:1` on `--bg` in light) |
+| `--ink-3` | `#5E6268` | `#8F939A` | Mono labels (`5.0:1` on `--bg` in light) |
+| `--rule` | `#C3C6CB` | `#2E3136` | Hairlines |
+| `--rule-2` | `#D5D7DB` | `#24272B` | Faint hairlines (hero columns, footer divider) |
+| `--orange` | `#FF4F00` | `#FF5A1A` | Shapes, markers, scan bars, large type only (never body text) |
+| `--cobalt` | `#2448D8` | `#7088FF` | Rare: `:focus-visible` ring, cursor probe |
+| `--field` | `#7E838A` | `#6B7078` | Grey WebGL data points |
+| `--on-ink` | `#E9EAEC` | `#0F1012` | Text on an ink field |
+| `--scrim` | `rgb(17 18 20 / 0.42)` | `rgb(0 0 0 / 0.56)` | Dialog and phone menu backdrop |
+
+Scale, grid, and timing tokens: `--sans` (Geist), `--mono` (Geist Mono), `--t-hero: clamp(3.75rem, 10.6vw, 11rem)`, `--t-h2: clamp(2.5rem, 5.4vw, 5.75rem)`, `--t-h3: clamp(2.5rem, 4.6vw, 4.75rem)`, `--t-lede: clamp(1.125rem, 1.45vw, 1.375rem)`, `--t-body: 1rem`, `--t-mono: 0.75rem`; `--m: clamp(16px, 2.6vw, 40px)`, `--g: clamp(12px, 1.6vw, 24px)`, `--nav-h: 56px` (`52px` at `<=720px`), `--r: 2px`, `--btn-h: 44px` (`40px` at `>=1024px` fine pointer), `--section-gap: clamp(96px, 12vw, 192px)` (`72px` at `<=720px`); `--ease-out`, `--ease-in-out`, `--ease-draw`; `:root[data-theme='light'] { color-scheme: only light; }`.
+
+### Button hierarchy (`styles/base.css`)
+All controls share 2px radius, Geist `500`, `gap: 10px`, `--btn-h` (`44px`, `40px` at `>=1024px` fine pointer; never under `44px` on touch), `2px solid var(--cobalt)` focus ring (`outline-offset: 2px`), `scale(0.98)` 100ms press, `160ms ease-out` hover (fine pointer only), no bounce, `0.4` disabled opacity with `pointer-events: none`, and at most one primary button per view.
+
+| Class | Look | Usage (max per view) |
+|---|---|---|
+| `.btn.btn--primary` | `--btn-ink` fill, `--btn-ground` text, left 8×8 `--orange` `.btn__mark` | Main view action: Hero "See the work", Contact "Send a message", form "Send" (max 1 per section) |
+| `.btn.btn--secondary` | `1px` inset `--btn-ink` outline, transparent | Secondary action beside a primary: Hero "Send a message", "Watch the product video", "Open live site" |
+| `.btn.btn--ghost` | Text only, hairline + growing ink underline on hover, trailing `.btn__arrow` (`→` in-page / `↗` external) | Tertiary actions: "GitHub ↗", "View certificate →", "Retry →", direct email Copy, footer links |
+| `.btn.btn--icon` | `44×44` square (`40×40` on `>=1024px` fine pointer), `1px` `--rule` border, `16px` icon | Gallery prev/next/expand, dialog close, mobile menu toggle |
+| `.btn--sm` | `36px` height (`>=1024px` fine pointer only) | Header "Let's talk" (primary small) |
+| `.seg` | Segmented control (`.seg--sm` `36px` on desktop) | Light/Dark theme toggle only |
+
+### Vendored libraries (`vendor/`)
+Zero runtime CDNs and no build step (`vendor/README.md`). Official npm ESM builds are self-hosted and minified in place file-by-file with `esbuild@0.25.12` (total JS `915,336 B -> 337,803 B`, `-63%`, license banners preserved):
+- `gsap` `3.15.1` (`ScrollTrigger`, `SplitText`, `Flip`, `CustomEase`, `ScrollToPlugin` — Standard "no charge" license)
+- `lenis` `1.3.27` (MIT — active only on fine pointers with motion allowed; disabled on touch and `prefers-reduced-motion: reduce`)
+- `ogl` `1.0.11` (Unlicense — vendored as an allowed WebGL option; hero data field uses raw WebGL directly)
+
+### Retained owner rules still in force
+- **No thin fonts**: minimum weight `400`; Hedvig Letters Serif is removed site-wide (footer wordmark now uses Geist).
+- **No page-spanning scroll-drawn line/path**: journey uses only a section-local vertical spine.
+- **Highlight boxes never cover neighbouring text**.
+- **No pinpoint location or live clock** anywhere.
+- **One copy action per thing**: one `[data-copy]` button in Contact's Direct email block; Gmail channel row has no Copy button.
+- **"With High Honors" is not listed** in Recognition (0 occurrences in `index.html`).
+- **iPhone Duo must work**: folded `466×678`, unfolded portrait `626×890`, unfolded landscape `890×626`.
+
+---
+
 ## 2026-11-19 — Phone layout: minimal, like the old site
+> **Superseded (visuals and layout)** by "2026-11-23 — Redesign v5: 'Instrument'" (no copier slip, wallet, or pinned desktop Work/Journey remain; retained rules on no location/clock and one copy action per thing remain in force).
+
 ### Decision
 Phones (≤700px) get a simplified layout modelled on the pre-redesign site (commit `0bc6ecc`): one short meta line, plain mono tags instead of chips, no giant numerals, fewer labels and less secondary copy. Desktop (≥861px) stays as designed.
 
@@ -31,7 +105,8 @@ Phones (≤700px) get a simplified layout modelled on the pre-redesign site (com
 ---
 
 ## 2026-11-18 — "Signal" redesign from the owner's website_inspo recordings
-> **Supersedes** the visual parts of "2026-11-04 — Paper and glass" (paper fibre stack, liquid-glass cards), the cool white/gray palette and orange accent of 2026-11-01/11-03, and the Hedvig/serif display notes. Structure, content and interaction rules from earlier entries stay in force (pinned Work and Journey, draggable icon carousel, contact wallet, footer vista, sounds, Work first after the hero).
+> **Superseded (visuals and layout)** by "2026-11-23 — Redesign v5: 'Instrument'" (cream/red palette, Geist 900 display, giant numerals, pinned Work/Journey, icon carousel, wallet/copier, and sounds were replaced; retained rules on no thin fonts, no page-spanning scroll line, no overlapping highlights, and omitting "With High Honors" remain in force).
+> Also superseded earlier the visual parts of "2026-11-04 — Paper and glass".
 
 ### Decision
 Restyle the whole page from four screen recordings the owner saved in `website_inspo/` (frames in `.brain/research/redesign-inspo/`, brief in `research/2026-11-18-redesign-brief.md`): flat cream / ink / signal-red colour bands, Geist 900 giant display type, Geist Mono 500 micro-labels (`02 / ABOUT`, `FIG. 03 / SERVIO`, coordinates), giant red index numerals behind project mockups, and a **copier** in Contact that prints the email on a slip when it is copied.

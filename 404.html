@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Page not found | McLein Jei Onza</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#E9EAEC" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0F1012" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/png" sizes="64x64" href="/assets/Logo/favicon-circle-64.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/Logo/favicon-circle-192.png">
+  <!-- Flash-free theme bootstrap (from index.html). Inline, un-deferred. -->
+  <script>
+  (function () {
+    var t; try { t = localStorage.getItem('portfolio-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') { t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+  </script>
+  <link rel="stylesheet" href="/styles/tokens.css">
+  <link rel="stylesheet" href="/styles/base.css">
+  <style>
+    .err {
+      min-height: 100svh;
+      display: grid;
+      align-items: center;
+      padding-block: clamp(48px, 8vw, 96px);
+    }
+    .err__panel {
+      grid-column: 3 / 11;
+      display: grid;
+      gap: clamp(20px, 3vw, 32px);
+    }
+    .err__status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .err__status::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: var(--orange);
+      border-radius: 1px;
+      flex: none;
+    }
+    .err__title {
+      font-size: clamp(2.25rem, 5.2vw, 4.75rem);
+      font-weight: 600;
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      text-wrap: balance;
+    }
+    .err__route {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px;
+      color: var(--ink-2);
+    }
+    .err__path {
+      color: var(--ink);
+      word-break: break-all;
+    }
+    .err__rule-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .err__scan {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 72px;
+      height: 1px;
+      background: var(--orange);
+      transform: translateX(-100%);
+      animation: err-scan 900ms var(--ease-out) 120ms 1 forwards;
+      pointer-events: none;
+    }
+    @keyframes err-scan {
+      0%   { transform: translateX(-100%); opacity: 1; }
+      85%  { opacity: 1; }
+      100% { transform: translateX(1200%); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .err__scan { display: none; animation: none; }
+    }
+    .err__actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px 24px;
+      padding-top: 4px;
+    }
+    @media (max-width: 900px) {
+      .err__panel { grid-column: 1 / -1; }
+    }
+  </style>
+</head>
+<body>
+  <main class="err">
+    <div class="container">
+      <section class="err__panel" aria-labelledby="err-title">
+        <p class="label err__status">404 / Not found</p>
+        <h1 class="err__title" id="err-title">This route returned no rows.</h1>
+        <p class="label err__route">
+          <span>Requested path:</span>
+          <code class="err__path" id="err-path">/</code>
+        </p>
+        <div class="err__rule-wrap" aria-hidden="true">
+          <hr class="rule">
+          <span class="err__scan"></span>
+        </div>
+        <div class="err__actions">
+          <a class="btn btn--primary" href="/">
+            <span class="btn__mark" aria-hidden="true"></span>
+            Back to home
+          </a>
+          <a class="btn btn--ghost" href="/#contact">
+            Contact
+            <span class="btn__arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script>
+    (function () {
+      var el = document.getElementById('err-path');
+      if (el) el.textContent = location.pathname || '/';
+    })();
+  </script>
+</body>
+</html>

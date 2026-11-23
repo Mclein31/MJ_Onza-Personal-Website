@@ -1,0 +1,691 @@
+/* dialogs: Instrument redesign v5. Owner: W7 contact+footer+dialogs. */
+
+/* Semantic status palette scoped to form validation and toast indicators */
+.message,
+.toast {
+  --status-err: #B42318;
+  --status-err-bg: #FEF3F2;
+  --status-ok: #065F46;
+  --status-ok-bg: #ECFDF5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .message,
+  :root:not([data-theme='light']) .toast {
+    --status-err: #FF8A7A;
+    --status-err-bg: rgb(180 35 24 / 0.18);
+    --status-ok: #6EE7B7;
+    --status-ok-bg: rgb(6 95 70 / 0.22);
+  }
+}
+
+:root[data-theme='dark'] .message,
+:root[data-theme='dark'] .toast {
+  --status-err: #FF8A7A;
+  --status-err-bg: rgb(180 35 24 / 0.18);
+  --status-ok: #6EE7B7;
+  --status-ok-bg: rgb(6 95 70 / 0.22);
+}
+
+/* ---------- Shared Dialog Foundation -------------------------------------- */
+dialog.lightbox,
+dialog.message,
+dialog.video {
+  padding: 0;
+  margin: auto;
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  background: var(--bg);
+  color: var(--ink);
+  box-shadow:
+    0 24px 64px rgb(0 0 0 / 0.24),
+    0 4px 16px rgb(0 0 0 / 0.1);
+  max-width: calc(100vw - 2 * var(--m));
+  max-height: calc(100vh - 2 * var(--m));
+  max-height: calc(100dvh - 2 * var(--m));
+  overflow: hidden;
+}
+
+dialog.lightbox:not([open]),
+dialog.message:not([open]),
+dialog.video:not([open]) {
+  display: none;
+}
+
+dialog.lightbox::backdrop,
+dialog.message::backdrop,
+dialog.video::backdrop {
+  background: var(--scrim, rgb(17 18 20 / 0.42));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: opacity 190ms var(--ease-out);
+}
+
+@starting-style {
+  dialog.lightbox[open]::backdrop,
+  dialog.message[open]::backdrop,
+  dialog.video[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+/* Message dialog CSS close transition (open + viewer/video open+close use trigger-origin WAAPI) */
+dialog.message {
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 150ms var(--ease-out),
+    transform 150ms var(--ease-out),
+    display 150ms allow-discrete,
+    overlay 150ms allow-discrete;
+}
+
+dialog.message:not([open]) {
+  opacity: 0;
+  transform: scale(0.96);
+  pointer-events: none;
+}
+
+/* ---------- 1. Photo / Screenshot Viewer (dialog.lightbox) ---------------- */
+dialog.lightbox {
+  width: min(1360px, calc(100vw - 2 * var(--m)));
+}
+
+.lightbox__shell {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  max-height: calc(100vh - 2 * var(--m));
+  max-height: calc(100dvh - 2 * var(--m));
+}
+
+.lightbox__head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg-2);
+}
+
+.lightbox__count {
+  margin-right: auto;
+  color: var(--ink);
+}
+
+@media (hover: none), (pointer: coarse), (max-width: 720px) {
+  .lightbox__keys {
+    display: none;
+  }
+}
+
+.lightbox__stage {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(10px, 1.8vw, 24px);
+  padding: clamp(16px, 2.2vw, 32px);
+  min-height: 0;
+  overflow: hidden;
+}
+
+dialog.lightbox[data-single='true'] .lightbox__stage {
+  grid-template-columns: 1fr;
+}
+
+.lightbox__plate {
+  justify-self: center;
+  align-self: center;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 10px;
+}
+
+.lightbox__plate img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 2 * var(--m) - 210px);
+  max-height: calc(100dvh - 2 * var(--m) - 210px);
+  object-fit: contain;
+  display: block;
+  transition: opacity 150ms ease;
+}
+
+dialog.lightbox.is-loading .lightbox__plate img {
+  opacity: 0.35;
+}
+
+dialog.lightbox.is-error .lightbox__plate::after {
+  content: 'Could not load image.';
+  display: block;
+  padding: 24px 16px;
+  font-family: var(--mono);
+  font-size: var(--t-mono);
+  color: var(--ink-3);
+  text-align: center;
+}
+
+.lightbox__foot {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--rule);
+  background: var(--bg-2);
+}
+
+.lightbox__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.lightbox__desc {
+  color: var(--ink-2);
+  max-width: 72ch;
+}
+
+@media (max-width: 640px) {
+  .lightbox__stage {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .lightbox__plate {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    margin: 7px;
+  }
+
+  .lightbox__plate img {
+    max-height: calc(100vh - 2 * var(--m) - 240px);
+    max-height: calc(100dvh - 2 * var(--m) - 240px);
+  }
+
+  .lightbox__prev {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+  }
+
+  .lightbox__next {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+  }
+}
+
+@media (max-height: 680px) {
+  .lightbox__head,
+  .lightbox__foot {
+    padding: 8px 14px;
+  }
+
+  .lightbox__stage {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .lightbox__plate {
+    margin: 7px;
+  }
+
+  .lightbox__plate img {
+    max-height: calc(100vh - 2 * var(--m) - 165px);
+    max-height: calc(100dvh - 2 * var(--m) - 165px);
+  }
+
+  .lightbox__desc {
+    line-height: 1.35;
+  }
+}
+
+/* ---------- 2. Message Form Dialog (dialog.message) ----------------------- */
+dialog.message {
+  width: min(560px, calc(100vw - 2 * var(--m)));
+}
+
+.message__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 2 * var(--m));
+  max-height: calc(100dvh - 2 * var(--m));
+  overflow: hidden;
+}
+
+.message__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  z-index: 2;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+}
+
+.message__progress::after {
+  content: '';
+  display: block;
+  width: 38%;
+  height: 100%;
+  background: var(--orange);
+  transform: translateX(-100%);
+}
+
+dialog.message[data-state='sending'] .message__progress {
+  opacity: 1;
+}
+
+dialog.message[data-state='sending'] .message__progress::after {
+  animation: msg-scan 950ms var(--ease-in-out) infinite;
+}
+
+@keyframes msg-scan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}
+
+.message__head {
+  flex: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px 16px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg-2);
+}
+
+.message__heading {
+  min-width: 0;
+}
+
+.message__title {
+  margin-top: 4px;
+  font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.message__form {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.message__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.field__label {
+  color: var(--ink-2);
+}
+
+.field__control {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  font-family: var(--sans);
+  font-size: 1rem; /* 16px minimum prevents iOS auto-zoom on focus */
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--ink);
+  background: var(--plate);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  transition: border-color 160ms ease-out, box-shadow 160ms ease-out;
+}
+
+.field__control::placeholder {
+  color: var(--ink-3);
+  opacity: 1;
+}
+
+.field__control:focus-visible,
+.field__control:focus {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 0;
+  border-color: var(--cobalt);
+}
+
+.field__control[aria-invalid='true'] {
+  border-color: var(--status-err);
+  box-shadow: inset 0 0 0 1px var(--status-err);
+}
+
+.field__control--area {
+  resize: vertical;
+  min-height: 112px;
+}
+
+.field__error {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--status-err);
+}
+
+.field__error:empty {
+  display: none;
+}
+
+.message__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+  margin-top: 4px;
+}
+
+.message__direct {
+  color: var(--ink-3);
+}
+
+.message__status {
+  font-size: 0.875rem;
+  line-height: 1.45;
+  border-radius: var(--r);
+  padding: 10px 12px;
+  border: 1px solid var(--rule);
+  background: var(--bg-2);
+  color: var(--ink-2);
+}
+
+.message__status:empty {
+  display: none;
+}
+
+.message__status.is-success {
+  border-color: var(--status-ok);
+  background: var(--status-ok-bg);
+  color: var(--status-ok);
+}
+
+.message__status.is-error {
+  border-color: var(--status-err);
+  background: var(--status-err-bg);
+  color: var(--status-err);
+}
+
+@media (min-width: 600px) and (max-height: 680px) {
+  .message__head {
+    padding: 12px 18px;
+  }
+
+  .message__form {
+    padding: 14px 18px;
+    gap: 12px;
+  }
+
+  .message__row {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .field__control--area {
+    min-height: 84px;
+  }
+}
+
+@media (max-width: 480px) {
+  .message__head {
+    padding: 14px 16px;
+  }
+
+  .message__form {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .message__submit {
+    width: 100%;
+  }
+}
+
+/* ---------- 3. Video Player Dialog (dialog.video) ------------------------- */
+dialog.video {
+  width: min(1120px, calc(100vw - 2 * var(--m)), calc((100vh - 2 * var(--m) - 96px) * 16 / 9));
+  width: min(1120px, calc(100vw - 2 * var(--m)), calc((100dvh - 2 * var(--m) - 96px) * 16 / 9));
+}
+
+.video__shell {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 2 * var(--m));
+  max-height: calc(100dvh - 2 * var(--m));
+}
+
+.video__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg-2);
+}
+
+.video__heading {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.video__title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.video__stage {
+  padding: clamp(14px, 2vw, 24px);
+}
+
+.video__plate {
+  margin: 8px;
+}
+
+.video__aspect {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  background: #0B0C0E;
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.video__aspect video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+dialog.video.is-loading .video__aspect::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 35%;
+  height: 2px;
+  z-index: 2;
+  background: var(--orange);
+  animation: msg-scan 950ms var(--ease-in-out) infinite;
+}
+
+.video__error {
+  display: none;
+  position: absolute;
+  inset: 0;
+  place-items: center;
+  padding: 16px;
+  background: rgb(11 12 14 / 0.88);
+  color: #E8E9EB;
+  text-align: center;
+}
+
+dialog.video.is-error .video__error {
+  display: grid;
+}
+
+@media (max-height: 680px) {
+  dialog.video {
+    width: min(1120px, calc(100vw - 2 * var(--m)), calc((100vh - 2 * var(--m) - 140px) * 16 / 9));
+    width: min(1120px, calc(100vw - 2 * var(--m)), calc((100dvh - 2 * var(--m) - 140px) * 16 / 9));
+  }
+
+  .video__head {
+    padding: 8px 14px;
+  }
+
+  .video__stage {
+    padding: 10px 14px;
+  }
+
+  .video__plate {
+    margin: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  dialog.video {
+    max-width: calc(100vw - 16px);
+    width: min(calc(100vw - 16px), calc((100vh - 2 * var(--m) - 112px) * 16 / 9));
+    width: min(calc(100vw - 16px), calc((100dvh - 2 * var(--m) - 112px) * 16 / 9));
+  }
+
+  .video__head {
+    padding: 8px 12px;
+    gap: 10px;
+  }
+
+  .video__stage {
+    padding: 10px 8px;
+  }
+
+  .video__plate {
+    margin: 4px;
+    padding: 4px;
+  }
+}
+
+/* ---------- 4. Toast Notification (.toast[data-toast]) -------------------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: max(20px, env(safe-area-inset-bottom, 20px));
+  z-index: 260;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: min(440px, calc(100vw - 2 * var(--m)));
+  padding: 11px 16px;
+  border-radius: var(--r);
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.35;
+  box-shadow: 0 14px 36px rgb(0 0 0 / 0.24);
+  transform: translate(-50%, 12px) scale(0.97);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 200ms var(--ease-out),
+    opacity 160ms ease-out;
+}
+
+.toast.is-visible {
+  transform: translate(-50%, 0) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.toast__mark {
+  width: 7px;
+  height: 7px;
+  border-radius: 1px;
+  flex: none;
+  background: var(--orange);
+}
+
+.toast[data-tone='success'] .toast__mark {
+  background: #34D399;
+}
+
+.toast[data-tone='error'] .toast__mark {
+  background: #F87171;
+}
+
+:root[data-theme='dark'] .toast[data-tone='success'] .toast__mark {
+  background: #065F46;
+}
+
+:root[data-theme='dark'] .toast[data-tone='error'] .toast__mark {
+  background: #B42318;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .toast[data-tone='success'] .toast__mark {
+    background: #065F46;
+  }
+
+  :root:not([data-theme='light']) .toast[data-tone='error'] .toast__mark {
+    background: #B42318;
+  }
+}
+
+/* ---------- Reduced Motion ------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  dialog.lightbox,
+  dialog.message,
+  dialog.video,
+  dialog.lightbox::backdrop,
+  dialog.message::backdrop,
+  dialog.video::backdrop,
+  .lightbox__plate img,
+  .field__control,
+  .message__progress {
+    transition: none !important;
+    transition-duration: 0ms !important;
+    animation: none !important;
+  }
+
+  dialog.message[data-state='sending'] .message__progress::after,
+  dialog.video.is-loading .video__aspect::before {
+    animation: none !important;
+    transform: none;
+    width: 100%;
+  }
+
+  .toast {
+    transform: translate(-50%, 0);
+    transition: opacity 100ms ease;
+  }
+}

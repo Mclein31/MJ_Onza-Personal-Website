@@ -1,0 +1,1 @@
+import{Geometry as a}from"../core/Geometry.js";class t extends a{constructor(r,{attributes:e={}}={}){Object.assign(e,{position:{size:2,data:new Float32Array([-1,-1,3,-1,-1,3])},uv:{size:2,data:new Float32Array([0,0,2,0,0,2])}}),super(r,e)}}export{t as Triangle};

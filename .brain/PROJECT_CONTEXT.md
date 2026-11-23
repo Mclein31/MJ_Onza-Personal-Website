@@ -9,29 +9,34 @@ tags:
   - web
   - showcase
   - serverless
-last_updated: 2026-11-15
+last_updated: 2026-11-23
 ---
 
 # 🌐 Personal Website — Project Context
 
 ## 📌 Overview & Purpose
 **Personal Website** is the developer portfolio of **McLein Jei Onza** (BSCS, Cagayan State University,
-Class of 2028; aiming for data engineering). It is a single animated page: hero with a draggable tool-icon
-carousel, pinned horizontal Work section with per-project screenshot galleries and promo videos, About with a
-"What I do" accordion, a pinned year-by-year Journey, GitHub Activity, Stack schema tables, Recognition and
-Training cards, a Contact wallet of channel cards, and a footer ASCII lighthouse scene. Visit/like stats sit in
-a floating pill. The current look (since 2026-11-18) is the "Signal" redesign from the owner's `website_inspo`
-recordings: flat cream / ink / signal-red bands, Geist 900 display type, Geist Mono labels, giant red numerals,
-and a contact copier. No red hero, no serif, no scroll-drawn line, no duplicate stack ticker (owner rules;
-see [DECISIONS.md](DECISIONS.md)).
+Class of 2028; aiming for data engineering). It is a single animated page with a companion `404.html`: a
+column-scan intro loader, a spec-sheet Hero with a raw WebGL Extract → Transform → Load particle field
+(and static SVG fallback) plus a 24-tool row, Work with an index table and one-viewport-per-project spec
+sheets (prev/next/tick/swipe/key screenshot galleries and promo video dialogs), a rising dark ink About
+field with a "What I do" `<details>` accordion, a vertical-spine Journey log, live GitHub Activity calendar,
+interactive Stack schema tables, Recognition and Training editorial indexes with desktop hover previews and
+lightbox, Contact with direct email copy, inline visits/likes stats, 4 channel cards (including a 16-week
+GitHub mini grid) and message dialog, and a footer. The current design (since 2026-11-23) is the **"Instrument"**
+redesign (v5 Direction A): cool light-grey/dark grounds (`#E9EAEC` / `#0F1012`), 2px hairline corners, Geist
+(weights ≥400) and Geist Mono, international orange (`#FF4F00` / `#FF5A1A`) used sparingly for markers/scans,
+and rare cobalt (`#2448D8` / `#7088FF`) focus/probe accents. Retained owner rules (no thin fonts, no
+page-spanning scroll line, no location/clock, one copy action, no "With High Honors", iPhone Duo support)
+live in [DECISIONS.md](DECISIONS.md).
 
 ---
 
-## 🎯 Status (verified 2026-11-15)
-- **Live**: [mcleinjeionza.vercel.app](https://mcleinjeionza.vercel.app/) (Vercel project `onzamj`; the old
+## 🎯 Status (verified 2026-11-23)
+- **Live (pre-v5)**: [mcleinjeionza.vercel.app](https://mcleinjeionza.vercel.app/) (Vercel project `onzamj`; the old
   `onzamj.vercel.app` still redirects with a temporary 307).
-- `main` is in sync with `origin/main`; last code commit 2026-11-14 (first Journey slide replaced with
-  "Started coding"; contact email changed to `mcleinjeionza06@gmail.com`, including the FormSubmit endpoint).
+- **Instrument redesign (v5)** is implemented in the working tree (uncommitted, not yet deployed); `assets/images/og-image.jpg`
+  and its alt text still reflect the 2026-11-18 Signal hero pending regeneration.
 - Google Search Console verified, sitemap submitted, indexing requested (2026-11-03); indexing/ranking still
   unconfirmed. See [SEO_SETUP.md](SEO_SETUP.md).
 - Open work is in [TODO.md](TODO.md). Owner design rules live in [DECISIONS.md](DECISIONS.md).
@@ -39,15 +44,13 @@ see [DECISIONS.md](DECISIONS.md)).
 ---
 
 ## 💻 Tech Stack & Dependencies
-- **Markup & UI**: one `index.html`; CSS split into `css/*.css` (17 files, `tokens.css` first).
-- **Scripting**: vanilla ES modules in `js/` (21 modules, `main.js` entry); **no build step**; must be served over HTTP.
-- **Serverless (Vercel)**: `api/stats.js` (visits/likes proxy → Abacus) and `api/contributions.js` (GitHub
-  contribution calendar for user `Mclein31`, with a jogruber API fallback in the client).
-- **Services**: Abacus (`abacus.jasoncameron.dev`, namespace `mcleinonza`), FormSubmit AJAX, GitHub.
-- **Typography** (self-hosted, `css/fonts.css`): Geist (display and body), Hedvig Letters Serif (footer
-  wordmark), Geist Mono (data only).
-- **Dev tooling only**: `package.json` with `@playwright/test` 1.64.1 and `@axe-core/playwright` 4.14.0;
-  specs in `tests/` run on desktop Chrome, Pixel 7 and iPhone 14 (WebKit).
+- **Markup & UI**: `index.html` and `404.html`; CSS split into `styles/*.css` (15 files, `tokens.css` first) plus `vendor/lenis/lenis.css`.
+- **Scripting**: vanilla ES modules in `scripts/` (`main.js` entry, 16 modules in `scripts/core/`, 10 files in `scripts/design/`); **no build step**; must be served over HTTP.
+- **Vendored libraries (`vendor/`, self-hosted ESM, minified in place, no runtime CDNs)**: GSAP `3.15.1` (`ScrollTrigger`, `SplitText`, `Flip`, `CustomEase`, `ScrollToPlugin`), Lenis `1.3.27` (fine pointers with motion enabled), and OGL `1.0.11` (vendored; hero field uses raw WebGL directly).
+- **Delivery & Serverless (Vercel)**: `vercel.json` Cache-Control headers; `api/stats.js` (visits/likes proxy → Abacus) and `api/contributions.js` (GitHub contribution calendar for `Mclein31`, with a jogruber API fallback in the client).
+- **Services**: Abacus (`abacus.jasoncameron.dev`, namespace `mcleinonza`), FormSubmit AJAX (`mcleinjeionza06@gmail.com`), GitHub.
+- **Typography** (self-hosted, `styles/tokens.css`, `assets/fonts/`): Geist (display and body, ≥400) and Geist Mono (labels, dates, tabular data). Hedvig Letters Serif removed.
+- **Dev tooling only**: `package.json` with `@playwright/test` 1.64.1 and `@axe-core/playwright` 4.14.0 (`npm run test:v5`, `npm run audit:v5`, `npm test`).
 
 Structure and module map: [ARCHITECTURE.md](ARCHITECTURE.md). Gotchas, slide recipes and counters: [NOTES.md](NOTES.md).
 

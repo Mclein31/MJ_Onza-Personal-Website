@@ -1,0 +1,433 @@
+/* Instrument base (from prototypes/direction-a). Owner: W1 foundation. */
+/* Reset, grid, type roles, buttons, browser surfaces, reveal system */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--t-body);
+  font-weight: 400;
+  line-height: 1.55;
+  font-feature-settings: 'ss01' 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+}
+img, video, canvas, svg { display: block; max-width: 100%; }
+h1, h2, h3, p, dl, dd, figure, ol, ul { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+table { border-collapse: collapse; }
+
+/* Browser surfaces */
+::selection { background: var(--orange); color: #111214; }
+:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; border-radius: var(--r); }
+html { scrollbar-color: var(--ink-3) var(--bg); }
+input, textarea { caret-color: var(--orange); }
+
+/* Grid */
+.wrap { padding-inline: var(--m); }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--g);
+}
+@media (max-width: 720px) {
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* Type roles */
+.mono {
+  font-family: var(--mono);
+  font-size: var(--t-mono);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.num { font-variant-numeric: tabular-nums; }
+.h2 {
+  font-size: var(--t-h2);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.h3 {
+  font-size: var(--t-h3);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+.lede {
+  font-size: var(--t-lede);
+  font-weight: 500;
+  line-height: 1.38;
+  letter-spacing: -0.012em;
+  text-wrap: pretty;
+}
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Line masks for type that rises line by line */
+.line { display: block; overflow: clip; overflow-clip-margin: 0.08em; padding-bottom: 0.04em; margin-bottom: -0.04em; }
+.line > span { display: block; }
+
+/* ==========================================================================
+   SHARED COMPONENTS (v5 build brief, section 3). Every section uses these exact names.
+   ========================================================================== */
+
+/* ---- Structure ------------------------------------------------------------ */
+/* 12-column page grid (4 on phones). Children place themselves with grid-column. */
+.container {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--g);
+  padding-inline: var(--m);
+  width: 100%;
+  max-width: 2400px;
+  margin-inline: auto;
+}
+@media (max-width: 720px) {
+  .container { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* Mono label: indexes, metadata, dates, captions */
+.label {
+  font-family: var(--mono);
+  font-size: var(--t-mono);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hairline rules that draw in (pair with data-reveal="draw") */
+.rule { display: block; height: 1px; border: 0; margin: 0; background: var(--rule); transform-origin: 0 50%; }
+.rule--ink { background: var(--ink); }
+
+/* Section head: mono index label ("03 / Journey") in cols 1-3, the H2 in cols 4-12; stacked on phones.
+   Markup: <header class="section-head container"><p class="label">03 / Journey</p><h2>…</h2>
+           <p class="section-head__lede">optional</p></header>  (.container may also sit on a parent) */
+.section-head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--g);
+  row-gap: 20px;
+  align-items: start;
+  margin-bottom: clamp(40px, 5.5vw, 88px);
+}
+.section-head > .label { grid-column: 1 / 4; padding-top: 0.6em; }
+.section-head > :is(h2, .section-head__title) {
+  grid-column: 4 / 13;
+  font-size: var(--t-h2);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.section-head > .section-head__lede {
+  grid-column: 4 / 11;
+  max-width: 46ch;
+  color: var(--ink-2);
+  font-size: var(--t-lede);
+  font-weight: 500;
+  line-height: 1.38;
+  letter-spacing: -0.012em;
+  text-wrap: pretty;
+}
+.section-head > .label::before {           /* small orange square: the instrument's index marker */
+  content: '';
+  display: inline-block;
+  width: 7px; height: 7px;
+  margin-right: 10px;
+  background: var(--orange);
+  border-radius: 1px;
+  vertical-align: 0.05em;
+}
+@media (max-width: 720px) {
+  .section-head { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 14px; }
+  .section-head > * { grid-column: 1 / -1 !important; }
+  .section-head > .label { padding-top: 0; }
+}
+
+/* Plate: the screenshot mount. A white (dark: raised) mat with four registration ticks just outside the corners.
+   It does not clip, so the ticks can sit outside; the media inside gets the radius. */
+.plate {
+  position: relative;
+  display: block;
+  background: var(--plate);
+  padding: clamp(6px, 0.7vw, 12px);
+  border-radius: var(--r);
+  box-shadow: inset 0 0 0 1px var(--rule-2);
+}
+.plate::before {
+  content: '';
+  position: absolute;
+  inset: -9px;
+  pointer-events: none;
+  --t: var(--ink-3);
+  background:
+    linear-gradient(var(--t), var(--t)) left top / 9px 1px,
+    linear-gradient(var(--t), var(--t)) left top / 1px 9px,
+    linear-gradient(var(--t), var(--t)) right top / 9px 1px,
+    linear-gradient(var(--t), var(--t)) right top / 1px 9px,
+    linear-gradient(var(--t), var(--t)) left bottom / 9px 1px,
+    linear-gradient(var(--t), var(--t)) left bottom / 1px 9px,
+    linear-gradient(var(--t), var(--t)) right bottom / 9px 1px,
+    linear-gradient(var(--t), var(--t)) right bottom / 1px 9px;
+  background-repeat: no-repeat;
+}
+.plate :is(img, video, picture, canvas) { width: 100%; height: auto; border-radius: 1px; }
+@media (max-width: 720px) {
+  .plate::before { inset: -6px; }
+}
+
+/* ---- Buttons: one hierarchy ------------------------------------------------
+   primary (one per section) > secondary (next to a primary) > ghost (tertiary link) ; icon ; seg (theme only).
+   Colours come from two local properties so a section on an ink field can flip them in one place:
+     .about { --btn-ink: var(--on-ink-fg); --btn-ground: var(--on-ink-bg); }                                  */
+.btn {
+  --btn-ink: var(--ink);
+  --btn-ground: var(--bg);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: var(--btn-h);
+  min-height: var(--btn-h);
+  padding: 0 18px;
+  border: 0;
+  border-radius: var(--r);
+  background: transparent;
+  color: var(--btn-ink);
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition:
+    transform 100ms var(--ease-out),
+    background-color 160ms ease-out,
+    color 160ms ease-out,
+    box-shadow 160ms ease-out,
+    opacity 160ms ease-out;
+}
+.btn:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+.btn:active { transform: scale(0.98); }
+.btn:disabled, .btn[aria-disabled='true'] { opacity: 0.4; pointer-events: none; }
+.btn svg { width: 16px; height: 16px; flex: none; }
+
+/* Primary: ink fill, ground-coloured text, orange square marker on the left */
+.btn--primary { background: var(--btn-ink); color: var(--btn-ground); padding-left: 16px; }
+.btn__mark {
+  flex: none;
+  width: 8px; height: 8px;
+  background: var(--orange);
+  border-radius: 1px;
+  transition: transform 160ms var(--ease-out);
+}
+
+/* Secondary: 1px ink outline (inset shadow: no layout shift), transparent */
+.btn--secondary { box-shadow: inset 0 0 0 1px var(--btn-ink); }
+
+/* Ghost: text only, a hairline under the label that an ink line grows over on hover; trailing arrow */
+.btn--ghost { padding: 0 2px; gap: 8px; }
+.btn--ghost::before, .btn--ghost::after {
+  content: '';
+  position: absolute;
+  left: 2px; right: 2px;
+  bottom: calc(50% - 0.9em);
+  height: 1px;
+  pointer-events: none;
+}
+.btn--ghost::before { background: var(--rule); }
+.btn--ghost::after { background: currentColor; transform: scaleX(0); transform-origin: 0 50%; transition: transform 220ms var(--ease-out); }
+.btn__arrow {
+  flex: none;
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  line-height: 1;
+  transition: transform 160ms var(--ease-out);
+}
+
+/* Icon: 44px square (40 with a fine pointer at >= 1024px), hairline border, 16px glyph */
+.btn--icon {
+  width: var(--btn-h);
+  padding: 0;
+  gap: 0;
+  box-shadow: inset 0 0 0 1px var(--rule);
+}
+
+/* Small: nav only, and only where the pointer is fine (touch keeps 44px) */
+@media (min-width: 1024px) and (pointer: fine) {
+  .btn--sm { height: 36px; min-height: 36px; padding: 0 14px; font-size: 0.875rem; }
+  .btn--sm.btn--primary { padding-left: 12px; }
+  .btn--sm.btn--icon { width: 36px; padding: 0; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover { background: color-mix(in srgb, var(--btn-ink) 84%, var(--btn-ground)); }
+  .btn--primary:hover .btn__mark { transform: rotate(45deg) scale(0.9); }
+  .btn--secondary:hover { background: color-mix(in srgb, var(--btn-ink) 7%, transparent); }
+  .btn--ghost:hover::after { transform: scaleX(1); }
+  .btn--icon:hover { box-shadow: inset 0 0 0 1px var(--btn-ink); }
+  .btn:hover .btn__arrow { transform: translateX(3px); }
+  .btn:is([target='_blank'], [rel~='external']):hover .btn__arrow,
+  .btn:hover .btn__arrow--ext { transform: translate(2px, -2px); }
+}
+
+/* Image triggers (screenshots and photos that open the viewer or video) press like buttons do */
+button:is([data-lightbox], [data-video-open]):not(.btn) { transition: transform 100ms var(--ease-out); }
+button:is([data-lightbox], [data-video-open]):not(.btn):active { transform: scale(0.985); }
+/* Touch: a short ghost label (e.g. "Work") still gets a 44px-wide target */
+@media (pointer: coarse) { .btn--ghost { min-width: 44px; } }
+
+/* Segmented control (theme Light/Dark only). Two forms:
+   1) a single toggle button: <button class="seg" data-theme-toggle><span class="seg__opt" data-seg="light">Light</span>
+      <span class="seg__opt" data-seg="dark">Dark</span></button> (the active half follows html[data-theme])
+   2) a group of buttons: <div class="seg" role="group"><button class="seg__opt" aria-pressed="true">…</button>…</div> */
+.seg {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 2px;
+  height: var(--btn-h);
+  padding: 3px;
+  border-radius: var(--r);
+  box-shadow: inset 0 0 0 1px var(--rule);
+  font-family: var(--mono);
+  font-size: var(--t-mono);
+  letter-spacing: 0.02em;
+  color: var(--ink-3);
+  -webkit-tap-highlight-color: transparent;
+  transition: box-shadow 160ms ease-out, transform 100ms var(--ease-out);
+}
+.seg:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+button.seg:active { transform: scale(0.98); }
+.seg__opt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.25rem;
+  padding: 0 10px;
+  border-radius: 1px;
+  color: inherit;
+  transition: background-color 160ms ease-out, color 160ms ease-out;
+}
+.seg__opt[aria-pressed='true'],
+:root[data-theme='light'] .seg [data-seg='light'],
+:root[data-theme='dark'] .seg [data-seg='dark'] { background: var(--ink); color: var(--bg); }
+@media (hover: hover) and (pointer: fine) {
+  .seg:hover { box-shadow: inset 0 0 0 1px var(--ink-3); }
+  button.seg__opt:not([aria-pressed='true']):hover { color: var(--ink); }
+}
+@media (min-width: 1024px) and (pointer: fine) {
+  .seg--sm { height: 36px; }
+}
+
+/* ---- Skip link ------------------------------------------------------------- */
+.skip-link, .skip {
+  position: fixed; left: var(--m); top: 8px; z-index: 300;
+  display: inline-flex; align-items: center; height: 44px;
+  background: var(--ink); color: var(--bg); padding: 0 16px; border-radius: var(--r);
+  font-weight: 500; text-decoration: none;
+  transform: translateY(-160%); transition: transform 200ms var(--ease-out);
+}
+.skip-link:focus-visible, .skip:focus-visible { transform: none; outline: 2px solid var(--cobalt); outline-offset: 2px; }
+
+/* ---- Theme switch: circular reveal from the toggle (scripts/core/theme.js sets --theme-x/y/r) ---- */
+html[data-theme-transition]::view-transition-old(root),
+html[data-theme-transition]::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+html[data-theme-transition]::view-transition-new(root) { animation: theme-reveal 560ms var(--ease-in-out); }
+@keyframes theme-reveal {
+  from { clip-path: circle(0 at var(--theme-x, 50%) var(--theme-y, 0)); }
+  to { clip-path: circle(var(--theme-r, 150vmax) at var(--theme-x, 50%) var(--theme-y, 0)); }
+}
+
+/* ---- Reveal system (scripts/design/reveal.js) --------------------------------
+   Hidden states exist only under html.has-reveal (set in <head> unless reduced motion; reveal.js adds .reveal-live).
+   If reveal.js never runs, a timed failsafe shows everything at 4s. Elements get .is-in when they enter.      */
+html.has-reveal [data-reveal] {
+  transition:
+    translate 480ms var(--ease-out),
+    clip-path 480ms var(--ease-out),
+    opacity 360ms var(--ease-out),
+    scale 480ms var(--ease-out);
+  transition-delay: var(--d, 0ms);
+}
+html.has-reveal [data-reveal='rise']:not(.is-in) {
+  translate: 0 min(100%, 24px);
+  /* never clip to zero area: a fully clipped one-line label has nothing for an observer to intersect */
+  clip-path: inset(0 0 min(88%, 24px) 0);
+  opacity: 0;
+}
+html.has-reveal [data-reveal='rise'].is-in { clip-path: inset(0 0 -0.2em 0); }
+html.has-reveal [data-reveal='rise'].is-done { clip-path: none; }
+html.has-reveal [data-reveal='fade']:not(.is-in) { opacity: 0; }
+html.has-reveal [data-reveal='draw'] { transform-origin: 0 50%; }
+html.has-reveal [data-reveal='draw']:not(.is-in) { scale: 0 1; }
+
+/* Touch: a short, soft rise (opacity + 14px, ~300ms) and no clip mask, so a flick never leaves sliced glyphs */
+@media (pointer: coarse) {
+  html.has-reveal [data-reveal] {
+    transition: translate 300ms var(--ease-out), opacity 300ms var(--ease-out), clip-path 0s, scale 300ms var(--ease-out);
+    transition-delay: var(--d, 0ms);
+  }
+  html.has-reveal [data-reveal='rise']:not(.is-in) { translate: 0 14px; clip-path: none; opacity: 0; }
+  html.has-reveal [data-reveal='rise'].is-in { clip-path: none; }
+}
+
+/* Already above the viewport (anchor jump, fast scroll): show with no transition at all */
+html.has-reveal .is-instant,
+html.has-reveal .is-instant :is(img, video, canvas) { transition: none !important; }
+
+[data-tick] { font-variant-numeric: tabular-nums; }
+
+/* data-scan: the media inside a plate wipes in top to bottom; reveal.js adds a 2px orange line riding the edge */
+html.has-reveal [data-scan] :is(img, video, canvas) { transition: clip-path 480ms var(--ease-out); }
+html.has-reveal [data-scan]:not(.is-in) :is(img, video, canvas) { clip-path: inset(0 0 100% 0); }
+.scan-line {
+  position: absolute; left: 0; top: 0; z-index: 3;
+  width: 100%; height: 2px;
+  background: var(--orange);
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* Failsafe: if reveal.js has not taken over by 4s, show everything */
+html.has-reveal:not(.reveal-live) :is([data-reveal], [data-scan] :is(img, video, canvas)) {
+  animation: reveal-failsafe 1ms linear 4s forwards;
+}
+@keyframes reveal-failsafe { 1%, 100% { opacity: 1; translate: none; scale: none; clip-path: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; }
+  html.has-reveal [data-reveal], html.has-reveal [data-scan] :is(img, video, canvas) {
+    opacity: 1 !important; translate: none !important; scale: none !important; clip-path: none !important;
+  }
+  .btn, .btn::after, .btn__mark, .btn__arrow, .seg, button:is([data-lightbox], [data-video-open]) { transition: none; }
+}
+
+/* ---- Functional minimum carried over from the skeleton (keep; restyle freely) ---- */
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+[hidden] { display: none !important; }
+[id] { scroll-margin-top: var(--header-h, var(--nav-h, 56px)); }
+.form__hp { position: absolute; left: -9999px; }
+[data-toast]:not(.is-visible) { opacity: 0; pointer-events: none; }

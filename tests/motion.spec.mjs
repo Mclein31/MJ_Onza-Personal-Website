@@ -1,36 +1,14 @@
 import { test, expect, gotoReady, isMobile } from './fixtures.mjs';
 
-test('reduced motion: no preloader, nothing hidden, work not pinned', async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/');
-  await expect(page.locator('html')).toHaveClass(/no-preload/);
-  await expect(page.locator('#work')).not.toHaveClass(/is-pinned/);
-  const hidden = await page.locator('[data-reveal]').evaluateAll((els) => els.filter((e) => getComputedStyle(e).opacity !== '1').length);
-  expect(hidden).toBe(0);
-  await expect(page.locator('.strip__track')).toHaveCSS('animation-play-state', /running|paused/);
-  const marqueeMoves = await page.locator('.strip__track').evaluate(async (el) => {
-    const a = el.getBoundingClientRect().left;
-    await new Promise((r) => setTimeout(r, 600));
-    return Math.abs(el.getBoundingClientRect().left - a) > 1;
-  });
-  expect(marqueeMoves, 'the photo marquee should hold still under reduced motion').toBe(false);
-
-  await expect.poll(() => page.locator('[data-footer-mark]').evaluate((m) => {
-    const r = document.createRange();
-    r.selectNodeContents(m);
-    return r.getBoundingClientRect().width / m.clientWidth;
-  }), { message: 'the footer wordmark still spans its container' }).toBeGreaterThan(0.95);
-});
-
 test('keyboard: skip link is first, dialogs trap and release focus', async ({ page }, testInfo) => {
   test.skip(isMobile(testInfo), 'keyboard flow is a desktop concern');
   await gotoReady(page);
   await page.keyboard.press('Tab');
-  await expect(page.locator('.skip-link')).toBeFocused();
+  await expect(page.getByRole('link', { name: 'Skip to content' })).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/#main$/);
 
-  await page.locator('.nav__hire').focus();
+  await page.locator('[data-header] [data-message-open]').focus();
   await page.keyboard.press('Enter');
   await expect(page.locator('[data-message]')).toBeVisible();
   await expect(page.locator('#fName')).toBeFocused();
@@ -38,59 +16,5 @@ test('keyboard: skip link is first, dialogs trap and release focus', async ({ pa
   const inside = await page.evaluate(() => !!document.activeElement.closest('[data-message]'));
   expect(inside, 'focus stays inside the open dialog').toBe(true);
   await page.keyboard.press('Escape');
-  await expect(page.locator('.nav__hire')).toBeFocused();
-});
-
-// Share of the vista's width its drawn text covers, and whether the lighthouse is drawn
-const vistaState = (page) => page.locator('[data-vista]').evaluate((v) => {
-  const p = v.querySelector('.vista__layer--ink');
-  if (!p) return { span: 0, scene: false };
-  const r = document.createRange();
-  r.selectNodeContents(p);
-  return { span: r.getBoundingClientRect().width / v.clientWidth, scene: /\[=+\]/.test(p.textContent) };
-});
-const vistaText = (page) => page.locator('[data-vista]').evaluate((v) => v.textContent);
-
-test('footer is one screen tall and the vista spans it, animating on its own', async ({ page }) => {
-  await gotoReady(page);
-  await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
-  await expect.poll(async () => (await vistaState(page)).scene).toBe(true);
-  const { span } = await vistaState(page);
-  expect(span).toBeGreaterThan(0.97);
-  expect(span).toBeLessThan(1.01);
-  const footerH = await page.locator('footer').evaluate((f) => f.getBoundingClientRect().height);
-  if (page.viewportSize().width <= 700) {
-    // Phones (2026-11-19, owner: less going on): the footer is shorter than one screen.
-    expect(footerH).toBeLessThan(page.viewportSize().height);
-  } else {
-    expect(Math.abs(footerH - page.viewportSize().height)).toBeLessThan(2);
-  }
-  const a = await vistaText(page);
-  await page.waitForTimeout(700);
-  expect(await vistaText(page), 'the scene moves without any scrolling').not.toBe(a);
-});
-
-test('reduced motion: the footer vista is drawn and holds still', async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/');
-  await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
-  await expect.poll(async () => (await vistaState(page)).scene).toBe(true);
-  const a = await vistaText(page);
-  await page.waitForTimeout(600);
-  expect(await vistaText(page)).toBe(a);
-});
-
-test('the header steps aside at the footer and returns above it', async ({ page }) => {
-  await gotoReady(page);
-  await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
-  if (page.viewportSize().width <= 700) {
-    // Phones: the footer is shorter than a screen, so the bar never reaches it; it must just not cover the footer.
-    const overlap = await page.evaluate(() => document.querySelector('.nav').getBoundingClientRect().bottom - document.querySelector('footer').getBoundingClientRect().top);
-    expect(overlap).toBeLessThanOrEqual(0);
-    return;
-  }
-  await expect(page.locator('.nav')).toHaveClass(/is-away/);
-  await expect.poll(() => page.locator('.nav').evaluate((n) => n.getBoundingClientRect().bottom), { message: 'the bar is off screen' }).toBeLessThanOrEqual(1);
-  await page.evaluate(() => scrollTo(0, document.querySelector('footer').offsetTop - innerHeight));
-  await expect(page.locator('.nav')).not.toHaveClass(/is-away/);
+  await expect(page.locator('[data-header] [data-message-open]')).toBeFocused();
 });

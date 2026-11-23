@@ -33,11 +33,13 @@ export const test = base.extend({
   },
 });
 
-// Skip the once-per-session preloader for tests that aren't about it
+// Skip the once-per-session intro for tests that aren't about it
 export async function gotoReady(page, path = '/') {
-  await page.addInitScript(() => sessionStorage.setItem('pf-loaded', '1'));
+  await page.addInitScript(() => {
+    try { sessionStorage.setItem('v5-intro', '1'); } catch {}
+  });
   await page.goto(path);
-  await expect(page.locator('.hero')).toHaveClass(/is-in/);
+  await expect(page.locator('html')).toHaveAttribute('data-site-ready', 'true', { timeout: 15_000 });
 }
 
 export async function scrollSettled(page) {

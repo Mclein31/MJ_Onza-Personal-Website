@@ -5,7 +5,7 @@ project: Personal Website
 tags:
   - todo
   - backlog
-last_updated: 2026-11-16
+last_updated: 2026-11-23
 ---
 
 # 📋 Personal Website — TODO & Task Tracker
@@ -13,14 +13,16 @@ last_updated: 2026-11-16
 ## 🔴 Open
 - [ ] Confirm FormSubmit delivers to the new contact address `mcleinjeionza06@gmail.com` (changed 2026-11-14 in
   `d36e90f`; FormSubmit requires a one-time activation per address before AJAX submissions arrive).
+- [ ] Confirm SERVIO and MedRecord (`MedRec`) project years with the owner (Work index and spec sheets currently show `2026` for all five projects based on the Journey; noted in `W2.md`).
+- [ ] Real-device check on the owner's foldable iPhone Duo across all three postures (folded `466×678`, unfolded portrait `626×890`, unfolded landscape `890×626`), including real-GPU frame rate of the 2,048-point hero WebGL field (tested only in Playwright WebKit emulation so far).
+- [ ] Regenerate `assets/images/og-image.jpg` from the new Instrument v5 hero (current file dates to 2026-11-18 Signal) and update `og:image:alt`, `twitter:image:alt`, and JSON-LD `dateModified` in `index.html`.
+- [ ] Decide whether `prototypes/` (`direction-a`, `direction-b`, `direction-c`, `skeleton`) ships or is removed before deployment.
 - [ ] Vercel domain settings: change the `onzamj.vercel.app` redirect from temporary 307 to permanent 308 (still 307
   on 2026-11-15). See [SEO_SETUP.md](SEO_SETUP.md).
 - [ ] Reinspect the homepage in Search Console for "URL is on Google"; monitor name-search queries.
 - [ ] Set the canonical site URL on the owner's GitHub and LinkedIn profiles (SEO identity reinforcement).
 - [ ] Keep featured project links and demo screenshots synchronized with recent code releases.
 - [ ] Optional: real AdvanCare staff-console screenshot; recapture MedRec at native resolution like the other decks.
-- [x] Optional cleanup: `js/cursor.js` still runs although `.cursor` is hidden, and `scroll.js`/`ui.js` keep hooks for
-  removed manifesto, timeline, award-scaling, trait-deck and tilt markup.
 
 ## 🟡 Medium Priority
 - [ ] Add an interactive blog / tech articles section linking to published pieces.
@@ -30,6 +32,8 @@ last_updated: 2026-11-16
   emulator no longer exists.)
 
 ## ✅ Done
+- [x] Optional cleanup: `js/cursor.js` still runs although `.cursor` is hidden, and `scroll.js`/`ui.js` keep hooks for
+  removed manifesto, timeline, award-scaling, trait-deck and tilt markup (both old directories superseded/removed in v5).
 - [x] Review v3, commit, merge and deploy (2026-10-25).
 - [x] Confirm hackathon wording ("I built the software side…"): McLein built the software; the team coach delivered the pitch. Journey reworded to match.
 - [x] Dates for Student Journalist / Student Leader awards: both given at graduation, June 2022 (same as With High Honors).

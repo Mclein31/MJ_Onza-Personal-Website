@@ -5,12 +5,26 @@ project: Personal Website
 tags:
   - changelog
   - history
-last_updated: 2026-11-19
+last_updated: 2026-11-23
 ---
 
 # 📜 Personal Website — Changelog
 
 Newest first. Entries dated 2026-10-31 and older (including the versioned 1.0.0–3.0.0 releases) are archived verbatim in [archive/CHANGELOG_ARCHIVE.md](archive/CHANGELOG_ARCHIVE.md).
+
+## 2026-11-23 — "Instrument" redesign v5 (built by parallel workers)
+- **Changed (full rebuild)**: replaced the Signal `css/` and `js/` codebase with owner-picked Direction A **"Instrument"** (`styles/` 15 files, `scripts/main.js`, `scripts/core/` 16 modules, `scripts/design/` 10 files). Cool light-grey/dark ground (`#E9EAEC` / `#0F1012`), 2px hairline radius everywhere (`--r: 2px`), Geist (weights 400–600) + Geist Mono, international orange (`#FF4F00` / `#FF5A1A`) + rare cobalt (`#2448D8` / `#7088FF`), unified button hierarchy (`.btn--primary/secondary/ghost/icon/sm`, `.seg`), shared `.section-head`/`.plate`/`.container` primitives, single keyed scroll-lock (`scripts/core/lock.js`), and standalone `scripts/core/intro.js` gate with 2.5s JS / 2.6s CSS failsafes.
+- **Added (vendor & delivery)**: self-hosted vendored ESM packages in `vendor/` (GSAP `3.15.1`, Lenis `1.3.27`, OGL `1.0.11`; minified in place with `esbuild@0.25.12`, 915,336 B → 337,803 B, documented in `vendor/README.md`), `vercel.json` Cache-Control headers, standalone `404.html`, and static SVG hero fallback assets (`assets/images/hero-field-{grey,orange}.svg`).
+- **Changed (sections)**:
+  - **Loader & Nav**: column-scan 000–100 intro loader; fixed header with section links, active orange square, scroll progress readout, Light/Dark `.seg` (circular View Transition wipe), small "Let's talk", and `<1180px` full-height drawer.
+  - **Hero**: spec strip, raw WebGL Extract → Transform → Load particle stream (`4,096` desktop / `2,048` touch points settling onto column hairlines over static SVG fallbacks), and a static 24-tool row.
+  - **Work**: index jump table + one-viewport-per-project spec sheets with `.plate` galleries driven by prev/next buttons, ticks, touch swipe, arrow keys, and orange clip-path wipes (`scripts/design/work.js`); no pinned horizontal or multi-screen scroll per owner feedback.
+  - **About**: rising dark ink field (`--bg-2` raised panel in dark mode) with top orange scan line, `SplitText` line-rise heading, profile spec list, and native `<details name="does">` accordion.
+  - **Journey, Activity & Stack**: 7-entry vertical-spine log (`scripts/design/journey.js`); cool-grey → orange level 4 GitHub Activity grid with WAAPI column sweep (`scripts/design/activity.js`); 5-table Stack schema grid with interactive join highlighting (`scripts/design/stack.js`).
+  - **Recognition, Training, Contact & Footer**: editorial index rows with desktop corridor floating preview (`scripts/design/recognition.js`) and 8-plate training gallery; Contact aside with single direct email `[data-copy]`, inline visits/likes readout, 4 channel cards + 16-week GitHub mini grid, origin-anchored dialogs (`scripts/design/contact.js`), and minimal Geist footer wordmark.
+- **Removed**: Signal visual system (cream/signal-red bands, giant numerals, pinned Work/Journey, draggable hero icon carousel, Contact wallet and receipt copier, floating stats pill, ASCII lighthouse footer, Web Audio sounds, Hedvig Letters Serif font) and 7 retired Signal-only test specs (`icons`, `interactions`, `redesign`, `responsive`, `spacing`, `timing`, `wallet`).
+- **Tests**: added `tests/v5-behaviour.spec.mjs` (`npm run test:v5`, 48 passed / 3 viewport-gated skips observed in W1 & W5 runs across `v5b-desktop`, `v5b-iphone14`, `v5b-duo-folded`) and `tests/v5-audit.spec.mjs` + `tests/v5-audit-helpers.mjs` (`npm run audit:v5`, 13 viewports incl. all 3 iPhone Duo postures); adapted 6 retained contract specs (`health`, `mobile`, `motion`, `project-polish`, `seo`, `visitors`).
+- **Artifacts**: briefs in `.brain/research/2026-11-22-redesign-v5-brief.md` and `2026-11-23-v5-build-brief.md`; prototype and worker reports in `.brain/research/redesign-v5/reports/`; three prototypes under `prototypes/`.
 
 ## 2026-11-19 — Phone layout pass (9 Jarviee workers, agy + claude)
 - **Removed (all sizes)**: hero coordinates line and Manila clock (`js/hero.js` is now an empty stub), the contact id card's "Tuguegarao City · local time" clock (`js/wallet.js`), the Gmail card's Copy button (the copier's COPY prints the slip), the contact project thumbnails strip.

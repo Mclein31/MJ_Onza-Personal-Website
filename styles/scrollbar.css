@@ -1,0 +1,335 @@
+/* scrollbar: custom page scrollbar and inner scroll areas (Instrument redesign v5). Owner: S2 scrollbar. */
+
+/* ---------- 1. Touch & Inner Scroll Areas (native styled to match Instrument) ---------- */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+}
+
+html::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+html::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: var(--rule);
+  border-radius: var(--r);
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-3);
+}
+
+html::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Explicit selectors for WebKit compatibility; leaves .project__slides (scrollbar-width: none) untouched */
+.activity__scroll,
+.site-header__menu,
+.message__form,
+dialog,
+[data-lenis-prevent],
+textarea {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+}
+
+.activity__scroll::-webkit-scrollbar,
+.site-header__menu::-webkit-scrollbar,
+.message__form::-webkit-scrollbar,
+dialog::-webkit-scrollbar,
+[data-lenis-prevent]::-webkit-scrollbar,
+textarea::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.activity__scroll::-webkit-scrollbar-track,
+.site-header__menu::-webkit-scrollbar-track,
+.message__form::-webkit-scrollbar-track,
+dialog::-webkit-scrollbar-track,
+[data-lenis-prevent]::-webkit-scrollbar-track,
+textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.activity__scroll::-webkit-scrollbar-thumb,
+.site-header__menu::-webkit-scrollbar-thumb,
+.message__form::-webkit-scrollbar-thumb,
+dialog::-webkit-scrollbar-thumb,
+[data-lenis-prevent]::-webkit-scrollbar-thumb,
+textarea::-webkit-scrollbar-thumb {
+  background: var(--rule);
+  border-radius: var(--r);
+}
+
+.activity__scroll::-webkit-scrollbar-thumb:hover,
+.site-header__menu::-webkit-scrollbar-thumb:hover,
+.message__form::-webkit-scrollbar-thumb:hover,
+dialog::-webkit-scrollbar-thumb:hover,
+[data-lenis-prevent]::-webkit-scrollbar-thumb:hover,
+textarea::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-3);
+}
+
+.activity__scroll::-webkit-scrollbar-corner,
+.site-header__menu::-webkit-scrollbar-corner,
+.message__form::-webkit-scrollbar-corner,
+dialog::-webkit-scrollbar-corner,
+[data-lenis-prevent]::-webkit-scrollbar-corner,
+textarea::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .activity__scroll:hover,
+  .site-header__menu:hover,
+  .message__form:hover,
+  dialog:hover,
+  [data-lenis-prevent]:hover,
+  textarea:hover {
+    scrollbar-color: var(--ink-3) transparent;
+  }
+}
+
+/* ---------- 2. Custom Page Scrollbar Rail (fine-pointer desktop only) ---------- */
+.sbar {
+  display: none;
+}
+
+@media (pointer: fine) {
+  /* Hide native page scrollbar on html only (no scrollbar-gutter so page width & margins stay equal) */
+  html {
+    scrollbar-width: none;
+  }
+
+  html::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  .sbar {
+    display: block;
+    position: fixed;
+    top: calc(var(--header-h, var(--nav-h, 56px)) + 14px);
+    right: 0;
+    bottom: 14px;
+    width: 22px;
+    z-index: 90;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 160ms ease-out, visibility 0s;
+  }
+
+  html.is-scroll-locked .sbar,
+  html.is-intro .sbar {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: none;
+  }
+
+  .sbar.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  html.is-scrollbar-dragging,
+  html.is-scrollbar-dragging * {
+    cursor: grabbing !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+  }
+
+  .sbar__track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .sbar__line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 7px;
+    width: 1px;
+    background: var(--rule);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .sbar__ticks {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .sbar.is-dragging .sbar__ticks,
+  .sbar.is-dragging .sbar__tick {
+    pointer-events: none;
+  }
+
+  .sbar__tick {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    width: 14px;
+    height: 18px;
+    margin-top: -9px;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  .sbar__tick-mark {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 6px;
+    height: 1px;
+    margin-top: -0.5px;
+    background: var(--rule);
+    transform-origin: right center;
+    transform: scaleX(1);
+    transition: transform 140ms var(--ease-out), background-color 140ms ease-out;
+  }
+
+  .sbar__tick.is-active .sbar__tick-mark {
+    background: var(--orange);
+  }
+
+  .sbar__tick-label {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    padding: 4px 7px;
+    border-radius: var(--r);
+    background: var(--plate);
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    box-shadow: 0 2px 8px rgb(17 18 20 / 0.08);
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transform-origin: right center;
+    transform: translate3d(4px, -50%, 0) scale(0.96);
+    transition: opacity 130ms var(--ease-out), transform 130ms var(--ease-out);
+  }
+
+  :root[data-theme='dark'] .sbar__tick-label {
+    box-shadow: 0 2px 10px rgb(0 0 0 / 0.36);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .sbar__tick-label {
+      box-shadow: 0 2px 10px rgb(0 0 0 / 0.36);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .sbar__tick:hover .sbar__tick-mark {
+      background: var(--orange);
+      transform: scaleX(1.65);
+    }
+
+    .sbar__tick:hover .sbar__tick-label {
+      opacity: 1;
+      transform: translate3d(0, -50%, 0) scale(1);
+    }
+  }
+
+  .sbar__thumb {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 14px;
+    min-height: 28px;
+    z-index: 3;
+    cursor: grab;
+    will-change: transform;
+  }
+
+  .sbar.is-dragging .sbar__thumb {
+    cursor: grabbing;
+  }
+
+  .sbar__thumb-bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 6px;
+    width: 6px;
+    border-radius: var(--r);
+    background: var(--ink);
+    transform-origin: right center;
+    transform: scaleX(0.5);
+    transition: transform 160ms var(--ease-out), background-color 160ms ease-out;
+    pointer-events: none;
+  }
+
+  /* Light-mode contrast over the full-bleed dark #about ink field */
+  .sbar__thumb.is-on-ink .sbar__thumb-bar {
+    background: var(--on-ink);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .sbar__thumb:hover .sbar__thumb-bar {
+      transform: scaleX(1);
+      background: var(--orange);
+    }
+  }
+
+  .sbar.is-dragging .sbar__thumb-bar {
+    transform: scaleX(1);
+    background: var(--orange);
+  }
+}
+
+/* ---------- 3. Reduced Motion: instant visual state, zero easing ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .sbar,
+  .sbar__thumb-bar,
+  .sbar__tick-mark,
+  .sbar__tick-label {
+    transition: none !important;
+  }
+
+  .sbar__tick-label {
+    transform: translate3d(0, -50%, 0);
+  }
+
+  .sbar__tick:hover .sbar__tick-label {
+    transform: translate3d(0, -50%, 0);
+  }
+}
+
+html.is-reduced-motion .sbar,
+html.is-reduced-motion .sbar__thumb-bar,
+html.is-reduced-motion .sbar__tick-mark,
+html.is-reduced-motion .sbar__tick-label {
+  transition: none !important;
+}
+
+html.is-reduced-motion .sbar__tick-label {
+  transform: translate3d(0, -50%, 0);
+}
+
+html.is-reduced-motion .sbar__tick:hover .sbar__tick-label {
+  transform: translate3d(0, -50%, 0);
+}

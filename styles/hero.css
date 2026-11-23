@@ -1,0 +1,347 @@
+/* hero: Instrument redesign v5. Owner: W1 foundation; grid + strip rebuilt in H2. */
+/* Spec strip, the data field (one WebGL piece over a static SVG poster), the name, the intro and the two actions,
+   then a quiet toolchain row. Desktop with a fine pointer holds the hero for half a screen while the field settles
+   onto the column hairlines; touch never pins. */
+
+/* ONE GRID. Every vertical line, tick and text edge below is derived from the .container grid (12 columns, 4 on
+   phones, margin --m, gutter --g, the same 2400px cap): a column line sits at the gutter centre, so line k is at
+   (box-left + --m - --g/2) + k * (column + --g). Text sits --g/2 inside its column line. Nothing here uses 100vw. */
+.hero { position: relative; --hair: var(--rule-2); }
+html.is-intro [data-hero] { opacity: 0; }
+
+.hero__stage {
+  position: relative;
+  height: 100svh;
+  min-height: 620px;
+}
+@media (min-width: 961px) and (hover: hover) and (pointer: fine) {
+  html.has-reveal .hero__hold { height: 150svh; min-height: 930px; }
+  html.has-reveal .hero__stage { position: sticky; top: 0; }
+}
+
+/* Column hairlines at gutter centres (the loader draws the same ones) */
+.hero__cols { position: absolute; inset: 0; height: 100%; pointer-events: none; }
+.hero__cols i { position: relative; }
+.hero__cols i::before,
+.hero__cols i:last-child::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: calc(var(--g) / -2);
+  width: 1px;
+  background: var(--hair);
+  transform-origin: 50% 0;
+}
+.hero__cols i:last-child::after { left: auto; right: calc(var(--g) / -2); }
+
+.hero__inner {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: calc(var(--nav-h) + env(safe-area-inset-top));
+  padding-bottom: clamp(18px, 3.2vh, 40px);
+}
+
+/* ---- spec strip ---- */
+.hero__spec {
+  position: relative;
+  padding-block: 14px 16px;
+  row-gap: 14px;
+}
+/* the strip's rule runs from the first column line to the last, the same extent as the vertical hairlines */
+.hero__spec::after,
+.hero__tools::after {
+  content: '';
+  position: absolute;
+  left: calc(var(--m) - var(--g) / 2);
+  right: calc(var(--m) - var(--g) / 2);
+  bottom: 0;
+  height: 1px;
+  background: var(--hair);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+/* four cells of three columns: their left edges are column lines 0, 3, 6 and 9 (those lines are the dividers) */
+.hero__cell { position: relative; grid-column: span 3; display: flex; flex-direction: column; gap: 3px; min-width: 0; min-height: 44px; }
+.hero__cell dt { display: flex; align-items: center; }
+.hero__cell dd { font-size: 0.9375rem; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; text-wrap: balance; }
+/* status square: static, no pulse */
+.hero__dot { flex: none; width: 6px; height: 6px; margin-left: 8px; background: var(--orange); }
+
+/* quiet ghost links inside the strip: the whole cell is the target, the underline grows on hover */
+.hero__link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 160ms var(--ease-out);
+}
+/* block padding makes the link's own box 28px tall (44px on touch) without moving the text; ::after is the whole-cell hit area */
+.hero__link { padding-block: 5px; margin-block: -5px; }
+@media (pointer: coarse) { .hero__link { padding-block: 14px; margin-block: -14px; } }
+.hero__link::after { content: ''; position: absolute; inset: 0; }
+.hero__link:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+.hero__nw { white-space: nowrap; }
+.hero__arrow {
+  display: inline-block;
+  margin-left: 6px;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+  text-decoration: none;
+  transition: transform 160ms var(--ease-out), color 160ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .hero__cell:hover .hero__link { text-decoration-color: currentColor; }
+  .hero__cell:hover .hero__arrow { transform: translateX(3px); color: var(--ink); }
+}
+.hero__cell:active .hero__link { opacity: 0.85; }
+
+/* ---- the plot: where the field streams ---- */
+/* the plot is exactly the container box (never 100vw), so the field, the axis and the column lines share one frame */
+.hero__plot {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 180px;
+  width: 100%;
+  max-width: 2400px;
+  align-self: center;
+}
+.hero__canvas,
+.hero__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hero__canvas { opacity: 0; transition: opacity 600ms ease-out; }
+.hero__poster { transition: opacity 600ms ease-out; }
+.hero__plot.is-gl-ready:not(.is-gl-fallback) .hero__canvas { opacity: 1; }
+.hero__plot.is-gl-ready:not(.is-gl-fallback) .hero__poster { opacity: 0; }
+.hero__poster i {
+  position: absolute;
+  inset: 0;
+  -webkit-mask: var(--mask) 0 0 / 100% 100% no-repeat;
+  mask: var(--mask) 0 0 / 100% 100% no-repeat;
+}
+.hero__poster-grey { --mask: url('/assets/images/hero-field-grey.svg'); background: var(--field); }
+.hero__poster-orange { --mask: url('/assets/images/hero-field-orange.svg'); background: var(--orange); }
+:root[data-theme='dark'] .hero__poster-grey { opacity: 0.85; }
+/* phones have a 4-column grid, so the still frame is drawn for stage lines 1, 2, 3 of 4 */
+@media (max-width: 720px) {
+  .hero__poster-grey { --mask: url('/assets/images/hero-field-grey-phone.svg'); }
+  .hero__poster-orange { --mask: url('/assets/images/hero-field-orange-phone.svg'); }
+}
+
+/* a still poster has no live count or flow to report */
+.hero__plot.is-gl-fallback .hero__readout { display: none; }
+.hero__readout {
+  position: absolute;
+  top: 12px; right: var(--m);
+  padding: 2px 0 2px 8px;
+  background: var(--bg);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+/* Stage labels sit centred ON column lines 2, 6 and 10 (lines 1, 2, 3 of 4 on phones): the box is the content width,
+   so line k is at (100% + --g) * k / n - --g / 2. The label's ground cuts the hairline behind it. */
+.hero__axis {
+  --n: 12;
+  position: absolute;
+  left: var(--m); right: var(--m);
+  bottom: 10px;
+  height: 20px;
+}
+.hero__axis li {
+  --l: var(--l12);
+  position: absolute;
+  left: calc((100% + var(--g)) * var(--l) / var(--n) - var(--g) / 2);
+  bottom: 0;
+  transform: translateX(-50%);
+  padding: 0 6px;
+  background: var(--bg);
+}
+.hero__axis li::before {
+  content: '';
+  position: absolute;
+  left: 50%; bottom: calc(100% + 5px);
+  width: 5px; height: 5px;
+  margin-left: -2.5px;
+  background: var(--ink-3);
+}
+.hero__axis li:nth-child(2)::before { background: var(--orange); }
+
+/* ---- the name and the intro ---- */
+.hero__foot { align-items: end; padding-top: 6px; }
+.hero__name {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  font-size: var(--t-hero);
+  font-weight: 600;
+  line-height: 0.86;
+  letter-spacing: -0.052em;
+  white-space: nowrap;
+}
+/* Ink, not box, sits on the column start: Geist 600 has a 0.08em left side bearing on "M" and 0.043em on "O" */
+.hero__name .line:nth-child(1) { margin-left: -0.08em; }
+.hero__name .line:nth-child(2) { margin-left: -0.043em; }
+.hero__name .line { overflow: clip; overflow-clip-margin: 0.1em; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+.hero__name .line > span { display: block; }
+.hero__aside {
+  grid-column: 7 / 13;
+  grid-row: 1;
+  align-self: end;
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+  padding-bottom: 0.35vw;
+}
+.hero__intro {
+  margin-left: -0.08em;   /* the "I" has the same side bearing: ink on the column start */
+  max-width: 26ch;
+  font-size: var(--t-lede);
+  font-weight: 500;
+  line-height: 1.38;
+  letter-spacing: -0.012em;
+  text-wrap: pretty;
+}
+.hero__cta { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* ---- toolchain row ---- */
+.hero__tools {
+  position: relative;
+  align-items: center;
+  row-gap: 16px;
+  padding-block: clamp(22px, 2.6vw, 40px);
+}
+.hero__tools-label { grid-column: 1 / 4; }
+.hero__tools-n { color: var(--ink-2); margin-left: 6px; }
+.hero__tool-list {
+  grid-column: 4 / 13;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px clamp(14px, 1.5vw, 22px);
+}
+.hero__tool { width: 26px; height: 26px; }
+.hero__tool img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.78;
+  transition: filter 200ms ease-out, opacity 200ms ease-out;
+}
+/* pale pastel marks lose contrast under grayscale(1) on the light ground */
+:root[data-theme='light'] .hero__tool img:is([alt='Drizzle'], [alt='React'], [alt='Neon']) {
+  filter: grayscale(1) brightness(0.5) contrast(1.7);
+}
+@media (hover: hover) and (pointer: fine) {
+  .hero__tool-list:hover .hero__tool img { opacity: 0.5; }
+  .hero__tool-list .hero__tool:hover img,
+  :root[data-theme='light'] .hero__tool-list .hero__tool:hover img:is([alt='Drizzle'], [alt='React'], [alt='Neon']) {
+    filter: none;
+    opacity: 1;
+  }
+}
+/* near-black marks would vanish on the dark ground: draw them light */
+:root[data-theme='dark'] .hero__tool img:is([alt='Vercel'], [alt='GitHub'], [alt='Expo'], [alt='Ollama'], [alt='SQLite'], [alt='Angular']) {
+  filter: grayscale(1) invert(1);
+}
+:root[data-theme='dark'] .hero__tool-list .hero__tool:hover img:is([alt='Vercel'], [alt='GitHub'], [alt='Expo'], [alt='Ollama']) {
+  filter: invert(1);
+}
+
+/* ---- layouts ---- */
+/* Below 1200px the first line of the name runs into the aside columns: the aside moves under the name */
+@media (max-width: 1199px) and (min-width: 961px) {
+  .hero__foot { row-gap: 22px; }
+  .hero__aside { grid-column: 1 / -1; grid-row: 2; padding-bottom: 0; grid-template-columns: minmax(0, 30ch) auto; align-items: end; column-gap: var(--g); }
+  .hero__intro { max-width: 30ch; }
+}
+
+@media (max-width: 960px) {
+  .hero__foot { row-gap: 22px; }
+  .hero__aside { grid-column: 1 / -1; grid-row: 2; padding-bottom: 0; }
+  .hero__intro { max-width: 30ch; }
+  /* not pinned: the hero grows with its content instead of spilling into Work */
+  .hero__stage { height: auto; min-height: 0; }
+  .hero__inner { height: auto; min-height: max(100svh, 600px); }
+}
+
+/* Short and wide (foldable landscape 890x626, phones on their side): name and intro share a row */
+@media (max-width: 960px) and (min-width: 721px) and (max-height: 760px) {
+  .hero__name { grid-column: 1 / 8; font-size: min(var(--t-hero), 17svh); }
+  .hero__aside { grid-column: 8 / 13; grid-row: 1; padding-bottom: 4px; gap: 14px; }
+  .hero__intro { max-width: 26ch; font-size: 1.0625rem; }
+  .hero__plot { min-height: 130px; }
+  .hero__cta { gap: 8px; }
+  .hero__cta .btn { padding-inline: 14px; }
+}
+
+@media (max-width: 720px) {
+  .hero__inner { min-height: 100svh; }
+  .hero__spec { padding-block: 10px 12px; row-gap: 8px; }
+  .hero__cell { grid-column: span 2; }
+  .hero__cell dd { font-size: 0.875rem; }
+  .hero__plot { min-height: clamp(104px, 19svh, 156px); }
+  /* 4 columns: five lines. Only the first four <i> exist; the right edge comes from the fourth */
+  .hero__cols { grid-auto-rows: 100%; }
+  .hero__cols i:nth-child(n+5) { display: none; }
+  .hero__cols i:nth-child(4)::after { content: ''; position: absolute; top: 0; bottom: 0; right: calc(var(--g) / -2); left: auto; width: 1px; background: var(--hair); transform-origin: 50% 0; }
+  .hero__cols i:last-child::after { content: none; }
+  .hero__axis { --n: 4; }
+  .hero__axis li { --l: var(--l4); }
+  .hero__name { line-height: 0.88; }
+  .hero__cta { width: 100%; }
+  .hero__cta .btn { flex: 1 1 auto; }
+  .hero__tools-label, .hero__tool-list { grid-column: 1 / -1; }
+  .hero__tool-list { gap: 14px 16px; }
+  .hero__tool { width: 24px; height: 24px; }
+}
+@media (max-width: 400px) {
+  .hero__axis li { padding-inline: 3px; }
+}
+@media (max-width: 380px) {
+  .hero__name { font-size: clamp(3rem, 11vw, 3.75rem); }
+  .hero__foot { row-gap: 14px; }
+  .hero__aside { gap: 12px; }
+  .hero__intro { font-size: 1rem; line-height: 1.32; }
+  .hero__cta { gap: 8px; }
+  .hero__cta .btn { padding-inline: 10px; font-size: 0.875rem; gap: 6px; }
+}
+
+/* ---- entrance (CSS only, keyed on html.is-ready: right after the loader, or at first paint on repeat visits).
+        Nothing is hidden by these before they start, so a failed script can never leave the hero blank. ---- */
+.hero__cols i:nth-child(2) { --k: 1; } .hero__cols i:nth-child(3) { --k: 2; } .hero__cols i:nth-child(4) { --k: 3; }
+.hero__cols i:nth-child(5) { --k: 4; } .hero__cols i:nth-child(6) { --k: 5; } .hero__cols i:nth-child(7) { --k: 6; }
+.hero__cols i:nth-child(8) { --k: 7; } .hero__cols i:nth-child(9) { --k: 8; } .hero__cols i:nth-child(10) { --k: 9; }
+.hero__cols i:nth-child(11) { --k: 10; } .hero__cols i:nth-child(12) { --k: 11; }
+
+html.has-reveal.is-ready:not(.intro-played) .hero__cols i::before,
+html.has-reveal.is-ready:not(.intro-played) .hero__cols i:last-child::after {
+  animation: hero-col 900ms var(--ease-draw) calc(var(--k, 0) * 45ms) backwards;
+}
+html.has-reveal.is-ready .hero__spec::after { animation: hero-rule 720ms var(--ease-draw) 20ms backwards; }
+html.has-reveal.is-ready .hero__cell { animation: hero-up 520ms var(--ease-out) backwards; }
+html.has-reveal.is-ready .hero__cell:nth-child(1) { animation-delay: 40ms; }
+html.has-reveal.is-ready .hero__cell:nth-child(2) { animation-delay: 80ms; }
+html.has-reveal.is-ready .hero__cell:nth-child(3) { animation-delay: 120ms; }
+html.has-reveal.is-ready .hero__cell:nth-child(4) { animation-delay: 160ms; }
+html.has-reveal.is-ready .hero__name .line > span { animation: hero-line 620ms var(--ease-out) 40ms backwards; }
+html.has-reveal.is-ready .hero__name .line:nth-child(2) > span { animation-delay: 100ms; }
+html.has-reveal.is-ready .hero__aside > * { animation: hero-up 520ms var(--ease-out) 140ms backwards; }
+html.has-reveal.is-ready .hero__aside > :nth-child(2) { animation-delay: 200ms; }
+html.has-reveal.is-ready :is(.hero__readout, .hero__axis) { animation: hero-fade 460ms ease-out 220ms backwards; }
+
+@keyframes hero-col { from { transform: scaleY(0); } }
+@keyframes hero-rule { from { transform: scaleX(0); } }
+@keyframes hero-up { from { opacity: 0; translate: 0 12px; } }
+@keyframes hero-line { from { translate: 0 108%; } }
+@keyframes hero-fade { from { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero *, .hero *::before, .hero *::after { animation: none !important; }
+  .hero__canvas { display: none; }
+  .hero__tool img { transition: none; }
+}

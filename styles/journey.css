@@ -1,0 +1,292 @@
+/* journey: Instrument redesign v5. Owner: W4 journey. */
+
+.journey {
+  /* QA-C: one section gap only (the last row already carries its own bottom padding) */
+  padding-block: var(--section-gap) 0;
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: clip;
+}
+
+.journey__stage {
+  min-width: 0;
+}
+
+.journey__log {
+  grid-column: 1 / -1;
+  position: relative;
+  min-width: 0;
+}
+
+/* Vertical hairline spine aligned with .section-head > .label::before (7px marker on left edge) */
+.journey__spine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 7px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.journey__spine-track {
+  position: absolute;
+  left: 3px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--rule);
+}
+
+.journey__spine-fill {
+  position: absolute;
+  left: 3px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--ink);
+  transform-origin: 50% 0;
+  transform: scaleY(0);
+  will-change: transform;
+}
+
+.journey__marker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 1px;
+  background: var(--orange);
+  transform: translate3d(0, 34px, 0);
+  transition: transform 300ms var(--ease-out);
+  will-change: transform;
+}
+
+.journey__years {
+  display: block;
+}
+
+.journey__year {
+  --row-pt: clamp(32px, 3.6vw, 52px);
+  --year-size: clamp(2.125rem, 3.2vw, 3.375rem);
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--g);
+  row-gap: 0;
+  align-items: start;
+  padding-top: var(--row-pt);
+  padding-bottom: clamp(52px, 6.4vw, 96px);
+}
+.journey__year:last-child { padding-bottom: 0; }
+
+.journey__rule {
+  position: absolute;
+  left: 3px;
+  right: 0;
+  top: 0;
+}
+
+.journey__end-rule {
+  margin-left: 3px;
+}
+
+.journey__node {
+  position: absolute;
+  left: 1px;
+  top: calc(var(--row-pt) + var(--year-size) * 0.45 - 2.5px);
+  width: 5px;
+  height: 5px;
+  border-radius: 1px;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--rule);
+  z-index: 1;
+  transition: box-shadow 220ms ease-out;
+}
+
+.journey__year.is-active .journey__node {
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+
+/* Left columns: large tabular Geist Mono year + mono status readout */
+.journey__time {
+  grid-column: 1 / 4;
+  min-width: 0;
+  padding-left: 24px;
+}
+
+.journey__when {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.journey__label {
+  display: block;
+  font-family: var(--mono);
+  font-size: var(--year-size);
+  font-weight: 500;
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+  transition: color 220ms ease-out;
+}
+
+.journey__year.is-active .journey__label {
+  color: var(--ink);
+}
+
+.journey__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.journey__place {
+  display: block;
+}
+
+.journey__line {
+  display: block;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* Middle columns: aligns vertically with .section-head > h2 */
+.journey__body {
+  grid-column: 4 / 8;
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.journey__title {
+  font-family: var(--sans);
+  font-size: clamp(1.25rem, 1.75vw, 1.625rem);
+  font-weight: 600;
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.journey__copy {
+  margin-top: 12px;
+  font-size: var(--t-body);
+  line-height: 1.56;
+  color: var(--ink-2);
+  max-width: 44ch;
+  text-wrap: pretty;
+}
+
+.journey__cta {
+  margin-top: 20px;
+}
+
+/* Right columns: mounted photo plate */
+.journey__figure {
+  grid-column: 8 / 13;
+  min-width: 0;
+}
+
+.journey__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.journey__img--code {
+  object-position: 50% 34%;
+}
+
+.journey__img--portrait {
+  object-position: 50% 22%;
+}
+
+/* Tablets, Phones & iPhone Duo (folded 466x678, portrait 626x890, landscape 890x626) */
+@media (max-width: 960px) {
+  .journey__year {
+    --row-pt: clamp(24px, 4vw, 36px);
+    --year-size: clamp(1.875rem, 5.5vw, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-left: 24px;
+    padding-top: var(--row-pt);
+    padding-bottom: clamp(40px, 7vw, 60px);
+  }
+
+  .journey__time {
+    grid-column: auto;
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .journey__when {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px 16px;
+  }
+
+  .journey__meta {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .journey__body {
+    grid-column: auto;
+    width: 100%;
+    padding-top: 0;
+  }
+
+  .journey__copy {
+    max-width: 60ch;
+  }
+
+  .journey__figure {
+    grid-column: auto;
+    width: 100%;
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .journey__year {
+    padding-left: 20px;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .journey__when {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .journey__meta {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey__marker,
+  .journey__label,
+  .journey__node {
+    transition: none;
+  }
+
+  .journey__spine-fill {
+    display: none;
+  }
+
+  .journey__label {
+    color: var(--ink);
+  }
+}

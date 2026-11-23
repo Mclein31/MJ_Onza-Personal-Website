@@ -1,0 +1,1 @@
+class i{constructor(){this._len=-1,this.tiltStart=0,this.tiltEnd=0}getLength(){return this._len<0&&this.updateLength(),this._len}getTiltAt(t){return this.tiltStart*(1-t)*this.tiltEnd*t}clone(){return new this.constructor().copy(this)}copy(t){return this._len=t._len,this.tiltStart=t.tiltStart,this.tiltEnd=t.tiltEnd,this}}export{i as default};

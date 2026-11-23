@@ -1,0 +1,350 @@
+/* contact: Instrument redesign v5. Owner: W7 contact+footer+dialogs. */
+
+.contact {
+  padding-block: var(--section-gap) clamp(56px, 7vw, 112px);
+}
+
+.contact__body {
+  row-gap: 32px;
+  align-items: start;
+}
+
+.contact__aside {
+  grid-column: 1 / 4;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.contact__person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.contact__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r);
+  object-fit: cover;
+  border: 1px solid var(--rule);
+  flex: none;
+}
+
+.contact__id {
+  min-width: 0;
+}
+
+.contact__name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.contact__role {
+  margin-top: 2px;
+}
+
+.contact__availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 1px;
+  background: var(--orange);
+  flex: none;
+}
+
+/* Visits & likes readout */
+.contact__stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.contact__stats .rule {
+  margin-bottom: 4px;
+}
+
+.contact__visits {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ink-3);
+}
+
+.contact__visits b {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.contact__like {
+  align-self: flex-start;
+  font-family: var(--mono);
+  font-size: var(--t-mono);
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+}
+
+.contact__like b {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.contact__like-word {
+  color: var(--ink-3);
+}
+
+.contact__heart {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  transition:
+    fill 180ms ease-out,
+    stroke 180ms ease-out,
+    transform 180ms var(--ease-out);
+}
+
+.contact__like.is-liked .contact__heart {
+  fill: var(--orange);
+  stroke: var(--orange);
+}
+
+.contact__like.is-just-liked .contact__heart {
+  animation: contact-like-pop 280ms var(--ease-out) both;
+}
+
+@keyframes contact-like-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.28); }
+  100% { transform: scale(1); }
+}
+
+/* Main action, single email copier, hairline channel spec list */
+.contact__main {
+  grid-column: 4 / 13;
+  min-width: 0;
+}
+
+.contact__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+}
+
+.contact__direct {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 24px;
+  padding: 12px 16px;
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+}
+
+.contact__email {
+  font-family: var(--mono);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  margin-right: auto;
+}
+
+.contact__copy-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  background: var(--rule);
+  flex: none;
+  transition: background-color 160ms ease-out;
+}
+
+.contact__copy[data-state='copied'] .contact__copy-dot {
+  background: var(--orange);
+}
+
+.contact__rule {
+  margin-top: clamp(32px, 4vw, 52px);
+}
+
+.contact__channels {
+  display: block;
+}
+
+.channel {
+  display: grid;
+  grid-template-columns: minmax(110px, 2.2fr) minmax(0, 4.8fr) auto;
+  align-items: center;
+  column-gap: var(--g);
+  row-gap: 8px;
+  padding: 16px 8px;
+  border-radius: var(--r);
+  border-bottom: 1px solid var(--rule);
+  transition: background-color 160ms ease-out;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .channel:hover {
+    background: var(--bg-2);
+  }
+}
+
+.channel__title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.channel__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  min-width: 0;
+}
+
+.channel__handle {
+  overflow-wrap: anywhere;
+  color: var(--ink-2);
+}
+
+.channel__action {
+  justify-self: end;
+}
+
+/* Mini GitHub grid inside the GitHub row */
+.channel__grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 4px);
+  grid-auto-columns: 4px;
+  gap: 2px;
+  align-items: center;
+  flex: none;
+}
+
+.channel__grid [data-day] {
+  width: 4px;
+  height: 4px;
+  border-radius: 1px;
+  background: var(--rule-2);
+}
+
+.channel__grid [data-day][data-level='1'] { background: var(--rule); }
+.channel__grid [data-day][data-level='2'] { background: var(--field); }
+.channel__grid [data-day][data-level='3'] { background: var(--ink-2); }
+.channel__grid [data-day][data-level='4'] { background: var(--orange); }
+
+@media (max-width: 960px) {
+  .contact__aside {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 16px 24px;
+  }
+
+  .contact__person { grid-column: 1; }
+  .contact__availability { grid-column: 1; }
+  .contact__stats {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    margin-top: 0;
+  }
+
+  .contact__main {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 720px) {
+  .contact__aside {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .contact__person,
+  .contact__availability,
+  .contact__stats {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .contact__visits {
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .channel {
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 14px 4px;
+  }
+
+  .channel__title {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .channel__action {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .channel__meta {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 520px) {
+  .contact__direct {
+    gap: 4px 12px;
+  }
+
+  .contact__direct > .label {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 359px) {
+  .channel {
+    grid-template-columns: 1fr;
+    row-gap: 6px;
+  }
+
+  .channel__title { grid-column: 1; grid-row: 1; }
+  .channel__meta { grid-column: 1; grid-row: 2; }
+  .channel__action {
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact__like.is-just-liked .contact__heart {
+    animation: none;
+  }
+
+  .contact__heart,
+  .contact__copy-dot,
+  .channel {
+    transition: none;
+  }
+}

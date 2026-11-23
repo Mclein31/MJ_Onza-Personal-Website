@@ -17,7 +17,7 @@ test('homepage exposes one canonical identity and the requested name variants', 
   expect(person.alternateName).toEqual(['McLein Onza', 'mcleinjeionza']);
   expect(profile.mainEntity['@id']).toBe(person['@id']);
   expect(profile.isPartOf['@id']).toBe(website['@id']);
-  expect(person.sameAs).toEqual(await page.locator('footer nav a').evaluateAll(links => links.filter(a => /github\.com|linkedin\.com/.test(a.href)).map(a => a.href)));
+  expect(person.sameAs).toEqual(await page.locator('#contact a').evaluateAll(links => links.filter(a => /github\.com|linkedin\.com/.test(a.href)).map(a => a.href)));
 });
 
 test('crawler discovery files point only to the canonical page', async ({ request, page }) => {
@@ -42,7 +42,9 @@ test('identity and portfolio content are available without JavaScript', async ({
     await page.goto('/');
     await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.getByRole('heading', { level: 1 })).toHaveAccessibleName('McLein Jei Onza');
-    await expect(page.locator('.about__lede')).toContainText('McLein Jei Onza');
-    await expect(page.locator('.project__info').first()).toBeVisible();
+    await expect(page.locator('meta[name="theme-color"][media="(prefers-color-scheme: light)"]')).toHaveAttribute('content', '#E9EAEC');
+    await expect(page.locator('meta[name="theme-color"][media="(prefers-color-scheme: dark)"]')).toHaveAttribute('content', '#0F1012');
+    await expect(page.locator('#about')).toContainText('McLein Jei Onza');
+    await expect(page.locator('#work').getByText('Affordable care plans, telehealth').first()).toBeVisible();
   } finally { await context.close(); }
 });
