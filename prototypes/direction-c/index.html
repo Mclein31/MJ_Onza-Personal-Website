@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>McLein Jei Onza | Developer Portfolio (Direction C: Kinetic)</title>
+  <meta name="description" content="Prototype of direction C, Kinetic: McLein Jei Onza, BSCS student at Cagayan State University, builds full-stack apps and trains in data engineering." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#E9EAEC" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0F1012" media="(prefers-color-scheme: dark)" />
+  <script>
+    /* Theme, loader and entrance flags before first paint. Loader plays once per session, never with reduced motion. */
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      try { var t = localStorage.getItem('dc-theme'); if (t === 'light' || t === 'dark') d.dataset.theme = t; } catch (e) {}
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var seen = false;
+      try { seen = sessionStorage.getItem('dc-intro') === '1'; } catch (e) {}
+      if (reduce) return;
+      d.classList.add(seen ? 'is-pending' : 'is-loading');
+      if (!seen && 'scrollRestoration' in history) history.scrollRestoration = 'manual';
+    })();
+  </script>
+  <link rel="icon" type="image/png" sizes="64x64" href="../../assets/Logo/favicon-circle-64.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../../assets/Logo/favicon-circle-192.png" />
+  <link rel="preload" href="../../assets/fonts/geist-v5-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="../../assets/fonts/geist-mono-v6-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/work.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Intro loader: decorative, removed from the tree after it exits; CSS failsafe hides it at 2.6s -->
+  <div class="loader" data-loader aria-hidden="true" inert>
+    <div class="loader__row">
+      <span class="loader__note">BSCS · Cagayan State University · Class of 2028</span>
+      <span class="loader__count"><span data-count>000</span><span class="loader__pct">%</span></span>
+    </div>
+    <span class="loader__bar"><i data-bar></i></span>
+  </div>
+
+  <header class="nav" data-nav>
+    <div class="nav__inner">
+      <a class="nav__brand" href="#top" data-brand>McLein Jei Onza</a>
+      <span class="nav__sep" data-nav-sep aria-hidden="true">/</span>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#work" data-nav-link="work">Work</a>
+        <a href="#about" data-nav-link="about">About</a>
+        <a href="#next">Journey</a>
+        <a href="#next">Contact</a>
+      </nav>
+      <div class="nav__actions">
+        <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch to dark theme">
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+        </button>
+        <a class="btn btn--ink nav__cta" href="mailto:mcleinjeionza06@gmail.com?subject=Hello%20McLein">Let’s talk</a>
+        <button class="icon-btn nav__menu-btn" type="button" data-menu-toggle aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h16M4 15h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="menu" id="menu" data-menu hidden>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#next">Journey</a>
+      <a href="#next">Contact</a>
+      <a class="menu__mail" href="mailto:mcleinjeionza06@gmail.com?subject=Hello%20McLein">Send a message</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" data-hero>
+      <!-- The one WebGL piece: an orange and cobalt light field behind a frosted plane. Static gradient fallback lives in CSS. -->
+      <div class="plane" data-plane aria-hidden="true">
+        <canvas class="plane__gl" data-field></canvas>
+        <span class="plane__frost"></span>
+      </div>
+
+      <h1 class="name" data-name>
+        <span class="sr-only">McLein Jei Onza</span>
+        <span class="name__vis" aria-hidden="true">
+          <span class="name__line name__line--a" data-name-line><span class="w"><span class="ch">M</span><span class="ch">c</span><span class="ch">L</span><span class="ch">e</span><span class="ch">i</span><span class="ch">n</span></span></span>
+          <span class="name__line name__line--b" data-name-line><span class="w"><span class="ch">J</span><span class="ch">e</span><span class="ch">i</span></span></span>
+          <span class="name__line name__line--c" data-name-line><span class="w"><span class="ch">O</span><span class="ch">n</span><span class="ch">z</span><span class="ch">a</span></span></span>
+        </span>
+      </h1>
+
+      <div class="hero__copy" data-hero-copy>
+        <p class="hero__intro" data-enter>I build full-stack apps and train in data engineering.</p>
+        <p class="hero__meta" data-enter>BSCS student · Cagayan State University · Class of 2028</p>
+        <div class="hero__cta" data-enter>
+          <a class="btn btn--ink" href="#work">See the work</a>
+          <a class="link-arrow" href="mailto:mcleinjeionza06@gmail.com?subject=Hello%20McLein">Send a message<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+
+      <nav class="hero__index" aria-label="Selected work" data-enter>
+        <p class="hero__index-title">Selected work</p>
+        <ul>
+          <li><a href="#work">AdvanCare</a></li>
+          <li><a href="#work">MedCore</a></li>
+          <li><a href="#work">SERVIO</a></li>
+          <li><a href="#work">MedRecord</a></li>
+          <li><a href="#work">Mulat Media</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <section class="work" id="work" aria-labelledby="work-title">
+      <div class="work__pin" data-title-pin>
+        <h2 class="work__title" id="work-title" data-shrink-title>Things I’ve built</h2>
+      </div>
+      <div class="work__spacer" data-title-spacer aria-hidden="true"></div>
+
+      <div class="work__intro">
+        <p class="work__lede" data-lines>Five products, each built end to end: the database, the API, the staff console and the app in someone’s hand.</p>
+        <p class="work__count">5 projects</p>
+      </div>
+
+      <div class="marquee" data-marquee aria-hidden="true">
+        <div class="marquee__track" data-marquee-track>
+          <span class="marquee__set"><span>AdvanCare</span><i></i><span class="is-on">MedCore</span><i></i><span>SERVIO</span><i></i><span>MedRecord</span><i></i><span>Mulat Media</span><i></i></span>
+        </div>
+      </div>
+
+      <div class="stack" data-stack>
+        <article class="card" data-card aria-labelledby="medcore-title">
+          <div class="card__inner">
+            <div class="gallery" data-gallery aria-roledescription="carousel" aria-label="MedCore screenshots" tabindex="0">
+              <div class="gallery__viewport">
+                <div class="gallery__track" data-gallery-track>
+                  <figure class="gallery__slide" data-title="Hospital dashboard and patient app" data-desc="Billing staff see discharge holds, pending HMO authorizations, bed census and receivables at a glance. The patient sees the balance left after coverage."><img src="../../assets/images/projects/medcore-1-1600.webp" srcset="../../assets/images/projects/medcore-1-1600.webp 1600w, ../../assets/images/projects/medcore-1-2400.webp 2400w, ../../assets/images/projects/medcore-1-3200.webp 3200w" sizes="(max-width: 899px) 92vw, 62vw" alt="MedCore: hospital overview dashboard and patient app home" width="3200" height="1800" decoding="async" draggable="false" /></figure>
+                  <figure class="gallery__slide" data-title="Discharge clearance" data-desc="Every discharge moves through six stages, from the doctor’s order to the gate pass, with the current blocker and the time elapsed against the 45-minute target."><img src="../../assets/images/projects/medcore-2-1600.webp" srcset="../../assets/images/projects/medcore-2-1600.webp 1600w, ../../assets/images/projects/medcore-2-2400.webp 2400w, ../../assets/images/projects/medcore-2-3200.webp 3200w" sizes="(max-width: 899px) 92vw, 62vw" alt="MedCore: discharge clearance board" width="3200" height="1800" loading="lazy" decoding="async" draggable="false" /></figure>
+                  <figure class="gallery__slide" data-title="One bill, every deduction in order" data-desc="Staff see each charge and how VAT exemption, senior or PWD discount, PhilHealth and HMO are applied. The patient sees the same breakdown on their phone."><img src="../../assets/images/projects/medcore-3-1600.webp" srcset="../../assets/images/projects/medcore-3-1600.webp 1600w, ../../assets/images/projects/medcore-3-2400.webp 2400w, ../../assets/images/projects/medcore-3-3200.webp 3200w" sizes="(max-width: 899px) 92vw, 62vw" alt="MedCore: encounter ledger and patient bill breakdown" width="3200" height="1800" loading="lazy" decoding="async" draggable="false" /></figure>
+                  <figure class="gallery__slide" data-title="A bill patients can understand" data-desc="Patients check their bill and coverage, and Cora AI explains the balance in Taglish, English, Tagalog or Ilokano."><img src="../../assets/images/projects/medcore-4-1600.webp" srcset="../../assets/images/projects/medcore-4-1600.webp 1600w, ../../assets/images/projects/medcore-4-2400.webp 2400w, ../../assets/images/projects/medcore-4-3200.webp 3200w" sizes="(max-width: 899px) 92vw, 62vw" alt="MedCore: patient bill, Cora AI explanation and coverage" width="3200" height="1800" loading="lazy" decoding="async" draggable="false" /></figure>
+                  <figure class="gallery__slide" data-title="Claims checked before they are filed" data-desc="A pre-flight scrubber checks PhilHealth claims before submission. Patients can settle the balance in full or in part from the app."><img src="../../assets/images/projects/medcore-5-1600.webp" srcset="../../assets/images/projects/medcore-5-1600.webp 1600w, ../../assets/images/projects/medcore-5-2400.webp 2400w, ../../assets/images/projects/medcore-5-3200.webp 3200w" sizes="(max-width: 899px) 92vw, 62vw" alt="MedCore: claims scrubber and patient payment" width="3200" height="1800" loading="lazy" decoding="async" draggable="false" /></figure>
+                  <figure class="gallery__slide" data-title="Revenue cycle analytics" data-desc="Average discharge time, trapped capital and the main bottleneck, with an AI briefing on what to fix first."><img src="../../assets/images/projects/medcore-6-1600.webp" srcset="../../assets/images/projects/medcore-6-1600.webp 1600w, ../../assets/images/projects/medcore-6-2400.webp 2400w, ../../assets/images/projects/medcore-6-3200.webp 3200w" sizes="(max-width: 899px) 92vw, 62vw" alt="MedCore: revenue cycle analytics dashboard" width="3200" height="1800" loading="lazy" decoding="async" draggable="false" /></figure>
+                  <figure class="gallery__slide gallery__slide--video" data-title="Product video" data-desc="Thirty-two seconds with voiceover: the bill, the deductions and the patient app, start to finish."><video src="../../assets/video/medcore-promo.mp4" poster="../../assets/video/medcore-promo-poster.webp" controls playsinline preload="none" aria-label="MedCore promo video, 32 seconds, with voiceover"></video></figure>
+                </div>
+              </div>
+              <div class="gallery__bar">
+                <div class="gallery__caption" aria-live="polite">
+                  <p class="gallery__cap-title" data-cap-title>Hospital dashboard and patient app</p>
+                  <p class="gallery__cap-desc" data-cap-desc>Billing staff see discharge holds, pending HMO authorizations, bed census and receivables at a glance. The patient sees the balance left after coverage.</p>
+                </div>
+                <div class="gallery__ui">
+                  <span class="gallery__count" data-gallery-count>1 / 7</span>
+                  <button class="icon-btn icon-btn--line" type="button" data-gallery-prev aria-label="Previous screenshot of MedCore"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 18-6-6 6-6"/></svg></button>
+                  <button class="icon-btn icon-btn--line" type="button" data-gallery-next aria-label="Next screenshot of MedCore"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 18 6-6-6-6"/></svg></button>
+                  <button class="icon-btn icon-btn--line" type="button" data-gallery-zoom aria-label="View MedCore screenshots larger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-6.5 6.5M4 20l6.5-6.5"/></svg></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card__info">
+              <p class="card__meta" data-part>Hospital billing</p>
+              <h3 class="card__title" id="medcore-title" data-part>MedCore</h3>
+              <p class="card__desc" data-part>Applies PhilHealth, HMO and senior/PWD deductions in order so cashiers and security see one final balance. A staff dashboard, a patient companion app and an AI concierge.</p>
+              <button class="btn btn--line card__video" type="button" data-play-video data-part><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.8v14.4L19 12z"/></svg>Watch the product video<span class="card__time" aria-hidden="true">0:32</span><span class="sr-only">, 32 seconds</span></button>
+              <ul class="card__stack" aria-label="Built with" data-part><li>Vercel dashboard</li><li>Expo</li><li>Hono on Workers</li><li>Neon Postgres</li></ul>
+            </div>
+          </div>
+          <span class="card__shade" aria-hidden="true"></span>
+        </article>
+
+        <article class="card card--teaser" data-card aria-labelledby="servio-title">
+          <div class="card__inner">
+            <figure class="teaser__media">
+              <img src="../../assets/images/projects/servio-1-1600.webp" srcset="../../assets/images/projects/servio-1-1600.webp 1600w, ../../assets/images/projects/servio-1-2400.webp 2400w" sizes="(max-width: 899px) 92vw, 62vw" alt="SERVIO: home, live tracking map and chat" width="3200" height="1800" loading="lazy" decoding="async" draggable="false" />
+            </figure>
+            <div class="card__info">
+              <p class="card__meta">Next project · Local services</p>
+              <h3 class="card__title" id="servio-title">SERVIO</h3>
+              <p class="card__desc">Services sold like catalog items: upfront prices, instant technician matching, live on-the-way tracking and in-app escrow. Launching in Tuguegarao City.</p>
+              <ul class="card__stack" aria-label="Built with"><li>Ionic</li><li>Angular</li><li>Capacitor</li><li>Hono on Workers</li><li>Drizzle</li><li>Postgres</li><li>Durable Objects</li></ul>
+            </div>
+          </div>
+          <span class="card__shade" aria-hidden="true"></span>
+        </article>
+      </div>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <h2 class="about__title" id="about-title" data-scrub>Student first, builder always, now learning how data flows.</h2>
+      <p class="about__next" id="next">Prototype ends here. About, Journey, GitHub activity, Stack, Recognition, Training and Contact follow in the full build.</p>
+    </section>
+  </main>
+
+  <dialog class="lightbox" data-lightbox aria-label="MedCore screenshot, enlarged">
+    <button class="icon-btn lightbox__close" type="button" data-lightbox-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </dialog>
+
+  <script src="vendor/gsap.min.js" defer></script>
+  <script src="vendor/ScrollTrigger.min.js" defer></script>
+  <script src="vendor/SplitText.min.js" defer></script>
+  <script src="vendor/lenis.min.js" defer></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

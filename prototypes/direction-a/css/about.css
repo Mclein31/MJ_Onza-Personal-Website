@@ -1,0 +1,54 @@
+/* About transition: an ink field rises under an orange scan line, then the heading rises line by line */
+
+.about {
+  position: relative;
+  overflow: clip;
+  color: var(--on-ink);
+  min-height: 100svh;
+}
+.about__field {
+  position: absolute; inset: 0;
+  background: var(--ink);
+}
+.about__scan {
+  position: absolute; left: 0; right: 0; top: 0;
+  height: 2px; background: var(--orange);
+  opacity: 0;
+}
+.about__inner {
+  position: relative;
+  min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 64px;
+  padding-top: calc(var(--nav-h) + clamp(72px, 14vh, 160px));
+  padding-bottom: clamp(20px, 4vh, 40px);
+}
+.about .sec-head__side { color: color-mix(in srgb, var(--on-ink) 68%, var(--ink)); }
+.about__title { max-width: 15ch; }
+.about__end { color: color-mix(in srgb, var(--on-ink) 68%, var(--ink)); max-width: 60ch; }
+
+/* Armed by about.js: field waits below, heading waits in its line masks */
+html.about-armed .about__field { transform: translate3d(0, 50%, 0); will-change: transform; }
+html.about-armed .about__scan { opacity: 1; }
+html.about-armed .about__title .line > span {
+  transform: translateY(108%);
+  transition: transform 1000ms var(--ease-out);
+  transition-delay: var(--d, 0ms);
+}
+html.about-armed .about.is-in .about__title .line > span { transform: none; }
+html.about-armed .about .sec-head__side,
+html.about-armed .about__end { opacity: 0; transition: opacity 700ms ease 300ms; }
+html.about-armed .about.is-in .sec-head__side,
+html.about-armed .about.is-in .about__end { opacity: 1; }
+
+@media (max-width: 960px) {
+  .about__title { max-width: none; }
+}
+
+/* Theme change: a top-down wipe of the new theme */
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+html.vt-theme::view-transition-new(root) { animation: theme-wipe 650ms var(--ease-in-out) both; }
+@keyframes theme-wipe {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 0 0); }
+}

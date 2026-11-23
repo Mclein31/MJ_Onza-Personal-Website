@@ -1,0 +1,1138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>McLein Jei Onza | Developer Portfolio</title>
+  <meta name="description" content="McLein Jei Onza (McLein Onza), a Computer Science student at Cagayan State University, builds full-stack apps and trains in data engineering.">
+  <meta name="author" content="McLein Jei Onza">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="google-site-verification" content="ACf-3Knttm50GvQHKe0-0iF4WPhBt0darbvBvzp-MA8">
+  <meta name="theme-color" content="#F2EFE9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0B0B0B" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <link rel="canonical" href="https://mcleinjeionza.vercel.app/">
+  <link rel="icon" type="image/png" sizes="64x64" href="/assets/Logo/favicon-circle-64.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/Logo/favicon-circle-192.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="McLein Jei Onza">
+  <meta property="og:url" content="https://mcleinjeionza.vercel.app/">
+  <meta property="og:title" content="McLein Jei Onza | Developer Portfolio">
+  <meta property="og:description" content="McLein Jei Onza (McLein Onza), a Computer Science student at Cagayan State University, builds full-stack apps and trains in data engineering.">
+  <meta property="og:image" content="https://mcleinjeionza.vercel.app/assets/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The McLein Onza portfolio hero: the name in large black type with red dots, the intro line and a row of tool icons">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="McLein Jei Onza | Developer Portfolio">
+  <meta name="twitter:description" content="McLein Jei Onza (McLein Onza), a Computer Science student at Cagayan State University, builds full-stack apps and trains in data engineering.">
+  <meta name="twitter:image" content="https://mcleinjeionza.vercel.app/assets/images/og-image.jpg">
+  <meta name="twitter:image:alt" content="The McLein Onza portfolio hero: the name in large black type with red dots, the intro line and a row of tool icons">
+  <!-- Flash-free theme + intro bootstrap (recipes from scripts/core/theme.js and scripts/core/intro.js). Inline, un-deferred. -->
+  <script>
+  (function () {
+    var t; try { t = localStorage.getItem('portfolio-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') { t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+  </script>
+  <script>
+  (function(){var d=document.documentElement,p=true;
+  try{p=sessionStorage.getItem('v5-intro')!=='1'}catch(e){}
+  try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)p=false}catch(e){}
+  d.classList.add(p?'is-intro':'is-ready')})();
+  </script>
+  <style>
+    /* intro CSS failsafe (intro.js): if JS dies, everything is revealed at 2.6s. 1%/100% stops are deliberate. */
+    html.is-intro [data-intro]      { animation: intro-leave   1ms linear 2.6s forwards }
+    html.is-intro [data-intro-hold] { animation: intro-release 1ms linear 2.6s forwards }
+    @keyframes intro-leave   { 1%, 100% { opacity: 0; visibility: hidden; pointer-events: none } }
+    @keyframes intro-release { 1%, 100% { opacity: 1; transform: none; visibility: visible } }
+  </style>
+  <link rel="stylesheet" href="/vendor/lenis/lenis.css">
+  <script type="module" src="/scripts/main.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://mcleinjeionza.vercel.app/#website",
+      "url": "https://mcleinjeionza.vercel.app/",
+      "name": "McLein Jei Onza",
+      "alternateName": [
+        "McLein Onza",
+        "mcleinjeionza"
+      ],
+      "inLanguage": "en",
+      "publisher": {
+        "@id": "https://mcleinjeionza.vercel.app/#person"
+      }
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://mcleinjeionza.vercel.app/#profile",
+      "url": "https://mcleinjeionza.vercel.app/",
+      "name": "McLein Jei Onza | Developer Portfolio",
+      "description": "McLein Jei Onza (McLein Onza), a Computer Science student at Cagayan State University, builds full-stack apps and trains in data engineering.",
+      "dateModified": "2026-11-18",
+      "isPartOf": {
+        "@id": "https://mcleinjeionza.vercel.app/#website"
+      },
+      "mainEntity": {
+        "@id": "https://mcleinjeionza.vercel.app/#person"
+      },
+      "hasPart": {
+        "@id": "https://mcleinjeionza.vercel.app/#projects"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://mcleinjeionza.vercel.app/#person",
+      "name": "McLein Jei Onza",
+      "givenName": "McLein Jei",
+      "familyName": "Onza",
+      "alternateName": [
+        "McLein Onza",
+        "mcleinjeionza"
+      ],
+      "url": "https://mcleinjeionza.vercel.app/",
+      "image": "https://mcleinjeionza.vercel.app/assets/images/avatar.webp",
+      "description": "Computer Science student at Cagayan State University building full-stack applications and training in data engineering.",
+      "affiliation": {
+        "@type": "EducationalOrganization",
+        "name": "Cagayan State University"
+      },
+      "knowsAbout": [
+        "Full-stack development",
+        "Data engineering",
+        "Python",
+        "SQL",
+        "PostgreSQL",
+        "TypeScript",
+        "JavaScript",
+        "React",
+        "Cloudflare Workers",
+        "Database schema design",
+        "Drizzle ORM",
+        "AI workflows"
+      ],
+      "sameAs": [
+        "https://github.com/Mclein31",
+        "https://www.linkedin.com/in/mclein-jei-onza-9b0769322/"
+      ],
+      "mainEntityOfPage": {
+        "@id": "https://mcleinjeionza.vercel.app/#profile"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://mcleinjeionza.vercel.app/#projects",
+      "name": "Selected projects by McLein Jei Onza",
+      "numberOfItems": 5,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "AdvanCare",
+            "applicationCategory": "HealthApplication",
+            "operatingSystem": "Web, Android, iOS",
+            "description": "Affordable care plans, telehealth, non-emergency transport and caregiver booking for Cagayan barangays: a resident app, a staff console for LGU teams and an AI care assistant.",
+            "award": "2nd place, Cagayan Innovation Hack 2026",
+            "creator": {
+              "@id": "https://mcleinjeionza.vercel.app/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "MedCore",
+            "applicationCategory": "HealthApplication",
+            "operatingSystem": "Web, Android, iOS",
+            "description": "Applies PhilHealth, HMO and senior/PWD deductions in order so cashiers and security see one final balance. A staff dashboard, a patient companion app and an AI concierge.",
+            "creator": {
+              "@id": "https://mcleinjeionza.vercel.app/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "SERVIO",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web, Android, iOS",
+            "description": "Services sold like catalog items: upfront prices, instant technician matching, live on-the-way tracking and in-app escrow. Launching in Tuguegarao City.",
+            "creator": {
+              "@id": "https://mcleinjeionza.vercel.app/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "MedRec",
+            "applicationCategory": "HealthApplication",
+            "operatingSystem": "Web, Android, iOS",
+            "description": "Upload records, get plain-language AI readings, share them by QR and keep a Medical ID, rebuilt for v2 on a serverless stack.",
+            "creator": {
+              "@id": "https://mcleinjeionza.vercel.app/#person"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Mulat Media",
+            "url": "https://mulat-media.vercel.app/",
+            "description": "A multi-page publication platform with article submission workflows, category hierarchies and role-based editorial access, backed by Supabase with row-level security.",
+            "creator": {
+              "@id": "https://mcleinjeionza.vercel.app/#person"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <!--
+  Stable data hooks (behaviour layer; design may restyle/move markup but must keep these):
+  [data-theme-toggle]        button; toggles light/dark, persists, sets aria-pressed
+  [data-message-open]        any button that opens the message dialog (header, hero, about link-free, contact)
+  [data-message-close] [data-message-form] [data-message-submit] [data-message-status]   inside <dialog data-message>
+  [data-gallery]             per-project screenshot carousel; [data-gallery-track] the slide <ul>; [data-gallery-prev] [data-gallery-next]
+  [data-lightbox="<group>"]  button wrapping an <img data-title data-desc>; group = project id | recognition | training
+  [data-lightbox-target="recognition:<n>"]   button that opens the n-th photo of that group (Recognition rows)
+  <dialog data-lightbox-dialog> with [data-lightbox-image] [data-lightbox-title] [data-lightbox-desc] [data-lightbox-count] [data-lightbox-prev] [data-lightbox-next] [data-lightbox-close]
+  [data-video-open]          button; data-video-src, data-video-poster, data-video-title carry the clip
+  <dialog data-video> with [data-video-player] [data-video-title-el] [data-video-close]
+  [data-activity]            live GitHub calendar block; data-state="loading|ready|error" (set by JS)
+    [data-activity-calendar] empty grid target, [data-activity-loading] [data-activity-error] [data-activity-retry]
+    [data-activity-stats] with [data-act="total|days|streak|best"] values and [data-hl="active|streak|best"] buttons, [data-act-tip] tooltip live region
+    [data-activity-mini] [data-activity-mini-total]  mini grid + note in the GitHub contact card
+  [data-schema] + tr[data-join="tokens"]   Stack join highlighter
+  [data-copy="<text>"]       copy-to-clipboard button; announces through [data-toast] (role=status)
+  [data-stats-visits] [data-stats-like] [data-stats-likes]   visit count, like button (aria-pressed), like count
+  [data-year]                current year in the footer
+  [data-accordion]           About "What I do" (native <details name="does">)
+  [data-toast] [data-toast-text]   live region
+  [data-header] [data-hero] [data-nav] [data-menu-toggle] [data-menu] [data-menu-close] [data-menu-inert]   nav.js (scroll-spy, hide on scroll, phone menu)
+  [data-intro] [data-intro-skip] [data-intro-hold] [data-intro-duration]   intro.js gate (html.is-intro / is-ready)
+  [data-lenis-prevent]       dialogs and the menu panel: native scrolling under Lenis
+  [data-gallery-dots] [data-gallery-count] (+ [data-gallery-current] [data-gallery-total])   gallery.js fills these
+  [data-level="0..4"]        contribution cell AND legend swatch (the legend used data-l before I1)
+  [data-copy-label]          optional wording for the copy toast
+  Left to the design layer (no behaviour module): [data-schema]/[data-join] join highlighter, [data-countup], [data-accordion]
+
+  Notes: skeleton only. No design, no behaviour. The inline <style> below is a review-only reset; the real design replaces it.
+  Asset paths are root-absolute so this file can move to the site root unchanged.
+  -->
+  <style>
+    *,*::before,*::after{box-sizing:border-box}
+    body{margin:0;font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;color:#111;background:#fff}
+    img{max-width:100%;height:auto}
+    a{color:#0645ad}
+    .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+    .skip-link{position:absolute;left:8px;top:-60px;background:#fff;padding:8px 12px;z-index:10}
+    .skip-link:focus{top:8px}
+    header,main>section,footer{padding:16px;max-width:1100px;margin:0 auto}
+    main>section{border-top:1px solid #ccc}
+    header nav ul,.hero__tools,.project__stack,.project__slides,.recognition__photos,.about__does-item ul,.contact__channels,.journey__years,footer ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+    .project__slides{overflow-x:auto;flex-wrap:nowrap;scroll-snap-type:x mandatory}
+    .project__slide{flex:0 0 min(100%,640px);scroll-snap-align:start}
+    .journey__years{display:block}.journey__year{margin:0 0 32px}
+    .hero__tool img{width:48px;height:48px}
+    .stack,.recognition__items,.training__frames,.work__projects{display:block}
+    .stack__table table{border-collapse:collapse;margin-bottom:16px}
+    .stack__table th,.stack__table td{border:1px solid #ccc;padding:2px 8px;text-align:left}
+    dialog{max-width:min(92vw,900px);width:100%}
+    dialog::backdrop{background:rgba(0,0,0,.6)}
+    [data-lightbox-image]{max-height:70vh;width:auto}
+    label{display:block;margin:8px 0 2px}
+    input,textarea{font:inherit;width:100%;max-width:480px}
+    .form__hp{position:absolute;left:-9999px}
+    [data-toast]{position:fixed;left:16px;bottom:16px;background:#111;color:#fff;padding:8px 12px}
+    [hidden]{display:none!important}
+
+    /* ---- Minimum for hooks and state classes to be usable. Not design: the real CSS replaces all of this. ---- */
+    [id]{scroll-margin-top:var(--header-h,0px)}
+    .site-header{position:sticky;top:0;z-index:20;max-width:none;margin:0;background:#fff}
+    .site-header.is-hidden{transform:translateY(-100%)}
+    [data-menu-toggle]{display:none}
+    @media (max-width:720px){
+      [data-menu-toggle]{display:inline-block}
+      [data-menu]:not(.is-open){display:none}
+      [data-menu].is-open{position:fixed;inset:var(--header-h,56px) 0 0 0;z-index:19;overflow:auto;background:#fff;padding:16px}
+      [data-menu] ul{flex-direction:column}
+    }
+    .intro{display:none}
+    html.is-intro .intro{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:#fff}
+    html.is-intro [data-intro-hold]{opacity:0}
+    [data-toast]:not(.is-visible){opacity:0;pointer-events:none}
+    [data-gallery-dot]{width:10px;height:10px;padding:0;border:1px solid #111;background:#fff;margin:0 3px}
+    [data-gallery-dot][aria-current]{background:#111}
+    .project__nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    [data-level]{display:inline-block;width:10px;height:10px;background:#ebedf0}
+    [data-level="1"]{background:#c6c6c6}[data-level="2"]{background:#999}[data-level="3"]{background:#666}[data-level="4"]{background:#222}
+    [data-activity-calendar]{display:flex;gap:2px;overflow-x:auto;padding:4px 0}
+    [data-week]{display:flex;flex-direction:column;gap:2px;flex:none}
+    [data-day]{flex:none}
+    [data-day][data-pad]{visibility:hidden}
+    [data-act-tip]:not(.is-on){min-height:1.5em}
+    [data-activity-mini]{display:flex;flex-wrap:wrap;gap:2px;max-width:200px}
+    [data-hl][aria-pressed="true"]{outline:2px solid #111}
+    .is-hl{outline:1px solid #111}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="intro" data-intro data-intro-duration="700" role="status" aria-label="Loading">
+    <p class="intro__name">McLein Onza</p>
+    <button type="button" data-intro-skip>Skip intro</button>
+  </div>
+
+  <header class="site-header" data-header>
+    <a class="site-header__brand" href="#top" aria-label="McLein Onza, back to top">McLein</a>
+    <nav class="site-header__nav" id="site-menu" aria-label="Primary" data-menu data-lenis-prevent>
+      <ul>
+        <li><a href="#work" data-nav>Work</a></li>
+        <li><a href="#about" data-nav>About</a></li>
+        <li><a href="#journey" data-nav>Journey</a></li>
+        <li><a href="#activity" data-nav>Activity</a></li>
+        <li><a href="#stack" data-nav>Stack</a></li>
+        <li><a href="#recognition" data-nav>Recognition</a></li>
+        <li><a href="#training" data-nav>Training</a></li>
+        <li><a href="#contact" data-nav>Contact</a></li>
+      </ul>
+    </nav>
+    <div class="site-header__actions">
+      <button type="button" class="site-header__menu-toggle" data-menu-toggle aria-controls="site-menu" aria-expanded="false">Menu</button>
+      <button type="button" data-theme-toggle aria-pressed="false" aria-label="Toggle light and dark theme">Theme</button>
+      <button type="button" data-message-open>Let’s talk</button>
+    </div>
+  </header>
+
+  <main id="main" data-menu-inert>
+
+    <section class="hero" id="top" aria-label="Introduction" data-hero data-intro-hold>
+      <p class="hero__kicker">McLein Jei Onza · CS, Cagayan State University</p>
+      <h1 class="hero__title" aria-label="McLein Jei Onza"><span class="hero__given">McLein</span> <span class="hero__family">Onza.</span></h1>
+      <p class="hero__lead">I build full-stack apps and train in data engineering.</p>
+      <p class="hero__actions"><a class="hero__link" href="#work">See the work</a> <button type="button" data-message-open>Send a message</button></p>
+      <ul class="hero__tools" aria-label="Tools and technologies">
+        <li class="hero__tool"><img src="/assets/icons/python-icon.webp" alt="Python" width="48" height="48" loading="eager" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/postgres-icon.webp" alt="PostgreSQL" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/sqlite.svg" alt="SQLite" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/neon.svg" alt="Neon" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/supabase.svg" alt="Supabase" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/drizzle.svg" alt="Drizzle" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/typescript-icon.webp" alt="TypeScript" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/javascript-icon.webp" alt="JavaScript" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/react.svg" alt="React" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/angular.svg" alt="Angular" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/ionic.svg" alt="Ionic" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/capacitor.svg" alt="Capacitor" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/expo.svg" alt="Expo" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/nodejs.svg" alt="Node.js" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/hono.svg" alt="Hono" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/cloudflare.svg" alt="Cloudflare" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/vercel.svg" alt="Vercel" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/git-icon.webp" alt="Git" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/github-icon.webp" alt="GitHub" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/vscode-icon.webp" alt="VS Code" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/cursor.webp" alt="Cursor" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/claude-ai-icon.svg" alt="Claude" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/gemini.svg" alt="Gemini" width="48" height="48" loading="lazy" decoding="async"></li>
+        <li class="hero__tool"><img src="/assets/icons/ollama.webp" alt="Ollama" width="48" height="48" loading="lazy" decoding="async"></li>
+      </ul>
+    </section>
+
+    <section class="work" id="work" aria-labelledby="work-title">
+      <p class="section__eyebrow">01 / WORK</p>
+      <h2 class="section__title" id="work-title">Things I’ve built.</h2>
+      <div class="work__projects">
+      <article class="work__project project" id="advancare" aria-labelledby="advancare-title">
+        <p class="project__award">2nd place, Cagayan Innovation Hack 2026</p>
+        <h3 class="project__title" id="advancare-title">AdvanCare</h3>
+        <p class="project__summary">Affordable care plans, telehealth, non-emergency transport and caregiver booking for Cagayan barangays: a resident app, a staff console for LGU teams and an AI care assistant.</p>
+        <p class="project__video"><button type="button" data-video-open data-video-src="/assets/video/advancare-promo.mp4" data-video-poster="/assets/video/advancare-promo-poster.webp" data-video-title="AdvanCare">Watch the product video <span aria-hidden="true">0:30</span><span class="sr-only">, 30 seconds</span></button></p>
+        <ul class="project__stack" aria-label="Built with">
+          <li>React</li>
+          <li>Capacitor</li>
+          <li>Hono on Workers</li>
+          <li>Neon Postgres</li>
+          <li>Drizzle</li>
+          <li>Gemini assistant</li>
+        </ul>
+        <div class="project__gallery" data-gallery role="group" aria-roledescription="carousel" aria-label="AdvanCare screenshots">
+          <ul class="project__slides" data-gallery-track>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="advancare" aria-label="View larger: Staff console and resident app">
+                <img src="/assets/images/projects/advancare-1-2400.webp" srcset="/assets/images/projects/advancare-1-1600.webp 1600w, /assets/images/projects/advancare-1-2400.webp 2400w, /assets/images/projects/advancare-1-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="AdvanCare: staff console overview and resident app" width="3200" height="1800" loading="lazy" decoding="async" data-title="Staff console and resident app" data-desc="The LGU overview counts who is waiting for a caregiver, what is in progress, escalated and billed. Beside it, the resident app.">
+              </button>
+              <p class="project__caption"><strong>Staff console and resident app</strong> The LGU overview counts who is waiting for a caregiver, what is in progress, escalated and billed. Beside it, the resident app.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="advancare" aria-label="View larger: Book a doctor from home">
+                <img src="/assets/images/projects/advancare-2-2400.webp" srcset="/assets/images/projects/advancare-2-1600.webp 1600w, /assets/images/projects/advancare-2-2400.webp 2400w, /assets/images/projects/advancare-2-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="AdvanCare: services, telehealth booking and doctor choice" width="3200" height="1800" loading="lazy" decoding="async" data-title="Book a doctor from home" data-desc="Residents pick a service, choose a day and time, and book any available telehealth doctor in Cagayan.">
+              </button>
+              <p class="project__caption"><strong>Book a doctor from home</strong> Residents pick a service, choose a day and time, and book any available telehealth doctor in Cagayan.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="advancare" aria-label="View larger: RHU visits, triage and prescriptions">
+                <img src="/assets/images/projects/advancare-3-2400.webp" srcset="/assets/images/projects/advancare-3-1600.webp 1600w, /assets/images/projects/advancare-3-2400.webp 2400w, /assets/images/projects/advancare-3-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="AdvanCare: RHU services, triage and prescription refill" width="3200" height="1800" loading="lazy" decoding="async" data-title="RHU visits, triage and prescriptions" data-desc="Request a Rural Health Unit visit, describe symptoms for clinician triage, or refill a prescription.">
+              </button>
+              <p class="project__caption"><strong>RHU visits, triage and prescriptions</strong> Request a Rural Health Unit visit, describe symptoms for clinician triage, or refill a prescription.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="advancare" aria-label="View larger: Transport, medicines and help">
+                <img src="/assets/images/projects/advancare-4-2400.webp" srcset="/assets/images/projects/advancare-4-1600.webp 1600w, /assets/images/projects/advancare-4-2400.webp 2400w, /assets/images/projects/advancare-4-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="AdvanCare: transport, pharmacy and assistant" width="3200" height="1800" loading="lazy" decoding="async" data-title="Transport, medicines and help" data-desc="Book non-emergency transport to CVMC, order medicines at member prices and ask the care assistant.">
+              </button>
+              <p class="project__caption"><strong>Transport, medicines and help</strong> Book non-emergency transport to CVMC, order medicines at member prices and ask the care assistant.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="advancare" aria-label="View larger: Requests reach the staff queue">
+                <img src="/assets/images/projects/advancare-5-2400.webp" srcset="/assets/images/projects/advancare-5-1600.webp 1600w, /assets/images/projects/advancare-5-2400.webp 2400w, /assets/images/projects/advancare-5-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="AdvanCare: service request queue and triage form" width="3200" height="1800" loading="lazy" decoding="async" data-title="Requests reach the staff queue" data-desc="A resident’s triage request lands in the service request queue with who asked, when, and who is assigned.">
+              </button>
+              <p class="project__caption"><strong>Requests reach the staff queue</strong> A resident’s triage request lands in the service request queue with who asked, when, and who is assigned.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="advancare" aria-label="View larger: Shifts board">
+                <img src="/assets/images/projects/advancare-6-2400.webp" srcset="/assets/images/projects/advancare-6-1600.webp 1600w, /assets/images/projects/advancare-6-2400.webp 2400w, /assets/images/projects/advancare-6-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="AdvanCare: caregiver shifts board" width="3200" height="1800" loading="lazy" decoding="async" data-title="Shifts board" data-desc="Caregiver shifts for the day, from needing a caregiver to confirmed, in progress and completed, with clock-in times.">
+              </button>
+              <p class="project__caption"><strong>Shifts board</strong> Caregiver shifts for the day, from needing a caregiver to confirmed, in progress and completed, with clock-in times.</p>
+            </li>
+            <li class="project__slide project__slide--video">
+              <button class="project__zoom" type="button" data-video-open data-video-src="/assets/video/advancare-promo.mp4" data-video-poster="/assets/video/advancare-promo-poster.webp" data-video-title="AdvanCare" aria-label="AdvanCare promo video, 30 seconds, with voiceover">
+                <img src="/assets/video/advancare-promo-poster.webp" alt="" width="1280" height="720" loading="lazy" decoding="async">
+              </button>
+              <p class="project__caption"><strong>AdvanCare promo video</strong> 0:30</p>
+            </li>
+          </ul>
+          <div class="project__nav">
+            <button type="button" data-gallery-prev aria-label="Previous screenshot of AdvanCare">Previous</button>
+            <button type="button" data-gallery-next aria-label="Next screenshot of AdvanCare">Next</button>
+            <span class="project__count" data-gallery-count aria-hidden="true"><span data-gallery-current>1</span> / <span data-gallery-total>1</span></span>
+            <div class="project__dots" data-gallery-dots></div>
+          </div>
+        </div>
+      </article>
+      <article class="work__project project" id="medcore" aria-labelledby="medcore-title">
+        <h3 class="project__title" id="medcore-title">MedCore</h3>
+        <p class="project__summary">Applies PhilHealth, HMO and senior/PWD deductions in order so cashiers and security see one final balance. A staff dashboard, a patient companion app and an AI concierge.</p>
+        <p class="project__video"><button type="button" data-video-open data-video-src="/assets/video/medcore-promo.mp4" data-video-poster="/assets/video/medcore-promo-poster.webp" data-video-title="MedCore">Watch the product video <span aria-hidden="true">0:32</span><span class="sr-only">, 32 seconds</span></button></p>
+        <ul class="project__stack" aria-label="Built with">
+          <li>Vercel dashboard</li>
+          <li>Expo</li>
+          <li>Hono on Workers</li>
+          <li>Neon Postgres</li>
+        </ul>
+        <div class="project__gallery" data-gallery role="group" aria-roledescription="carousel" aria-label="MedCore screenshots">
+          <ul class="project__slides" data-gallery-track>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="medcore" aria-label="View larger: Hospital dashboard and patient app">
+                <img src="/assets/images/projects/medcore-1-2400.webp" srcset="/assets/images/projects/medcore-1-1600.webp 1600w, /assets/images/projects/medcore-1-2400.webp 2400w, /assets/images/projects/medcore-1-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="MedCore: hospital overview dashboard and patient app home" width="3200" height="1800" loading="lazy" decoding="async" data-title="Hospital dashboard and patient app" data-desc="Billing staff see discharge holds, pending HMO authorizations, bed census and receivables at a glance. The patient sees the balance left after coverage.">
+              </button>
+              <p class="project__caption"><strong>Hospital dashboard and patient app</strong> Billing staff see discharge holds, pending HMO authorizations, bed census and receivables at a glance. The patient sees the balance left after coverage.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="medcore" aria-label="View larger: Discharge clearance">
+                <img src="/assets/images/projects/medcore-2-2400.webp" srcset="/assets/images/projects/medcore-2-1600.webp 1600w, /assets/images/projects/medcore-2-2400.webp 2400w, /assets/images/projects/medcore-2-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="MedCore: discharge clearance board" width="3200" height="1800" loading="lazy" decoding="async" data-title="Discharge clearance" data-desc="Every discharge moves through six stages, from the doctor’s order to the gate pass, with the current blocker and the time elapsed against the 45-minute target.">
+              </button>
+              <p class="project__caption"><strong>Discharge clearance</strong> Every discharge moves through six stages, from the doctor’s order to the gate pass, with the current blocker and the time elapsed against the 45-minute target.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="medcore" aria-label="View larger: One bill, every deduction in order">
+                <img src="/assets/images/projects/medcore-3-2400.webp" srcset="/assets/images/projects/medcore-3-1600.webp 1600w, /assets/images/projects/medcore-3-2400.webp 2400w, /assets/images/projects/medcore-3-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="MedCore: encounter ledger and patient bill breakdown" width="3200" height="1800" loading="lazy" decoding="async" data-title="One bill, every deduction in order" data-desc="Staff see each charge and how VAT exemption, senior or PWD discount, PhilHealth and HMO are applied. The patient sees the same breakdown on their phone.">
+              </button>
+              <p class="project__caption"><strong>One bill, every deduction in order</strong> Staff see each charge and how VAT exemption, senior or PWD discount, PhilHealth and HMO are applied. The patient sees the same breakdown on their phone.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="medcore" aria-label="View larger: A bill patients can understand">
+                <img src="/assets/images/projects/medcore-4-2400.webp" srcset="/assets/images/projects/medcore-4-1600.webp 1600w, /assets/images/projects/medcore-4-2400.webp 2400w, /assets/images/projects/medcore-4-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="MedCore: patient bill, Cora AI explanation and coverage" width="3200" height="1800" loading="lazy" decoding="async" data-title="A bill patients can understand" data-desc="Patients check their bill and coverage, and Cora AI explains the balance in Taglish, English, Tagalog or Ilokano.">
+              </button>
+              <p class="project__caption"><strong>A bill patients can understand</strong> Patients check their bill and coverage, and Cora AI explains the balance in Taglish, English, Tagalog or Ilokano.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="medcore" aria-label="View larger: Claims checked before they are filed">
+                <img src="/assets/images/projects/medcore-5-2400.webp" srcset="/assets/images/projects/medcore-5-1600.webp 1600w, /assets/images/projects/medcore-5-2400.webp 2400w, /assets/images/projects/medcore-5-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="MedCore: claims scrubber and patient payment" width="3200" height="1800" loading="lazy" decoding="async" data-title="Claims checked before they are filed" data-desc="A pre-flight scrubber checks PhilHealth claims before submission. Patients can settle the balance in full or in part from the app.">
+              </button>
+              <p class="project__caption"><strong>Claims checked before they are filed</strong> A pre-flight scrubber checks PhilHealth claims before submission. Patients can settle the balance in full or in part from the app.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="medcore" aria-label="View larger: Revenue cycle analytics">
+                <img src="/assets/images/projects/medcore-6-2400.webp" srcset="/assets/images/projects/medcore-6-1600.webp 1600w, /assets/images/projects/medcore-6-2400.webp 2400w, /assets/images/projects/medcore-6-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="MedCore: revenue cycle analytics dashboard" width="3200" height="1800" loading="lazy" decoding="async" data-title="Revenue cycle analytics" data-desc="Average discharge time, trapped capital and the main bottleneck, with an AI briefing on what to fix first.">
+              </button>
+              <p class="project__caption"><strong>Revenue cycle analytics</strong> Average discharge time, trapped capital and the main bottleneck, with an AI briefing on what to fix first.</p>
+            </li>
+            <li class="project__slide project__slide--video">
+              <button class="project__zoom" type="button" data-video-open data-video-src="/assets/video/medcore-promo.mp4" data-video-poster="/assets/video/medcore-promo-poster.webp" data-video-title="MedCore" aria-label="MedCore promo video, 32 seconds, with voiceover">
+                <img src="/assets/video/medcore-promo-poster.webp" alt="" width="1280" height="720" loading="lazy" decoding="async">
+              </button>
+              <p class="project__caption"><strong>MedCore promo video</strong> 0:32</p>
+            </li>
+          </ul>
+          <div class="project__nav">
+            <button type="button" data-gallery-prev aria-label="Previous screenshot of MedCore">Previous</button>
+            <button type="button" data-gallery-next aria-label="Next screenshot of MedCore">Next</button>
+            <span class="project__count" data-gallery-count aria-hidden="true"><span data-gallery-current>1</span> / <span data-gallery-total>1</span></span>
+            <div class="project__dots" data-gallery-dots></div>
+          </div>
+        </div>
+      </article>
+      <article class="work__project project" id="servio" aria-labelledby="servio-title">
+        <h3 class="project__title" id="servio-title">SERVIO</h3>
+        <p class="project__summary">Services sold like catalog items: upfront prices, instant technician matching, live on-the-way tracking and in-app escrow. Launching in Tuguegarao City.</p>
+        <p class="project__video"><button type="button" data-video-open data-video-src="/assets/video/servio-promo.mp4" data-video-poster="/assets/video/servio-promo-poster.webp" data-video-title="SERVIO">Watch the product video <span aria-hidden="true">0:39</span><span class="sr-only">, 39 seconds</span></button></p>
+        <ul class="project__stack" aria-label="Built with">
+          <li>Ionic</li>
+          <li>Angular</li>
+          <li>Capacitor</li>
+          <li>Hono on Workers</li>
+          <li>Drizzle</li>
+          <li>Postgres</li>
+          <li>Durable Objects</li>
+        </ul>
+        <div class="project__gallery" data-gallery role="group" aria-roledescription="carousel" aria-label="SERVIO screenshots">
+          <ul class="project__slides" data-gallery-track>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="servio" aria-label="View larger: Home and live tracking">
+                <img src="/assets/images/projects/servio-1-2400.webp" srcset="/assets/images/projects/servio-1-1600.webp 1600w, /assets/images/projects/servio-1-2400.webp 2400w, /assets/images/projects/servio-1-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="SERVIO: home, live tracking map and chat" width="3200" height="1800" loading="lazy" decoding="async" data-title="Home and live tracking" data-desc="Book a verified helper, then follow them on a real street map of Tuguegarao from accepted to arrived, and message them in the app.">
+              </button>
+              <p class="project__caption"><strong>Home and live tracking</strong> Book a verified helper, then follow them on a real street map of Tuguegarao from accepted to arrived, and message them in the app.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="servio" aria-label="View larger: Verified pros, upfront prices">
+                <img src="/assets/images/projects/servio-2-2400.webp" srcset="/assets/images/projects/servio-2-1600.webp 1600w, /assets/images/projects/servio-2-2400.webp 2400w, /assets/images/projects/servio-2-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="SERVIO: helper profile, checkout and add-on approval" width="3200" height="1800" loading="lazy" decoding="async" data-title="Verified pros, upfront prices" data-desc="Profiles show NBI clearance and TESDA credentials. Checkout shows the fixed price held in escrow, and any extra part needs your approval with photo evidence.">
+              </button>
+              <p class="project__caption"><strong>Verified pros, upfront prices</strong> Profiles show NBI clearance and TESDA credentials. Checkout shows the fixed price held in escrow, and any extra part needs your approval with photo evidence.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="servio" aria-label="View larger: Paid only when the job is done">
+                <img src="/assets/images/projects/servio-3-2400.webp" srcset="/assets/images/projects/servio-3-1600.webp 1600w, /assets/images/projects/servio-3-2400.webp 2400w, /assets/images/projects/servio-3-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="SERVIO: completion PIN and review" width="3200" height="1800" loading="lazy" decoding="async" data-title="Paid only when the job is done" data-desc="Escrow is released only when you share your completion PIN after inspecting the work. Then rate the helper and leave a tip.">
+              </button>
+              <p class="project__caption"><strong>Paid only when the job is done</strong> Escrow is released only when you share your completion PIN after inspecting the work. Then rate the helper and leave a tip.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="servio" aria-label="View larger: Neighbors helping neighbors">
+                <img src="/assets/images/projects/servio-4-2400.webp" srcset="/assets/images/projects/servio-4-1600.webp 1600w, /assets/images/projects/servio-4-2400.webp 2400w, /assets/images/projects/servio-4-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="SERVIO: bulletin, directory and profile" width="3200" height="1800" loading="lazy" decoding="async" data-title="Neighbors helping neighbors" data-desc="Neighbors post requests to the bulletin, browse helpers by skill and offer their own services at clear rates.">
+              </button>
+              <p class="project__caption"><strong>Neighbors helping neighbors</strong> Neighbors post requests to the bulletin, browse helpers by skill and offer their own services at clear rates.</p>
+            </li>
+            <li class="project__slide project__slide--video">
+              <button class="project__zoom" type="button" data-video-open data-video-src="/assets/video/servio-promo.mp4" data-video-poster="/assets/video/servio-promo-poster.webp" data-video-title="SERVIO" aria-label="SERVIO promo video, 39 seconds, with voiceover">
+                <img src="/assets/video/servio-promo-poster.webp" alt="" width="1280" height="720" loading="lazy" decoding="async">
+              </button>
+              <p class="project__caption"><strong>SERVIO promo video</strong> 0:39</p>
+            </li>
+          </ul>
+          <div class="project__nav">
+            <button type="button" data-gallery-prev aria-label="Previous screenshot of SERVIO">Previous</button>
+            <button type="button" data-gallery-next aria-label="Next screenshot of SERVIO">Next</button>
+            <span class="project__count" data-gallery-count aria-hidden="true"><span data-gallery-current>1</span> / <span data-gallery-total>1</span></span>
+            <div class="project__dots" data-gallery-dots></div>
+          </div>
+        </div>
+      </article>
+      <article class="work__project project" id="medrec" aria-labelledby="medrec-title">
+        <h3 class="project__title" id="medrec-title">MedRec</h3>
+        <p class="project__summary">Upload records, get plain-language AI readings, share them by QR and keep a Medical ID, rebuilt for v2 on a serverless stack.</p>
+        <p class="project__video"><button type="button" data-video-open data-video-src="/assets/video/medrec-promo.mp4" data-video-poster="/assets/video/medrec-promo-poster.webp" data-video-title="MedRec">Watch the product video <span aria-hidden="true">0:30</span><span class="sr-only">, 30 seconds</span></button></p>
+        <ul class="project__stack" aria-label="Built with">
+          <li>Expo</li>
+          <li>Cloudflare Workers</li>
+          <li>Neon Postgres</li>
+          <li>R2 storage</li>
+          <li>Gemini</li>
+        </ul>
+        <div class="project__gallery" data-gallery role="group" aria-roledescription="carousel" aria-label="MedRec screenshots">
+          <ul class="project__slides" data-gallery-track>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="medrec" aria-label="View larger: Medical ID, records and a share pass">
+                <img src="/assets/images/projects/medrec-1.webp" alt="MedRec: Medical ID, records list and a QR share pass" width="2000" height="1125" loading="lazy" decoding="async" data-title="Medical ID, records and a share pass" data-desc="The Medical ID keeps blood type, allergies, conditions and an emergency contact. Records list newest first, and a timed QR pass shares only the records you pick.">
+              </button>
+              <p class="project__caption"><strong>Medical ID, records and a share pass</strong> The Medical ID keeps blood type, allergies, conditions and an emergency contact. Records list newest first, and a timed QR pass shares only the records you pick.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="medrec" aria-label="View larger: Ask Remy and a health summary">
+                <img src="/assets/images/projects/medrec-2.webp" alt="MedRec: Ask Remy finding a blood test, and a plain-language health summary" width="2000" height="1125" loading="lazy" decoding="async" data-title="Ask Remy and a health summary" data-desc="Ask Remy finds records in plain language, here the latest blood test. The health summary turns conditions, medications and recent results into one short page.">
+              </button>
+              <p class="project__caption"><strong>Ask Remy and a health summary</strong> Ask Remy finds records in plain language, here the latest blood test. The health summary turns conditions, medications and recent results into one short page.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="medrec" aria-label="View larger: Sharing and profile">
+                <img src="/assets/images/projects/medrec-3.webp" alt="MedRec: Sharing with a doctor, and profile settings" width="2000" height="1125" loading="lazy" decoding="async" data-title="Sharing and profile" data-desc="Pick records, set a time limit and send a link; active and past shares stay listed. The profile holds health details, privacy settings and record exports.">
+              </button>
+              <p class="project__caption"><strong>Sharing and profile</strong> Pick records, set a time limit and send a link; active and past shares stay listed. The profile holds health details, privacy settings and record exports.</p>
+            </li>
+            <li class="project__slide project__slide--video">
+              <button class="project__zoom" type="button" data-video-open data-video-src="/assets/video/medrec-promo.mp4" data-video-poster="/assets/video/medrec-promo-poster.webp" data-video-title="MedRec" aria-label="MedRec promo video, 30 seconds">
+                <img src="/assets/video/medrec-promo-poster.webp" alt="" width="1280" height="720" loading="lazy" decoding="async">
+              </button>
+              <p class="project__caption"><strong>MedRec promo video</strong> 0:30</p>
+            </li>
+          </ul>
+          <div class="project__nav">
+            <button type="button" data-gallery-prev aria-label="Previous screenshot of MedRec">Previous</button>
+            <button type="button" data-gallery-next aria-label="Next screenshot of MedRec">Next</button>
+            <span class="project__count" data-gallery-count aria-hidden="true"><span data-gallery-current>1</span> / <span data-gallery-total>1</span></span>
+            <div class="project__dots" data-gallery-dots></div>
+          </div>
+        </div>
+      </article>
+      <article class="work__project project" id="mulat" aria-labelledby="mulat-title">
+        <h3 class="project__title" id="mulat-title">Mulat Media</h3>
+        <p class="project__summary">A multi-page publication platform with article submission workflows, category hierarchies and role-based editorial access, backed by Supabase with row-level security.</p>
+        <p class="project__link"><a href="https://mulat-media.vercel.app/" target="_blank" rel="noopener noreferrer">mulat-media.vercel.app</a></p>
+        <ul class="project__stack" aria-label="Built with">
+          <li>HTML / CSS / JS</li>
+          <li>Supabase Postgres</li>
+          <li>Auth + RLS</li>
+          <li>Storage</li>
+        </ul>
+        <div class="project__gallery" data-gallery role="group" aria-roledescription="carousel" aria-label="Mulat Media screenshots">
+          <ul class="project__slides" data-gallery-track>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="mulat" aria-label="View larger: Front page on every screen">
+                <img src="/assets/images/projects/mulat-1-2400.webp" srcset="/assets/images/projects/mulat-1-1600.webp 1600w, /assets/images/projects/mulat-1-2400.webp 2400w, /assets/images/projects/mulat-1-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="Mulat Media: front page on laptop, tablet and phone" width="3200" height="1800" loading="lazy" decoding="async" data-title="Front page on every screen" data-desc="The student newsroom front page on laptop, tablet and phone: masthead, featured story and newsroom photo, laid out for each screen.">
+              </button>
+              <p class="project__caption"><strong>Front page on every screen</strong> The student newsroom front page on laptop, tablet and phone: masthead, featured story and newsroom photo, laid out for each screen.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="mulat" aria-label="View larger: The people behind each issue">
+                <img src="/assets/images/projects/mulat-2-2400.webp" srcset="/assets/images/projects/mulat-2-1600.webp 1600w, /assets/images/projects/mulat-2-2400.webp 2400w, /assets/images/projects/mulat-2-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="Mulat Media: members directory on laptop and About page on phone" width="3200" height="1800" loading="lazy" decoding="async" data-title="The people behind each issue" data-desc="The members directory introduces every writer, editor and photographer. On phones, the About page tells how the newsroom started.">
+              </button>
+              <p class="project__caption"><strong>The people behind each issue</strong> The members directory introduces every writer, editor and photographer. On phones, the About page tells how the newsroom started.</p>
+            </li>
+            <li class="project__slide">
+              <button class="project__zoom" type="button" data-lightbox="mulat" aria-label="View larger: Every story, by category">
+                <img src="/assets/images/projects/mulat-3-2400.webp" srcset="/assets/images/projects/mulat-3-1600.webp 1600w, /assets/images/projects/mulat-3-2400.webp 2400w, /assets/images/projects/mulat-3-3200.webp 3200w" sizes="(max-width: 860px) 100vw, 1180px" alt="Mulat Media: article sections on laptop and phone" width="3200" height="1800" loading="lazy" decoding="async" data-title="Every story, by category" data-desc="Articles are grouped into six sections, from opinion and news to sports and campus press, with a newsroom login for publishing.">
+              </button>
+              <p class="project__caption"><strong>Every story, by category</strong> Articles are grouped into six sections, from opinion and news to sports and campus press, with a newsroom login for publishing.</p>
+            </li>
+          </ul>
+          <div class="project__nav">
+            <button type="button" data-gallery-prev aria-label="Previous screenshot of Mulat Media">Previous</button>
+            <button type="button" data-gallery-next aria-label="Next screenshot of Mulat Media">Next</button>
+            <span class="project__count" data-gallery-count aria-hidden="true"><span data-gallery-current>1</span> / <span data-gallery-total>1</span></span>
+            <div class="project__dots" data-gallery-dots></div>
+          </div>
+        </div>
+      </article>
+      </div>
+      <p class="work__more"><a href="https://github.com/Mclein31?tab=repositories" target="_blank" rel="noopener noreferrer">More on GitHub <span>github.com/Mclein31</span></a></p>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <p class="section__eyebrow">02 / ABOUT</p>
+      <h2 class="section__title" id="about-title">Student first, builder always, now learning <span class="about__highlight">how data flows.</span></h2>
+      <div class="about__body">
+        <p>I’m McLein Jei Onza, a CS student at Cagayan State University, headed for data engineering.</p>
+        <p>I write Python, model tables in PostgreSQL and ship apps people use. Have an opening? <a href="#contact">Let’s talk</a>.</p>
+      </div>
+      <dl class="about__facts" aria-label="Profile">
+        <div><dt>Program</dt><dd>BS Computer Science, 2024 to 2028</dd></div>
+        <div><dt>Shipped</dt><dd><span data-countup="7">7</span>+ projects</dd></div>
+        <div><dt>Off the clock</dt><dd>Tennis and a long manhwa list</dd></div>
+      </dl>
+      <div class="about__does" data-accordion>
+        <h3 class="about__does-heading">What I do.</h3>
+        <p class="about__does-count">03 DISCIPLINES</p>
+        <details class="about__does-item" name="does" open>
+          <summary><h4 class="about__does-title">Build</h4> <span class="about__does-sub">Full-stack · Mobile · APIs · Deploys</span></summary>
+          <ul>
+            <li>Full-stack web apps</li>
+            <li>Mobile apps with Expo and Capacitor</li>
+            <li>APIs with Hono on Workers</li>
+            <li>Deploys on Vercel and Cloudflare</li>
+          </ul>
+        </details>
+        <details class="about__does-item" name="does">
+          <summary><h4 class="about__does-title">Model</h4> <span class="about__does-sub">Schemas · SQL · PostgreSQL</span></summary>
+          <ul>
+            <li>Schema design and normalization</li>
+            <li>PostgreSQL, Neon and SQLite</li>
+            <li>SQL queries and migrations with Drizzle</li>
+            <li>Row-level security on Supabase</li>
+          </ul>
+        </details>
+        <details class="about__does-item" name="does">
+          <summary><h4 class="about__does-title">Automate</h4> <span class="about__does-sub">Python · OCR · AI workflows</span></summary>
+          <ul>
+            <li>Python scripting and automation</li>
+            <li>OCR extraction</li>
+            <li>Claude and OpenAI APIs</li>
+            <li>Local LLMs with Ollama and agentic workflows</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <section class="journey" id="journey" aria-labelledby="journey-title">
+      <p class="section__eyebrow">03 / JOURNEY</p>
+      <h2 class="section__title" id="journey-title">Journey so far.</h2>
+      <p class="journey__intro">From first lines of code to shipping full-stack platforms.</p>
+      <ol class="journey__years">
+        <li class="journey__year">
+          <p class="journey__when"><span class="journey__label">2022.</span> <span class="journey__place">Self-taught.</span> <span class="journey__line">Started coding.</span></p>
+          <figure class="journey__figure">
+            <img src="/assets/images/journey-first-code.webp" alt="Laptop in the dark running VS Code with HTML and CSS files side by side" width="1600" height="1143" loading="lazy" decoding="async">
+          </figure>
+          <h3 class="journey__title">Where the interest began</h3>
+          <p class="journey__copy">Gained an interest in programming, starting with HTML and CSS tutorials late at night and building small pages from scratch.</p>
+        </li>
+        <li class="journey__year">
+          <p class="journey__when"><span class="journey__label">2024.</span> <span class="journey__place">Carig Campus.</span> <span class="journey__line">BS Computer Science.</span></p>
+          <figure class="journey__figure">
+            <img src="/assets/images/journey-portrait.webp" alt="McLein Jei Onza in a black shirt taking a mirror photo" width="1536" height="1024" loading="lazy" decoding="async">
+          </figure>
+          <h3 class="journey__title">Cagayan State University, Tuguegarao City</h3>
+          <p class="journey__copy">Data structures and algorithms, object-oriented programming in Java and Python, database systems, operating systems and software engineering. Expected 2028.</p>
+        </li>
+        <li class="journey__year">
+          <p class="journey__when"><span class="journey__label">2026.</span> <span class="journey__place">Solana, Cagayan.</span> <span class="journey__line">Pitch Perfect.</span></p>
+          <figure class="journey__figure">
+            <img src="/assets/images/trainings/dti-yep-pitch-medcore.webp" alt="Pitching MedCore at the DTI Youth Entrepreneurship Program" width="1800" height="1012" loading="lazy" decoding="async">
+          </figure>
+          <h3 class="journey__title">DTI Youth Entrepreneurship Program</h3>
+          <p class="journey__copy">Three days on business models and pitching. Our live pitch of MedCore won Pitch Perfect and the Silent Billionaire recognition.</p>
+        </li>
+        <li class="journey__year">
+          <p class="journey__when"><span class="journey__label">2026.</span> <span class="journey__place">On my own.</span> <span class="journey__line">First sites shipped.</span></p>
+          <figure class="journey__figure">
+            <img src="/assets/images/projects/mulat-1-1600.webp" alt="Mulat Media on laptop, tablet and phone" width="1600" height="900" loading="lazy" decoding="async">
+          </figure>
+          <h3 class="journey__title">Independent full-stack work</h3>
+          <p class="journey__copy">Shipped Mulat Media, a publication platform with editorial roles on Supabase, and Hanguk Grill.</p>
+        </li>
+        <li class="journey__year">
+          <p class="journey__when"><span class="journey__label">2026.</span> <span class="journey__place">Tuguegarao City, Cagayan.</span> <span class="journey__line">2nd place.</span></p>
+          <figure class="journey__figure">
+            <img src="/assets/images/awards/cih-2026-check.webp" alt="Holding the 2nd place prize check at Cagayan Innovation Hack 2026" width="1600" height="900" loading="lazy" decoding="async">
+          </figure>
+          <h3 class="journey__title">Cagayan Innovation Hack 2026</h3>
+          <p class="journey__copy">AdvanCare placed second at the Final Pitch and took home ₱10,000. I built the software side: the resident app, staff console, website and API.</p>
+        </li>
+        <li class="journey__year">
+          <p class="journey__when"><span class="journey__label">Now.</span> <span class="journey__place">Full-stack.</span> <span class="journey__line">Four platforms.</span></p>
+          <figure class="journey__figure">
+            <img src="/assets/images/projects/advancare-1-1600.webp" alt="AdvanCare staff console and resident app" width="1600" height="900" loading="lazy" decoding="async">
+          </figure>
+          <h3 class="journey__title">AdvanCare, MedCore, SERVIO, MedRec</h3>
+          <p class="journey__copy">Community healthcare, hospital billing, local services and personal health records: apps, staff consoles and APIs on Workers and Postgres.</p>
+        </li>
+        <li class="journey__year">
+          <p class="journey__when"><span class="journey__label">Next.</span> <span class="journey__place">An internship.</span> <span class="journey__line">Data engineering.</span></p>
+          <figure class="journey__figure">
+            <img src="/assets/images/journey-workspace.webp" alt="My desk with MedCore code, a mobile app simulator and the staff dashboard on screen" width="1600" height="900" loading="lazy" decoding="async">
+          </figure>
+          <h3 class="journey__title">Looking for my first data role</h3>
+          <p class="journey__copy">An internship where I can work on real pipelines: SQL and PostgreSQL first, Python for data, then ETL and orchestration.</p>
+          <p class="journey__cta"><a href="#contact">Get in touch</a></p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="activity" id="activity" aria-labelledby="activity-title">
+      <p class="section__eyebrow">04 / ACTIVITY · GITHUB</p>
+      <h2 class="section__title" id="activity-title">A year of shipping, one square at a time.</h2>
+      <div class="activity__live" data-activity data-state="loading">
+        <p class="activity__loading" data-activity-loading role="status">Loading GitHub activity…</p>
+        <p class="activity__error" data-activity-error hidden>Couldn’t reach GitHub. <a href="https://github.com/Mclein31" target="_blank" rel="noopener noreferrer">Open on GitHub ↗</a> <button type="button" data-activity-retry>Retry</button></p>
+        <div class="activity__calendar" data-activity-calendar role="img" aria-label="GitHub contribution calendar, loading"></div>
+        <p class="activity__tip" data-act-tip role="status" aria-live="polite"></p>
+        <ul class="activity__stats" data-activity-stats>
+          <li><button type="button" data-hl="active" aria-pressed="false">Total <b data-act="total">0</b> contributions</button></li>
+          <li><button type="button" data-hl="active" aria-pressed="false">Active days <b data-act="days">0</b> <span data-act="daysNote">days with a push</span></button></li>
+          <li><button type="button" data-hl="streak" aria-pressed="false">Longest streak <b data-act="streak">0</b> <span data-act="streakNote">days in a row</span></button></li>
+          <li><button type="button" data-hl="best" aria-pressed="false">Best day <b data-act="best">0</b> <span data-act="bestNote">contributions</span></button></li>
+        </ul>
+        <p class="activity__legend" aria-hidden="true">less <span data-level="0"></span><span data-level="1"></span><span data-level="2"></span><span data-level="3"></span><span data-level="4"></span> more</p>
+        <p class="activity__source"><a href="https://github.com/Mclein31" target="_blank" rel="noopener noreferrer">github.com/Mclein31</a></p>
+      </div>
+    </section>
+
+    <section class="stack" id="stack" aria-labelledby="stack-title">
+      <p class="section__eyebrow">05 / STACK</p>
+      <h2 class="section__title" id="stack-title">Five tables, one schema.</h2>
+      <p class="stack__intro">Point at a row to see what it joins across the stack.</p>
+      <div class="stack__tables" data-schema>
+      <article class="stack__table">
+        <h3 class="stack__name" id="stack-python_scripting">python_scripting</h3>
+        <table aria-labelledby="stack-python_scripting">
+          <thead><tr><th scope="col">PK</th><th scope="col"><span class="sr-only">Skill</span></th><th scope="col"><span class="sr-only">Category</span></th></tr></thead>
+          <tbody>
+            <tr data-join="data py"><th scope="row">1</th><td>Python 3</td><td>lang</td></tr>
+            <tr data-join="cs"><th scope="row">2</th><td>Algorithms</td><td>core</td></tr>
+            <tr data-join="data py"><th scope="row">3</th><td>OCR extraction</td><td>data</td></tr>
+            <tr data-join="cs"><th scope="row">4</th><td>OOP &amp; logic</td><td>core</td></tr>
+            <tr data-join="data py ai"><th scope="row">5</th><td>Automation</td><td>data</td></tr>
+          </tbody>
+        </table>
+      </article>
+      <article class="stack__table">
+        <h3 class="stack__name" id="stack-sql_databases">sql_databases</h3>
+        <table aria-labelledby="stack-sql_databases">
+          <thead><tr><th scope="col">PK</th><th scope="col"><span class="sr-only">Skill</span></th><th scope="col"><span class="sr-only">Category</span></th></tr></thead>
+          <tbody>
+            <tr data-join="data db"><th scope="row">1</th><td>PostgreSQL</td><td>db</td></tr>
+            <tr data-join="data db"><th scope="row">2</th><td>SQL queries</td><td>db</td></tr>
+            <tr data-join="db"><th scope="row">3</th><td>SQLite</td><td>db</td></tr>
+            <tr data-join="data db cs"><th scope="row">4</th><td>Schema design</td><td>model</td></tr>
+            <tr data-join="data db cs"><th scope="row">5</th><td>Normalization</td><td>model</td></tr>
+          </tbody>
+        </table>
+      </article>
+      <article class="stack__table">
+        <h3 class="stack__name" id="stack-web_fullstack">web_fullstack</h3>
+        <table aria-labelledby="stack-web_fullstack">
+          <thead><tr><th scope="col">PK</th><th scope="col"><span class="sr-only">Skill</span></th><th scope="col"><span class="sr-only">Category</span></th></tr></thead>
+          <tbody>
+            <tr data-join="web"><th scope="row">1</th><td>JavaScript (ES6+)</td><td>lang</td></tr>
+            <tr data-join="web"><th scope="row">2</th><td>HTML5 / CSS3</td><td>web</td></tr>
+            <tr data-join="web"><th scope="row">3</th><td>CSS custom tokens</td><td>web</td></tr>
+            <tr data-join="web"><th scope="row">4</th><td>Responsive UI/UX</td><td>web</td></tr>
+            <tr data-join="web ship"><th scope="row">5</th><td>Vercel</td><td>deploy</td></tr>
+          </tbody>
+        </table>
+      </article>
+      <article class="stack__table">
+        <h3 class="stack__name" id="stack-ai_workflows">ai_workflows</h3>
+        <table aria-labelledby="stack-ai_workflows">
+          <thead><tr><th scope="col">PK</th><th scope="col"><span class="sr-only">Skill</span></th><th scope="col"><span class="sr-only">Category</span></th></tr></thead>
+          <tbody>
+            <tr data-join="ai"><th scope="row">1</th><td>Google Antigravity</td><td>agent</td></tr>
+            <tr data-join="ai py"><th scope="row">2</th><td>Local LLMs (Ollama)</td><td>model</td></tr>
+            <tr data-join="ai web"><th scope="row">3</th><td>Claude &amp; OpenAI APIs</td><td>api</td></tr>
+            <tr data-join="ai ship"><th scope="row">4</th><td>Agentic workflows</td><td>agent</td></tr>
+            <tr data-join="ai"><th scope="row">5</th><td>Prompt engineering</td><td>craft</td></tr>
+          </tbody>
+        </table>
+      </article>
+      <article class="stack__table">
+        <h3 class="stack__name" id="stack-toolchain">toolchain</h3>
+        <table aria-labelledby="stack-toolchain">
+          <thead><tr><th scope="col">PK</th><th scope="col"><span class="sr-only">Skill</span></th><th scope="col"><span class="sr-only">Category</span></th></tr></thead>
+          <tbody>
+            <tr data-join="ship"><th scope="row">1</th><td>Git &amp; GitHub</td><td>vcs</td></tr>
+            <tr data-join="ship ai"><th scope="row">2</th><td>VS Code / Cursor</td><td>editor</td></tr>
+            <tr data-join="ship py"><th scope="row">3</th><td>Unix terminal</td><td>shell</td></tr>
+            <tr data-join="web"><th scope="row">4</th><td>Browser DevTools</td><td>debug</td></tr>
+          </tbody>
+        </table>
+      </article>
+      </div>
+    </section>
+
+    <section class="recognition" id="recognition" aria-labelledby="recognition-title">
+      <p class="section__eyebrow">06 / RECOGNITION</p>
+      <h2 class="section__title" id="recognition-title">Recognition along the way.</h2>
+      <div class="recognition__items">
+      <article class="recognition__item">
+        <p class="recognition__meta"><span class="recognition__date">Oct 2026</span> <span class="recognition__label">CIH 2026 · 2nd place</span> <span class="recognition__kind">Hackathon</span></p>
+        <h3 class="recognition__title">2nd place, Cagayan Innovation Hack 2026</h3>
+        <p class="recognition__copy">Our team placed second at the Final Pitch with AdvanCare, an AI-enabled healthcare platform for grassroots communities, and took home ₱10,000. I built the software side: the resident app, staff console, website and API.</p>
+        <p class="recognition__source"><span>iHub Innovation Hub, Final Pitch</span> <span>Oct 19, 2026</span></p>
+        <figure class="recognition__figure">
+          <button type="button" data-lightbox-target="recognition:6" aria-label="View photo: Cagayan Innovation Hack 2026, 2nd place">
+            <img src="/assets/images/awards/cih-2026-check.webp" alt="Holding the 2nd place prize check at Cagayan Innovation Hack 2026" width="1600" height="900" loading="lazy" decoding="async">
+          </button>
+        </figure>
+      </article>
+      <article class="recognition__item">
+        <p class="recognition__meta"><span class="recognition__date">May 2026</span> <span class="recognition__label">Pitch Perfect</span> <span class="recognition__kind">Pitch award</span></p>
+        <h3 class="recognition__title">Pitch Perfect</h3>
+        <p class="recognition__copy">Top presentation award for the live pitch of MedCore, an AI-powered healthcare optimization concept.</p>
+        <p class="recognition__source"><span>DTI Region 02, Youth Entrepreneurship Program</span> <span>May 2026</span></p>
+        <figure class="recognition__figure">
+          <button type="button" data-lightbox-target="recognition:1" aria-label="View photo: Pitch Perfect">
+            <img src="/assets/images/awards/cert-pitch-and-silent-billionaire.webp" alt="Pitch Perfect and Silent Billionaire certificates" width="1800" height="1012" loading="lazy" decoding="async">
+          </button>
+        </figure>
+      </article>
+      <article class="recognition__item">
+        <p class="recognition__meta"><span class="recognition__date">May 2026</span> <span class="recognition__label">Silent Billionaire</span> <span class="recognition__kind">Impact</span></p>
+        <h3 class="recognition__title">Silent Billionaire</h3>
+        <p class="recognition__copy">A distinct recognition for exceptional impact and dedication during the program.</p>
+        <p class="recognition__source"><span>DTI Region 02, Youth Entrepreneurship Program</span> <span>May 2026</span></p>
+        <figure class="recognition__figure">
+          <button type="button" data-lightbox-target="recognition:2" aria-label="View photo: Silent Billionaire">
+            <img src="/assets/images/awards/award-dti-yep-team.webp" alt="DTI YEP pitch presentation team" width="1800" height="1350" loading="lazy" decoding="async">
+          </button>
+        </figure>
+      </article>
+      <article class="recognition__item">
+        <p class="recognition__meta"><span class="recognition__date">Jun 2022</span> <span class="recognition__label">Student Leader</span> <span class="recognition__kind">Leadership</span></p>
+        <h3 class="recognition__title">Student Leader</h3>
+        <p class="recognition__copy">Student initiative, representation and community outreach programs.</p>
+        <p class="recognition__source"><span>Student leadership</span> <span>June 2022</span></p>
+        <figure class="recognition__figure">
+          <button type="button" data-lightbox-target="recognition:3" aria-label="View photo: Student Leader">
+            <img src="/assets/images/awards/award-community-leadership.webp" alt="Student leadership and community outreach group" width="1600" height="1200" loading="lazy" decoding="async">
+          </button>
+        </figure>
+      </article>
+      </div>
+      <ul class="recognition__photos" aria-label="Recognition photos">
+        <li class="recognition__photo">
+          <button type="button" data-lightbox="recognition" aria-label="View photo: Student Leadership &amp; Campus Journalism Team">
+            <img src="/assets/images/awards/award-bnhs-journalism-team.webp" alt="Student leadership and campus journalism team at Ballesteros National High School" width="1600" height="1600" loading="lazy" decoding="async" data-title="Student Leadership &amp; Campus Journalism Team" data-desc="Campus journalist, radio broadcaster and student leader at Ballesteros National High School.">
+          </button>
+        </li>
+        <li class="recognition__photo">
+          <button type="button" data-lightbox="recognition" aria-label="View photo: Pitch Perfect &amp; Silent Billionaire Awards">
+            <img src="/assets/images/awards/cert-pitch-and-silent-billionaire.webp" alt="Pitch Perfect and Silent Billionaire certificates" width="1800" height="1012" loading="lazy" decoding="async" data-title="Pitch Perfect &amp; Silent Billionaire Awards" data-desc="Certificates of Recognition from DTI Region 02 (YEP) for the MedCore pitch presentation and exceptional impact.">
+          </button>
+        </li>
+        <li class="recognition__photo">
+          <button type="button" data-lightbox="recognition" aria-label="View photo: DTI Youth Entrepreneurship Program — Pitch Team">
+            <img src="/assets/images/awards/award-dti-yep-team.webp" alt="DTI YEP pitch presentation team" width="1800" height="1350" loading="lazy" decoding="async" data-title="DTI Youth Entrepreneurship Program — Pitch Team" data-desc="The MedCore pitch team with regional mentors, youth innovators and DTI-SMEDD organizers.">
+          </button>
+        </li>
+        <li class="recognition__photo">
+          <button type="button" data-lightbox="recognition" aria-label="View photo: Student Leadership &amp; Community Outreach">
+            <img src="/assets/images/awards/award-community-leadership.webp" alt="Student leadership and community outreach group" width="1600" height="1200" loading="lazy" decoding="async" data-title="Student Leadership &amp; Community Outreach" data-desc="Youth leadership representation, community volunteer work and collaborative outreach programs.">
+          </button>
+        </li>
+        <li class="recognition__photo">
+          <button type="button" data-lightbox="recognition" aria-label="View photo: DepEd 235K Christmas Trees Project">
+            <img src="/assets/images/awards/award-deped-tree-project.webp" alt="DepEd 235K Christmas Trees Project" width="1600" height="1200" loading="lazy" decoding="async" data-title="DepEd 235K Christmas Trees Project" data-desc="Student leadership in the nationwide DepEd tree planting initiative.">
+          </button>
+        </li>
+        <li class="recognition__photo">
+          <button type="button" data-lightbox="recognition" aria-label="View photo: Regional Academic &amp; Pitch Symposium">
+            <img src="/assets/images/awards/award-symposium-arena.webp" alt="Regional academic and pitch symposium arena" width="1600" height="1600" loading="lazy" decoding="async" data-title="Regional Academic &amp; Pitch Symposium" data-desc="Presenting in the regional symposium arena before academic panels and enterprise evaluators.">
+          </button>
+        </li>
+        <li class="recognition__photo">
+          <button type="button" data-lightbox="recognition" aria-label="View photo: Cagayan Innovation Hack 2026 — 2nd Place">
+            <img src="/assets/images/awards/cih-2026-check.webp" alt="Holding the 2nd place prize check at Cagayan Innovation Hack 2026" width="1600" height="900" loading="lazy" decoding="async" data-title="Cagayan Innovation Hack 2026 — 2nd Place" data-desc="Final Pitch, October 19, 2026. AdvanCare took second place and a ₱10,000 prize at the iHub Innovation Hub event.">
+          </button>
+        </li>
+        <li class="recognition__photo">
+          <button type="button" data-lightbox="recognition" aria-label="View photo: AdvanCare on stage — Cagayan Innovation Hack 2026">
+            <img src="/assets/images/awards/cih-2026-stage.webp" alt="AdvanCare on stage at Cagayan Innovation Hack 2026" width="900" height="1600" loading="lazy" decoding="async" data-title="AdvanCare on stage — Cagayan Innovation Hack 2026" data-desc="With the AdvanCare platform on screen after the Final Pitch. Theme: “From Local Challenges to Innovative Solutions.”">
+          </button>
+        </li>
+      </ul>
+    </section>
+
+    <section class="training" id="training" aria-labelledby="training-title">
+      <p class="section__eyebrow">07 / TRAINING</p>
+      <h2 class="section__title" id="training-title">Three days of learning to pitch.</h2>
+      <div class="training__program">
+        <h3 class="training__program-title">DTI Youth Entrepreneurship Program</h3>
+        <p class="training__program-meta"><span>May 19 to 21, 2026</span> <span>Lingu, Solana, Cagayan</span></p>
+        <p>An intensive three-day boot camp run by DTI Region 02 / SMEDD on entrepreneurial thinking, business model generation, financial viability and pitching digital ideas for sponsorship and seed funding.</p>
+        <p>Our team built and presented the live pitch for MedCore, an AI-powered healthcare optimization concept, and won the Pitch Perfect award along with the Silent Billionaire recognition.</p>
+      </div>
+      <div class="training__frames">
+      <article class="training__frame">
+        <p class="training__meta"><span class="training__date">May 2026</span> <span class="training__label">MedCore Pitch</span> <span class="training__kind">Pitch</span></p>
+        <h3 class="training__title">Pitching MedCore</h3>
+        <p class="training__copy">Pitching MedCore, an AI-powered healthcare optimization concept.</p>
+        <p class="training__source"><span>DTI YEP · Lingu, Solana</span> <span>May 2026</span></p>
+        <figure class="training__figure">
+          <button type="button" data-lightbox="training" aria-label="View photo: Pitching MedCore">
+            <img src="/assets/images/trainings/dti-yep-pitch-medcore.webp" alt="Pitching MedCore, an AI-powered healthcare optimization concept" width="1800" height="1012" loading="lazy" decoding="async" data-title="Pitching MedCore" data-desc="Pitching MedCore, an AI-powered healthcare optimization concept.">
+          </button>
+        </figure>
+      </article>
+      <article class="training__frame">
+        <p class="training__meta"><span class="training__date">May 2026</span> <span class="training__label">Awardees</span> <span class="training__kind">Awards</span></p>
+        <h3 class="training__title">Awards Recognition</h3>
+        <p class="training__copy">Pitch Perfect and Silent Billionaire awardees.</p>
+        <p class="training__source"><span>DTI Region 02 / SMEDD</span> <span>May 2026</span></p>
+        <figure class="training__figure">
+          <button type="button" data-lightbox="training" aria-label="View photo: Pitch Perfect and Silent Billionaire awardees">
+            <img src="/assets/images/trainings/dti-yep-awards-banner.webp" alt="Pitch Perfect and Silent Billionaire awardees" width="1800" height="1012" loading="lazy" decoding="async" data-title="Pitch Perfect &amp; Silent Billionaire" data-desc="Pitch Perfect and Silent Billionaire awardees.">
+          </button>
+        </figure>
+      </article>
+      <article class="training__frame">
+        <p class="training__meta"><span class="training__date">May 2026</span> <span class="training__label">DTI Officials</span> <span class="training__kind">Panel</span></p>
+        <h3 class="training__title">With DTI-SMEDD Officials</h3>
+        <p class="training__copy">The presentation team with DTI-SMEDD officials.</p>
+        <p class="training__source"><span>DTI Region 02 / SMEDD</span> <span>May 2026</span></p>
+        <figure class="training__figure">
+          <button type="button" data-lightbox="training" aria-label="View photo: The presentation team with DTI-SMEDD officials">
+            <img src="/assets/images/trainings/dti-yep-officials.webp" alt="The presentation team with DTI-SMEDD officials" width="1800" height="1012" loading="lazy" decoding="async" data-title="With DTI-SMEDD Officials" data-desc="The presentation team with DTI-SMEDD officials.">
+          </button>
+        </figure>
+      </article>
+      <article class="training__frame">
+        <p class="training__meta"><span class="training__date">May 2026</span> <span class="training__label">Balay Na Magu</span> <span class="training__kind">Team</span></p>
+        <h3 class="training__title">Balay Na Magu, Solana</h3>
+        <p class="training__copy">Team celebration at Balay Na Magu, Solana.</p>
+        <p class="training__source"><span>Solana, Cagayan</span> <span>May 2026</span></p>
+        <figure class="training__figure">
+          <button type="button" data-lightbox="training" aria-label="View photo: Team celebration at Balay Na Magu, Solana">
+            <img src="/assets/images/trainings/dti-yep-outdoor-team.webp" alt="Team celebration at Balay Na Magu, Solana" width="1800" height="1012" loading="lazy" decoding="async" data-title="Balay Na Magu, Solana" data-desc="Team celebration at Balay Na Magu, Solana.">
+          </button>
+        </figure>
+      </article>
+      <article class="training__frame">
+        <p class="training__meta"><span class="training__date">May 19, 2026</span> <span class="training__label">Opening Day</span> <span class="training__kind">Day 01</span></p>
+        <h3 class="training__title">Opening Day</h3>
+        <p class="training__copy">Opening day of Be Your Own Boss!</p>
+        <p class="training__source"><span>DTI YEP · Day 01</span> <span>May 19, 2026</span></p>
+        <figure class="training__figure">
+          <button type="button" data-lightbox="training" aria-label="View photo: Opening day of Be Your Own Boss!">
+            <img src="/assets/images/trainings/dti-yep-opening-banner.webp" alt="Opening day of Be Your Own Boss!" width="1800" height="1350" loading="lazy" decoding="async" data-title="Opening Day" data-desc="Opening day of Be Your Own Boss!">
+          </button>
+        </figure>
+      </article>
+      <article class="training__frame">
+        <p class="training__meta"><span class="training__date">May 2026</span> <span class="training__label">Pitch Team</span> <span class="training__kind">Mentor</span></p>
+        <h3 class="training__title">Pitch Team &amp; Mentor</h3>
+        <p class="training__copy">The MedCore pitch team with our program mentor.</p>
+        <p class="training__source"><span>Mentorship · MedCore</span> <span>May 2026</span></p>
+        <figure class="training__figure">
+          <button type="button" data-lightbox="training" aria-label="View photo: The MedCore pitch team with our program mentor">
+            <img src="/assets/images/trainings/dti-yep-pitch-team.webp" alt="The MedCore pitch team with our program mentor" width="1800" height="1012" loading="lazy" decoding="async" data-title="Pitch Team &amp; Mentor" data-desc="The MedCore pitch team with our program mentor.">
+          </button>
+        </figure>
+      </article>
+      <article class="training__frame">
+        <p class="training__meta"><span class="training__date">May 20, 2026</span> <span class="training__label">Workshop</span> <span class="training__kind">Day 02</span></p>
+        <h3 class="training__title">Ideation Workshop</h3>
+        <p class="training__copy">Business ideation and pitch preparation workshop.</p>
+        <p class="training__source"><span>DTI YEP · Workshop</span> <span>May 20, 2026</span></p>
+        <figure class="training__figure">
+          <button type="button" data-lightbox="training" aria-label="View photo: Business ideation and pitch preparation workshop">
+            <img src="/assets/images/trainings/dti-yep-workshop-session.webp" alt="Business ideation and pitch preparation workshop" width="1800" height="1012" loading="lazy" decoding="async" data-title="Ideation &amp; Pitch Workshop" data-desc="Business ideation and pitch preparation workshop.">
+          </button>
+        </figure>
+      </article>
+      <article class="training__frame">
+        <p class="training__meta"><span class="training__date">May 21, 2026</span> <span class="training__label">Certificates</span> <span class="training__kind">Day 03</span></p>
+        <h3 class="training__title">Program Certificates</h3>
+        <p class="training__copy">Certificates from the program.</p>
+        <p class="training__source"><span>DTI Region 02 / SMEDD</span> <span>May 21, 2026</span></p>
+        <figure class="training__figure">
+          <button type="button" data-lightbox="training" aria-label="View photo: Certificates from the program">
+            <img src="/assets/images/trainings/dti-yep-certificates.webp" alt="Certificates from the program" width="1800" height="1321" loading="lazy" decoding="async" data-title="Program Certificates" data-desc="Certificates from the program.">
+          </button>
+        </figure>
+      </article>
+      </div>
+    </section>
+
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <h2 class="section__title" id="contact-title">So, what are we building?</h2>
+      <p class="contact__availability">Open to internships and projects</p>
+      <p class="contact__lead">Internships and projects in data engineering or full-stack work. Tell me what you have in mind.</p>
+      <p class="contact__actions"><a href="#work">See the work</a> <button type="button" data-message-open>Send a message</button></p>
+      <div class="contact__person">
+        <img src="/assets/images/avatar.webp" alt="" width="64" height="64" loading="lazy" decoding="async">
+        <p class="contact__name">McLein Jei Onza</p>
+        <p class="contact__role">CS student · data engineering</p>
+      </div>
+      <ul class="contact__channels">
+        <li class="channel channel--github">
+          <h3 class="channel__title">GitHub</h3>
+          <p class="channel__prompt">&gt; building something good_</p>
+          <div class="channel__grid" data-activity-mini aria-hidden="true"></div>
+          <p class="channel__note"><span>@Mclein31</span> · <span data-activity-mini-total>a year of commits</span></p>
+          <p><a href="https://github.com/Mclein31" target="_blank" rel="noopener noreferrer">Follow</a></p>
+        </li>
+        <li class="channel channel--linkedin">
+          <h3 class="channel__title"><img src="/assets/icons/linkedin-brand.svg" alt="" width="24" height="24" loading="lazy" decoding="async"> LinkedIn</h3>
+          <p class="channel__name">McLein Jei Onza</p>
+          <p class="channel__note">CS student · Data engineering</p>
+          <img src="/assets/images/avatar.webp" alt="" width="36" height="36" loading="lazy" decoding="async">
+          <p><a href="https://www.linkedin.com/in/mclein-jei-onza-9b0769322/" target="_blank" rel="noopener noreferrer">Connect</a></p>
+        </li>
+        <li class="channel channel--whatsapp">
+          <h3 class="channel__title"><img src="/assets/icons/whatsapp.svg" alt="" width="24" height="24" loading="lazy" decoding="async"> WhatsApp</h3>
+          <p class="channel__name">McLein Jei G. Onza</p>
+          <p class="channel__note">Hey, let’s build something 👋</p>
+          <p><a href="https://wa.me/639524781573?text=Hi%20McLein%21%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20talk%20about%20a%20project%20or%20opportunity." target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></p>
+        </li>
+        <li class="channel channel--email">
+          <h3 class="channel__title"><img src="/assets/icons/gmail.webp" alt="" width="24" height="24" loading="lazy" decoding="async"> Gmail</h3>
+          <dl class="channel__compose">
+            <div><dt>To</dt><dd><img src="/assets/images/avatar.webp" alt="" width="240" height="240" loading="lazy" decoding="async"> McLein</dd></div>
+            <div><dt>Subject</dt><dd>Internship or project</dd></div>
+          </dl>
+          <p class="channel__note">Hi McLein, are you open to an internship this summer?</p>
+          <p class="channel__address">mcleinjeionza06@gmail.com</p>
+          <p><a href="mailto:mcleinjeionza06@gmail.com?subject=Internship%20or%20project">Email</a> <button type="button" data-copy="mcleinjeionza06@gmail.com" aria-label="Copy email address">Copy</button></p>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" data-menu-inert>
+    <p class="site-footer__copy">© <span data-year>2026</span> McLein Jei G. Onza</p>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="https://github.com/Mclein31" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/mclein-jei-onza-9b0769322/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="mailto:mcleinjeionza06@gmail.com">Email</a></li>
+        <li><a href="#top">Back to top</a></li>
+      </ul>
+    </nav>
+    <p class="site-footer__wordmark" aria-hidden="true">mclein.onza</p>
+    <div class="site-footer__stats" role="group" aria-label="Site stats">
+      <p class="site-footer__visits" title="Total visits"><b data-stats-visits>0</b> <span>visits</span></p>
+      <button type="button" class="site-footer__like" data-stats-like aria-pressed="false"><span class="sr-only">Like this website,</span> <b data-stats-likes>0</b> <span>likes</span></button>
+    </div>
+  </footer>
+
+  <dialog class="lightbox" data-lightbox-dialog data-lenis-prevent aria-labelledby="lightbox-title">
+    <p class="lightbox__count" data-lightbox-count>1 / 7</p>
+    <button type="button" data-lightbox-close aria-label="Close viewer">Close</button>
+    <div class="lightbox__stage">
+      <button type="button" data-lightbox-prev aria-label="Previous photo">Previous</button>
+      <img data-lightbox-image alt="" width="1600" height="900">
+      <button type="button" data-lightbox-next aria-label="Next photo">Next</button>
+    </div>
+    <h2 class="lightbox__title" id="lightbox-title" data-lightbox-title></h2>
+    <p class="lightbox__desc" data-lightbox-desc></p>
+  </dialog>
+
+  <dialog class="message" data-message data-lenis-prevent aria-labelledby="msgTitle">
+    <h2 id="msgTitle">Send a message</h2>
+    <button type="button" data-message-close aria-label="Close message form">Close</button>
+    <form data-message-form action="https://formsubmit.co/ajax/mcleinjeionza06@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New message from portfolio (McLein Jei)">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input class="form__hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label for="fName">Your name</label>
+      <input id="fName" name="name" type="text" autocomplete="name" placeholder="Juan Dela Cruz" required>
+      <label for="fEmail">Email</label>
+      <input id="fEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+      <label for="fMsg">Message</label>
+      <textarea id="fMsg" name="message" rows="5" placeholder="What are you working on?" required></textarea>
+      <p><button type="submit" data-message-submit>Send message</button></p>
+      <p data-message-status role="status" aria-live="polite"></p>
+    </form>
+  </dialog>
+
+  <dialog class="video" data-video data-lenis-prevent aria-labelledby="videoTitle">
+    <button type="button" data-video-close aria-label="Close video">Close</button>
+    <h2 id="videoTitle" data-video-title-el>SERVIO</h2>
+    <p class="video__hint">promo video</p>
+    <video data-video-player controls playsinline preload="none"></video>
+  </dialog>
+
+  <div class="toast" data-toast role="status" aria-live="polite"><span data-toast-text></span></div>
+</body>
+</html>

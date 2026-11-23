@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>McLein Jei Onza | Developer Portfolio</title>
+  <meta name="description" content="McLein Jei Onza (McLein Onza), a Computer Science student at Cagayan State University, builds full-stack apps and trains in data engineering." />
+  <meta name="robots" content="noindex" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#E9EAEC" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" type="image/png" sizes="64x64" href="../../assets/Logo/favicon-circle-64.png" />
+  <link rel="preload" href="../../assets/fonts/geist-v5-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="img/loader-advancare-1.webp" as="image" />
+  <link rel="stylesheet" href="vendor/lenis/lenis.css" />
+  <link rel="stylesheet" href="css/exhibition.css" />
+  <script>
+    // Before first paint: theme choice, motion mode, and whether the loader plays this session.
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      try {
+        var t = localStorage.getItem('mjo-theme');
+        if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
+      } catch (e) {}
+      var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) d.classList.add('reduce'); else d.classList.add('motion');
+      var seen = false;
+      try { seen = sessionStorage.getItem('mjo-exhibition') === '1'; } catch (e) {}
+      if (!reduce && !seen) d.classList.add('is-loading');
+      // Failsafe: content never waits on the module script for more than 3.2s.
+      setTimeout(function () {
+        d.classList.remove('is-loading'); d.classList.add('is-ready');
+        if (!window.__exhibition) d.classList.remove('motion');
+      }, 3200);
+    })();
+  </script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Intro loader: a small framed print flips through the work, the last one is hung in the hero -->
+  <div class="loader" data-loader aria-hidden="true">
+    <div class="loader__stage">
+      <div class="exhibit loader__exhibit" data-loader-exhibit>
+        <div class="exhibit__frame">
+          <div class="exhibit__mat">
+            <div class="loader__slides" data-loader-slides>
+              <img src="img/loader-servio-1.webp" alt="" data-name="SERVIO" width="560" height="315" />
+              <img src="img/loader-mulat-1.webp" alt="" data-name="Mulat Media" width="560" height="315" />
+              <img src="img/loader-medcore-3.webp" alt="" data-name="MedCore" width="560" height="315" />
+              <img src="img/loader-servio-2.webp" alt="" data-name="SERVIO" width="560" height="315" />
+              <img src="img/loader-advancare-4.webp" alt="" data-name="AdvanCare" width="560" height="315" />
+              <img src="img/loader-mulat-2.webp" alt="" data-name="Mulat Media" width="560" height="315" />
+              <img src="img/loader-medcore-5.webp" alt="" data-name="MedCore" width="560" height="315" />
+              <img src="img/loader-advancare-1.webp" alt="" data-name="AdvanCare" width="560" height="315" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="loader__cap"><span data-loader-name>SERVIO</span><span class="mono">Hanging the work</span></p>
+    </div>
+  </div>
+
+  <header class="nav" data-nav>
+    <a class="nav__mark" href="#top">McLein Jei Onza</a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#end">Journey</a>
+      <a href="#end">Contact</a>
+    </nav>
+    <button class="theme" type="button" data-theme-toggle aria-label="Switch to dark theme">
+      <svg class="theme__sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" /><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M5.3 18.7l1.5-1.5M17.2 6.8l1.5-1.5" /></svg>
+      <svg class="theme__moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6Z" /></svg>
+    </button>
+  </header>
+
+  <canvas class="gl" data-gl aria-hidden="true"></canvas>
+
+  <main id="main">
+    <!-- Room 0: the title wall -->
+    <section class="room room--title hero" id="top" aria-labelledby="hero-name" data-room data-tone="wall">
+      <div class="hero__inner" data-cover-target>
+        <h1 class="hero__name" id="hero-name" data-words>McLein Jei&nbsp;Onza</h1>
+        <p class="hero__bio mono" data-in>BSCS student, Cagayan State University<br />Class of 2028, aiming for data engineering</p>
+        <div class="hero__text">
+          <p class="hero__intro" data-in>I build full-stack apps and train in data engineering.</p>
+          <div class="hero__cta" data-in>
+            <a class="btn btn--accent" href="#work">See the work</a>
+            <a class="link-arrow" href="mailto:mcleinjeionza06@gmail.com?subject=Hello%20McLein">Send a message<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a>
+          </div>
+        </div>
+        <figure class="hero__piece">
+          <div class="exhibit" data-exhibit data-hero-exhibit>
+            <div class="exhibit__frame">
+              <div class="exhibit__mat">
+                <img src="../../assets/images/projects/advancare-1-1600.webp" srcset="../../assets/images/projects/advancare-1-1600.webp 1600w, ../../assets/images/projects/advancare-1-2400.webp 2400w" sizes="(max-width: 860px) 92vw, 48vw" alt="AdvanCare: staff console overview and resident app" width="1600" height="900" fetchpriority="high" decoding="async" data-gl-src="../../assets/images/projects/advancare-1-1600.webp" />
+              </div>
+            </div>
+          </div>
+          <figcaption class="label" data-in>
+            <span class="label__title">AdvanCare <span class="mono">2026</span></span>
+            <span class="label__line">2nd place, Cagayan Innovation Hack 2026</span>
+            <span class="label__medium mono">React, Capacitor, Hono on Workers, Neon Postgres</span>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="cover-shade" data-cover-shade aria-hidden="true"></div>
+    </section>
+
+    <!-- Room 1: the work -->
+    <section class="room room--work" id="work" aria-labelledby="work-title" data-room data-tone="paper">
+      <div class="work__intro">
+        <h2 class="display" id="work-title" data-words>Things I’ve built.</h2>
+        <div class="work__wall">
+          <p class="wall-text" data-in>Community healthcare, hospital billing, local services and personal health records: apps, staff consoles and APIs on Workers and Postgres.</p>
+          <ul class="checklist" data-in aria-label="Works in this exhibition">
+            <li><span class="checklist__name">AdvanCare</span><span class="checklist__what">Resident app, staff console, care assistant</span></li>
+            <li class="is-on"><span class="checklist__name">MedCore</span><span class="checklist__what">Hospital billing, patient app, AI concierge</span><span class="checklist__on mono">On view</span></li>
+            <li><span class="checklist__name">SERVIO</span><span class="checklist__what">Local services, escrow, live tracking</span></li>
+            <li><span class="checklist__name">MedRec</span><span class="checklist__what">Health records, AI readings, QR sharing</span></li>
+            <li><span class="checklist__name">Mulat Media</span><span class="checklist__what">Publication platform, editorial roles</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Signature moment: the camera walks up to the print, then the wall label arrives -->
+      <article class="zoom" data-zoom aria-labelledby="medcore-title">
+        <div class="zoom__stage" data-zoom-stage>
+          <div class="zoom__label" data-zoom-label>
+            <h3 class="zoom__title" id="medcore-title" data-zl>MedCore</h3>
+            <p class="zoom__meta mono" data-zl>2026 · Web, Android, iOS</p>
+            <p class="zoom__desc" data-zl>Applies PhilHealth, HMO and senior/PWD deductions in order so cashiers and security see one final balance. A staff dashboard, a patient companion app and an AI concierge.</p>
+            <p class="zoom__medium mono" data-zl><span>Medium</span> Vercel dashboard, Expo, Hono on Workers, Neon Postgres</p>
+            <div class="zoom__actions" data-zl>
+              <a class="btn btn--ink" href="#medcore-film">Watch the film<span class="mono">0:32</span></a>
+              <a class="link-arrow" href="#medcore-plates">See all six plates<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg></a>
+            </div>
+          </div>
+          <figure class="zoom__piece" data-zoom-piece>
+            <div class="exhibit exhibit--zoom">
+              <div class="exhibit__frame">
+                <div class="exhibit__mat">
+                  <img src="../../assets/images/projects/medcore-1-2400.webp" srcset="../../assets/images/projects/medcore-1-1600.webp 1600w, ../../assets/images/projects/medcore-1-2400.webp 2400w" sizes="(max-width: 860px) 92vw, 96vw" alt="MedCore: hospital overview dashboard and patient app home" width="2400" height="1350" loading="lazy" decoding="async" />
+                </div>
+              </div>
+            </div>
+          </figure>
+          <p class="zoom__cap mono" data-zoom-cap>Hospital dashboard and patient app</p>
+        </div>
+      </article>
+
+      <!-- The rest of the MedCore plates, hung as a salon wall -->
+      <div class="hang" id="medcore-plates" aria-label="MedCore screenshots">
+        <figure class="plate plate--a">
+          <button class="exhibit" type="button" data-exhibit data-lightbox aria-label="View larger: Discharge clearance">
+            <span class="exhibit__frame"><span class="exhibit__mat"><img src="../../assets/images/projects/medcore-2-1600.webp" alt="MedCore: discharge clearance board" width="1600" height="900" loading="lazy" decoding="async" /></span></span>
+          </button>
+          <figcaption class="label" data-in>
+            <span class="label__title">Discharge clearance</span>
+            <span class="label__line">Every discharge moves through six stages, from the doctor’s order to the gate pass, with the current blocker and the time elapsed against the 45-minute target.</span>
+          </figcaption>
+        </figure>
+        <figure class="plate plate--b">
+          <button class="exhibit" type="button" data-exhibit data-lightbox aria-label="View larger: One bill, every deduction in order">
+            <span class="exhibit__frame"><span class="exhibit__mat"><img src="../../assets/images/projects/medcore-3-1600.webp" alt="MedCore: encounter ledger and patient bill breakdown" width="1600" height="900" loading="lazy" decoding="async" /></span></span>
+          </button>
+          <figcaption class="label" data-in>
+            <span class="label__title">One bill, every deduction in order</span>
+            <span class="label__line">Staff see each charge and how VAT exemption, senior or PWD discount, PhilHealth and HMO are applied. The patient sees the same breakdown on their phone.</span>
+          </figcaption>
+        </figure>
+        <figure class="plate plate--film" id="medcore-film">
+          <div class="exhibit exhibit--film">
+            <div class="exhibit__frame">
+              <div class="exhibit__mat">
+                <video src="../../assets/video/medcore-promo.mp4" poster="../../assets/video/medcore-promo-poster.webp" playsinline preload="none" aria-label="MedCore promo video, 32 seconds, with voiceover" data-film></video>
+                <button class="film__play" type="button" data-film-play aria-label="Play the MedCore film, 32 seconds, with voiceover"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" /></svg></button>
+              </div>
+            </div>
+          </div>
+          <figcaption class="label" data-in>
+            <span class="label__title">MedCore, the film <span class="mono">0:32</span></span>
+            <span class="label__medium mono">Product video with voiceover</span>
+          </figcaption>
+        </figure>
+        <figure class="plate plate--c">
+          <button class="exhibit" type="button" data-exhibit data-lightbox aria-label="View larger: A bill patients can understand">
+            <span class="exhibit__frame"><span class="exhibit__mat"><img src="../../assets/images/projects/medcore-4-1600.webp" alt="MedCore: patient bill, Cora AI explanation and coverage" width="1600" height="900" loading="lazy" decoding="async" /></span></span>
+          </button>
+          <figcaption class="label" data-in>
+            <span class="label__title">A bill patients can understand</span>
+            <span class="label__line">Patients check their bill and coverage, and Cora AI explains the balance in Taglish, English, Tagalog or Ilokano.</span>
+          </figcaption>
+        </figure>
+        <figure class="plate plate--d">
+          <button class="exhibit" type="button" data-exhibit data-lightbox aria-label="View larger: Claims checked before they are filed">
+            <span class="exhibit__frame"><span class="exhibit__mat"><img src="../../assets/images/projects/medcore-5-1600.webp" alt="MedCore: claims scrubber and patient payment" width="1600" height="900" loading="lazy" decoding="async" /></span></span>
+          </button>
+          <figcaption class="label" data-in>
+            <span class="label__title">Claims checked before they are filed</span>
+            <span class="label__line">A pre-flight scrubber checks PhilHealth claims before submission. Patients can settle the balance in full or in part from the app.</span>
+          </figcaption>
+        </figure>
+        <figure class="plate plate--e">
+          <button class="exhibit" type="button" data-exhibit data-lightbox aria-label="View larger: Revenue cycle analytics">
+            <span class="exhibit__frame"><span class="exhibit__mat"><img src="../../assets/images/projects/medcore-6-1600.webp" alt="MedCore: revenue cycle analytics dashboard" width="1600" height="900" loading="lazy" decoding="async" /></span></span>
+          </button>
+          <figcaption class="label" data-in>
+            <span class="label__title">Revenue cycle analytics</span>
+            <span class="label__line">Average discharge time, trapped capital and the main bottleneck, with an AI briefing on what to fix first.</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <!-- Teaser: the next piece waits in its small frame, exactly as MedCore did -->
+      <article class="next" aria-labelledby="servio-title" data-cover-target>
+        <div class="next__text">
+          <h3 class="next__title" id="servio-title" data-words>SERVIO</h3>
+          <p class="next__desc" data-in>Services sold like catalog items: upfront prices, instant technician matching, live on-the-way tracking and in-app escrow. Launching in Tuguegarao City.</p>
+          <p class="zoom__medium mono" data-in><span>Medium</span> Ionic, Angular, Capacitor, Hono on Workers, Drizzle, Postgres, Durable Objects</p>
+        </div>
+        <figure class="next__piece">
+          <div class="exhibit" data-exhibit>
+            <div class="exhibit__frame">
+              <div class="exhibit__mat">
+                <img src="../../assets/images/projects/servio-1-1600.webp" alt="SERVIO: home, live tracking map and chat" width="1600" height="900" loading="lazy" decoding="async" />
+              </div>
+            </div>
+          </div>
+          <figcaption class="zoom__cap mono" data-in>Home and live tracking</figcaption>
+        </figure>
+      </article>
+      <div class="cover-shade" data-cover-shade aria-hidden="true"></div>
+    </section>
+
+    <!-- Room 2: About (the curtain comes down over the work) -->
+    <section class="room room--about" id="about" aria-labelledby="about-title" data-room data-tone="ink">
+      <div class="about__inner" data-curtain-hold>
+        <h2 class="display about__title" id="about-title" data-words data-curtain-words>Student first, builder always, now learning how data flows.</h2>
+      </div>
+    </section>
+  </main>
+
+  <footer class="end" id="end">
+    <p>Direction B, Exhibition. This prototype stops at the About heading; Journey, Stack, Recognition, Training and Contact follow in the full build.</p>
+    <a class="link-arrow" href="#top">Back to the title wall<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" /></svg></a>
+  </footer>
+
+  <dialog class="lightbox" data-lightbox-dialog aria-label="Screenshot">
+    <figure data-lightbox-figure>
+      <figcaption class="label"><span class="label__title" data-lightbox-title></span><span class="label__line" data-lightbox-line></span></figcaption>
+    </figure>
+    <button class="btn btn--ink lightbox__close" type="button" data-lightbox-close>Close</button>
+  </dialog>
+</body>
+</html>

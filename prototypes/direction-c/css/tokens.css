@@ -1,0 +1,103 @@
+/* Direction C: Kinetic. Tokens first; everything downstream reads these. */
+
+@font-face {
+  font-family: 'Geist'; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url('../../../assets/fonts/geist-v5-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geist'; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url('../../../assets/fonts/geist-v5-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Geist Mono'; font-style: normal; font-weight: 400 500; font-display: swap;
+  src: url('../../../assets/fonts/geist-mono-v6-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geist Mono'; font-style: normal; font-weight: 400 500; font-display: swap;
+  src: url('../../../assets/fonts/geist-mono-v6-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Light (default) */
+  --bg: #E9EAEC;          /* cool light grey page */
+  --surface: #F7F8F9;     /* near-white cards */
+  --surface-2: #DFE1E4;   /* one tone step below the page */
+  --ink: #0E0F11;         /* near-black */
+  --ink-2: #4A4E56;       /* secondary text, 7.0:1 on --bg */
+  --ink-3: #7F838B;       /* decorative only (marquee names), 3.2:1 as large type */
+  --line: rgba(14, 15, 17, 0.16);
+  --orange: #FF4F00;      /* international orange: shapes, large type, the glow */
+  --cobalt: #1E44DB;      /* rare second accent: focus ring, the cool light */
+  --on-orange: #0E0F11;
+  --shade: #0E0F11;       /* card dim when the next card stacks on top */
+  --field-base: #DADCE0;  /* frosted plane tone the shader starts from */
+  --field-strength: 1;
+  --frost-grain: 0.34;
+
+  /* Type: Geist for everything, Geist Mono only for metadata, numbers and dates */
+  --font: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --t-display: clamp(5.25rem, 16.2vw, 24rem);
+  --t-h2: clamp(2.75rem, 7.4vw, 8.5rem);
+  --t-h3: clamp(2.5rem, 4.6vw, 5rem);
+  --t-lead: clamp(1.25rem, 1.55vw, 1.625rem);
+  --t-body: 1.0625rem;
+  --t-mono: 0.8125rem;
+
+  /* Space and shape */
+  --gutter: clamp(16px, 2.5vw, 40px);
+  --nav-h: 64px;
+  --radius: 2px;
+  --section-gap: clamp(120px, 16vw, 240px);
+
+  /* Motion (Emil Kowalski curves) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@media (max-width: 899px) {
+  :root { --nav-h: 56px; }
+}
+
+/* Dark: follows the OS until the visitor picks, then the choice wins */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0F1012;
+    --surface: #17191C;
+    --surface-2: #1E2125;
+    --ink: #ECEDEF;
+    --ink-2: #A4A8AF;
+    --ink-3: #6B6F77;
+    --line: rgba(236, 237, 239, 0.18);
+    --orange: #FF5A14;
+    --cobalt: #6F8BFF;
+    --shade: #000000;
+    --field-base: #1A1C20;
+    --field-strength: 0.82;
+    --frost-grain: 0.14;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0F1012;
+  --surface: #17191C;
+  --surface-2: #1E2125;
+  --ink: #ECEDEF;
+  --ink-2: #A4A8AF;
+  --ink-3: #6B6F77;
+  --line: rgba(236, 237, 239, 0.18);
+  --orange: #FF5A14;
+  --cobalt: #6F8BFF;
+  --shade: #000000;
+  --field-base: #1A1C20;
+  --field-strength: 0.82;
+  --frost-grain: 0.14;
+}

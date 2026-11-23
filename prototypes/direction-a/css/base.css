@@ -1,0 +1,138 @@
+/* Reset, grid, type roles, buttons, browser surfaces, reveal system */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--t-body);
+  font-weight: 400;
+  line-height: 1.55;
+  font-feature-settings: 'ss01' 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+}
+img, video, canvas, svg { display: block; max-width: 100%; }
+h1, h2, h3, p, dl, dd, figure, ol, ul { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+table { border-collapse: collapse; }
+
+/* Browser surfaces */
+::selection { background: var(--orange); color: #111214; }
+:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; border-radius: var(--r); }
+html { scrollbar-color: var(--ink-3) var(--bg); }
+input, textarea { caret-color: var(--orange); }
+
+/* Grid */
+.wrap { padding-inline: var(--m); }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--g);
+}
+@media (max-width: 720px) {
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* Type roles */
+.mono {
+  font-family: var(--mono);
+  font-size: var(--t-mono);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.num { font-variant-numeric: tabular-nums; }
+.h2 {
+  font-size: var(--t-h2);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.h3 {
+  font-size: var(--t-h3);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+.lede {
+  font-size: var(--t-lede);
+  font-weight: 500;
+  line-height: 1.38;
+  letter-spacing: -0.012em;
+  text-wrap: pretty;
+}
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Line masks for type that rises line by line */
+.line { display: block; overflow: clip; overflow-clip-margin: 0.08em; padding-bottom: 0.04em; margin-bottom: -0.04em; }
+.line > span { display: block; }
+
+/* Buttons: 2px, flat, one fill */
+.btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  height: 44px; padding: 0 16px 0 14px;
+  border-radius: var(--r);
+  font-size: 0.9375rem; font-weight: 500; letter-spacing: -0.005em;
+  text-decoration: none; white-space: nowrap;
+  transition: transform 160ms var(--ease-out), background-color 200ms ease, color 200ms ease, box-shadow 200ms ease;
+}
+.btn:active { transform: scale(0.97); }
+.btn--primary { background: var(--ink); color: var(--bg); }
+.btn--primary .led { width: 8px; height: 8px; background: var(--orange); border-radius: 1px; flex: none; }
+.btn--line { box-shadow: inset 0 0 0 1px var(--ink); color: var(--ink); }
+.btn .arrow { width: 16px; height: 16px; flex: none; transition: transform 200ms var(--ease-out); }
+.btn .t { font-family: var(--mono); font-size: 0.75rem; color: inherit; opacity: 0.72; }
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover { background: color-mix(in srgb, var(--ink) 86%, var(--orange)); }
+  .btn--line:hover { background: var(--bg-2); }
+  .btn:hover .arrow { transform: translateX(3px); }
+}
+
+.skip {
+  position: fixed; left: var(--m); top: 8px; z-index: 200;
+  background: var(--ink); color: var(--bg); padding: 10px 14px; border-radius: var(--r);
+  transform: translateY(-160%); transition: transform 200ms var(--ease-out);
+}
+.skip:focus-visible { transform: none; }
+
+/* Hairline rules that draw in */
+.rule { display: block; height: 1px; background: var(--rule); transform-origin: 0 50%; }
+.rule--ink { background: var(--ink); }
+
+/* Reveal system. Hidden states only exist when main.js has armed it (html.reveal-armed). */
+html.reveal-armed [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-out);
+  transition-delay: var(--d, 0ms);
+}
+html.reveal-armed [data-reveal].is-in { opacity: 1; transform: none; }
+html.reveal-armed [data-draw] {
+  transform: scaleX(0);
+  transition: transform 1100ms var(--ease-draw);
+  transition-delay: var(--d, 0ms);
+}
+html.reveal-armed [data-draw].is-in { transform: scaleX(1); }
+
+/* Odometer digits */
+.odo { display: inline-flex; height: 1.15em; overflow: clip; vertical-align: top; }
+.odo__col { display: flex; flex-direction: column; transition: transform 600ms var(--ease-out); }
+.odo__col span { height: 1.15em; line-height: 1.15em; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; }
+  .odo__col { transition: none; }
+}

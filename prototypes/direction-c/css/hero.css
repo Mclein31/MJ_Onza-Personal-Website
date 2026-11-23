@@ -1,0 +1,141 @@
+/* Hero: the name set huge in three staggered lines, crossing a frosted plane lit from behind */
+
+.hero {
+  --ns: min(21vw, calc((100svh - var(--nav-h) - 56px) / 2.5));
+  position: relative;
+  min-height: 100svh;
+  padding: calc(var(--nav-h) + 12px) var(--gutter) var(--gutter);
+}
+
+/* The frosted plane: WebGL light field inside, grain and a lit top edge on top */
+.plane {
+  position: absolute;
+  top: calc(var(--nav-h) + 8px);
+  bottom: var(--gutter);
+  left: 37%;
+  right: var(--gutter);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--field-base);
+  transform-origin: 50% 100%;
+}
+.plane__gl { position: absolute; inset: 0; width: 100%; height: 100%; }
+.plane__frost {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: var(--frost-grain);
+  mix-blend-mode: overlay;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+/* Static poster: no WebGL, reduced motion, save-data or a weak device */
+.plane.is-static {
+  background:
+    radial-gradient(48% 58% at 70% 32%, color-mix(in oklab, var(--orange) 78%, var(--field-base)) 0%, color-mix(in oklab, var(--orange) 20%, var(--field-base)) 52%, transparent 78%),
+    radial-gradient(52% 54% at 22% 76%, color-mix(in oklab, var(--cobalt) 58%, var(--field-base)) 0%, color-mix(in oklab, var(--cobalt) 14%, var(--field-base)) 55%, transparent 80%),
+    var(--field-base);
+}
+.plane.is-static .plane__gl { display: none; }
+
+/* The name */
+.name {
+  position: relative;
+  z-index: 2;
+  font-size: var(--ns);
+  font-weight: 500;
+  line-height: 0.82;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+}
+.name__vis { display: block; }
+.name__line { display: block; white-space: nowrap; }
+.name__line--b { padding-left: 50%; }
+.name__line--c { text-align: right; }
+.name__line .ch:last-child { margin-right: 0.05em; }
+.name .w { display: inline-block; }
+.name .sp { display: inline-block; width: 0.22em; }
+.name .ch { display: inline-block; will-change: transform; }
+/* Mask while letters rise in; extends above the box so caps are never clipped */
+.name.is-masked .w { clip-path: inset(-0.4em -0.3em 0.02em -0.3em); }
+
+.hero__copy {
+  position: absolute;
+  z-index: 2;
+  left: var(--gutter);
+  top: calc(var(--nav-h) + 12px + var(--ns) * 0.82 + clamp(20px, 3.2vh, 40px));
+  width: min(36%, 480px);
+}
+.hero__intro {
+  font-size: var(--t-lead);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.hero__meta {
+  margin-top: 16px;
+  font-family: var(--mono);
+  font-size: var(--t-mono);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 28px; }
+
+/* A quiet index of the five projects closes the lower-left corner */
+.hero__index {
+  position: absolute;
+  z-index: 2;
+  left: var(--gutter);
+  bottom: var(--gutter);
+  font-family: var(--mono);
+  font-size: var(--t-mono);
+  line-height: 1.5;
+}
+.hero__index-title { color: var(--ink-2); margin-bottom: 8px; }
+.hero__index a {
+  display: inline-flex; align-items: center; gap: 8px; padding: 2px 0;
+  transition: color 0.2s ease;
+}
+.hero__index a::after {
+  content: ""; width: 6px; height: 6px; background: var(--orange); border-radius: 50%;
+  opacity: 0; transform: translateX(-4px);
+  transition: opacity 0.2s ease, transform 0.25s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .hero__index a:hover::after { opacity: 1; transform: none; }
+}
+
+/* ---------- Phone ---------- */
+@media (max-width: 899px) {
+  .hero {
+    --ns: min(25.5vw, 150px);
+    min-height: auto;
+    padding-top: calc(var(--nav-h) + 20px);
+    padding-bottom: 56px;
+  }
+  .plane {
+    top: calc(var(--nav-h) + 6px);
+    bottom: auto;
+    left: var(--gutter);
+    height: calc(var(--ns) * 0.82 * 3 + 44px);
+  }
+  .name { padding: 0 4px; }
+  .name__line--b { padding-left: 34%; }
+  .hero__index { display: none; }
+  .hero__copy { position: static; width: auto; max-width: 34rem; margin-top: 44px; }
+  .hero__intro { font-size: 1.375rem; }
+  .hero__cta { margin-top: 24px; }
+  .hero__cta .btn { flex: 1 1 auto; }
+}
+@media (min-width: 600px) and (max-width: 899px) {
+  .hero { --ns: 23vw; }
+}
+
+/* Short landscape (foldable open, 890x626): shrink the name so copy and CTA sit in the first screen */
+@media (max-width: 899px) and (orientation: landscape) and (max-height: 700px) {
+  .hero { --ns: min(15vw, 118px); padding-bottom: 40px; }
+  .hero__copy { margin-top: 52px; }
+}

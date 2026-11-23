@@ -1,0 +1,82 @@
+/* D-A "Instrument": fonts, tokens, theme. Paths are relative to this file. */
+
+@font-face {
+  font-family: 'Geist'; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url('../../../assets/fonts/geist-v5-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geist'; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url('../../../assets/fonts/geist-v5-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Geist Mono'; font-style: normal; font-weight: 400 500; font-display: swap;
+  src: url('../../../assets/fonts/geist-mono-v6-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geist Mono'; font-style: normal; font-weight: 400 500; font-display: swap;
+  src: url('../../../assets/fonts/geist-mono-v6-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Light (default): cool grey instrument panel */
+  --bg: #E9EAEC;          /* page ground */
+  --bg-2: #F3F4F5;        /* raised surface, one tone step */
+  --plate: #FFFFFF;       /* screenshot plate */
+  --ink: #111214;         /* text, primary fills */
+  --ink-2: #45484D;       /* secondary text, 7.1:1 on --bg */
+  --ink-3: #5E6268;       /* mono labels, 5.0:1 on --bg */
+  --rule: #C3C6CB;        /* hairlines */
+  --rule-2: #D5D7DB;      /* faint hairlines (hero columns) */
+  --orange: #FF4F00;      /* international orange: shapes, scan bar, markers */
+  --cobalt: #2448D8;      /* rare: focus ring, cursor probe */
+  --field: #7E838A;       /* grey data points */
+  --on-ink: #E9EAEC;      /* text on an ink field */
+
+  /* Type */
+  --sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --t-hero: clamp(3.75rem, 10.6vw, 11rem);      /* the name */
+  --t-h2: clamp(2.5rem, 5.4vw, 5.75rem);         /* section headings */
+  --t-h3: clamp(2.5rem, 4.6vw, 4.75rem);         /* project names */
+  --t-lede: clamp(1.125rem, 1.45vw, 1.375rem);   /* intro lines */
+  --t-body: 1rem;
+  --t-mono: 0.75rem;
+
+  /* Grid */
+  --m: clamp(16px, 2.6vw, 40px);   /* outer margin */
+  --g: clamp(12px, 1.6vw, 24px);   /* gutter */
+  --nav-h: 56px;
+  --r: 2px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-draw: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #0F1012; --bg-2: #17191C; --plate: #1C1E22;
+    --ink: #E8E9EB; --ink-2: #B3B7BD; --ink-3: #8F939A;
+    --rule: #2E3136; --rule-2: #24272B;
+    --orange: #FF5A1A; --cobalt: #7088FF; --field: #6B7078; --on-ink: #0F1012;
+  }
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0F1012; --bg-2: #17191C; --plate: #1C1E22;
+  --ink: #E8E9EB; --ink-2: #B3B7BD; --ink-3: #8F939A;
+  --rule: #2E3136; --rule-2: #24272B;
+  --orange: #FF5A1A; --cobalt: #7088FF; --field: #6B7078; --on-ink: #0F1012;
+}
+
+@media (max-width: 720px) {
+  :root { --nav-h: 52px; }
+}

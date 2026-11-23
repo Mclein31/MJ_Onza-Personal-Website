@@ -1,0 +1,74 @@
+/* Intro loader: counter, orange scan bar, grid boot. Only rendered while html.has-loader is set. */
+
+.loader { display: none; }
+html.has-loader { overflow: hidden; }
+html.has-loader .loader {
+  display: block;
+  position: fixed; inset: 0; z-index: 100;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* Column hairlines, identical in position to the hero's (gutter centres) */
+.loader__cols { position: absolute; inset: 0; }
+.loader__cols .grid { height: 100%; }
+.loader__cols i { position: relative; }
+.loader__cols i::before,
+.loader__cols i:last-child::after {
+  content: '';
+  position: absolute; top: 0; bottom: 0;
+  left: calc(var(--g) / -2);
+  width: 1px;
+  background: var(--rule-2);
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+  transition: transform 480ms var(--ease-out);
+}
+.loader__cols i:last-child::after { left: auto; right: calc(var(--g) / -2); }
+.loader__cols i.on::before,
+.loader__cols .grid.done i:last-child::after { transform: scaleY(1); }
+
+.loader__scan {
+  position: absolute; top: 0; bottom: 0; left: 0;
+  width: 2px; margin-left: -1px;
+  background: var(--orange);
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.loader__top {
+  position: absolute; left: 0; right: 0; top: 18px;
+  display: flex; justify-content: space-between;
+}
+
+.loader__bottom {
+  position: absolute; left: 0; right: 0; bottom: clamp(16px, 3vh, 36px);
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+}
+.loader__count {
+  overflow: clip;
+  font-size: clamp(6rem, 21vw, 19rem);
+  font-weight: 600;
+  line-height: 0.78;
+  letter-spacing: -0.055em;
+  padding-top: 0.04em;
+  margin-left: -0.05em;
+}
+.loader__count span { display: block; transition: transform 380ms var(--ease-in-out); }
+
+.loader__status { display: grid; gap: 4px; min-width: 132px; padding-bottom: 0.4em; }
+.loader__status li { display: flex; justify-content: space-between; gap: 24px; }
+.loader__status b { font-weight: 500; color: var(--ink); }
+.loader__status li.ok b { color: var(--ink); }
+
+/* Exit: the counter lifts out of its mask, labels and scan fade */
+.loader.is-out .loader__count span { transform: translateY(-104%); }
+.loader__top, .loader__status, .loader__scan { transition: opacity 260ms ease; }
+.loader.is-out .loader__top,
+.loader.is-out .loader__status,
+.loader.is-out .loader__scan { opacity: 0; }
+
+@media (max-width: 720px) {
+  .loader__top { top: 14px; }
+  .loader__status { min-width: 104px; }
+}

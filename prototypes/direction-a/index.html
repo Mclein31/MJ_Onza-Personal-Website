@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>McLein Jei Onza | Developer Portfolio (v5 direction A: Instrument)</title>
+  <meta name="description" content="McLein Jei Onza (McLein Onza), a Computer Science student at Cagayan State University, builds full-stack apps and trains in data engineering." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#E9EAEC" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0F1012" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" type="image/png" sizes="64x64" href="../../assets/Logo/favicon-circle-64.png" />
+  <script>
+    // Before first paint: theme choice, motion flags, once-per-session loader, failsafe.
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      try {
+        var t = localStorage.getItem('v5a-theme');
+        if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
+      } catch (e) {}
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      d.classList.add('motion');
+      d.setAttribute('data-stage', 'boot');
+      var seen = false;
+      try { seen = sessionStorage.getItem('v5a-booted') === '1'; } catch (e) {}
+      if (!seen) d.classList.add('has-loader');
+      // Failsafe: content never stays hidden if the module fails to load or run.
+      function reveal() {
+        if (d.getAttribute('data-stage') === 'boot') {
+          d.setAttribute('data-stage', 'done');
+          d.classList.remove('has-loader');
+        }
+      }
+      setTimeout(function () { if (!window.__v5aAlive) reveal(); else setTimeout(reveal, 1200); }, 2800);
+    })();
+  </script>
+  <link rel="preload" href="../../assets/fonts/geist-v5-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="../../assets/fonts/geist-mono-v6-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="vendor/lenis/lenis.css" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/loader.css" />
+  <link rel="stylesheet" href="css/nav.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/work.css" />
+  <link rel="stylesheet" href="css/about.css" />
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Intro loader: a 000 to 100 counter and an orange scan bar that draws the grid. Once per session. -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__cols wrap"><div class="grid" data-loader-cols><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    <span class="loader__scan" data-loader-scan></span>
+    <div class="loader__top wrap">
+      <span class="mono">McLein Jei Onza</span>
+      <span class="mono">Portfolio, 2026</span>
+    </div>
+    <div class="loader__bottom wrap">
+      <div class="loader__count num"><span data-loader-count>000</span></div>
+      <ul class="loader__status mono">
+        <li data-status="type"><span>Type</span><b>…</b></li>
+        <li data-status="field"><span>Field</span><b>…</b></li>
+        <li data-status="grid"><span>Grid</span><b>…</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <header class="nav" data-nav>
+    <div class="nav__inner wrap">
+      <a class="nav__brand" href="#top" aria-label="McLein Jei Onza, back to top">McLein Jei Onza</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#end">Journey</a>
+        <a href="#end">Stack</a>
+        <a href="#end">Recognition</a>
+        <a href="#end">Contact</a>
+      </nav>
+      <span class="nav__readout mono" aria-hidden="true"><span data-readout-name>Index</span> <span class="num" data-readout-pct>000</span>%</span>
+      <div class="nav__end">
+        <div class="theme" role="group" aria-label="Colour theme">
+          <span class="theme__thumb" aria-hidden="true"></span>
+          <button type="button" data-theme-set="light" aria-pressed="true">Light</button>
+          <button type="button" data-theme-set="dark" aria-pressed="false">Dark</button>
+        </div>
+        <a class="btn btn--primary nav__cta" href="mailto:mcleinjeionza06@gmail.com?subject=Hello%20McLein">Let’s talk</a>
+        <button class="nav__menu" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+          <span class="sr-only">Menu</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h16M4 15h16" stroke="currentColor" stroke-width="1.6" fill="none" /></svg>
+        </button>
+      </div>
+    </div>
+    <nav class="menu wrap" id="menu" aria-label="Menu" hidden>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#end">Journey</a>
+      <a href="#end">Stack</a>
+      <a href="#end">Recognition</a>
+      <a href="#end">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero__sticky">
+        <div class="hero__cols wrap" aria-hidden="true"><div class="grid" data-hero-cols><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+
+        <div class="hero__inner wrap">
+          <dl class="spec grid">
+            <div class="spec__cell" style="--d:0ms"><dt class="mono">Program</dt><dd>BS Computer Science</dd></div>
+            <div class="spec__cell" style="--d:60ms"><dt class="mono">University</dt><dd>Cagayan State University</dd></div>
+            <div class="spec__cell" style="--d:120ms"><dt class="mono">Class of</dt><dd class="num" data-boot-tick="2028" data-from="2024">2028</dd></div>
+            <div class="spec__cell" style="--d:180ms"><dt class="mono">Looking for</dt><dd>A data engineering internship</dd></div>
+          </dl>
+
+          <div class="plot" data-plot aria-hidden="true">
+            <div class="plot__static"><i class="plot__static-grey"></i><i class="plot__static-orange"></i></div>
+            <canvas class="plot__canvas" data-field></canvas>
+            <p class="plot__readout mono"><span class="num" data-field-count>1,800</span> points · flow <span class="num" data-field-flow>0.00</span>×</p>
+            <ol class="plot__axis mono">
+              <li style="--x:14%">Extract</li>
+              <li style="--x:50%">Transform</li>
+              <li style="--x:84%">Load</li>
+            </ol>
+          </div>
+
+          <div class="hero__foot grid">
+            <h1 class="hero__name" id="hero-title">
+              <span class="line"><span style="--d:0ms">McLein Jei</span></span>
+              <span class="line"><span style="--d:90ms">Onza</span></span>
+            </h1>
+            <div class="hero__aside">
+              <p class="lede hero__intro">I build full-stack apps and train in data engineering.</p>
+              <div class="hero__cta">
+                <a class="btn btn--primary" href="#work"><span class="led" aria-hidden="true"></span>See the work</a>
+                <a class="btn btn--line" href="mailto:mcleinjeionza06@gmail.com?subject=Hello%20McLein">Send a message<svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" fill="none" /></svg></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK: intro and index -->
+    <section class="work wrap" id="work" aria-labelledby="work-title">
+      <div class="sec-head grid">
+        <p class="sec-head__side mono" data-reveal>Work<br /><span class="num">5</span> projects</p>
+        <h2 class="h2 sec-head__title" id="work-title" data-reveal style="--d:60ms">Things I’ve built.</h2>
+        <p class="lede sec-head__lede" data-reveal style="--d:120ms">Community healthcare, hospital billing, local services and personal health records: apps, staff consoles and APIs on Workers and Postgres.</p>
+      </div>
+
+      <div class="index-wrap">
+        <span class="rule rule--ink" data-draw></span>
+        <table class="index" role="table" aria-label="All five projects">
+          <thead role="rowgroup">
+            <tr class="mono" role="row"><th scope="col" role="columnheader">No.</th><th scope="col" role="columnheader">Project</th><th scope="col" role="columnheader">Field</th><th scope="col" role="columnheader" class="c-plat">Platforms</th><th scope="col" role="columnheader" class="c-note">Note</th></tr>
+          </thead>
+          <tbody role="rowgroup">
+            <tr role="row" data-reveal style="--d:0ms"><td role="cell" class="mono num">01</td><th scope="row" role="rowheader">AdvanCare</th><td role="cell" class="c-field">Community healthcare</td><td role="cell" class="c-plat">Web, Android, iOS</td><td role="cell" class="c-note">2nd place, Cagayan Innovation Hack 2026</td></tr>
+            <tr role="row" class="is-current" data-reveal style="--d:50ms"><td role="cell" class="mono num">02</td><th scope="row" role="rowheader"><a href="#medcore">MedCore</a></th><td role="cell" class="c-field">Hospital billing</td><td role="cell" class="c-plat">Web, Android, iOS</td><td role="cell" class="c-note">Pitch Perfect, DTI Youth Entrepreneurship Program</td></tr>
+            <tr role="row" data-reveal style="--d:100ms"><td role="cell" class="mono num">03</td><th scope="row" role="rowheader"><a href="#servio">SERVIO</a></th><td role="cell" class="c-field">Local services</td><td role="cell" class="c-plat">Web, Android, iOS</td><td role="cell" class="c-note">Launching in Tuguegarao City</td></tr>
+            <tr role="row" data-reveal style="--d:150ms"><td role="cell" class="mono num">04</td><th scope="row" role="rowheader">MedRec</th><td role="cell" class="c-field">Personal health records</td><td role="cell" class="c-plat">Web, Android, iOS</td><td role="cell" class="c-note">Rebuilt for v2 on a serverless stack</td></tr>
+            <tr role="row" data-reveal style="--d:200ms"><td role="cell" class="mono num">05</td><th scope="row" role="rowheader">Mulat Media</th><td role="cell" class="c-field">Student publishing</td><td role="cell" class="c-plat">Web</td><td role="cell" class="c-note"><a href="https://mulat-media.vercel.app/" target="_blank" rel="noopener noreferrer">mulat-media.vercel.app</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- WORK: MedCore, sticky split (spec sheet + screenshot stage) -->
+    <section class="mc" id="medcore" aria-labelledby="mc-title" data-mc>
+      <div class="mc__sticky wrap">
+        <div class="mc__grid grid">
+          <div class="mc__spec">
+            <div class="title-row">
+              <h3 class="h3" id="mc-title">MedCore</h3>
+              <span class="mono title-row__idx"><span class="num">02</span>/05</span>
+            </div>
+            <p class="mc__desc">Applies PhilHealth, HMO and senior/PWD deductions in order so cashiers and security see one final balance. A staff dashboard, a patient companion app and an AI concierge.</p>
+            <dl class="mc__table">
+              <div><dt class="mono">Field</dt><dd>Hospital billing</dd></div>
+              <div><dt class="mono">Platforms</dt><dd>Web, Android, iOS</dd></div>
+              <div><dt class="mono">Built with</dt><dd>Vercel dashboard, Expo, Hono on Workers, Neon Postgres</dd></div>
+              <div><dt class="mono">Discharge</dt><dd><span class="num" data-tick="6">6</span> stages, <span class="num" data-tick="45">45</span>-minute target</dd></div>
+              <div><dt class="mono">Recognition</dt><dd>Pitch Perfect, DTI Youth Entrepreneurship Program</dd></div>
+            </dl>
+
+            <div class="mc__readout" aria-hidden="true">
+              <p class="mc__fig mono">Fig. 2.<span data-fig-n>1</span><span class="mc__fig-of">of 7</span></p>
+              <div class="mc__ftext" data-fig-text>
+                <p class="mc__ftitle" data-fig-title>Hospital dashboard and patient app</p>
+                <p class="mc__fdesc" data-fig-desc>Billing staff see discharge holds, pending HMO authorizations, bed census and receivables at a glance. The patient sees the balance left after coverage.</p>
+              </div>
+            </div>
+
+            <div class="mc__steps" role="group" aria-label="MedCore figures" data-steps></div>
+
+            <button class="btn btn--primary mc__play" type="button" data-play><svg viewBox="0 0 16 16" class="arrow" aria-hidden="true"><path d="M5 3.5v9l7.5-4.5z" fill="currentColor" /></svg>Watch the product video <span class="t" aria-hidden="true">0:32</span><span class="sr-only">, 32 seconds</span></button>
+          </div>
+
+          <div class="mc__stage" data-stage-el>
+            <div class="mc__frame">
+              <figure class="shot is-active" data-shot data-title="Hospital dashboard and patient app" data-desc="Billing staff see discharge holds, pending HMO authorizations, bed census and receivables at a glance. The patient sees the balance left after coverage.">
+                <div class="shot__img"><img src="../../assets/images/projects/medcore-1-1600.webp" alt="MedCore: hospital overview dashboard and patient app home" width="1600" height="900" decoding="async" /></div>
+                <figcaption><strong>Hospital dashboard and patient app.</strong> Billing staff see discharge holds, pending HMO authorizations, bed census and receivables at a glance. The patient sees the balance left after coverage.</figcaption>
+              </figure>
+              <figure class="shot" data-shot data-title="Discharge clearance" data-desc="Every discharge moves through six stages, from the doctor’s order to the gate pass, with the current blocker and the time elapsed against the 45-minute target.">
+                <div class="shot__img"><img src="../../assets/images/projects/medcore-2-1600.webp" alt="MedCore: discharge clearance board" width="1600" height="900" loading="lazy" decoding="async" /></div>
+                <figcaption><strong>Discharge clearance.</strong> Every discharge moves through six stages, from the doctor’s order to the gate pass, with the current blocker and the time elapsed against the 45-minute target.</figcaption>
+              </figure>
+              <figure class="shot" data-shot data-title="One bill, every deduction in order" data-desc="Staff see each charge and how VAT exemption, senior or PWD discount, PhilHealth and HMO are applied. The patient sees the same breakdown on their phone.">
+                <div class="shot__img"><img src="../../assets/images/projects/medcore-3-1600.webp" alt="MedCore: encounter ledger and patient bill breakdown" width="1600" height="900" loading="lazy" decoding="async" /></div>
+                <figcaption><strong>One bill, every deduction in order.</strong> Staff see each charge and how VAT exemption, senior or PWD discount, PhilHealth and HMO are applied. The patient sees the same breakdown on their phone.</figcaption>
+              </figure>
+              <figure class="shot" data-shot data-title="A bill patients can understand" data-desc="Patients check their bill and coverage, and Cora AI explains the balance in Taglish, English, Tagalog or Ilokano.">
+                <div class="shot__img"><img src="../../assets/images/projects/medcore-4-1600.webp" alt="MedCore: patient bill, Cora AI explanation and coverage" width="1600" height="900" loading="lazy" decoding="async" /></div>
+                <figcaption><strong>A bill patients can understand.</strong> Patients check their bill and coverage, and Cora AI explains the balance in Taglish, English, Tagalog or Ilokano.</figcaption>
+              </figure>
+              <figure class="shot" data-shot data-title="Claims checked before they are filed" data-desc="A pre-flight scrubber checks PhilHealth claims before submission. Patients can settle the balance in full or in part from the app.">
+                <div class="shot__img"><img src="../../assets/images/projects/medcore-5-1600.webp" alt="MedCore: claims scrubber and patient payment" width="1600" height="900" loading="lazy" decoding="async" /></div>
+                <figcaption><strong>Claims checked before they are filed.</strong> A pre-flight scrubber checks PhilHealth claims before submission. Patients can settle the balance in full or in part from the app.</figcaption>
+              </figure>
+              <figure class="shot" data-shot data-title="Revenue cycle analytics" data-desc="Average discharge time, trapped capital and the main bottleneck, with an AI briefing on what to fix first.">
+                <div class="shot__img"><img src="../../assets/images/projects/medcore-6-1600.webp" alt="MedCore: revenue cycle analytics dashboard" width="1600" height="900" loading="lazy" decoding="async" /></div>
+                <figcaption><strong>Revenue cycle analytics.</strong> Average discharge time, trapped capital and the main bottleneck, with an AI briefing on what to fix first.</figcaption>
+              </figure>
+              <figure class="shot shot--video" data-shot data-title="Product film, 0:32" data-desc="The MedCore promo video, 32 seconds, with voiceover. Press play to watch it here.">
+                <div class="shot__img"><video src="../../assets/video/medcore-promo.mp4" poster="../../assets/video/medcore-promo-poster.webp" controls playsinline preload="none" width="1280" height="720" aria-label="MedCore promo video, 32 seconds, with voiceover" data-video></video></div>
+                <figcaption><strong>Product film, 0:32.</strong> The MedCore promo with voiceover.</figcaption>
+              </figure>
+              <span class="mc__scan" aria-hidden="true" data-scan></span>
+            </div>
+            <div class="mc__marks" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK: teaser of the next project -->
+    <section class="next wrap" id="servio" aria-labelledby="servio-title">
+      <span class="rule" data-draw></span>
+      <div class="next__grid grid">
+        <div class="next__text">
+          <div class="title-row" data-reveal>
+            <h3 class="h3" id="servio-title">SERVIO</h3>
+            <span class="mono title-row__idx"><span class="num">03</span>/05</span>
+          </div>
+          <p class="next__desc" data-reveal style="--d:60ms">Services sold like catalog items: upfront prices, instant technician matching, live on-the-way tracking and in-app escrow. Launching in Tuguegarao City.</p>
+          <dl class="next__meta" data-reveal style="--d:120ms">
+            <div><dt class="mono">Field</dt><dd>Local services</dd></div>
+            <div><dt class="mono">Figures</dt><dd><span class="num">4</span> screenshots and a <span class="num">0:39</span> film</dd></div>
+          </dl>
+        </div>
+        <figure class="next__shot" data-next-shot>
+          <div class="next__img">
+            <img class="ghost" src="../../assets/images/projects/servio-1-1600.webp" alt="" width="1600" height="900" loading="lazy" decoding="async" />
+            <img class="live" src="../../assets/images/projects/servio-1-1600.webp" alt="SERVIO: home, live tracking map and chat" width="1600" height="900" loading="lazy" decoding="async" />
+            <span class="next__scanline" aria-hidden="true"></span>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ABOUT: the ink field rises, the heading follows -->
+    <section class="about" id="about" aria-labelledby="about-title" data-about>
+      <div class="about__field" aria-hidden="true" data-about-field><span class="about__scan"></span></div>
+      <div class="about__inner wrap">
+        <div class="sec-head grid">
+          <p class="sec-head__side mono">About</p>
+          <h2 class="h2 sec-head__title about__title" id="about-title">
+            <span class="line"><span style="--d:0ms">Student first, builder always,</span></span>
+            <span class="line"><span style="--d:90ms">now learning how data flows.</span></span>
+          </h2>
+        </div>
+        <p class="about__end mono" id="end">Direction A ends here. Journey, Stack, Recognition and Contact follow in the full build.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
