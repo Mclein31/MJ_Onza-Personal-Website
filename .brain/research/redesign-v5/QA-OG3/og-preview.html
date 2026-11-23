@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200, initial-scale=1">
+  <title>McLein Jei Onza — OG Card</title>
+  <link rel="stylesheet" href="/styles/tokens.css">
+  <link rel="stylesheet" href="/styles/base.css">
+  <link rel="stylesheet" href="/styles/hero.css">
+  <style>
+    html, body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .og {
+      position: relative;
+      width: 1200px;
+      height: 630px;
+      --hair: var(--rule-2);
+    }
+    .og .hero__cols {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+    }
+    .og__inner {
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding-top: 24px;
+      padding-bottom: 28px;
+    }
+    .og .hero__plot {
+      flex: 1 1 auto;
+      min-height: 0;
+      width: 100%;
+    }
+    .og .hero__poster {
+      opacity: 1;
+    }
+    .og .hero__axis {
+      display: block;
+      bottom: 8px;
+    }
+    .og .hero__status {
+      margin-top: 18px;
+      padding-block: 0 14px;
+    }
+    .og .hero__foot {
+      padding-top: 4px;
+    }
+    .og .hero__name {
+      font-size: 124px;
+      line-height: 0.86;
+    }
+    .og .hero__aside {
+      gap: 16px;
+      padding-bottom: 4px;
+    }
+    .og .hero__intro {
+      font-size: 21px;
+      max-width: 26ch;
+    }
+    .og__marker {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--ink-2);
+      letter-spacing: 0.04em;
+    }
+    .og__marker i {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: var(--orange);
+      border-radius: 1px;
+    }
+  </style>
+</head>
+<body>
+  <main class="og">
+    <div class="hero__cols container" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="og__inner">
+      <div class="hero__plot" aria-hidden="true">
+        <div class="hero__poster"><i class="hero__poster-grey"></i><i class="hero__poster-orange"></i></div>
+        <ol class="hero__axis label">
+          <li style="--l12: 2; --l4: 1">Extract</li>
+          <li style="--l12: 6; --l4: 2">Transform</li>
+          <li style="--l12: 10; --l4: 3">Load</li>
+        </ol>
+      </div>
+
+      <p class="hero__status container"><i class="hero__dot" aria-hidden="true"></i><span>Open to data engineering internships</span></p>
+
+      <div class="hero__foot container">
+        <h1 class="hero__name">
+          <span class="line"><span>McLein Jei</span></span>
+          <span class="line"><span>Onza</span></span>
+        </h1>
+        <div class="hero__aside">
+          <p class="hero__intro">I build full-stack apps and train in data engineering.</p>
+          <p class="og__marker label"><i aria-hidden="true"></i>mcleinjeionza.vercel.app</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
