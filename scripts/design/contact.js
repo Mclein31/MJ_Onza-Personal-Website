@@ -1,6 +1,6 @@
 /*
  * contact.js: design-layer motion for Contact, Footer, and Dialogs (Instrument redesign v5).
- * Owner: W7 contact+footer+dialogs.
+ * Owner: W7 contact+footer+dialogs; CF2 added the typed query readout (initQuery).
  * Called once from scripts/design/index.js after the core modules are up. Must never throw.
  * Respects prefers-reduced-motion via reducedMotion() from ../core/motion.js.
  */
@@ -104,10 +104,133 @@ function inlineErrorMessage(field) {
   return field.validationMessage || 'Please check this field.';
 }
 
+/**
+ * Contact query readout (CF2): the two-line query types itself once when it comes into view, a thin orange caret
+ * riding the last character, then the one-row result fades up. Characters are pre-laid out (hidden, keeping their
+ * space), so nothing reflows. Static when motion is reduced, when the query is already on screen or above it at load,
+ * and without JS. Screen readers get the plain sentence once (the split copy is aria-hidden).
+ */
+function initQuery() {
+  const box = document.querySelector('[data-query]');
+  const text = box && box.querySelector('[data-query-text]');
+  if (!box || !text || reducedMotion() || !('IntersectionObserver' in window)) return;
+  const r0 = text.getBoundingClientRect();
+  if (r0.top < window.innerHeight) return;
+
+  const lineEls = [...text.querySelectorAll('.contact__sql-line')];
+  const plain = (lineEls.length ? lineEls.map((l) => l.textContent).join(' ') : text.textContent).replace(/\s+/g, ' ').trim();
+  const sr = document.createElement('p');
+  sr.className = 'sr-only';
+  sr.textContent = plain;
+
+  // Split every text node into one span per character, keeping the keyword / string spans around them.
+  const nodes = [];
+  const walker = document.createTreeWalker(text, NodeFilter.SHOW_TEXT);
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  const chars = [];
+  for (const node of nodes) {
+    if (!node.data.trim() && node.parentElement === text) continue;
+    const frag = document.createDocumentFragment();
+    for (const ch of node.data) {
+      const s = document.createElement('span');
+      s.className = 'q-ch';
+      s.textContent = ch;
+      frag.append(s);
+      chars.push(s);
+    }
+    node.replaceWith(frag);
+  }
+  if (!chars.length) return;
+
+  const caret = document.createElement('span');
+  caret.className = 'contact__caret';
+  caret.setAttribute('aria-hidden', 'true');
+  text.setAttribute('aria-hidden', 'true');
+  text.after(sr);
+  text.append(caret);
+  box.classList.add('is-pending');
+
+  // Per-character times: quick, slightly uneven, a short beat at the line break. ~1.1s in all.
+  const firstOfLine2 = lineEls[1] ? lineEls[1].querySelector('.q-ch') : null;
+  const times = [];
+  let t = 0;
+  let seed = 7;
+  for (const ch of chars) {
+    if (ch === firstOfLine2) t += 110;
+    seed = (seed * 9301 + 49297) % 233280;
+    t += 11 + (seed / 233280) * 13;
+    times.push(t);
+  }
+
+  let started = false;
+  let done = false;
+  let raf = 0;
+  let shown = 0;
+
+  const placeCaret = (ch) => {
+    const x = ch.offsetLeft + ch.offsetWidth;
+    const y = ch.offsetTop + (ch.offsetHeight - caret.offsetHeight) / 2;
+    caret.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+  };
+
+  const finish = () => {
+    if (done) return;
+    done = true;
+    cancelAnimationFrame(raf);
+    for (const ch of chars) ch.style.visibility = '';
+    box.classList.remove('is-pending');
+    caret.classList.add('is-done');
+    setTimeout(() => caret.remove(), 260);
+    window.removeEventListener('scroll', onScroll);
+  };
+
+  const run = () => {
+    if (started) return;
+    started = true;
+    const t0 = performance.now() + 160;
+    caret.style.transform = `translate3d(${chars[0].offsetLeft}px, ${chars[0].offsetTop + (chars[0].offsetHeight - caret.offsetHeight) / 2}px, 0)`;
+    const step = (now) => {
+      raf = 0;
+      if (done) return;
+      const el = now - t0;
+      while (shown < chars.length && times[shown] <= el) {
+        chars[shown].style.visibility = 'visible';
+        shown += 1;
+      }
+      if (shown > 0) placeCaret(chars[shown - 1]);
+      if (shown >= chars.length) {
+        setTimeout(finish, 220);
+        return;
+      }
+      raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+  };
+
+  // Jumped past it (anchor, fast scroll): show it whole at once.
+  function onScroll() {
+    if (started || done) return;
+    const r = text.getBoundingClientRect();
+    if (r.bottom < 0) finish();
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      io.disconnect();
+      run();
+    }
+  }, { rootMargin: '0px 0px -18% 0px', threshold: 0 });
+  io.observe(text);
+}
+
 export function init() {
   try {
     if (wired) return;
     wired = true;
+
+    try { initQuery(); } catch {}
 
     // Dialog open/close origin transitions (viewer, video, message)
     setViewerTransition((ctx) => animateDialog(ctx.dialog, ctx.from, ctx.phase));

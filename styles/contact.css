@@ -1,4 +1,4 @@
-/* contact: Instrument redesign v5. Owner: W7 contact+footer+dialogs. */
+/* contact: Instrument redesign v5. Owner: W7 contact+footer+dialogs; CF2 query readout + channel scan. */
 
 .contact {
   padding-block: var(--section-gap) clamp(56px, 7vw, 112px);
@@ -45,12 +45,6 @@
 
 .contact__role {
   margin-top: 2px;
-}
-
-.contact__availability {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
 }
 
 .contact__dot {
@@ -137,6 +131,91 @@
   min-width: 0;
 }
 
+/* Query readout: the LOAD end of the hero pipeline. A two-line query, a one-row result, then the action that "runs" it.
+   Plain type on the page ground: no box, no terminal chrome, no blinking. */
+.contact__query {
+  width: fit-content;
+  max-width: 100%;
+  margin-bottom: clamp(28px, 3vw, 40px);
+}
+
+.contact__sql {
+  position: relative;
+  font-family: var(--mono);
+  font-size: clamp(0.75rem, 0.52rem + 1.1vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0;
+  color: var(--ink-2);
+  font-variant-ligatures: none;
+}
+
+.contact__sql-line {
+  display: block;
+  padding-left: 2ch;
+  text-indent: -2ch;          /* a wrapped line hangs under its keyword */
+}
+
+.contact__sql .sql-k {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.contact__sql .sql-s {
+  color: var(--ink);
+}
+
+/* typing state (scripts/design/contact.js): characters wait hidden, keeping their space, so nothing reflows */
+.contact__query.is-pending .q-ch {
+  visibility: hidden;
+}
+
+.contact__caret {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 1.25em;
+  background: var(--orange);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 200ms ease-out;
+}
+
+.contact__caret.is-done {
+  opacity: 0;
+}
+
+.contact__result {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+  transition:
+    opacity 240ms var(--ease-out),
+    transform 240ms var(--ease-out);
+}
+
+.contact__result .label {
+  color: var(--ink-3);
+}
+
+.contact__result .contact__dot {
+  margin-top: calc((1.4 * var(--t-mono) - 7px) / 2);   /* level with the first line when the readout wraps */
+}
+
+.contact__result b {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.contact__query.is-pending .contact__result {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
 .contact__cta {
   display: flex;
   flex-wrap: wrap;
@@ -187,21 +266,58 @@
 }
 
 .channel {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(110px, 2.2fr) minmax(0, 4.8fr) auto;
   align-items: center;
   column-gap: var(--g);
   row-gap: 8px;
   padding: 16px 8px;
-  border-radius: var(--r);
   border-bottom: 1px solid var(--rule);
-  transition: background-color 160ms ease-out;
+}
+
+/* Hover / keyboard focus: a thin orange scan line passes along the row's hairline (draws in from the left, leaves to
+   the right), the action's underline grows and its arrow nudges 2px. One pass per entry, no loop. */
+.channel::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+@keyframes channel-scan {
+  0% { transform: scaleX(0); transform-origin: 0 50%; }
+  48% { transform: scaleX(1); transform-origin: 0 50%; }
+  52% { transform: scaleX(1); transform-origin: 100% 50%; }
+  100% { transform: scaleX(0); transform-origin: 100% 50%; }
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .channel:hover {
-    background: var(--bg-2);
+  .channel:hover::after {
+    animation: channel-scan 620ms var(--ease-in-out) both;
   }
+
+  .channel:hover .channel__action::after {
+    transform: scaleX(1);
+  }
+
+  .channel:hover .channel__action .btn__arrow--ext {
+    transform: translate(2px, -2px);
+  }
+}
+
+.channel:has(:focus-visible)::after {
+  animation: channel-scan 620ms var(--ease-in-out) both;
+}
+
+.channel:has(:focus-visible) .channel__action .btn__arrow--ext {
+  transform: translate(2px, -2px);
 }
 
 .channel__title {
@@ -261,15 +377,20 @@
   }
 
   .contact__person { grid-column: 1; }
-  .contact__availability { grid-column: 1; }
   .contact__stats {
     grid-column: 2;
-    grid-row: 1 / 3;
+    grid-row: 1;
     margin-top: 0;
   }
 
+  /* the query follows the heading directly; the person card and stats close the section */
   .contact__main {
     grid-column: 1 / -1;
+    order: -1;
+  }
+
+  .contact__aside {
+    margin-top: clamp(16px, 4vw, 32px);
   }
 }
 
@@ -280,7 +401,6 @@
   }
 
   .contact__person,
-  .contact__availability,
   .contact__stats {
     grid-column: 1;
     grid-row: auto;
@@ -344,7 +464,15 @@
 
   .contact__heart,
   .contact__copy-dot,
-  .channel {
+  .contact__result,
+  .contact__caret {
     transition: none;
+  }
+
+  /* no travel: the scan line simply shows while the row is hovered or focused */
+  .channel:hover::after,
+  .channel:has(:focus-visible)::after {
+    animation: none;
+    transform: scaleX(1);
   }
 }

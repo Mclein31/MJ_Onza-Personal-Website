@@ -23,12 +23,12 @@
   <meta property="og:image" content="https://mcleinjeionza.vercel.app/assets/images/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="The McLein Jei Onza portfolio card on a light grey grid: the name in large type, the intro line on building full-stack apps and training in data engineering, a top strip covering internships, stack focus, shipped projects, and hackathon placement, and an orange-and-grey Extract, Transform, Load particle field">
+  <meta property="og:image:alt" content="The McLein Jei Onza portfolio card on a light grey grid: an orange-and-grey Extract, Transform, Load particle field, the status line Open to data engineering internships, the name in large type, the intro line on building full-stack apps and training in data engineering, and the mcleinjeionza.vercel.app marker">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="McLein Jei Onza | Developer Portfolio">
   <meta name="twitter:description" content="McLein Jei Onza (McLein Onza), a Computer Science student at Cagayan State University, builds full-stack apps and trains in data engineering.">
   <meta name="twitter:image" content="https://mcleinjeionza.vercel.app/assets/images/og-image.jpg">
-  <meta name="twitter:image:alt" content="The McLein Jei Onza portfolio card on a light grey grid: the name in large type, the intro line on building full-stack apps and training in data engineering, a top strip covering internships, stack focus, shipped projects, and hackathon placement, and an orange-and-grey Extract, Transform, Load particle field">
+  <meta name="twitter:image:alt" content="The McLein Jei Onza portfolio card on a light grey grid: an orange-and-grey Extract, Transform, Load particle field, the status line Open to data engineering internships, the name in large type, the intro line on building full-stack apps and training in data engineering, and the mcleinjeionza.vercel.app marker">
   <!-- Flash-free theme + intro bootstrap (recipes from scripts/core/theme.js and scripts/core/intro.js). Inline, un-deferred. -->
   <script>
   (function () {
@@ -368,7 +368,7 @@
       </div>
       <p class="site-header__readout label" aria-hidden="true"><span data-readout-name>Index</span> <span data-readout-pct>000</span>%</p>
       <div class="site-header__actions">
-        <button type="button" class="seg site-header__theme" data-theme-toggle aria-pressed="false"><span class="seg__opt" data-seg="light" aria-hidden="true"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3" /><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1" /></svg><span class="seg__txt">Light</span></span> <span class="seg__opt" data-seg="dark"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 10.1A5.6 5.6 0 0 1 5.9 2.8a5.6 5.6 0 1 0 7.3 7.3Z" /></svg><span class="seg__txt">Dark</span><span class="sr-only"> theme</span></span></button>
+        <button type="button" class="btn btn--icon btn--sm site-header__theme" data-theme-toggle aria-pressed="false" aria-label="Dark theme"><svg class="ti-moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 10.1A5.6 5.6 0 0 1 5.9 2.8a5.6 5.6 0 1 0 7.3 7.3Z" /></svg><svg class="ti-sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3" /><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1" /></svg></button>
         <button type="button" class="btn btn--primary btn--sm site-header__cta" data-message-open><span class="btn__mark" aria-hidden="true"></span>Let’s talk</button>
         <button type="button" class="btn btn--icon site-header__toggle" data-menu-toggle aria-controls="site-menu" aria-expanded="false" aria-label="Menu">
           <svg viewBox="0 0 16 16" aria-hidden="true"><path class="t1" d="M2 5.5h12" /><path class="t2" d="M2 10.5h12" /></svg>
@@ -376,6 +376,19 @@
       </div>
     </div>
   </header>
+  <script>
+    /* With the burger (< 1180px) the one theme toggle lives in the menu panel instead of the bar. The same node moves,
+       so the delegated handler in theme.js keeps working; no-JS and desktop keep it in the bar. */
+    (function () {
+      var t = document.querySelector('[data-theme-toggle]'), bar = document.querySelector('.site-header__actions'),
+        menu = document.querySelector('[data-menu]');
+      if (!t || !bar || !menu || !window.matchMedia) return;
+      var slot = document.createElement('div'); slot.className = 'site-header__menu-theme';
+      var q = matchMedia('(max-width: 1179px)');
+      function place() { if (q.matches) { slot.appendChild(t); menu.appendChild(slot); } else { bar.insertBefore(t, bar.firstChild); slot.remove(); } }
+      place(); (q.addEventListener ? q.addEventListener('change', place) : q.addListener(place));
+    })();
+  </script>
 
   <main id="main" data-menu-inert>
 
@@ -384,23 +397,18 @@
         <div class="hero__stage">
           <div class="hero__cols container" aria-hidden="true" data-hero-cols><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
           <div class="hero__inner">
-            <dl class="hero__spec container" aria-label="At a glance">
-              <div class="hero__cell"><dt class="label">Open to<i class="hero__dot" aria-hidden="true"></i></dt><dd>Data engineering internships</dd></div>
-              <div class="hero__cell"><dt class="label">Focus</dt><dd>SQL&nbsp;· PostgreSQL&nbsp;· Python&nbsp;· ETL</dd></div>
-              <div class="hero__cell"><dt class="label">Shipped</dt><dd><a class="hero__link" href="#work">7+ projects, web and <span class="hero__nw">mobile<span class="hero__arrow" aria-hidden="true">→</span></span></a></dd></div>
-              <div class="hero__cell"><dt class="label">Latest</dt><dd><a class="hero__link" href="#recognition">2nd place, Cagayan Innovation Hack <span class="hero__nw">2026<span class="hero__arrow" aria-hidden="true">→</span></span></a></dd></div>
-            </dl>
 
             <div class="hero__plot" data-plot aria-hidden="true">
               <div class="hero__poster"><i class="hero__poster-grey"></i><i class="hero__poster-orange"></i></div>
               <canvas class="hero__canvas" data-field></canvas>
-              <p class="hero__readout label"><span data-field-count>4,096</span> points · flow <span data-field-flow>1.00</span>×</p>
               <ol class="hero__axis label">
                 <li style="--l12: 2; --l4: 1">Extract</li>
                 <li style="--l12: 6; --l4: 2">Transform</li>
                 <li style="--l12: 10; --l4: 3">Load</li>
               </ol>
             </div>
+
+            <p class="hero__status container"><i class="hero__dot" aria-hidden="true"></i><span>Open to data engineering internships</span></p>
 
             <div class="hero__foot container">
               <h1 class="hero__name" id="hero-title" aria-label="McLein Jei Onza">
@@ -834,10 +842,8 @@
     </section>
 
     <section class="about" id="about" aria-labelledby="about-title" data-about>
-      <div class="about__field" aria-hidden="true" data-about-field>
-        <span class="about__scan"></span>
-      </div>
       <div class="container about__inner">
+        <span class="rule about__top-rule" aria-hidden="true" data-reveal="draw"></span>
         <header class="section-head about__head">
           <p class="label" data-reveal="fade">02 / About</p>
           <h2 class="section-head__title about__title" id="about-title" data-about-title>Student first, builder always, now learning <span class="about__highlight">how data flows.</span></h2>
@@ -1645,11 +1651,6 @@
             </div>
           </div>
 
-          <p class="contact__availability" data-reveal="fade">
-            <span class="contact__dot" aria-hidden="true"></span>
-            <span class="label">Open to internships and projects</span>
-          </p>
-
           <div class="contact__stats" role="group" aria-label="Site stats">
             <span class="rule" data-reveal="draw"></span>
             <p class="contact__visits label" title="Total visits">
@@ -1666,6 +1667,11 @@
         </aside>
 
         <div class="contact__main">
+          <div class="contact__query" data-query>
+            <p class="contact__sql" data-query-text><span class="contact__sql-line"><span class="sql-k">SELECT</span> * <span class="sql-k">FROM</span> opportunities</span><span class="contact__sql-line"><span class="sql-k">WHERE</span> role = <span class="sql-s">'data engineering intern'</span>;</span></p>
+            <p class="contact__result" data-query-result><span class="contact__dot" aria-hidden="true"></span><span class="label"><b>1 row</b> · open to internships and projects</span></p>
+          </div>
+
           <div class="contact__cta" data-reveal="fade">
             <button type="button" class="btn btn--primary" data-message-open><span class="btn__mark" aria-hidden="true"></span>Send a message</button>
             <a class="btn btn--ghost" href="#work">See the work<span class="btn__arrow" aria-hidden="true">→</span></a>
@@ -1719,12 +1725,10 @@
   <footer class="site-footer" data-menu-inert>
     <div class="site-footer__inner container">
       <span class="rule site-footer__rule" data-reveal="draw"></span>
-      <div class="site-footer__brand">
-        <p class="site-footer__name">McLein Jei G. Onza</p>
-        <p class="site-footer__copy label">© <span data-year>2026</span> McLein Jei G. Onza</p>
-      </div>
-      <nav class="site-footer__nav" aria-label="Footer">
-        <ul>
+
+      <nav class="site-footer__col site-footer__sections" aria-labelledby="footer-sections">
+        <p class="label site-footer__head" id="footer-sections">Sections</p>
+        <ul class="site-footer__links">
           <li><a class="btn btn--ghost" href="#work">Work</a></li>
           <li><a class="btn btn--ghost" href="#about">About</a></li>
           <li><a class="btn btn--ghost" href="#journey">Journey</a></li>
@@ -1735,8 +1739,31 @@
           <li><a class="btn btn--ghost" href="#contact">Contact</a></li>
         </ul>
       </nav>
+
+      <div class="site-footer__col site-footer__channels">
+        <p class="label site-footer__head" id="footer-channels">Elsewhere</p>
+        <ul class="site-footer__links" aria-labelledby="footer-channels">
+          <li><a class="btn btn--ghost" href="https://github.com/Mclein31" target="_blank" rel="noopener noreferrer">GitHub<span class="btn__arrow btn__arrow--ext" aria-hidden="true">↗</span></a></li>
+          <li><a class="btn btn--ghost" href="https://www.linkedin.com/in/mclein-jei-onza-9b0769322/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="btn__arrow btn__arrow--ext" aria-hidden="true">↗</span></a></li>
+          <li><a class="btn btn--ghost" href="https://wa.me/639524781573?text=Hi%20McLein%21%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20talk%20about%20a%20project%20or%20opportunity." target="_blank" rel="noopener noreferrer">WhatsApp<span class="btn__arrow btn__arrow--ext" aria-hidden="true">↗</span></a></li>
+          <li><a class="btn btn--ghost" href="mailto:mcleinjeionza06@gmail.com?subject=Internship%20or%20project">Email<span class="btn__arrow btn__arrow--ext" aria-hidden="true">↗</span></a></li>
+        </ul>
+      </div>
+
+      <div class="site-footer__col site-footer__colophon">
+        <p class="label site-footer__head">Colophon</p>
+        <p class="site-footer__note">Set in Geist and Geist Mono. Built with plain HTML, CSS and JavaScript, no framework. Hosted on Vercel.</p>
+      </div>
+
       <a class="btn btn--ghost site-footer__top" href="#top">Back to top<span class="btn__arrow site-footer__arrow-up" aria-hidden="true">↑</span></a>
-      <p class="site-footer__wordmark" aria-hidden="true">mclein.onza</p>
+
+      <div class="wordmark site-footer__wordmark" data-wordmark aria-hidden="true">
+        <p class="wordmark__text"><span class="wordmark__full">McLein Jei Onza</span><span class="wordmark__short">Onza</span></p>
+        <canvas class="wordmark__canvas" data-wordmark-canvas></canvas>
+      </div>
+
+      <p class="site-footer__copy label">© <span data-year>2026</span> McLein Jei G. Onza</p>
+      <p class="site-footer__status label" data-wordmark-status aria-hidden="true"><span class="site-footer__sq"></span><span data-wordmark-status-text>Load complete</span></p>
     </div>
   </footer>
 

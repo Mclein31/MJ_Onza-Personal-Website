@@ -69,8 +69,12 @@ a thin orange scan line riding the edge). Content is visible without JS and unde
 adds `html.has-reveal`). Section-specific motion beyond these goes in your own `scripts/design/<area>.js`.
 
 ## 4. Page rhythm
-Light cool-grey page everywhere, except About, which is the dark ink field from the prototype (theme-aware: in dark
-mode it becomes a slightly raised panel). Sections open with `.section-head`. Generous vertical rhythm
+**Owner rule (2026-11-23): one theme across the whole page.** In light mode no section has a dark background, in
+dark mode no section has a light background (About is no longer an ink band). Small elements (primary buttons,
+toasts, tooltips) are fine. The theme toggle lives inside the burger menu wherever there is one; desktop has one
+compact icon toggle. The hero is minimal: one status line ("Open to data engineering internships"), the name, the
+intro and two buttons over a quiet field (no telemetry readout, no 4-cell strip). The footer wordmark is centered.
+(Superseded: "About, which is the dark ink field from the prototype".) Sections open with `.section-head`. Generous vertical rhythm
 (`clamp(96px, 12vw, 192px)` between sections on desktop, 72px on phones). Hairline grid columns may show faintly
 behind the hero only. One WebGL piece only (the hero field). No pinned sideways scrolling anywhere; no pinned
 multi-screen sequences on touch. No page-spanning scroll-drawn line. Nothing slower than it needs to be.

@@ -43,14 +43,26 @@ html.is-intro [data-hero] { opacity: 0; }
   padding-bottom: clamp(18px, 3.2vh, 40px);
 }
 
-/* ---- spec strip ---- */
-.hero__spec {
+/* ---- status line: one quiet line above the name (the old four-cell strip is gone) ---- */
+.hero__status {
   position: relative;
-  padding-block: 14px 16px;
-  row-gap: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-block: 0 clamp(14px, 2.2vh, 22px);
+  margin-top: clamp(16px, 3vh, 36px); /* breathing room under the stage labels (owner: hero felt crowded) */
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.3;
+  color: var(--ink-2);
 }
-/* the strip's rule runs from the first column line to the last, the same extent as the vertical hairlines */
-.hero__spec::after,
+/* text starts at --m (the first column line sits --g/2 left of it), the same edge as the name, intro and buttons */
+/* status square: static, no pulse */
+.hero__dot { flex: none; width: 6px; height: 6px; background: var(--orange); }
+
+/* the toolchain row's rule runs from the first column line to the last, the same extent as the vertical hairlines */
 .hero__tools::after {
   content: '';
   position: absolute;
@@ -59,45 +71,8 @@ html.is-intro [data-hero] { opacity: 0; }
   bottom: 0;
   height: 1px;
   background: var(--hair);
-  transform-origin: 0 50%;
   pointer-events: none;
 }
-/* four cells of three columns: their left edges are column lines 0, 3, 6 and 9 (those lines are the dividers) */
-.hero__cell { position: relative; grid-column: span 3; display: flex; flex-direction: column; gap: 3px; min-width: 0; min-height: 44px; }
-.hero__cell dt { display: flex; align-items: center; }
-.hero__cell dd { font-size: 0.9375rem; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; text-wrap: balance; }
-/* status square: static, no pulse */
-.hero__dot { flex: none; width: 6px; height: 6px; margin-left: 8px; background: var(--orange); }
-
-/* quiet ghost links inside the strip: the whole cell is the target, the underline grows on hover */
-.hero__link {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-color: var(--rule);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
-  transition: text-decoration-color 160ms var(--ease-out);
-}
-/* block padding makes the link's own box 28px tall (44px on touch) without moving the text; ::after is the whole-cell hit area */
-.hero__link { padding-block: 5px; margin-block: -5px; }
-@media (pointer: coarse) { .hero__link { padding-block: 14px; margin-block: -14px; } }
-.hero__link::after { content: ''; position: absolute; inset: 0; }
-.hero__link:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
-.hero__nw { white-space: nowrap; }
-.hero__arrow {
-  display: inline-block;
-  margin-left: 6px;
-  font-family: var(--mono);
-  font-size: 0.8125rem;
-  color: var(--ink-3);
-  text-decoration: none;
-  transition: transform 160ms var(--ease-out), color 160ms var(--ease-out);
-}
-@media (hover: hover) and (pointer: fine) {
-  .hero__cell:hover .hero__link { text-decoration-color: currentColor; }
-  .hero__cell:hover .hero__arrow { transform: translateX(3px); color: var(--ink); }
-}
-.hero__cell:active .hero__link { opacity: 0.85; }
 
 /* ---- the plot: where the field streams ---- */
 /* the plot is exactly the container box (never 100vw), so the field, the axis and the column lines share one frame */
@@ -128,26 +103,20 @@ html.is-intro [data-hero] { opacity: 0; }
 }
 .hero__poster-grey { --mask: url('/assets/images/hero-field-grey.svg'); background: var(--field); }
 .hero__poster-orange { --mask: url('/assets/images/hero-field-orange.svg'); background: var(--orange); }
-:root[data-theme='dark'] .hero__poster-grey { opacity: 0.85; }
+/* the field is a backdrop: the still frame is dimmed to match the quieter live points */
+.hero__poster-grey { opacity: 0.55; }
+.hero__poster-orange { opacity: 0.7; }
+:root[data-theme='dark'] .hero__poster-grey { opacity: 0.6; }
 /* phones have a 4-column grid, so the still frame is drawn for stage lines 1, 2, 3 of 4 */
 @media (max-width: 720px) {
   .hero__poster-grey { --mask: url('/assets/images/hero-field-grey-phone.svg'); }
   .hero__poster-orange { --mask: url('/assets/images/hero-field-orange-phone.svg'); }
 }
 
-/* a still poster has no live count or flow to report */
-.hero__plot.is-gl-fallback .hero__readout { display: none; }
-.hero__readout {
-  position: absolute;
-  top: 12px; right: var(--m);
-  padding: 2px 0 2px 8px;
-  background: var(--bg);
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
 /* Stage labels sit centred ON column lines 2, 6 and 10 (lines 1, 2, 3 of 4 on phones): the box is the content width,
    so line k is at (100% + --g) * k / n - --g / 2. The label's ground cuts the hairline behind it. */
 .hero__axis {
+  display: none;
   --n: 12;
   position: absolute;
   left: var(--m); right: var(--m);
@@ -172,6 +141,8 @@ html.is-intro [data-hero] { opacity: 0; }
   background: var(--ink-3);
 }
 .hero__axis li:nth-child(2)::before { background: var(--orange); }
+
+@media (min-width: 961px) and (hover: hover) and (pointer: fine) { .hero__axis { display: block; } }
 
 /* ---- the name and the intro ---- */
 .hero__foot { align-items: end; padding-top: 6px; }
@@ -281,9 +252,8 @@ html.is-intro [data-hero] { opacity: 0; }
 
 @media (max-width: 720px) {
   .hero__inner { min-height: 100svh; }
-  .hero__spec { padding-block: 10px 12px; row-gap: 8px; }
-  .hero__cell { grid-column: span 2; }
-  .hero__cell dd { font-size: 0.875rem; }
+  .hero__status { font-size: 0.75rem; }
+  .hero__tools { display: none; }
   .hero__plot { min-height: clamp(104px, 19svh, 156px); }
   /* 4 columns: five lines. Only the first four <i> exist; the right edge comes from the fourth */
   .hero__cols { grid-auto-rows: 100%; }
@@ -322,17 +292,12 @@ html.has-reveal.is-ready:not(.intro-played) .hero__cols i::before,
 html.has-reveal.is-ready:not(.intro-played) .hero__cols i:last-child::after {
   animation: hero-col 900ms var(--ease-draw) calc(var(--k, 0) * 45ms) backwards;
 }
-html.has-reveal.is-ready .hero__spec::after { animation: hero-rule 720ms var(--ease-draw) 20ms backwards; }
-html.has-reveal.is-ready .hero__cell { animation: hero-up 520ms var(--ease-out) backwards; }
-html.has-reveal.is-ready .hero__cell:nth-child(1) { animation-delay: 40ms; }
-html.has-reveal.is-ready .hero__cell:nth-child(2) { animation-delay: 80ms; }
-html.has-reveal.is-ready .hero__cell:nth-child(3) { animation-delay: 120ms; }
-html.has-reveal.is-ready .hero__cell:nth-child(4) { animation-delay: 160ms; }
 html.has-reveal.is-ready .hero__name .line > span { animation: hero-line 620ms var(--ease-out) 40ms backwards; }
 html.has-reveal.is-ready .hero__name .line:nth-child(2) > span { animation-delay: 100ms; }
+html.has-reveal.is-ready .hero__status { animation: hero-up 520ms var(--ease-out) 40ms backwards; }
 html.has-reveal.is-ready .hero__aside > * { animation: hero-up 520ms var(--ease-out) 140ms backwards; }
 html.has-reveal.is-ready .hero__aside > :nth-child(2) { animation-delay: 200ms; }
-html.has-reveal.is-ready :is(.hero__readout, .hero__axis) { animation: hero-fade 460ms ease-out 220ms backwards; }
+html.has-reveal.is-ready .hero__axis { animation: hero-fade 460ms ease-out 220ms backwards; }
 
 @keyframes hero-col { from { transform: scaleY(0); } }
 @keyframes hero-rule { from { transform: scaleX(0); } }

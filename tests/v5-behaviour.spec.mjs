@@ -71,6 +71,19 @@ test.describe('page health', () => {
 });
 
 test.describe('theme toggle, persistence and theme-color', () => {
+  // On phones/tablets the one toggle lives inside the burger menu: open it first, close it after.
+  const pressToggle = async (page, toggle) => {
+    const inMenu = !(await toggle.isVisible());
+    if (inMenu) {
+      await page.locator('[data-menu-toggle]').click();
+      await expect(toggle).toBeVisible();
+    }
+    await toggle.click();
+    if (inMenu) {
+      await page.keyboard.press('Escape');
+      await expect(page.locator('[data-menu-toggle]')).toHaveAttribute('aria-expanded', 'false');
+    }
+  };
   test('toggles theme, updates meta[name="theme-color"], and persists across reload', async ({ page }) => {
     await gotoV5(page);
     const html = page.locator('html');
@@ -90,7 +103,7 @@ test.describe('theme toggle, persistence and theme-color', () => {
       await expect(meta).toHaveAttribute('content', colors.light);
     }
 
-    await toggle.click();
+    await pressToggle(page, toggle);
     await expect(html).toHaveAttribute('data-theme', 'dark');
     await expect(toggle).toHaveAttribute('aria-pressed', 'true');
     await expect(toggle).toHaveAttribute('data-theme-current', 'dark');
@@ -107,7 +120,7 @@ test.describe('theme toggle, persistence and theme-color', () => {
       await expect(meta).toHaveAttribute('content', colors.dark);
     }
 
-    await toggle.click();
+    await pressToggle(page, toggle);
     await expect(html).toHaveAttribute('data-theme', 'light');
     await expect(toggle).toHaveAttribute('aria-pressed', 'false');
     expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBe('light');

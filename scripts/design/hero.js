@@ -10,7 +10,7 @@
  *    the hero is on screen and the tab is visible, and reports a fallback; the static SVG poster stays otherwise.
  * 2. The nav readout: current section name + scroll progress (000-100%) in the header.
  *
- * HOOKS (markup owned by W1): [data-plot] [data-field] [data-hero-cols] [data-field-count] [data-field-flow]
+ * HOOKS (markup owned by W1): [data-plot] [data-field] [data-hero-cols] (readout hooks optional, removed in H3)
  *                             [data-readout-name] [data-readout-pct]
  * Listens to: theme:change (recolour), nav:change (readout name), intro:done (boot sweep).
  * Must never throw; under reduced motion the poster stays and nothing animates.
@@ -72,7 +72,7 @@ void main() {
   float boot = 1.0 - smoothstep(uFront - 0.1, uFront, x);
   vKind = aMeta.y;
   vAlpha = mix(edge, 1.0, st) * boot;
-  gl_PointSize = mix(2.0, 2.7, aMeta.y) * uDpr;
+  gl_PointSize = mix(1.8, 2.4, aMeta.y) * uDpr;
 }`;
 
 const FRAG = `
@@ -85,7 +85,7 @@ varying float vAlpha;
 void main() {
   vec2 c = gl_PointCoord - 0.5;
   float a = 1.0 - smoothstep(0.3, 0.5, length(c));
-  float alpha = a * vAlpha * mix(uGreyA, 1.0, vKind);
+  float alpha = a * vAlpha * mix(uGreyA, 0.78, vKind);
   vec3 col = mix(uGrey, uOrange, vKind);
   gl_FragColor = vec4(col * alpha, alpha);
 }`;
@@ -119,10 +119,10 @@ function createField({ canvas, plot, linesEl, phone }) {
   const gl = canvas.getContext('webgl', { antialias: false, alpha: true, premultipliedAlpha: true, powerPreference: 'low-power', depth: false, stencil: false });
   if (!gl) return null;
 
-  const N = phone ? 2048 : 4096;
+  const N = phone ? 1400 : 3000;
   const L = phone ? 8 : 12;
   const orangeLane = Math.round((L - 1) * 0.64);
-  const nOrange = Math.round(N * 0.05);
+  const nOrange = Math.round(N * 0.03);
   const nGrey = N - nOrange;
 
   const R = new Float32Array(N * 4);
@@ -238,7 +238,7 @@ function createField({ canvas, plot, linesEl, phone }) {
       gl.useProgram(prog);
       gl.uniform3fv(u.uGrey, rgb(cs.getPropertyValue('--field'), [0.49, 0.51, 0.54]));
       gl.uniform3fv(u.uOrange, rgb(cs.getPropertyValue('--orange'), [1, 0.31, 0]));
-      gl.uniform1f(u.uGreyA, dark ? 0.62 : 0.5);
+      gl.uniform1f(u.uGreyA, dark ? 0.34 : 0.36);   // backdrop, not subject
     } catch {}
   }
 

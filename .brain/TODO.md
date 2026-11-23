@@ -14,8 +14,9 @@ last_updated: 2026-11-23
 - [ ] Confirm FormSubmit delivers to the new contact address `mcleinjeionza06@gmail.com` (changed 2026-11-14 in
   `d36e90f`; FormSubmit requires a one-time activation per address before AJAX submissions arrive).
 - [ ] Confirm SERVIO and MedRecord (`MedRec`) project years with the owner (Work index and spec sheets currently show `2026` for all five projects based on the Journey; noted in `W2.md`).
-- [ ] Real-device check on the owner's foldable iPhone Duo across all three postures (folded `466×678`, unfolded portrait `626×890`, unfolded landscape `890×626`), including real-GPU frame rate of the 2,048-point hero WebGL field (tested only in Playwright WebKit emulation so far).
-- [ ] Regenerate `assets/images/og-image.jpg` from the new Instrument v5 hero (current file dates to 2026-11-18 Signal) and update `og:image:alt`, `twitter:image:alt`, and JSON-LD `dateModified` in `index.html`.
+- [ ] Real-device check on the owner's foldable iPhone Duo across all three postures (folded `466×678`, unfolded portrait `626×890`, unfolded landscape `890×626`), including real-GPU frame rate of the 1,400-point hero WebGL field (tested only in Playwright WebKit emulation so far).
+- [ ] Replace or re-export `assets/images/journey-portrait.webp` and `assets/images/avatar.webp` on a neutral or darker background (or with transparency): their white backgrounds glare in dark mode (`QA-M.md`).
+- [ ] Verify `assets/images/og-image.jpg`, `og:image:alt`, `twitter:image:alt`, and JSON-LD `dateModified` in `index.html` match the final minimal Instrument v5 hero.
 - [ ] Decide whether `prototypes/` (`direction-a`, `direction-b`, `direction-c`, `skeleton`) ships or is removed before deployment.
 - [ ] Vercel domain settings: change the `onzamj.vercel.app` redirect from temporary 307 to permanent 308 (still 307
   on 2026-11-15). See [SEO_SETUP.md](SEO_SETUP.md).
