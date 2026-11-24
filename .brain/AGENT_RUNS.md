@@ -92,3 +92,4 @@ Appended by Jarviee when a launched agent finishes. One line per run.
 - ✅ 2026-11-24 21:32 · claude / sonnet (complex) · done · Change old Vercel domain redirect from 307 to permanent 308 Update Vercel domain configuration so onzamj.vercel.app issues a permanent 308 redirect to the canon
 - ⏹ 2026-11-24 21:32 · agy / gemini-4-hydrogen-medium (light) · stopped · Capture real AdvanCare console and native-res MedRec slides Optionally replace mocked or single-size Work slides with fresh native-resolution captures. - Captur
 - ✅ 2026-11-24 21:32 · agy / gemini-4-hydrogen-medium (light) · done · my website looks good on the iphone duo simulator but it lacking a bit on scrolling animation, improve that and tell me what else is there on the to do list
+- ✅ 2026-11-24 21:32 · claude / sonnet (complex) · done · Add interactive blog and tech articles section Add a dedicated portfolio section highlighting published technical writing and articles. - Design and implement t
