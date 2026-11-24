@@ -11,6 +11,7 @@ last_updated: 2026-11-23
 # 📋 Personal Website — TODO & Task Tracker
 
 ## 🔴 Open
+- [ ] **Audit Jarviee-labelled commits (2026-11-24)**: `68f3be1` (308 redirect), `196f677` (scroll animation polish) and `8800baa` (blog section) only changed `.brain/AGENT_RUNS.md`; no code, `index.html` or `vercel.json` changed. Those three tasks are still NOT done. The 308 redirect is a Vercel dashboard setting (not in `vercel.json`) and needs the owner.
 - [ ] Confirm FormSubmit delivers to the new contact address `mcleinjeionza06@gmail.com` (changed 2026-11-14 in
   `d36e90f`; FormSubmit requires a one-time activation per address before AJAX submissions arrive).
 - [ ] Confirm SERVIO and MedRecord (`MedRec`) project years with the owner (Work index and spec sheets currently show `2026` for all five projects based on the Journey; noted in `W2.md`).
@@ -26,7 +27,7 @@ last_updated: 2026-11-23
 - [ ] Optional: real AdvanCare staff-console screenshot; recapture MedRec at native resolution like the other decks.
 
 ## 🟡 Medium Priority
-- [ ] Add an interactive blog / tech articles section linking to published pieces.
+- [ ] (still not implemented, see audit item above) Add an interactive blog / tech articles section linking to published pieces.
 
 ## 💡 Future Ideas
 - [ ] ~~Embed interactive mini-games~~ rejected by the owner 2026-11-24 (no interactive games). A non-interactive WebAssembly canvas demo is only worth doing if the owner asks.
