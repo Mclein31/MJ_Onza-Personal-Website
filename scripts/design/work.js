@@ -115,10 +115,58 @@ function setup(root) {
   markTicks(Number(root.dataset.index) || 0);
 }
 
+/*
+ * View cursor: on a mouse, hovering a screenshot swaps the zoom cursor for a small ink box reading "View"
+ * ("Play" on the video slide) that follows the pointer. Hidden while dragging the track and once a press opens
+ * the viewer. Touch never sees it; keyboard focus is unchanged.
+ */
+function initViewCursor() {
+  const fine = matchMedia('(hover: hover) and (pointer: fine)');
+  const el = document.createElement('div');
+  el.className = 'view-cursor';
+  el.setAttribute('aria-hidden', 'true');
+  el.innerHTML = '<span class="view-cursor__box"><span class="view-cursor__mark"></span><span class="view-cursor__text">View</span></span>';
+  document.body.append(el);
+  document.documentElement.classList.add('has-view-cursor');
+  const text = el.querySelector('.view-cursor__text');
+
+  let x = -100, y = -100, raf = 0, target = null, pressed = false;
+  const place = () => { raf = 0; el.style.transform = `translate3d(${x}px, ${y}px, 0)`; };
+
+  const update = (node) => {
+    const zoom = fine.matches && node instanceof Element ? node.closest('#work .project__zoom') : null;
+    const next = zoom && !pressed && !zoom.closest('.is-dragging') ? zoom : null;
+    if (next === target) return;
+    target = next;
+    if (next) text.textContent = next.closest('.project__slide--video') ? 'Play' : 'View';
+    el.classList.toggle('is-on', !!next);
+  };
+
+  document.addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    x = e.clientX; y = e.clientY;
+    if (!raf) raf = requestAnimationFrame(place);
+    update(e.target);
+  }, { passive: true });
+  document.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse') { pressed = true; update(e.target); } });
+  document.addEventListener('pointerup', (e) => { if (e.pointerType === 'mouse') pressed = false; });
+  document.documentElement.addEventListener('pointerleave', () => update(null));
+  window.addEventListener('blur', () => update(null));
+
+  // Scrolling moves the page under a still mouse: re-check what is under it once per frame.
+  let scrollQueued = false;
+  window.addEventListener('scroll', () => {
+    if (scrollQueued || x < 0) return;
+    scrollQueued = true;
+    requestAnimationFrame(() => { scrollQueued = false; update(document.elementFromPoint(x, y)); });
+  }, { passive: true });
+}
+
 export function init() {
   try {
     document.querySelectorAll('#work [data-gallery]').forEach((root) => {
       try { setup(root); } catch {}
     });
   } catch {}
+  try { initViewCursor(); } catch {}
 }

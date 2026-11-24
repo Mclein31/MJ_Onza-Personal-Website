@@ -12,10 +12,14 @@ last_updated: 2026-11-24
 
 Newest first. Entries dated 2026-10-31 and older (including the versioned 1.0.0–3.0.0 releases) are archived verbatim in [archive/CHANGELOG_ARCHIVE.md](archive/CHANGELOG_ARCHIVE.md).
 
+## 2026-11-24 — Work "View" cursor and viewer fit
+- **Work**: on a mouse, hovering a screenshot replaces the zoom cursor with a small ink box reading "View" ("Play" on the video slide) that follows the pointer (`initViewCursor()` in `scripts/design/work.js`, `.view-cursor` in `work.css`). Hidden while dragging, after a press, when the pointer leaves, and on touch.
+- **Viewer** (`dialogs.css`): the image was sized against a fixed `210px` reserve, so a two-line caption covered the bottom of the plate. The viewer now keeps one size in landscape and fits the image to the stage with container units (`100cqh`). Portrait screens hug their content with a larger reserve. Checked in Chrome and WebKit from `320×568` to `1920×950`.
+
 ## 2026-11-24 — Simpler Recognition and Training, stronger hero, centred footer
 - **Recognition and Training**: visible photos cut from 21 to 4 (two each). Removed the archive and program galleries, row thumbnails, the floating hover preview and `scripts/design/recognition.js`, which toggled 39 times across 40 wheel steps with a moving cursor. Content in both sections no longer reveals on scroll.
 - **Contact**: replaced the SQL query and its typing animation with a three-item facts list (`.contact__facts`) and shortened the lede.
-- **Hero**: thicker, more opaque points (`3.5px` grey, `4.8px` orange), orange share `3%` → `7%`, SVG posters thickened to match. Phones and tablets at least `620px` tall now pin the hero for half a screen while the points settle.
+- **Hero**: thicker, more opaque points (`3px` grey, `4.1px` orange), orange share `3%` → `7%`, SVG posters thickened to match. Phones and tablets at least `620px` tall now pin the hero for half a screen while the points settle.
 - **Footer**: the wordmark is positioned from painted pixels instead of `measureText`, fixing a `2–4px` rightward offset in WebKit on phone and tablet sizes.
 - **Verified**: `test:v5` 48 passed, 3 skipped, matching the previous commit on isolated ports. Real-device check still open.
 

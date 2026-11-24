@@ -142,6 +142,30 @@
   .project__slide--video .project__zoom:hover::after { transform: scale(1.06); }
 }
 
+/* View cursor (scripts/design/work.js): replaces the zoom cursor over screenshots on a mouse */
+.view-cursor { position: fixed; left: 0; top: 0; z-index: 150; pointer-events: none; display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .view-cursor { display: block; }
+  html.has-view-cursor #work .project__zoom { cursor: none; }
+}
+.view-cursor__box {
+  position: absolute; left: 0; top: 0;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 12px;
+  background: var(--ink); color: var(--bg);
+  border-radius: var(--r);
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 500; line-height: 1; letter-spacing: 0.02em;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+  transition: opacity 120ms ease-out, transform 160ms var(--ease-out);
+}
+.view-cursor.is-on .view-cursor__box { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.view-cursor__mark { flex: none; width: 6px; height: 6px; background: var(--orange); }
+@media (prefers-reduced-motion: reduce) {
+  .view-cursor__box { transform: translate(-50%, -50%); transition: opacity 120ms ease-out; }
+}
+
 /* Slide-change flourish parts (made by scripts/design/work.js) */
 .project__ghost, .project__scan { position: absolute; pointer-events: none; display: none; }
 .project__ghost { background: var(--bg-2) center / cover no-repeat; border-radius: var(--r); z-index: 0; }
