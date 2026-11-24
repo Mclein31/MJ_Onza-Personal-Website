@@ -40,7 +40,7 @@
    "label": "Work showcase",
    "kind": "component",
    "layer": "frontend",
-   "detail": "Work spec sheets with a clip-path wipe flourish when a project gallery changes slide.",
+   "detail": "Work spec sheets with a clip-path wipe flourish on slide change and a mouse-only \"View\" cursor over screenshots.",
    "file": "scripts/design/work.js"
   },
   {
