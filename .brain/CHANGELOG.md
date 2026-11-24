@@ -5,12 +5,19 @@ project: Personal Website
 tags:
   - changelog
   - history
-last_updated: 2026-11-23
+last_updated: 2026-11-24
 ---
 
 # 📜 Personal Website — Changelog
 
 Newest first. Entries dated 2026-10-31 and older (including the versioned 1.0.0–3.0.0 releases) are archived verbatim in [archive/CHANGELOG_ARCHIVE.md](archive/CHANGELOG_ARCHIVE.md).
+
+## 2026-11-24 — Simpler Recognition and Training, stronger hero, centred footer
+- **Recognition and Training**: visible photos cut from 21 to 4 (two each). Removed the archive and program galleries, row thumbnails, the floating hover preview and `scripts/design/recognition.js`, which toggled 39 times across 40 wheel steps with a moving cursor. Content in both sections no longer reveals on scroll.
+- **Contact**: replaced the SQL query and its typing animation with a three-item facts list (`.contact__facts`) and shortened the lede.
+- **Hero**: thicker, more opaque points (`4.2px` grey, `5.8px` orange), orange share `3%` → `7%`, SVG posters thickened to match. Phones and tablets at least `620px` tall now pin the hero for half a screen while the points settle.
+- **Footer**: the wordmark is positioned from painted pixels instead of `measureText`, fixing a `2–4px` rightward offset in WebKit on phone and tablet sizes.
+- **Verified**: `test:v5` 48 passed, 3 skipped, matching the previous commit on isolated ports. Real-device check still open.
 
 ## 2026-11-23 — Instrument follow-ups: minimal hero, one theme, custom scrollbar, Contact SQL & Footer wordmark
 - **Hero & Nav (`H2`, `H3`)**: unified all hero hairlines, `.hero__plot`, `.hero__tools::after`, and stage ticks (column lines `2`/`6`/`10` desktop, `1`/`2`/`3` on 4-col phones) onto `.container` with equal outer margins and `--hair: var(--rule-2)`; added `hero-field-{grey,orange}-phone.svg` fallbacks. Removed the school/course strip (and interim 4-cell H2 strip) and telemetry readout (`N points · flow`) in favour of a single `.hero__status` line (`Open to data engineering internships`), quieter WebGL field (`3,000` desktop / `1,400` touch points) + dimmed poster fallback, desktop-only `.hero__axis` labels (`>=961px` fine pointer), hidden `.hero__tools` on phones (`<=720px`), and faster hero/nav entrances (`40ms`/`100ms`/`140ms`). Replaced the header `.seg` theme switch with one `.btn--icon` `[data-theme-toggle]` button moved into `.site-header__menu-theme` inside `[data-menu]` at `<1180px` by an inline script.

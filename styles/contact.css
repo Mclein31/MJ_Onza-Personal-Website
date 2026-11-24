@@ -47,14 +47,6 @@
   margin-top: 2px;
 }
 
-.contact__dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 1px;
-  background: var(--orange);
-  flex: none;
-}
-
 /* Visits & likes readout */
 .contact__stats {
   display: flex;
@@ -131,89 +123,50 @@
   min-width: 0;
 }
 
-/* Query readout: the LOAD end of the hero pipeline. A two-line query, a one-row result, then the action that "runs" it.
-   Plain type on the page ground: no box, no terminal chrome, no blinking. */
-.contact__query {
-  width: fit-content;
-  max-width: 100%;
+/* What I'm looking for: three plain facts above the action */
+.contact__facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: var(--g);
   margin-bottom: clamp(28px, 3vw, 40px);
+  border-block: 1px solid var(--rule);
 }
 
-.contact__sql {
-  position: relative;
-  font-family: var(--mono);
-  font-size: clamp(0.75rem, 0.52rem + 1.1vw, 1.25rem);
-  font-weight: 400;
-  line-height: 1.6;
-  letter-spacing: 0;
-  color: var(--ink-2);
-  font-variant-ligatures: none;
+.contact__facts > div {
+  min-width: 0;
+  padding-block: 16px;
 }
 
-.contact__sql-line {
-  display: block;
-  padding-left: 2ch;
-  text-indent: -2ch;          /* a wrapped line hangs under its keyword */
-}
-
-.contact__sql .sql-k {
-  color: var(--ink);
+.contact__facts dd {
+  margin: 6px 0 0;
+  font-size: clamp(1rem, 1.25vw, 1.125rem);
   font-weight: 500;
-}
-
-.contact__sql .sql-s {
+  line-height: 1.3;
+  letter-spacing: -0.012em;
   color: var(--ink);
+  text-wrap: balance;
 }
 
-/* typing state (scripts/design/contact.js): characters wait hidden, keeping their space, so nothing reflows */
-.contact__query.is-pending .q-ch {
-  visibility: hidden;
-}
+@media (max-width: 720px) {
+  .contact__facts {
+    grid-template-columns: 1fr;
+  }
 
-.contact__caret {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 2px;
-  height: 1.25em;
-  background: var(--orange);
-  pointer-events: none;
-  opacity: 1;
-  transition: opacity 200ms ease-out;
-}
+  .contact__facts > div {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    column-gap: 12px;
+    align-items: baseline;
+    padding-block: 12px;
+  }
 
-.contact__caret.is-done {
-  opacity: 0;
-}
+  .contact__facts > div + div {
+    border-top: 1px solid var(--rule);
+  }
 
-.contact__result {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid var(--rule);
-  transition:
-    opacity 240ms var(--ease-out),
-    transform 240ms var(--ease-out);
-}
-
-.contact__result .label {
-  color: var(--ink-3);
-}
-
-.contact__result .contact__dot {
-  margin-top: calc((1.4 * var(--t-mono) - 7px) / 2);   /* level with the first line when the readout wraps */
-}
-
-.contact__result b {
-  color: var(--ink);
-  font-weight: 500;
-}
-
-.contact__query.is-pending .contact__result {
-  opacity: 0;
-  transform: translateY(6px);
+  .contact__facts dd {
+    margin-top: 0;
+  }
 }
 
 .contact__cta {
@@ -463,9 +416,7 @@
   }
 
   .contact__heart,
-  .contact__copy-dot,
-  .contact__result,
-  .contact__caret {
+  .contact__copy-dot {
     transition: none;
   }
 

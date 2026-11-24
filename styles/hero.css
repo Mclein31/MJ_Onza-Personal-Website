@@ -18,6 +18,12 @@ html.is-intro [data-hero] { opacity: 0; }
   html.has-reveal .hero__hold { height: 150svh; min-height: 930px; }
   html.has-reveal .hero__stage { position: sticky; top: 0; }
 }
+/* Phones and tablets get the same hold while the dots settle, when the whole hero fits on screen */
+@media (max-width: 960px) and (min-height: 620px), (min-width: 961px) and (pointer: coarse) and (min-height: 620px) {
+  html.has-reveal .hero__hold { height: 150svh; }
+  html.has-reveal .hero__stage { position: sticky; top: 0; height: 100svh; min-height: 0; }
+  html.has-reveal .hero__inner { height: 100%; min-height: 0; }
+}
 
 /* Column hairlines at gutter centres (the loader draws the same ones) */
 .hero__cols { position: absolute; inset: 0; height: 100%; pointer-events: none; }
@@ -103,10 +109,10 @@ html.is-intro [data-hero] { opacity: 0; }
 }
 .hero__poster-grey { --mask: url('/assets/images/hero-field-grey.svg'); background: var(--field); }
 .hero__poster-orange { --mask: url('/assets/images/hero-field-orange.svg'); background: var(--orange); }
-/* the field is a backdrop: the still frame is dimmed to match the quieter live points */
-.hero__poster-grey { opacity: 0.55; }
-.hero__poster-orange { opacity: 0.7; }
-:root[data-theme='dark'] .hero__poster-grey { opacity: 0.6; }
+/* the still frame matches the live points */
+.hero__poster-grey { opacity: 0.85; }
+.hero__poster-orange { opacity: 1; }
+:root[data-theme='dark'] .hero__poster-grey { opacity: 0.9; }
 /* phones have a 4-column grid, so the still frame is drawn for stage lines 1, 2, 3 of 4 */
 @media (max-width: 720px) {
   .hero__poster-grey { --mask: url('/assets/images/hero-field-grey-phone.svg'); }

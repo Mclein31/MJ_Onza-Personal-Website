@@ -6,12 +6,20 @@ tags:
   - decisions
   - portfolio
   - web
-last_updated: 2026-11-23
+last_updated: 2026-11-24
 ---
 
 # ⚖️ Personal Website — Technical Decisions
 
 Newest first. Superseded decisions are kept and marked; the newer, code-verified decision wins.
+
+## 2026-11-24 — Owner feedback: less in Recognition and Training, no SQL gimmick, hero pins on touch
+> **Supersedes** the Contact SQL query and the "touch never pins" hero behaviour in the 2026-11-23 entries below.
+
+- **Recognition and Training show only proof photos**, two per section: the hackathon check, the award certificates, the MedCore pitch and the program certificates. Do not bring back archive grids, row thumbnails or hover previews. Owner: "too much going on".
+- **These two sections do not animate on scroll.** Only their headings and rules reveal.
+- **No code-as-copy gimmicks in Contact.** The owner called the `SELECT * FROM opportunities` block cringe. Contact states plainly what the owner is looking for.
+- **The hero field is bolder and is the hero's subject**, not a quiet backdrop. Phones and tablets get the same pinned settle as desktop when at least `620px` tall; shorter screens do not pin, so the buttons are never cut off.
 
 ## 2026-11-23 — Owner follow-ups on Instrument
 > **Refines / partly supersedes** "2026-11-23 — Redesign v5: 'Instrument'" below: removes the hero spec strip and telemetry readout, switches About off the dark ink band onto the unified page ground, replaces the header `.seg` theme control with a single icon toggle moved into the burger menu on `<1180px`, adds the custom fine-pointer scrollbar rail, and adds the Contact SQL query + Footer dot-matrix wordmark.

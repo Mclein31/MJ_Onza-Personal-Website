@@ -72,7 +72,7 @@ void main() {
   float boot = 1.0 - smoothstep(uFront - 0.1, uFront, x);
   vKind = aMeta.y;
   vAlpha = mix(edge, 1.0, st) * boot;
-  gl_PointSize = mix(1.8, 2.4, aMeta.y) * uDpr;
+  gl_PointSize = mix(4.2, 5.8, aMeta.y) * uDpr;
 }`;
 
 const FRAG = `
@@ -84,8 +84,8 @@ varying float vKind;
 varying float vAlpha;
 void main() {
   vec2 c = gl_PointCoord - 0.5;
-  float a = 1.0 - smoothstep(0.3, 0.5, length(c));
-  float alpha = a * vAlpha * mix(uGreyA, 0.78, vKind);
+  float a = 1.0 - smoothstep(0.38, 0.5, length(c));
+  float alpha = a * vAlpha * mix(uGreyA, 1.0, vKind);
   vec3 col = mix(uGrey, uOrange, vKind);
   gl_FragColor = vec4(col * alpha, alpha);
 }`;
@@ -122,7 +122,7 @@ function createField({ canvas, plot, linesEl, phone }) {
   const N = phone ? 1400 : 3000;
   const L = phone ? 8 : 12;
   const orangeLane = Math.round((L - 1) * 0.64);
-  const nOrange = Math.round(N * 0.03);
+  const nOrange = Math.round(N * 0.07);
   const nGrey = N - nOrange;
 
   const R = new Float32Array(N * 4);
@@ -238,7 +238,7 @@ function createField({ canvas, plot, linesEl, phone }) {
       gl.useProgram(prog);
       gl.uniform3fv(u.uGrey, rgb(cs.getPropertyValue('--field'), [0.49, 0.51, 0.54]));
       gl.uniform3fv(u.uOrange, rgb(cs.getPropertyValue('--orange'), [1, 0.31, 0]));
-      gl.uniform1f(u.uGreyA, dark ? 0.34 : 0.36);   // backdrop, not subject
+      gl.uniform1f(u.uGreyA, dark ? 0.68 : 0.62);
     } catch {}
   }
 
@@ -306,7 +306,15 @@ function initField() {
     root.addEventListener('pointerleave', () => { mouse.inside = false; });
   }
 
-  try { new ResizeObserver(() => { heroH = hero.offsetHeight; }).observe(hero); } catch {}
+  // Scroll distance over which the points settle: the pinned stretch when the hero is pinned, else most of the hero.
+  const holdEl = hero.querySelector('.hero__hold');
+  const stageEl = hero.querySelector('.hero__stage');
+  const measureHold = () => {
+    const pinned = holdEl && stageEl ? holdEl.offsetHeight - stageEl.offsetHeight : 0;
+    return pinned > 40 ? pinned : heroH * 0.55;
+  };
+  let holdPx = measureHold();
+  try { new ResizeObserver(() => { heroH = hero.offsetHeight; holdPx = measureHold(); }).observe(hero); } catch {}
 
   const loop = createGLLoop({
     canvas,
@@ -324,9 +332,8 @@ function initField() {
       const target = 1 + Math.min(Math.abs(vy) * 1.4, 4.5);
       speed += (target - speed) * (target > speed ? 0.12 : 0.04);
 
-      // settle: desktop holds the hero for half a screen; touch settles as the hero scrolls away
-      const hold = fine && innerWidth > 960 ? innerHeight * 0.5 : heroH * 0.55;
-      const settle = clamp(y / Math.max(1, hold));
+      // settle: the hero holds for half a screen on every device tall enough to pin it
+      const settle = clamp(y / Math.max(1, holdPx));
       settleS += (settle - settleS) * 0.1;
       if (Math.abs(settle - settleS) < 0.0005) settleS = settle;
       const eased = settleS * settleS * (3 - 2 * settleS);

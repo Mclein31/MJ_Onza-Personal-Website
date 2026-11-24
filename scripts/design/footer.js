@@ -60,6 +60,21 @@ function setTracking(ctx, px) {
   try { if ('letterSpacing' in ctx) ctx.letterSpacing = `${px}px`; } catch {}
 }
 
+// Bounds of the painted pixels in an RGBA buffer.
+function inkBox(data, W, H) {
+  let l = W, r = -1, t = H, b = -1;
+  for (let y = 0; y < H; y++) {
+    for (let x = 0; x < W; x++) {
+      if (data[(y * W + x) * 4 + 3] < 128) continue;
+      if (x < l) l = x;
+      if (x > r) r = x;
+      if (y < t) t = y;
+      if (y > b) b = y;
+    }
+  }
+  return r < 0 ? null : { l, r: r + 1, t, b: b + 1 };
+}
+
 export function init() {
   try {
     const wrap = document.querySelector('[data-wordmark]');
@@ -122,21 +137,32 @@ export function init() {
 
       const text = currentText();
 
-      // Measure the ink at 100px, then scale it to fill the box width exactly.
+      // Measure the painted pixels, not measureText: WebKit reports tracked text differently, which pushed the
+      // wordmark 2-4px right of centre on iPhone and iPad.
       const probe = document.createElement('canvas');
-      const pctx = probe.getContext('2d');
+      const pctx = probe.getContext('2d', { willReadFrequently: true });
       if (!pctx) return false;
-      pctx.font = `600 100px ${FAMILY}`;
-      setTracking(pctx, TRACK * 100);
-      const m = pctx.measureText(text);
-      const inkW100 = (m.actualBoundingBoxLeft || 0) + (m.actualBoundingBoxRight || m.width);
-      const asc100 = m.actualBoundingBoxAscent || 72.6;
-      const desc100 = m.actualBoundingBoxDescent || 1.6;
-      if (!inkW100) return false;
-      const s = wr.width / inkW100;
-      const fs = 100 * s;
+      const setFont = (px) => {
+        pctx.font = `600 ${px}px ${FAMILY}`;
+        setTracking(pctx, TRACK * px);
+        pctx.textBaseline = 'alphabetic';
+        pctx.fillStyle = '#000';
+      };
+      const P = 200;
+      const pad = P / 2;
+      const baseP = P * 1.5;
+      setFont(P);
+      probe.width = Math.ceil(pctx.measureText(text).width + pad * 2);
+      probe.height = P * 2;
+      setFont(P);                 // resizing a canvas resets its text state
+      pctx.fillText(text, pad, baseP);
+      const box = inkBox(pctx.getImageData(0, 0, probe.width, probe.height).data, probe.width, probe.height);
+      if (!box) return false;
+
+      const s = wr.width / (box.r - box.l);
+      const fs = P * s;
       const ox = wr.left - cr.left;
-      const inkH = (asc100 + desc100) * s;
+      const inkH = (box.b - box.t) * s;
       const inkTop = (wr.top - cr.top) + (wr.height - inkH) / 2;
 
       // Rasterise the letters once at 1 css px per pixel and read the coverage.
@@ -144,11 +170,8 @@ export function init() {
       const H = Math.ceil(ch);
       probe.width = W;
       probe.height = H;
-      pctx.font = `600 ${fs}px ${FAMILY}`;
-      setTracking(pctx, TRACK * fs);
-      pctx.textBaseline = 'alphabetic';
-      pctx.fillStyle = '#000';
-      pctx.fillText(text, ox + (m.actualBoundingBoxLeft || 0) * s, inkTop + asc100 * s);
+      setFont(fs);
+      pctx.fillText(text, ox - (box.l - pad) * s, inkTop + (baseP - box.t) * s);
       const data = pctx.getImageData(0, 0, W, H).data;
 
       const pitch = Math.min(8, Math.max(3.4, fs * 0.032));
@@ -175,6 +198,14 @@ export function init() {
           ys.push(Math.round(gy * dpr) / dpr);
           ks.push(k < 0.035 ? ORANGE : k < 0.19 ? FAINT : GREY);
         }
+      }
+
+      // The dot grid can land unevenly on the curved O and a: centre the dots themselves on the box.
+      if (xs.length) {
+        let minX = Infinity, maxX = -Infinity;
+        for (const x of xs) { if (x < minX) minX = x; if (x > maxX) maxX = x; }
+        const shift = ox + wr.width / 2 - (minX + maxX) / 2;
+        for (let i = 0; i < xs.length; i++) xs[i] = Math.round((xs[i] + shift) * dpr) / dpr;
       }
 
       n = xs.length;

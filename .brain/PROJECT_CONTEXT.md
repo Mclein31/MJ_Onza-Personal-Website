@@ -9,7 +9,7 @@ tags:
   - web
   - showcase
   - serverless
-last_updated: 2026-11-23
+last_updated: 2026-11-24
 ---
 
 # 🌐 Personal Website — Project Context
@@ -21,8 +21,8 @@ column-scan intro loader, a spec-sheet Hero with a raw WebGL Extract → Transfo
 (and static SVG fallback) plus a 24-tool row, Work with an index table and one-viewport-per-project spec
 sheets (prev/next/tick/swipe/key screenshot galleries and promo video dialogs), a rising dark ink About
 field with a "What I do" `<details>` accordion, a vertical-spine Journey log, live GitHub Activity calendar,
-interactive Stack schema tables, Recognition and Training editorial indexes with desktop hover previews and
-lightbox, Contact with direct email copy, inline visits/likes stats, 4 channel cards (including a 16-week
+interactive Stack schema tables, compact Recognition and Training sections with two proof photos each and a
+lightbox, Contact with a looking-for list, direct email copy, inline visits/likes stats, 4 channel cards (including a 16-week
 GitHub mini grid) and message dialog, and a footer. The current design (since 2026-11-23) is the **"Instrument"**
 redesign (v5 Direction A): cool light-grey/dark grounds (`#E9EAEC` / `#0F1012`), 2px hairline corners, Geist
 (weights ≥400) and Geist Mono, international orange (`#FF4F00` / `#FF5A1A`) used sparingly for markers/scans,

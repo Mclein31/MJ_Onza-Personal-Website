@@ -7,7 +7,7 @@ tags:
   - portfolio
   - web
   - serverless
-last_updated: 2026-11-23
+last_updated: 2026-11-24
 ---
 
 # 🏛️ Personal Website — Architecture
@@ -28,8 +28,8 @@ last_updated: 2026-11-23
 │ - Journey (vertical-spine log)   │ - Galleries (snap/wipe) + Lightbox  │
 │ - Activity (GitHub year grid)    │ - Promo video dialog + Toast        │
 │ - Stack (5 schema join tables)   │ - Contact FormSubmit + Stats sync   │
-│ - Recognition & Training indexes │ - Hero WebGL field + Scrollbar rail │
-│ - Contact (SQL query) + Footer   │ - 2D dot-matrix wordmark + Motion   │
+│ - Recognition & Training         │ - Hero WebGL field + Scrollbar rail │
+│ - Contact + Footer               │ - 2D dot-matrix wordmark + Motion   │
 └──────────────────────────────────┴──────────────────┬──────────────────┘
                                                       │ fetch
                                                       ▼
@@ -61,15 +61,15 @@ Linked in `<head>` after `/vendor/lenis/lenis.css` in strict cascade order (the 
 | `base.css` | W1 foundation | Reset, `.container` (12-col / 4-col), `.label`, `.rule`, `.section-head`, `.plate` (corner registration ticks), unified `.btn` hierarchy (`.btn--primary/secondary/ghost/icon/sm`), `.seg`, `.skip-link`, circular theme View Transition, `html.has-reveal` transitions + 4s CSS failsafe (`@keyframes reveal-failsafe`), `prefers-reduced-motion` overrides |
 | `loader.css` | W1 foundation | Column-scan intro overlay (`[data-intro]`) |
 | `nav.css` | W1 foundation | Fixed header bar (`[data-header]`), active `[aria-current]` orange square, progress readout, single `[data-theme-toggle]` icon button (moved into `.site-header__menu-theme` inside `[data-menu]` at `<1180px` by inline script), phone/tablet full-height menu drawer (`<1180px`) |
-| `hero.css` | W1 / H2 / H3 | Minimal `.hero__status` line, sticky desktop WebGL hold (`>=961px` fine pointer), 12-col / 4-col hairlines (`--hair`), desktop-only `.hero__axis` stage labels (lines `2`/`6`/`10`), dimmed SVG poster fallback (`hero-field-{grey,orange}.svg` + `-phone.svg` at `<=720px`), `890×626` short-landscape adaptation, 24-tool row (hidden at `<=720px`) |
+| `hero.css` | W1 / H2 / H3 | Minimal `.hero__status` line, sticky WebGL hold (desktop, plus phones and tablets at least `620px` tall), 12-col / 4-col hairlines (`--hair`), desktop-only `.hero__axis` stage labels (lines `2`/`6`/`10`), SVG poster fallback (`hero-field-{grey,orange}.svg` + `-phone.svg` at `<=720px`), `890×626` short-landscape adaptation, 24-tool row (hidden at `<=720px`) |
 | `work.css` | W2 work | `.work__table` project index, per-project 12-col `.project__grid` spec sheet + `.project__plate` (`<=960px` stacked, `890×626` height-capped), `.project__ghost`/`.project__scan` wipe layers, end link |
 | `about.css` | AB2 / W3 about | Unified page ground `var(--bg)` in both themes (no longer an ink band), top `.about__top-rule` hairline, `SplitText` `.about__title`, profile spec list, `<details name="does">` accordion |
 | `journey.css` | W4 journey | 7-entry vertical log (`[data-journey-log]`), left hairline spine + scroll-driven fill + sliding orange marker |
 | `activity.css` | W5 activity+stack | Cool-grey → `--orange` level 4 contribution grid (`[data-level="0..4"]`), sticky weekday gutter, loading shimmer & dot lattice, error card, 4-cell mono readout + floating tooltip (`[data-act-tip]`) |
 | `stack.css` | W5 activity+stack | 5-table database schema layout (1 col on phones/768/Duo -> 2 cols at 960 -> 2-over-3 at 1120px), join-highlight states (`.is-source`, `.is-joined`, `.has-join`) |
-| `recognition.css` | W6 recognition+training | Numbered editorial index rows (`[data-rec-row]`), open cols 9–10 preview corridor on fine-pointer desktop (`>=1024px`), inline `.plate` thumbs on touch/narrow viewports |
-| `training.css` | W6 recognition+training | DTI YEP boot camp index row + 8-plate horizontal/grid program gallery |
-| `contact.css` | W7 / CF2 | Aside identity, inline visits/likes stats, two-line SQL `.contact__query` + `1 row` availability result, primary message CTA, single direct email `[data-copy]` row, 4 channel cards with `620ms` orange scan-line hover/focus + 16-week GitHub mini grid (`<=960px` places query first, aside last) |
+| `recognition.css` | W6 recognition+training | Two photo features (`.recognition__feature`) with four numbered entries; the photo-less entry is a full-width `.recognition__row` |
+| `training.css` | W6 recognition+training | DTI YEP program intro and copy above two lightbox photos |
+| `contact.css` | W7 / CF2 | Aside identity, inline visits/likes stats, `.contact__facts` looking-for list, primary message CTA, single direct email `[data-copy]` row, 4 channel cards with `620ms` orange scan-line hover/focus + 16-week GitHub mini grid |
 | `footer.css` | W7 / CF2 | Hairline rule, 3-column layout (*Sections*, *Elsewhere*, *Colophon*) + Back to top, centred edge-to-edge `.wordmark` (`"McLein Jei Onza"` / `"Onza"` `<720px` container, 4px SVG dot-mask fallback), year & `Load complete` status |
 | `dialogs.css` | W7 contact+footer+dialogs | Lightbox (`dialog[data-lightbox-dialog]`), message form (`dialog[data-message]`), promo video (`dialog[data-video]`), and `[data-toast]` live region |
 | `scrollbar.css` | S2 scrollbar | Thin styled native scrollbars on touch and inner scroll containers (`.activity__scroll`, `.site-header__menu`, `.message__form`, `dialog`, `[data-lenis-prevent]`, `textarea`) + fixed `.sbar` custom scrollbar rail on `@media (pointer: fine)` (hides `html` native scrollbar) |
@@ -117,9 +117,9 @@ The old `js/` directory was removed. `scripts/main.js` is the single module entr
 
 ---
 
-## ✨ Design Layer (`scripts/design/`, 12 files)
+## ✨ Design Layer (`scripts/design/`, 11 files)
 
-`scripts/design/index.js` maps `AREAS = ['reveal', 'hero', 'work', 'about', 'journey', 'activity', 'stack', 'recognition', 'contact', 'footer', 'scrollbar']` into `designSteps`, each importing `./<name>.js` and awaiting `mod.init()` after the 12 core steps.
+`scripts/design/index.js` maps `AREAS = ['reveal', 'hero', 'work', 'about', 'journey', 'activity', 'stack', 'contact', 'footer', 'scrollbar']` into `designSteps`, each importing `./<name>.js` and awaiting `mod.init()` after the 12 core steps.
 
 - `reveal.js` (W1) — IntersectionObserver + `whenIntroDone()` driver for `[data-reveal="rise|draw|fade"]`, `[data-reveal-stagger]`, `[data-tick]` (`data-tick-from`, tabular count-up), and `[data-scan]` (WAAPI 2px orange scan wipe); adds `html.reveal-live` and exports `observe(scope)` / `reveal(el)`.
 - `hero.js` (W1 / H2 / H3) — initializes the header section/scroll-percentage readout (`[data-readout-name]`, `[data-readout-pct]`, null-safe) and the raw WebGL Extract → Transform → Load particle stream (`[data-field]`: `3,000` points desktop / `1,400` touch, DPR capped at `1.75`/`1.5`; overrides `gl.js`'s `small-touch` filter unless reduced motion, save-data, low memory, or no WebGL applies, falling back to `hero-field-{grey,orange}.svg` / `-phone.svg`). Reads `.hero__axis` tick centres into `uStage`, accelerates with scroll velocity, settles orange points onto the Transform centre line and grey points onto the other column hairlines, and parts points around the cursor.
@@ -128,9 +128,8 @@ The old `js/` directory was removed. `scripts/main.js` is the single module entr
 - `journey.js` (W4) — ScrollTrigger (with IntersectionObserver fallback) drives `--scaleY` on `[data-journey-fill]`, tracks `[data-journey-entry].is-active`, and slides `[data-journey-marker]` to `[data-journey-node]` offsets measured via `ResizeObserver` and `motion:refresh`.
 - `activity.js` (W5) — listens to `activity:ready` / `activity:state`; sweeps `[data-week]` columns left to right via WAAPI (`520ms` stagger + `240ms` duration) and counts up `[data-act][data-tick]` (`680ms`, setting `data-tick-from` so `reveal.js` does not double-count).
 - `stack.js` (W5) — interactive schema join highlighter on `[data-schema]` `tr[data-join]`: hover (`mouse`), focus, click/tap lock, `Enter`/`Space`, `ArrowUp`/`ArrowDown` within a table, and `Escape` clear, updating `.is-source`, `.is-joined`, `.has-join`, and `[data-schema-status]`.
-- `recognition.js` (W6) — wires whole-row click activation on `#recognition` and `#training` rows and renders a lerped floating `.plate` preview (`.rec-preview`) strictly inside the cols 9–10 corridor on fine-pointer desktop (`>=1024px`), hiding cleanly if space is tight or on scroll/`Escape`/`viewer:open`.
-- `contact.js` (W7 / CF2) — `initQuery()` types `[data-query-text]` once on entry (~1.1s) with a 2px orange caret (static if reduced motion, already in/above view at load, or jumped past; `.sr-only` twin carries plain text); also drives origin-anchored scale+fade open/close transitions for viewer, video, and message dialogs (`setViewerTransition`, `setVideoTransition`, `message:open`), `viewer:change` slide nudge, Copy button `Copied` state sync, and inline validation/submit label updates (`Send` / `Sending…`).
-- `footer.js` (CF2) — draws the centred dot-matrix wordmark (`[data-wordmark]` / `[data-wordmark-canvas]`) on a 2D canvas (not WebGL) using `--field` grey + 3.5% `--orange` dots; streams points in from a left pipe on desktop entry (`[data-wordmark-status]` `Loading` → `Load complete`) and pushes points within `92px` of the cursor (`24px` max push, lerp back, rAF idle when still/offscreen/hidden); draws static dots on touch/reduced motion and leaves the CSS dotted-mask fallback if canvas/JS is unavailable.
+- `contact.js` (W7 / CF2) — drives origin-anchored scale+fade open/close transitions for viewer, video, and message dialogs (`setViewerTransition`, `setVideoTransition`, `message:open`), `viewer:change` slide nudge, Copy button `Copied` state sync, and inline validation/submit label updates (`Send` / `Sending…`).
+- `footer.js` (CF2) — draws the centred dot-matrix wordmark (`[data-wordmark]` / `[data-wordmark-canvas]`) on a 2D canvas (not WebGL) using `--field` grey + 3.5% `--orange` dots, positioned from painted pixels because WebKit's tracked `measureText` is off by a few px; streams points in from a left pipe on desktop entry (`[data-wordmark-status]` `Loading` → `Load complete`) and pushes points within `92px` of the cursor (`24px` max push, lerp back, rAF idle when still/offscreen/hidden); draws static dots on touch/reduced motion and leaves the CSS dotted-mask fallback if canvas/JS is unavailable.
 - `scrollbar.js` (S2) — mounts `[data-scrollbar]` (`.sbar`) on `(pointer: fine)` viewports and unmounts on coarse pointers; draws proportional section ticks (`top`–`contact`) synced to `nav:change`, handles click-to-jump and pointer-captured thumb dragging via Lenis or native scroll, and updates `--theme` / `#about` state.
 
 ---
