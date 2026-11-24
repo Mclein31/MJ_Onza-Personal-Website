@@ -88,3 +88,5 @@ Appended by Jarviee when a launched agent finishes. One line per run.
 - ✅ 2026-11-23 18:41 · agy / gemini-4-hydrogen-high (light) · done · Docs update for the owner's latest changes (job D2). Read .brain/DECISIONS.md (top entry '2026-11-23 Redesign v5: Instrument'), .brain/research/2026-11-23-v5-bu
 - ✅ 2026-11-23 19:06 · claude / opus (heavy) · done · your job is to completely redesign my whole website, smae contents but in a ifferent style. ignore and forget my whole website rn, use the design skill, taste s
 - ✅ 2026-11-23 19:09 · agy / gemini-4-hydrogen-low (light) · done · commit the changes on my new website layout, different ocmmits with simple commit tittles with no co authors
+- ✅ 2026-11-24 21:32 · agy / gemini-4-hydrogen-low (light) · done · Set canonical portfolio URL on GitHub and LinkedIn profiles Reinforce name-search identity by pointing both external profiles to mcleinjeionza.vercel.app. - Set
+- ✅ 2026-11-24 21:32 · claude / sonnet (complex) · done · Change old Vercel domain redirect from 307 to permanent 308 Update Vercel domain configuration so onzamj.vercel.app issues a permanent 308 redirect to the canon
