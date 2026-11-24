@@ -13,6 +13,10 @@ last_updated: 2026-11-24
 
 Newest first. Superseded decisions are kept and marked; the newer, code-verified decision wins.
 
+## 2026-11-24 — No interactive games on the site
+- **Owner rule**: do not include interactive games or mini-games. A game host and reference game were built and then removed the same day; nothing of them remains in the repo.
+- **Still open**: the old TODO also named WebAssembly canvas demos. Only pursue a non-interactive one if the owner asks, and treat it against the "too much going on" rule in the entry below.
+
 ## 2026-11-24 — Owner feedback: less in Recognition and Training, no SQL gimmick, hero pins on touch
 > **Supersedes** the Contact SQL query and the "touch never pins" hero behaviour in the 2026-11-23 entries below.
 

@@ -29,8 +29,7 @@ last_updated: 2026-11-23
 - [ ] Add an interactive blog / tech articles section linking to published pieces.
 
 ## 💡 Future Ideas
-- [ ] Embed interactive mini-games or WebAssembly canvas demos. (Originally "into the terminal"; the v2 terminal
-  emulator no longer exists.)
+- [ ] ~~Embed interactive mini-games~~ rejected by the owner 2026-11-24 (no interactive games). A non-interactive WebAssembly canvas demo is only worth doing if the owner asks.
 
 ## ✅ Done
 - [x] Optional cleanup: `js/cursor.js` still runs although `.cursor` is hidden, and `scroll.js`/`ui.js` keep hooks for
