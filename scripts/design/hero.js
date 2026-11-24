@@ -72,7 +72,7 @@ void main() {
   float boot = 1.0 - smoothstep(uFront - 0.1, uFront, x);
   vKind = aMeta.y;
   vAlpha = mix(edge, 1.0, st) * boot;
-  gl_PointSize = mix(4.2, 5.8, aMeta.y) * uDpr;
+  gl_PointSize = mix(3.5, 4.8, aMeta.y) * uDpr;
 }`;
 
 const FRAG = `

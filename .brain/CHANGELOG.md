@@ -15,7 +15,7 @@ Newest first. Entries dated 2026-10-31 and older (including the versioned 1.0.0�
 ## 2026-11-24 — Simpler Recognition and Training, stronger hero, centred footer
 - **Recognition and Training**: visible photos cut from 21 to 4 (two each). Removed the archive and program galleries, row thumbnails, the floating hover preview and `scripts/design/recognition.js`, which toggled 39 times across 40 wheel steps with a moving cursor. Content in both sections no longer reveals on scroll.
 - **Contact**: replaced the SQL query and its typing animation with a three-item facts list (`.contact__facts`) and shortened the lede.
-- **Hero**: thicker, more opaque points (`4.2px` grey, `5.8px` orange), orange share `3%` → `7%`, SVG posters thickened to match. Phones and tablets at least `620px` tall now pin the hero for half a screen while the points settle.
+- **Hero**: thicker, more opaque points (`3.5px` grey, `4.8px` orange), orange share `3%` → `7%`, SVG posters thickened to match. Phones and tablets at least `620px` tall now pin the hero for half a screen while the points settle.
 - **Footer**: the wordmark is positioned from painted pixels instead of `measureText`, fixing a `2–4px` rightward offset in WebKit on phone and tablet sizes.
 - **Verified**: `test:v5` 48 passed, 3 skipped, matching the previous commit on isolated ports. Real-device check still open.
 
