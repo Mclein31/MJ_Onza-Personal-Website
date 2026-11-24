@@ -37,11 +37,11 @@ import { whenIntroDone } from '../core/intro.js';
 
 const root = document.documentElement;
 const reduced = () => { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { return false; } };
-const STAGGER = 30;
-const MAX_STAGGER = 4;           // last child waits 120ms at most
+const STAGGER = 45;
+const MAX_STAGGER = 5;           // last child waits 225ms at most
 const MAX_DELAY = 60;            // data-reveal-delay is capped, so any reveal is over ~660ms after it starts
 const LINE = 0.88;               // an element starts once its top is above 88% of the viewport (12% in)
-const LINE_TOUCH = 0.98;         // touch: momentum flicks leave no time for a deep trigger line, so start almost at the edge
+const LINE_TOUCH = 0.90;         // touch: trigger 10% into the viewport so the reveal is visible as you scroll
 const coarse = () => { try { return matchMedia('(pointer: coarse)').matches; } catch { return false; } };
 const FAST = 2.5;                // viewport heights per second: faster than this, reveals wait for the scroll to settle
 
@@ -235,7 +235,7 @@ function check() {
       if (r.width === 0 && r.height === 0) continue;                       // not rendered (hidden panel)
       if (r.right <= 0 || r.left >= vw) continue;                           // off to the side (carousel): the gallery reveals it
       if (r.bottom <= 0) { instant(el); continue; }                         // above the viewport: never leave it hidden
-      const lift = el.getAttribute('data-reveal') === 'rise' ? Math.min(r.height, coarse() ? 14 : 24) : 0;   // rise starts a little low
+      const lift = el.getAttribute('data-reveal') === 'rise' ? Math.min(r.height, coarse() ? 18 : 24) : 0;   // rise starts a little low
       if (r.top - lift < vh * line) {
         if (!ready) continue;
         // A fast scroll never leaves content blank: what is in the upper half of the screen (or above it) shows at once,
