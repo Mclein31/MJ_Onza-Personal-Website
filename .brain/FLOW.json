@@ -104,7 +104,7 @@
    "label": "Reveal helpers",
    "kind": "component",
    "layer": "frontend",
-   "detail": "Page-wide rise, draw and fade reveals driven by data-reveal attributes.",
+   "detail": "Page-wide rise, draw, fade, number-tick and scan-wipe reveals driven by data-reveal attributes, held until the intro finishes.",
    "file": "scripts/design/reveal.js"
   },
   {
@@ -712,6 +712,11 @@
    "from": "visitor",
    "to": "ui.activity",
    "label": "views graph"
+  },
+  {
+   "from": "core.intro",
+   "to": "ui.reveal",
+   "label": "intro:done releases reveals"
   }
  ],
  "flows": [
