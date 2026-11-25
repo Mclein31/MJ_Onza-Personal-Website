@@ -95,3 +95,4 @@ Appended by Jarviee when a launched agent finishes. One line per run.
 - ✅ 2026-11-24 21:32 · claude / sonnet (complex) · done · Add interactive blog and tech articles section Add a dedicated portfolio section highlighting published technical writing and articles. - Design and implement t
 - ⏹ 2026-11-24 21:33 · agy / gemini-4-hydrogen-medium (light) · stopped · Sync featured project links and slides with latest releases Keep the Work gallery project links and screenshots aligned with recent code changes across showcase
 - ⏹ 2026-11-24 21:33 · claude / sonnet (complex) · stopped · Embed interactive mini-games or WebAssembly canvas demos Add interactive browser mini-games or WebAssembly canvas demos as a future portfolio feature. - Design 
+- ✅ 2026-11-24 21:37 · claude / sonnet (complex) · done · check the current uncommitted files on this project and commit and push them, if there is any broken shit you find fix it. update the current to do list on this
