@@ -5,12 +5,18 @@ project: Personal Website
 tags:
   - changelog
   - history
-last_updated: 2026-11-24
+last_updated: 2026-11-25
 ---
 
 # 📜 Personal Website — Changelog
 
 Newest first. Entries dated 2026-10-31 and older (including the versioned 1.0.0–3.0.0 releases) are archived verbatim in [archive/CHANGELOG_ARCHIVE.md](archive/CHANGELOG_ARCHIVE.md).
+
+## 2026-11-25 — Native scroll, right-aligned hero intro, aligned contact handles
+- **Scroll**: Lenis smooth-wheel turned off (`SMOOTH_WHEEL = false` in `scripts/core/motion.js`); desktop and laptop now scroll natively. Two `test:v5` assertions that expected Lenis were updated.
+- **Hero** (`hero.css`): the intro and the two buttons sit flush with the right margin when beside the name, mirroring the name's left margin. Stacked layouts unchanged.
+- **Contact** (`contact.css`): channel rows share one subgrid, so all four handles (including the WhatsApp number) start on the same line.
+- **Verified**: `test:v5` 48 passed, 3 skipped; `audit:v5` 26 passed. Hero and channel alignment measured in Chrome at 1440×900 (aside/buttons right edge 1403px = name margin; handles all at 663px).
 
 ## 2026-11-24 — Work "View" cursor and viewer fit
 - **Work**: on a mouse, hovering a screenshot replaces the zoom cursor with a small ink box reading "View" ("Play" on the video slide) that follows the pointer (`initViewCursor()` in `scripts/design/work.js`, `.view-cursor` in `work.css`). Hidden while dragging, after a press, when the pointer leaves, and on touch.

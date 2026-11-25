@@ -7,8 +7,9 @@
  * WHAT INIT DOES (initMotion(), idempotent)
  *   - registers ScrollTrigger, SplitText, Flip, CustomEase and ScrollToPlugin once (all re-exported below, so
  *     every module shares one gsap instance: `import { gsap, ScrollTrigger } from './motion.js'`)
- *   - starts Lenis ONLY when the primary pointer is fine (mouse / trackpad) and motion is not reduced.
- *     Touch devices and reduced-motion visitors keep native scroll (no Lenis object exists at all).
+ *   - Lenis smoothing is OFF (SMOOTH_WHEEL = false, owner 2026-11-25: the lerp made wheel/trackpad scrolling feel
+ *     like it was being slowed down). Every visitor gets native scroll; the Lenis path below stays for a quick revert.
+ *     When enabled it would start only on fine pointers with motion allowed.
  *   - syncs Lenis with ScrollTrigger on the GSAP ticker (lenis.on('scroll', ScrollTrigger.update),
  *     gsap.ticker.add(raf), lagSmoothing(0)); lagSmoothing is restored when Lenis is torn down
  *   - follows live changes: reduced-motion toggled in the OS, pointer type changing (devtools device mode,
@@ -105,7 +106,11 @@ export function onMotionPreferenceChange(cb) {
   return () => prefListeners.delete(cb);
 }
 
+// Native scroll everywhere. Flip to true to bring Lenis smooth-wheel back (fine pointers, motion allowed only).
+const SMOOTH_WHEEL = false;
+
 const wantSmooth = () => {
+  if (!SMOOTH_WHEEL) return false;
   const fine = mq('(pointer: fine)');
   return !reducedMotion() && !!(fine && fine.matches);
 };

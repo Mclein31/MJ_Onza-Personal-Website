@@ -6,12 +6,17 @@ tags:
   - decisions
   - portfolio
   - web
-last_updated: 2026-11-24
+last_updated: 2026-11-25
 ---
 
 # ⚖️ Personal Website — Technical Decisions
 
 Newest first. Superseded decisions are kept and marked; the newer, code-verified decision wins.
+
+## 2026-11-25 — Native scroll everywhere; hero intro right-aligned; channel rows share one grid
+- **No Lenis smooth-wheel** (owner: scrolling on desktop/laptop felt like it "slows down my consistent scroll"). Measured frames were clean (p95 ~17ms), so the cause was the Lenis lerp (`0.1`) re-easing every wheel/trackpad tick on top of OS momentum. `SMOOTH_WHEEL = false` in `scripts/core/motion.js` makes `wantSmooth()` false, so every pointer gets native scroll and lock.js uses inline `overflow: hidden`. The Lenis code stays behind the flag for a one-line revert; `vendor/lenis` is still loaded. Supersedes the "active only on fine pointers" note in the v5 vendored-libraries list.
+- **Hero aside on the right** (owner: "close to the right wall with the same padding as my name"): when the intro and buttons sit beside the name (`>=1200px`, and the short-landscape `721–960px` row), `.hero__aside` is `justify-items: end; text-align: right` and `.hero__cta` is `justify-content: flex-end`, so they end on the container's right margin `--m`, the mirror of the name's left edge. Stacked layouts (`<=1199px` under the name) stay left-aligned with the `-0.08em` "I" bearing pull.
+- **Contact channel rows use a subgrid**: `.contact__channels` owns the 3 tracks and each `.channel` is `grid-template-columns: subgrid`, so handles share one start line (the wide "Chat on WhatsApp" action had pushed the phone number ~25px left). Phone layouts (`<=720px`, `<=359px`) keep their own per-row templates.
 
 ## 2026-11-24 — No interactive games on the site
 - **Owner rule**: do not include interactive games or mini-games. A game host and reference game were built and then removed the same day; nothing of them remains in the repo.
@@ -100,7 +105,7 @@ All controls share 2px radius, Geist `500`, `gap: 10px`, `--btn-h` (`44px`, `40p
 ### Vendored libraries (`vendor/`)
 Zero runtime CDNs and no build step (`vendor/README.md`). Official npm ESM builds are self-hosted and minified in place file-by-file with `esbuild@0.25.12` (total JS `915,336 B -> 337,803 B`, `-63%`, license banners preserved):
 - `gsap` `3.15.1` (`ScrollTrigger`, `SplitText`, `Flip`, `CustomEase`, `ScrollToPlugin` — Standard "no charge" license)
-- `lenis` `1.3.27` (MIT — active only on fine pointers with motion allowed; disabled on touch and `prefers-reduced-motion: reduce`)
+- `lenis` `1.3.27` (MIT — disabled for all visitors since 2026-11-25 via `SMOOTH_WHEEL = false`; see that entry)
 - `ogl` `1.0.11` (Unlicense — vendored as an allowed WebGL option; hero data field uses raw WebGL directly)
 
 ### Retained owner rules still in force

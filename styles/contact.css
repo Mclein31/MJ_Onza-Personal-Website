@@ -214,14 +214,19 @@
   margin-top: clamp(32px, 4vw, 52px);
 }
 
+/* One column grid for all rows (each row is a subgrid), so every handle starts on the same line even though the
+   action buttons differ in width ("Chat on WhatsApp" used to push its handle ~25px left). */
 .contact__channels {
-  display: block;
+  display: grid;
+  grid-template-columns: minmax(110px, 2.2fr) minmax(0, 4.8fr) auto;
+  column-gap: var(--g);
 }
 
 .channel {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(110px, 2.2fr) minmax(0, 4.8fr) auto;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
   align-items: center;
   column-gap: var(--g);
   row-gap: 8px;

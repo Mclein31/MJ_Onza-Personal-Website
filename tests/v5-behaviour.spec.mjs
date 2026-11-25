@@ -42,8 +42,8 @@ test.describe('page health', () => {
     await expect(html).toHaveAttribute('data-site-ready', 'true');
     await expect(html).toHaveClass(/\bis-ready\b/);
     await expect(html).not.toHaveClass(/\bis-intro\b/);
-    if (hasTouch) await expect(html).not.toHaveClass(/\bis-smooth-scroll\b/);
-    else await expect(html).toHaveClass(/\bis-smooth-scroll\b/);
+    // Lenis smooth-wheel is off for everyone (owner 2026-11-25): native scroll on every pointer
+    await expect(html).not.toHaveClass(/\bis-smooth-scroll\b/);
 
     await expect(page.locator('script[type="module"][src="/scripts/main.js"]')).toHaveCount(1);
     await expect(page.locator('link[href="/vendor/lenis/lenis.css"]')).toHaveCount(1);
@@ -590,10 +590,9 @@ test.describe('dialogs lock and unlock scrolling', () => {
       await expect(html).toHaveClass(/\bis-scroll-locked\b/);
       await expect(body).toHaveClass(/\bis-locked\b/);
 
-      if (hasTouch) {
-        expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
-      } else {
-        await expect(html).toHaveClass(/\blenis-stopped\b/);
+      // native scroll everywhere (no Lenis): the lock is inline overflow:hidden on every pointer
+      expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
+      if (!hasTouch) {
         const y0 = await page.evaluate(() => window.scrollY);
         await page.mouse.move(700, 450);
         await page.mouse.wheel(0, 800);
