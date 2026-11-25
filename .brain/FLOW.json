@@ -224,8 +224,16 @@
    "label": "Motion and scroll",
    "kind": "component",
    "layer": "frontend",
-   "detail": "GSAP, ScrollTrigger and Lenis setup, plus the shared scroll lock.",
+   "detail": "GSAP and ScrollTrigger setup with native scroll by default (Lenis smoothing kept behind a SMOOTH_WHEEL switch, currently off), plus scrollTo and refresh helpers.",
    "file": "scripts/core/motion.js"
+  },
+  {
+   "id": "core.lock",
+   "label": "Scroll lock",
+   "kind": "component",
+   "layer": "frontend",
+   "detail": "Keyed scroll-lock registry used by menus, dialogs and the intro; falls back to overflow hidden when Lenis is not running.",
+   "file": "scripts/core/lock.js"
   },
   {
    "id": "core.nav",
@@ -712,6 +720,11 @@
    "from": "visitor",
    "to": "ui.activity",
    "label": "views graph"
+  },
+  {
+   "from": "core.motion",
+   "to": "core.lock",
+   "label": "sets lock policy"
   },
   {
    "from": "core.intro",
